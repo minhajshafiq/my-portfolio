@@ -22,14 +22,11 @@ const AboutContent: React.FC = () => {
     const { t } = useTranslation();
 
     return (
-        <div id='about' className="w-full px-[12%] py-10 scroll-mt-20 flex flex-col items-center text-center">
+        <div id='about-me' className="w-full px-[12%] py-10 scroll-mt-20 flex flex-col items-center text-center">
             <h4 className='mb-2 text-lg font-outfit'>{t('about_intro')}</h4>
             <h2 className="text-5xl font-outfit">{t('about_title')}</h2>
 
             <div className="flex flex-col lg:flex-row items-center gap-20 my-20 max-w-5xl mx-auto">
-                <div className="w-64 sm:w-80 rounded-3xl overflow-hidden">
-                    <Image src="/memoji.jpg" alt="Profile Image" width={320} height={320} className="w-full h-full object-cover rounded-3xl" />
-                </div>
 
                 <div className="flex-1 flex flex-col items-center text-center">
                     <p className="mb-10 max-w-2xl font-outfit">{t('about_description')}</p>

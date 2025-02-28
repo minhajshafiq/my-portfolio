@@ -14,7 +14,7 @@ const Header: React.FC = () => {
     if (!mounted || !ready) return <div>Loading...</div>;
 
     return (
-        <div className="w-11/12 max-w-3xl text-center mx-auto h-screen flex flex-col items-center justify-center gap-4">
+        <div id={"home"} className="w-11/12 max-w-3xl text-center mx-auto h-screen flex flex-col items-center justify-center gap-4">
             <div className="relative w-64 h-64">
                 <Image src="/memoji.jpg" alt="Profile Image" fill className="rounded-full object-cover" />
             </div>
@@ -38,17 +38,23 @@ const Header: React.FC = () => {
                     className="px-10 py-3 border border-white rounded-full bg-black text-white flex items-center gap-2 hover:bg-gray-800 transition duration-500 group"
                 >
                     {t("contact_me")}
-                    <ArrowRight color="white" size={38} className="w-3 transition-transform duration-300 group-hover:translate-x-2"/>
+                    <ArrowRight
+                        color="white"
+                        size={24}
+                        className="transition-transform duration-300 group-hover:translate-x-4"
+                    />
                 </a>
 
-                {/* Bouton "My resume" */}
                 <a
                     href="/CV_Zubair_Minhaj.pdf"
                     download
-                    className="px-10 py-3 border rounded-full border-gray-500 flex items-center gap-2  hover:text-white hover:bg-gray-300 transition duration-500 group"
+                    className="px-10 py-3 border rounded-full border-gray-500 flex items-center gap-2 hover:text-white hover:bg-gray-700 transition duration-500 group"
                 >
                     {t("resume")}
-                    <Download color="black" size={38} className="w-3 transition-transform duration-300 group-hover:translate-y-2"/>
+                    <Download
+                        size={24}
+                        className="transition-transform duration-300 group-hover:translate-y-2 group-hover:stroke-white"
+                    />
                 </a>
             </div>
         </div>
