@@ -1,0 +1,64 @@
+{
+  "hello": "Bonjour ! Je suis Minhaj Zubair",
+  "job_title": "Développeur Full Stack | Next.js, Java & Spring Boot",
+  "description": "Je suis un développeur Full Stack passionné par la création d'applications web.",
+  "contact_me": "Contactez-moi",
+  "resume": "Mon CV",
+
+  "about_intro": "Introduction",
+  "about_title": "À propos de moi",
+  "about_description": "Je suis un développeur Full Stack passionné par la création d'applications web. Je me spécialise en Next.js, Java et Spring Boot.",
+  "tools_title": "Outils que j'utilise",
+
+  "languages": "Langages",
+  "languages_desc": "TypeScript, React, Next.js, Java, Spring Boot",
+
+  "education": "Éducation",
+  "education_desc": "Licence en Informatique",
+
+  "projects": "Projets",
+  "projects_desc": "Plus de 5 projets réalisés en développement web et logiciel",
+
+  "projects_title": "Mes projets",
+  "projects_latest_work": "Mes derniers projets",
+  "projects_description": "J'ai travaillé sur une variété de projets allant du développement web au développement d'applications mobiles. Voici quelques-uns de mes derniers projets",
+  "show_more": "Voir plus",
+
+  "kasa_title": "Kasa",
+  "kasa_description": "Kasa est une application web de location d’hébergements entre particuliers...",
+
+  "ohmyfood_title": "Ohmyfood",
+  "ohmyfood_description": "Ohmyfood est une application web permettant de découvrir et de réserver des menus...",
+
+  "mets_merveilles_title": "Mets & Merveilles",
+  "mets_merveilles_description": "Mets & Merveilles est une application web permettant de découvrir et commander des menus gastronomiques...",
+
+  "kanap_title": "Kanap",
+  "kanap_description": "Kanap est une application web e-commerce permettant d’acheter des canapés sur mesure...",
+
+  "project_5_title": "Booki",
+  "project_5_description": "Est une application web permettant de réserver des livres en ligne...",
+
+  "project_6_title": "La Panthère",
+  "project_6_description": "Optimisation du site web de La Panthère en termes de performance et de SEO...",
+
+  "project_7_title": "Cat facts",
+  "project_7_description": "Des faits sur les chats disponible en 4 langues...",
+
+  "project_8_title": "Piiquante",
+  "project_8_description": "C'est une application web permettant de partager des recettes de cuisine...",
+
+  "connect_with_me": "Contactez-moi",
+  "get_in_touch": "Prenez contact",
+  "contact_description": "Si vous avez des questions, des commentaires ou des retours, veuillez utiliser le formulaire ci-dessous.",
+  "placeholder_name": "Entrez votre nom",
+  "placeholder_email": "Entrez votre email",
+  "placeholder_message": "Entrez votre message",
+  "submit_now": "Envoyer",
+  "errors": {
+    "name": "Le nom est requis.",
+    "email": "L'email est requis.",
+    "message": "Le message est requis."
+  },
+  "form_submission_success": "Formulaire envoyé avec succès"
+}

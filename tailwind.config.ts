@@ -9,9 +9,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        hoverLight: '#fcf4ff',
+        hoverDark: '#2a004a',
+        darkTheme: '#11001F',
       },
+      fontFamily: {
+        outfit: ['Outfit', 'sans-serif'],
+        ovo: ['Ovo', 'serif'],
+      },
+      boxShadow: {
+        'black': '4px 4px 0 #000',
+        'white': '4px 4px 0 #fff',
+      }
     },
   },
   plugins: [],

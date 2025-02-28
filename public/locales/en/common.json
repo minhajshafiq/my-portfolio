@@ -1,0 +1,64 @@
+{
+  "hello": "Hello! I'm Minhaj Zubair",
+  "job_title": "Full Stack Developer | Next.js, Java & Spring Boot",
+  "description": "I'm a Full Stack Developer with a passion for building web applications.",
+  "contact_me": "Contact me",
+  "resume": "My resume",
+
+  "about_intro": "Introduction",
+  "about_title": "About Me",
+  "about_description": "I am a Full Stack Developer with a passion for building web applications. I specialize in Next.js, Java, and Spring Boot.",
+  "tools_title": "Tools I use",
+
+  "languages": "Languages",
+  "languages_desc": "TypeScript, React, Next.js, Java, Spring Boot",
+
+  "education": "Education",
+  "education_desc": "Bachelor's Degree in Computer Science",
+
+  "projects": "Projects",
+  "projects_desc": "Built more than 5 projects in web and software development",
+
+  "projects_title": "My Projects",
+  "projects_latest_work": "My latest work",
+  "projects_description": "I have worked on a variety of projects ranging from web development to mobile app development. Here are some of my latest",
+  "show_more": "Show More",
+
+  "kasa_title": "Kasa",
+  "kasa_description": "Kasa is a web application for renting accommodations between individuals...",
+
+  "ohmyfood_title": "Ohmyfood",
+  "ohmyfood_description": "Ohmyfood is a web application allowing users to discover and book menus...",
+
+  "mets_merveilles_title": "Mets & Merveilles",
+  "mets_merveilles_description": "Mets & Merveilles is a web application that allows users to discover and order gourmet menus...",
+
+  "kanap_title": "Kanap",
+  "kanap_description": "Kanap is an e-commerce web application allowing users to buy custom sofas...",
+
+  "project_5_title": "Booki",
+  "project_5_description": "Booki is a web application for booking books online...",
+
+  "project_6_title": "La Panthère",
+  "project_6_description": "Optimization of La Panthère's website in terms of performance and SEO...",
+
+  "project_7_title": "Cat facts",
+  "project_7_description": "Facts about cats available in 4 languages...",
+
+  "project_8_title": "Piiquante",
+  "project_8_description": "Piiquante is a web application for sharing cooking recipes...",
+
+  "connect_with_me": "Connect with me",
+  "get_in_touch": "Get in touch",
+  "contact_description": "If you have any questions, comments, or feedback, please use the form below.",
+  "placeholder_name": "Enter your name",
+  "placeholder_email": "Enter your email",
+  "placeholder_message": "Enter your message",
+  "submit_now": "Submit now",
+  "errors": {
+    "name": "Name is required.",
+    "email": "Email is required.",
+    "message": "Message is required."
+  },
+  "form_submission_success": "Form Submitted Successfully"
+}
