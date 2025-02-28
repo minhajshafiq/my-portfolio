@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { GraduationCap, Languages, Code } from 'lucide-react';
@@ -18,7 +18,7 @@ const infoList = [
     { icon: <Code className="w-7 h-7 mx-auto text-gray-700"/>, title: "projects", description: "projects_desc" }
 ];
 
-const About: React.FC = () => {
+const AboutContent: React.FC = () => {
     const { t } = useTranslation();
 
     return (
@@ -57,6 +57,18 @@ const About: React.FC = () => {
             </div>
         </div>
     );
+};
+
+const About: React.FC = () => {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) return <div>Loading...</div>;
+
+    return <AboutContent />;
 };
 
 export default About;

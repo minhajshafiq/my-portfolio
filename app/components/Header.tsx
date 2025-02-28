@@ -1,12 +1,17 @@
-"use client";
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
-import { ArrowRight, Download, Handshake  } from 'lucide-react';
+import { ArrowRight, Download, Handshake } from 'lucide-react';
 
 const Header: React.FC = () => {
-    const { t } = useTranslation();
+    const { t, ready } = useTranslation();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted || !ready) return <div>Loading...</div>;
 
     return (
         <div className="w-11/12 max-w-3xl text-center mx-auto h-screen flex flex-col items-center justify-center gap-4">
