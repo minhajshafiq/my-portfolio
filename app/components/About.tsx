@@ -35,8 +35,8 @@ const About: React.FC = () => {
                     <p className="mb-10 max-w-2xl font-outfit">{t('about_description')}</p>
 
                     <ul className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
-                        {infoList.map(({ icon, title, description }, index) => (
-                            <li key={index} className="border-[0.5px] border-gray-400 rounded-xl p-6 cursor-pointer hover:bg-hoverLight hover:-translate-y-1 duration-500 hover:shadow-black">
+                        {infoList.map(({ icon, title, description }) => (
+                            <li key={title} className="border-[0.5px] border-gray-400 rounded-xl p-6 cursor-pointer hover:bg-hoverLight hover:-translate-y-1 duration-500 hover:shadow-black">
                                 <div className="mt-3">{icon}</div>
                                 <h3 className="my-4 font-semibold text-gray-700">{t(title)}</h3>
                                 <p className="text-gray-600 text-sm">{t(description)}</p>
@@ -47,9 +47,9 @@ const About: React.FC = () => {
                     <h4 className='my-6 text-gray-700 font-outfit'>{t('tools_title')}</h4>
 
                     <ul className='flex flex-wrap justify-center gap-3 sm:gap-5'>
-                        {toolsData.map((tool, index) => (
-                            <li key={index} className='flex items-center justify-center w-12 sm:w-14 aspect-square border border-gray-400 rounded-lg cursor-pointer hover:-translate-y-1 duration-500'>
-                                <Image src={tool} alt='tool' className="w-5 sm:w-7"/>
+                        {toolsData.map((tool) => (
+                            <li key={tool.src} className='flex items-center justify-center w-12 sm:w-14 aspect-square border border-gray-400 rounded-lg cursor-pointer hover:-translate-y-1 duration-500'>
+                                <Image src={tool.src} alt='tool' width={tool.width} height={tool.height} />
                             </li>
                         ))}
                     </ul>

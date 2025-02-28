@@ -54,9 +54,11 @@ const Navbar: React.FC = () => {
         <>
             {/* Overlay menu */}
             {isMenuOpen && (
-                <div
+                <button
                     onClick={closeMenu}
                     className="fixed inset-0 bg-gray-800 bg-opacity-50 z-40"
+                    aria-label="Close menu"
+                    type="button" // Ensure it's not treated as a form button
                 />
             )}
 
@@ -90,8 +92,8 @@ const Navbar: React.FC = () => {
 
                 {/* Navigation Links */}
                 <ul className="hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 bg-white shadow-sm bg-opacity-50">
-                    {["Home", "About Me", "My Projects", "Contact"].map((item, index) => (
-                        <li key={index}>
+                    {["Home", "About Me", "My Projects", "Contact"].map((item) => (
+                        <li key={item}>
                             <a
                                 className="font-outfit hover:text-gray-800 hover:underline transition duration-300"
                                 href={`#${item.toLowerCase().replace(" ", "-")}`}
@@ -127,7 +129,6 @@ const Navbar: React.FC = () => {
                     <button
                         className="block md:hidden ml-3"
                         onClick={openMenu}
-                        role="button"
                         tabIndex={0}
                     >
                         <AlignRight color="black" size={28}/>
@@ -141,18 +142,17 @@ const Navbar: React.FC = () => {
                     z-50 h-screen bg-rose-50 transition-transform duration-500"
                 >
                     {/* Close Button */}
-                    <div
+                    <button
                         className="absolute right-6 top-6 cursor-pointer"
                         onClick={closeMenu}
-                        role="button"
                         tabIndex={0}
                     >
                         <X color="black" size={38}/>
-                    </div>
+                    </button>
 
                     {/* Mobile Menu Links */}
-                    {["Home", "About Me", "My Projects", "Contact"].map((item, index) => (
-                        <li key={index}>
+                    {["Home", "About Me", "My Projects", "Contact"].map((item) => (
+                        <li key={item}>
                             <a
                                 className="font-ovo hover:text-gray-800 hover:underline transition duration-300"
                                 onClick={closeMenu}

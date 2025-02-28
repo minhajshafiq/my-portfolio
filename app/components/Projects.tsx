@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useTranslation } from "next-i18next";
-import { ArrowRight, Send  } from 'lucide-react';
+import { ArrowRight, Send } from 'lucide-react';
 
 const projectsData = [
     { src: "/work-3.png", title: "mets_merveilles_title", description: "mets_merveilles_description", tech: ["Spring Boot", "Next JS", "Cucumber", "Tailwind", "TypeScript"], link: "https://mets-merveilles.com" },
@@ -40,9 +40,9 @@ const Projects: React.FC = () => {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 my-10">
-                {displayedProjects.map((project, index) => (
+                {displayedProjects.map((project) => (
                     <a
-                        key={index}
+                        key={project.link}  // Utilisation du lien unique du projet comme clé
                         href={project.link}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -66,8 +66,8 @@ const Projects: React.FC = () => {
                             <h2 className="text-lg font-bold text-black">{t(project.title)}</h2>
                             <p className="text-xs text-gray-500 mt-1">{t(project.description)}</p>
                             <div className="flex gap-2 mt-2">
-                                {project.tech.map((tech, i) => (
-                                    <span key={i} className="bg-gray-800 text-white text-xs px-2 py-1 rounded-md">{tech}</span>
+                                {project.tech.map((tech) => (
+                                    <span key={tech} className="bg-gray-800 text-white text-xs px-2 py-1 rounded-md">{tech}</span>  // Utilisation du nom de la technologie comme clé unique
                                 ))}
                             </div>
                         </div>

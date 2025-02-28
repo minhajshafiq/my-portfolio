@@ -7,7 +7,6 @@ import Backend from "i18next-http-backend";
 
 i18n
     .use(Backend) // Charge les fichiers JSON
-    .use(LanguageDetector) // Détecte la langue du navigateur
     .use(initReactI18next) // Initialise avec React
     .init({
         fallbackLng: "en", // Langue par défaut
