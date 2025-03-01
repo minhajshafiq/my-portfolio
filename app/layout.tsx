@@ -15,6 +15,9 @@ const Ovo: ReturnType<typeof OvoFont> = OvoFont({
 export const metadata: Metadata = {
     title: "Portfolio of Minhaj Zubair",
     description: "Full Stack Developer | Next.js, Java & Spring Boot",
+    icons: [
+        { url: '/favicon.ico.png' },
+        ],
 };
 
 export default function RootLayout({

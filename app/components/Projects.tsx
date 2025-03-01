@@ -10,56 +10,56 @@ const projectsData = [
         title: "mets_merveilles_title",
         description: "mets_merveilles_description",
         tech: ["Spring Boot", "Next.js", "Cucumber", "Tailwind", "TypeScript"],
-        link: "https://mets-merveilles.com"
+        link: "https://front-mets-merveilles.vercel.app/"
     },
     {
         src: "/work-5.png",
         title: "kasa_title",
         description: "kasa_description",
         tech: ["React", "SCSS"],
-        link: "https://kasa.com"
+        link: "https://minhajshafiq-kasa.netlify.app/"
     },
     {
         src: "/work-2.png",
         title: "ohmyfood_title",
         description: "ohmyfood_description",
         tech: ["HTML", "SCSS"],
-        link: "https://ohmyfood.com"
+        link: "https://minhajshafiq.github.io/Projet-3/"
     },
     {
         src: "/work-4.png",
         title: "kanap_title",
         description: "kanap_description",
         tech: ["Node.js", "API"],
-        link: "https://kanap.com"
+        link: "https://github.com/minhajshafiq/Projet-5"
     },
     {
         src: "/work-6.png",
         title: "project_5_title",
         description: "project_5_description",
         tech: ["HTML", "CSS"],
-        link: "https://project5.com"
+        link: "https://minhajshafiq.github.io/Projet-2/"
     },
     {
         src: "/work-7.png",
         title: "project_6_title",
         description: "project_6_description",
         tech: ["SEO"],
-        link: "https://project6.com"
+        link: "https://minhajshafiq.github.io/Projet-4/"
     },
     {
         src: "/work-8.png",
         title: "project_7_title",
         description: "project_7_description",
         tech: ["Public API"],
-        link: "https://project7.com"
+        link: "https://catfats.netlify.app/"
     },
     {
         src: "/work-9.png",
         title: "project_8_title",
         description: "project_8_description",
         tech: ["Node.js", "MongoDB", "JWT"],
-        link: "https://project8.com"
+        link: "https://github.com/minhajshafiq/Projet-6"
     }
 ];
 
