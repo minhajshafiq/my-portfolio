@@ -13,6 +13,13 @@ const projectsData = [
         link: "https://front-mets-merveilles.vercel.app/"
     },
     {
+        src: "/teona.jpg",
+        title: "project_6_title",
+        description: "project_6_description",
+        tech: ["Expo", "React Native", "TypeScript"],
+        link: ""
+    },
+    {
         src: "/work-5.png",
         title: "kasa_title",
         description: "kasa_description",
@@ -39,13 +46,6 @@ const projectsData = [
         description: "project_5_description",
         tech: ["HTML", "CSS"],
         link: "https://minhajshafiq.github.io/Projet-2/"
-    },
-    {
-        src: "/work-7.png",
-        title: "project_6_title",
-        description: "project_6_description",
-        tech: ["SEO"],
-        link: "https://minhajshafiq.github.io/Projet-4/"
     },
     {
         src: "/work-8.png",

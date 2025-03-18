@@ -5,7 +5,8 @@ import { useTranslation } from "react-i18next";
 import { GraduationCap, Languages, Code } from 'lucide-react';
 
 const toolsData = [
-    { src: "/vscode.png", width: 24, height: 24 },
+    { src: "/Webstorm_Icon.png", width: 24, height: 24 },
+    { src: "/IntelliJ_IDEA_Icon.jpg", width: 24, height: 24 },
     { src: "/firebase.png", width: 24, height: 24 },
     { src: "/mongodb.png", width: 24, height: 24 },
     { src: "/figma.png", width: 24, height: 24 },
