@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useTranslation } from "next-i18next";
 import { ArrowRight, Send, ChevronDown, ChevronUp } from "lucide-react";
@@ -72,29 +72,52 @@ const projectsData = [
     }
 ];
 
+const useIsMobile = () => {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkIfMobile = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        // Vérification initiale
+        checkIfMobile();
+
+        // Écouteur pour les changements de taille
+        window.addEventListener('resize', checkIfMobile);
+
+        // Nettoyage
+        return () => window.removeEventListener('resize', checkIfMobile);
+    }, []);
+
+    return isMobile;
+};
+
 const ProjectsContent: React.FC = () => {
     const { t } = useTranslation();
     const [showAll, setShowAll] = useState(false);
-    const [cursorPositions, setCursorPositions] = useState<{ [key: number]: { x: number, y: number } }>({});
+    const [cursorPositions, setCursorPositions] = useState<Record<number, {x: number, y: number}>>({});
     const [hoveredProject, setHoveredProject] = useState<number | null>(null);
-    const [expandedDescriptions, setExpandedDescriptions] = useState<{ [key: number]: boolean }>({});
+    const [expandedDescriptions, setExpandedDescriptions] = useState<Record<number, boolean>>({});
+    const isMobile = useIsMobile();
 
     const ref = React.useRef<HTMLDivElement>(null);
     const isInView = useInView(ref, {
         once: false,
-        amount: 0.3 // 30% de l'élément doit être visible
+        amount: 0.3,
+        ...(isMobile ? { triggerOnce: true, skip: true } : {})
     });
 
     const displayedProjects = showAll ? projectsData : projectsData.slice(0, 4);
 
     const handleMouseMove = (e: React.MouseEvent, index: number) => {
         const rect = e.currentTarget.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
         setCursorPositions(prev => ({
             ...prev,
-            [index]: { x, y }
+            [index]: {
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top
+            }
         }));
     };
 
@@ -105,150 +128,244 @@ const ProjectsContent: React.FC = () => {
         }));
     };
 
+    // Animation conditionnelle
+    const animationProps = (delay = 0) => isMobile ? {
+        initial: { opacity: 1, y: 0 },
+        animate: { opacity: 1, y: 0 },
+        exit: { opacity: 1, y: 0 },
+        transition: { duration: 0 }
+    } : {
+        initial: { opacity: 0, y: 20 },
+        animate: { opacity: 1, y: 0 },
+        exit: { opacity: 0, y: 20 },
+        transition: { duration: 0.5, delay }
+    };
+
     return (
         <div
             id="my-projects"
             ref={ref}
             className="w-full px-[12%] py-10 scroll-mt-20 flex flex-col justify-center items-center min-h-screen"
         >
-            <AnimatePresence>
-                {isInView && (
-                    <>
-                        <motion.div
-                            className="text-center"
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.5 }}
-                        >
-                            <h4 className="mb-2 text-lg font-outfit">{t("projects_title")}</h4>
-                            <h2 className="text-5xl font-outfit">{t("projects_latest_work")}</h2>
-                            <p className="max-w-2xl mx-auto mt-5 mb-12 font-outfit">
-                                {t("projects_description")}
-                            </p>
-                        </motion.div>
+            {isMobile ? (
+                <>
+                    {/* Version mobile simplifiée */}
+                    <div className="text-center">
+                        <h4 className="mb-2 text-lg font-outfit">{t("projects_title")}</h4>
+                        <h2 className="text-5xl font-outfit">{t("projects_latest_work")}</h2>
+                        <p className="max-w-2xl mx-auto mt-5 mb-12 font-outfit">
+                            {t("projects_description")}
+                        </p>
+                    </div>
 
-                        <motion.div
-                            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 my-10 w-full"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                        >
-                            {displayedProjects.map((project, index) => (
-                                <motion.div
-                                    key={index}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: 20 }}
-                                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                                    className="relative"
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 my-10 w-full">
+                        {displayedProjects.map((project, index) => (
+                            <div key={index} className="relative">
+                                <a
+                                    href={project.link || "#"}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={`relative rounded-lg overflow-hidden group block ${!project.link && 'pointer-events-none opacity-80'}`}
+                                    onMouseMove={(e) => handleMouseMove(e, index)}
+                                    onMouseEnter={() => setHoveredProject(index)}
+                                    onMouseLeave={() => setHoveredProject(null)}
                                 >
-                                    <motion.a
-                                        href={project.link || "#"}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className={`relative rounded-lg overflow-hidden group block ${!project.link && 'pointer-events-none opacity-80'}`}
-                                        whileHover={{ scale: 1.03 }}
-                                        whileTap={{ scale: 0.98 }}
-                                        onMouseMove={(e) => handleMouseMove(e, index)}
-                                        onMouseEnter={() => setHoveredProject(index)}
-                                        onMouseLeave={() => setHoveredProject(null)}
-                                    >
-                                        <div className="h-[250px] w-full relative overflow-hidden">
-                                            <Image
-                                                src={project.src}
-                                                alt={t(project.title)}
-                                                fill
-                                                className="object-cover rounded-lg transition-transform duration-500 group-hover:scale-105"
-                                                onError={(e) => (e.currentTarget.src = "/fallback-image.png")}
-                                            />
-                                            {project.link && (
-                                                <div className="absolute bottom-2 right-2 bg-white/90 p-2 rounded-lg shadow-md flex items-center justify-center w-10 h-10 transition-transform duration-300 group-hover:scale-110">
-                                                    <Send size={24} className="text-black" />
-                                                </div>
-                                            )}
+                                    <div className="h-[250px] w-full relative overflow-hidden">
+                                        <Image
+                                            src={project.src}
+                                            alt={t(project.title)}
+                                            fill
+                                            className="object-cover rounded-lg transition-transform duration-500 group-hover:scale-105"
+                                            onError={(e) => {
+                                                const target = e.target as HTMLImageElement;
+                                                target.src = "/fallback-image.png";
+                                            }}
+                                        />
+                                        {project.link && (
+                                            <div className="absolute bottom-2 right-2 bg-white/90 p-2 rounded-lg shadow-md flex items-center justify-center w-10 h-10 transition-transform duration-300 group-hover:scale-110">
+                                                <Send size={24} className="text-black" />
+                                            </div>
+                                        )}
+                                    </div>
+                                </a>
 
-                                            {hoveredProject === index && cursorPositions[index] && project.link && (
-                                                <motion.div
-                                                    className="absolute text-white bg-black/80 px-3 py-2 rounded-md pointer-events-none z-10 text-sm"
-                                                    initial={{ opacity: 0, scale: 0.8 }}
-                                                    animate={{ opacity: 1, scale: 1 }}
-                                                    exit={{ opacity: 0, scale: 0.8 }}
-                                                    style={{
-                                                        left: cursorPositions[index].x,
-                                                        top: cursorPositions[index].y,
-                                                        transform: 'translate(10px, 10px)',
-                                                    }}
-                                                >
-                                                    {t("view_preview")}
-                                                </motion.div>
-                                            )}
-                                        </div>
-                                    </motion.a>
+                                <div className="w-full mt-5 bg-white/60 backdrop-blur-md p-3 rounded-lg flex flex-col hover:shadow-lg">
+                                    <div className="flex justify-between items-start">
+                                        <h2 className="text-lg font-bold text-black">{t(project.title)}</h2>
+                                        <button
+                                            onClick={() => toggleDescription(index)}
+                                            className="text-gray-500 hover:text-black transition-colors"
+                                        >
+                                            {expandedDescriptions[index] ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                                        </button>
+                                    </div>
 
-                                    <motion.div
-                                        className="w-full mt-5 bg-white/60 backdrop-blur-md p-3 rounded-lg flex flex-col"
-                                        whileHover={{ boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
-                                    >
-                                        <div className="flex justify-between items-start">
-                                            <h2 className="text-lg font-bold text-black">{t(project.title)}</h2>
-                                            <button
-                                                onClick={() => toggleDescription(index)}
-                                                className="text-gray-500 hover:text-black transition-colors"
+                                    {expandedDescriptions[index] ? (
+                                        <p className="text-sm text-gray-700 mt-2">
+                                            {t(project.longDescription)}
+                                        </p>
+                                    ) : (
+                                        <p className="text-xs text-gray-500 mt-1 line-clamp-2">
+                                            {t(project.description)}
+                                        </p>
+                                    )}
+
+                                    <div className="flex gap-2 mt-3 flex-wrap">
+                                        {project.tech.map((tech) => (
+                                            <span
+                                                key={tech}
+                                                className="bg-gray-800 text-white text-xs px-2 py-1 rounded-md"
                                             >
-                                                {expandedDescriptions[index] ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-                                            </button>
-                                        </div>
+                                                {tech}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
 
-                                        <AnimatePresence>
-                                            {expandedDescriptions[index] ? (
-                                                <motion.p
-                                                    className="text-sm text-gray-700 mt-2"
-                                                    initial={{ opacity: 0, height: 0 }}
-                                                    animate={{ opacity: 1, height: 'auto' }}
-                                                    exit={{ opacity: 0, height: 0 }}
-                                                    transition={{ duration: 0.3 }}
-                                                >
-                                                    {t(project.longDescription)}
-                                                </motion.p>
-                                            ) : (
-                                                <motion.p
-                                                    className="text-xs text-gray-500 mt-1 line-clamp-2"
-                                                    initial={{ opacity: 0 }}
-                                                    animate={{ opacity: 1 }}
-                                                    exit={{ opacity: 0 }}
-                                                    transition={{ duration: 0.2 }}
-                                                >
-                                                    {t(project.description)}
-                                                </motion.p>
-                                            )}
-                                        </AnimatePresence>
+                    {!showAll && (
+                        <div className="flex justify-center mt-10">
+                            <button
+                                onClick={() => setShowAll(true)}
+                                className="px-10 py-3 border border-white rounded-full bg-black text-white flex items-center gap-2 hover:bg-gray-800 transition-all duration-300 group"
+                            >
+                                {t("show_more")}
+                                <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-2" />
+                            </button>
+                        </div>
+                    )}
+                </>
+            ) : (
+                <AnimatePresence>
+                    {isInView && (
+                        <>
+                            {/* Version desktop avec animations */}
+                            <motion.div className="text-center" {...animationProps()}>
+                                <h4 className="mb-2 text-lg font-outfit">{t("projects_title")}</h4>
+                                <h2 className="text-5xl font-outfit">{t("projects_latest_work")}</h2>
+                                <p className="max-w-2xl mx-auto mt-5 mb-12 font-outfit">
+                                    {t("projects_description")}
+                                </p>
+                            </motion.div>
 
-                                        <div className="flex gap-2 mt-3 flex-wrap">
-                                            {project.tech.map((tech) => (
-                                                <motion.span
-                                                    key={tech}
-                                                    className="bg-gray-800 text-white text-xs px-2 py-1 rounded-md"
-                                                    whileHover={{ scale: 1.05 }}
+                            <motion.div
+                                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 my-10 w-full"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
+                            >
+                                {displayedProjects.map((project, index) => (
+                                    <motion.div
+                                        key={index}
+                                        {...animationProps(index * 0.1)}
+                                        className="relative"
+                                    >
+                                        <motion.a
+                                            href={project.link || "#"}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className={`relative rounded-lg overflow-hidden group block ${!project.link && 'pointer-events-none opacity-80'}`}
+                                            whileHover={{ scale: 1.03 }}
+                                            whileTap={{ scale: 0.98 }}
+                                            onMouseMove={(e) => handleMouseMove(e, index)}
+                                            onMouseEnter={() => setHoveredProject(index)}
+                                            onMouseLeave={() => setHoveredProject(null)}
+                                        >
+                                            <div className="h-[250px] w-full relative overflow-hidden">
+                                                <Image
+                                                    src={project.src}
+                                                    alt={t(project.title)}
+                                                    fill
+                                                    className="object-cover rounded-lg transition-transform duration-500 group-hover:scale-105"
+                                                    onError={(e) => {
+                                                        const target = e.target as HTMLImageElement;
+                                                        target.src = "/fallback-image.png";
+                                                    }}
+                                                />
+                                                {project.link && (
+                                                    <div className="absolute bottom-2 right-2 bg-white/90 p-2 rounded-lg shadow-md flex items-center justify-center w-10 h-10 transition-transform duration-300 group-hover:scale-110">
+                                                        <Send size={24} className="text-black" />
+                                                    </div>
+                                                )}
+
+                                                {hoveredProject === index && cursorPositions[index] && project.link && (
+                                                    <motion.div
+                                                        className="absolute text-white bg-black/80 px-3 py-2 rounded-md pointer-events-none z-10 text-sm"
+                                                        initial={{ opacity: 0, scale: 0.8 }}
+                                                        animate={{ opacity: 1, scale: 1 }}
+                                                        exit={{ opacity: 0, scale: 0.8 }}
+                                                        style={{
+                                                            left: cursorPositions[index].x,
+                                                            top: cursorPositions[index].y,
+                                                            transform: 'translate(10px, 10px)',
+                                                        }}
+                                                    >
+                                                        {t("view_preview")}
+                                                    </motion.div>
+                                                )}
+                                            </div>
+                                        </motion.a>
+
+                                        <motion.div
+                                            className="w-full mt-5 bg-white/60 backdrop-blur-md p-3 rounded-lg flex flex-col"
+                                            whileHover={{ boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)" }}
+                                        >
+                                            <div className="flex justify-between items-start">
+                                                <h2 className="text-lg font-bold text-black">{t(project.title)}</h2>
+                                                <button
+                                                    onClick={() => toggleDescription(index)}
+                                                    className="text-gray-500 hover:text-black transition-colors"
                                                 >
-                                                    {tech}
-                                                </motion.span>
-                                            ))}
-                                        </div>
+                                                    {expandedDescriptions[index] ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                                                </button>
+                                            </div>
+
+                                            <AnimatePresence>
+                                                {expandedDescriptions[index] ? (
+                                                    <motion.p
+                                                        className="text-sm text-gray-700 mt-2"
+                                                        initial={{ opacity: 0, height: 0 }}
+                                                        animate={{ opacity: 1, height: 'auto' }}
+                                                        exit={{ opacity: 0, height: 0 }}
+                                                        transition={{ duration: 0.3 }}
+                                                    >
+                                                        {t(project.longDescription)}
+                                                    </motion.p>
+                                                ) : (
+                                                    <motion.p
+                                                        className="text-xs text-gray-500 mt-1 line-clamp-2"
+                                                        initial={{ opacity: 0 }}
+                                                        animate={{ opacity: 1 }}
+                                                        exit={{ opacity: 0 }}
+                                                        transition={{ duration: 0.2 }}
+                                                    >
+                                                        {t(project.description)}
+                                                    </motion.p>
+                                                )}
+                                            </AnimatePresence>
+
+                                            <div className="flex gap-2 mt-3 flex-wrap">
+                                                {project.tech.map((tech) => (
+                                                    <motion.span
+                                                        key={tech}
+                                                        className="bg-gray-800 text-white text-xs px-2 py-1 rounded-md"
+                                                        whileHover={{ scale: 1.05 }}
+                                                    >
+                                                        {tech}
+                                                    </motion.span>
+                                                ))}
+                                            </div>
+                                        </motion.div>
                                     </motion.div>
-                                </motion.div>
-                            ))}
-                        </motion.div>
+                                ))}
+                            </motion.div>
 
-                        <AnimatePresence>
                             {!showAll && (
                                 <motion.div
                                     className="flex justify-center mt-10"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: 20 }}
-                                    transition={{ duration: 0.5, delay: 0.4 }}
+                                    {...animationProps(0.4)}
                                 >
                                     <motion.button
                                         onClick={() => setShowAll(true)}
@@ -261,10 +378,10 @@ const ProjectsContent: React.FC = () => {
                                     </motion.button>
                                 </motion.div>
                             )}
-                        </AnimatePresence>
-                    </>
-                )}
-            </AnimatePresence>
+                        </>
+                    )}
+                </AnimatePresence>
+            )}
         </div>
     );
 };
