@@ -189,7 +189,7 @@ const Navbar: React.FC = () => {
 
                             <motion.div
                                 ref={sideMenuRef}
-                                className="fixed top-0 right-0 h-full w-64 bg-white shadow-xl z-50 flex flex-col p-6"
+                                className="fixed top-0 right-0 h-full w-64 bg-white/90 backdrop-blur-sm shadow-xl z-50 flex flex-col p-6"
                                 initial={{ x: '100%' }}
                                 animate={{ x: 0 }}
                                 exit={{ x: '100%' }}
