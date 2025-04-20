@@ -17,10 +17,10 @@
   "tools_title": "Outils que j'utilise",
 
   "languages": "Langages",
-  "languages_desc": "TypeScript, React, Next.js, Java, Spring Boot",
+  "languages_desc": "TypeScript, Next.js, Tailwind CSS, Java, Spring Boot",
 
-  "education": "Éducation",
-  "education_desc": "Licence en Informatique",
+  "education": "Formation",
+  "education_desc": "Titre RNCP Niveau 6 – Concepteur Développeur d'Applications (équivalent Bac+3/4)",
 
   "projects": "Projets",
   "projects_desc": "Plus de 5 projets réalisés en développement web et logiciel",
@@ -29,6 +29,10 @@
   "projects_latest_work": "Mes derniers projets",
   "projects_description": "J'ai travaillé sur une variété de projets allant du développement web au développement d'applications mobiles. Voici quelques-uns de mes derniers projets",
   "show_more": "Voir plus",
+
+  "wwproject_title": "Wuthering Waves",
+  "wwproject_description": "Wuthering Waves site de présentation avec des animations avec gsap",
+  "wwproject_long_description": "",
 
   "kasa_title": "Kasa",
   "kasa_description": "Kasa est une application web de location d’hébergements entre particuliers...",

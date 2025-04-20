@@ -15,11 +15,12 @@
   "about_description": "I am a Full Stack Developer with a passion for building web applications. I specialize in Next.js, Java, and Spring Boot.",
   "tools_title": "Tools I use",
 
-  "languages": "Languages",
-  "languages_desc": "TypeScript, React, Next.js, Java, Spring Boot",
+  "languages": "Langages",
+  "languages_desc": "TypeScript, Next.js, Tailwind CSS, Java, Spring Boot",
 
   "education": "Education",
-  "education_desc": "Bachelor's Degree in Computer Science",
+  "education_desc": "RNCP Level 6 – Application Designer and Developer (Bachelor's Degree equivalent)",
+
 
   "projects": "Projects",
   "projects_desc": "Built more than 5 projects in web and software development",
@@ -28,6 +29,10 @@
   "projects_latest_work": "My latest work",
   "projects_description": "I have worked on a variety of projects ranging from web development to mobile app development. Here are some of my latest",
   "show_more": "Show More",
+
+  "wwproject_title": "Wuthering Waves",
+  "wwproject_description": "Wuthering Waves game presentation website with animation using gap",
+  "wwproject_long_description": "",
 
   "kasa_title": "Kasa",
   "kasa_description": "Kasa is a web application for renting accommodations between individuals...",

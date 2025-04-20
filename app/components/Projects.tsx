@@ -15,6 +15,14 @@ const projectsData = [
         longDescription: "mets_merveilles_long_description"
     },
     {
+        src: "/wwproject.png",
+        title: "wwproject_title",
+        description: "wwproject_description",
+        tech: ["Next.js 15", "Tailwind CSS v4", "TypeScript", "gsap"],
+        link: "https://wuwa-delta.vercel.app/",
+        longDescription: "wwproject_long_description"
+    },
+    {
         src: "/teona.jpg",
         title: "project_6_title",
         description: "project_6_description",
