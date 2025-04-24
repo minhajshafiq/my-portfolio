@@ -1,6 +1,7 @@
 {
   "home": "Home",
   "about": "About",
+  "featured": "Featured",
   "projects": "Projects",
   "contact": "Contact",
 
@@ -10,20 +11,22 @@
   "contact_me": "Contact me",
   "resume": "My resume",
 
-  "about_intro": "Introduction",
+  "about_intro": "Get to know me",
   "about_title": "About Me",
   "about_description": "I am a Full Stack Developer with a passion for building web applications. I specialize in Next.js, Java, and Spring Boot.",
-  "tools_title": "Tools I use",
+  "about_techStack_title": "My Tech Stack",
 
-  "languages": "Langages",
-  "languages_desc": "TypeScript, Next.js, Tailwind CSS, Java, Spring Boot",
+  "devops_subtitle": "DevOps",
+  "devops_title": "My most relevant project",
+  "devops_description": "Presentation of my Mets & Merveilles project, a web application that allows you to manage menus, dishes, and orders in a restaurant, with a focus on automating processes and managing the logic for creating dishes and menus.",
 
-  "education": "Education",
-  "education_desc": "RNCP Level 6 – Application Designer and Developer (Bachelor's Degree equivalent)",
-
-
-  "projects": "Projects",
-  "projects_desc": "Built more than 5 projects in web and software development",
+  "kanban_title": "Kanban Board",
+  "kanban_description": "The Kanban Board in Mets & Merveilles helps manage tasks related to menu creation and restaurant operations.",
+  "kanban_tools": "GitHub Actions",
+  "pipeline_title": "Automated Pipeline CI/CD",
+  "pipeline_description": "The pipeline in Mets & Merveilles automates the deployment process, ensuring that the application is always up to date.",
+  "cypress_description": "Cypress enables automated application testing, ensuring the reliability of features.",
+  "cucumber_description": "Behavior-driven development (BDD) approach with scenarios written in natural language for greater clarity.",
 
   "projects_title": "My Projects",
   "projects_latest_work": "My latest work",
