@@ -191,19 +191,21 @@ const ProjectsContent: React.FC = () => {
             {!showAll && (
                 <motion.div
                     className="flex justify-center mt-12"
-                    initial={{opacity: 0, y: 20}}
-                    animate={isInView ? {opacity: 1, y: 0} : {opacity: 0, y: 20}}
-                    transition={{duration: 0.5, delay: 0.4}}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    transition={{ duration: 0.5, delay: 0.4 }}
                 >
                     <motion.button
                         onClick={() => setShowAll(true)}
-                        className="px-6 py-3 rounded-full bg-gray-900 text-white flex items-center gap-2 hover:bg-gray-800 transition-all"
-                        whileHover={{scale: 1.05}}
-                        whileTap={{scale: 0.95}}
+                        className="px-6 py-3 rounded-full bg-gray-900 text-white flex items-center gap-2 hover:bg-gray-800 transition-all group"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                     >
                         {t("show_more")}
-                        <ArrowRight size={16}
-                                    className="transition-transform duration-300 group-hover:translate-x-1"/>
+                        <ArrowRight
+                            size={16}
+                            className="transition-transform duration-300 group-hover:translate-x-2"
+                        />
                     </motion.button>
                 </motion.div>
             )}

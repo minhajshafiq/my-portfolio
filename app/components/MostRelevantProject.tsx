@@ -127,7 +127,7 @@ const MostRelevantProject = () => {
                                 <h4 className="text-xl font-semibold">Tests Cypress</h4>
                             </div>
                             <p className="text-gray-600 mb-4">
-                                {t("cypress_description") || "Tests end-to-end qui simulent les actions utilisateur pour s'assurer que l'application fonctionne correctement dans son ensemble."}
+                                {t("cypress_description")}
                             </p>
                             <div className="bg-gray-900 rounded-md p-3 text-green-400 text-sm font-mono">
                                 <code>cypress run --spec &quot;cypress/e2e/login.spec.js&quot;</code>
@@ -181,21 +181,21 @@ const MostRelevantProject = () => {
                         </div>
 
                         <p className="text-gray-700 mb-4">
-                            Utilisation de Firebase Storage pour l&#39;hébergement des images, permettant de :
+                            {t("firebase_description")}
                         </p>
 
                         <ul className="space-y-2 mb-4 text-gray-600">
                             <li className="flex items-start">
                                 <span className="text-green-500 mr-2">✓</span>
-                                Réduire la charge sur la base de données principale
+                                {t("firebase_description_1")}
                             </li>
                             <li className="flex items-start">
                                 <span className="text-green-500 mr-2">✓</span>
-                                Bénéficier d&#39;un accès rapide aux médias via CDN
+                                {t("firebase_description_2")}
                             </li>
                             <li className="flex items-start">
                                 <span className="text-green-500 mr-2">✓</span>
-                                Gérer les permissions d&#39;accès via Firebase Security Rules
+                                {t("firebase_description_3")}
                             </li>
                         </ul>
                     </div>
@@ -238,27 +238,28 @@ const MostRelevantProject = () => {
                     <div
                         className=" rounded-xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-all">
                         <GitBranch size={28} className="text-[#E14F41] mb-4"/>
-                        <h4 className="text-xl font-semibold mb-2">Gestion de versions</h4>
+                        <h4 className="text-xl font-semibold mb-2">{t("bloc_1_title")}</h4>
                         <p className="text-gray-600">
-                            GitHub avec gestion des pull requests, revues de code et système de
-                            branches protégées.
+                            {t("bloc_1_description")}
                         </p>
                     </div>
 
                     <div
                         className=" rounded-xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-all">
                         <Server size={28} className="text-[#E14F41] mb-4"/>
-                        <h4 className="text-xl font-semibold mb-2">Containerisation</h4>
-                        <p className="text-gray-600">Applications en conteneurs Docker pour un déploiement cohérent et
-                            isolé.</p>
+                        <h4 className="text-xl font-semibold mb-2">{t("bloc_2_title")}</h4>
+                        <p className="text-gray-600">
+                            {t("bloc_2_description")}
+                        </p>
                     </div>
 
                     <div
                         className=" rounded-xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-all">
                         <Code size={28} className="text-[#E14F41] mb-4"/>
-                        <h4 className="text-xl font-semibold mb-2">Code Quality</h4>
-                        <p className="text-gray-600">Analyses automatiques avec SonarQube et application des bonnes
-                            pratiques.</p>
+                        <h4 className="text-xl font-semibold mb-2">{t("bloc_3_title")}</h4>
+                        <p className="text-gray-600">
+                            {t("bloc_3_description")}
+                        </p>
                     </div>
                 </motion.div>
             </div>

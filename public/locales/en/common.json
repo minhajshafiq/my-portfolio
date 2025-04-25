@@ -27,6 +27,19 @@
   "pipeline_description": "The pipeline in Mets & Merveilles automates the deployment process, ensuring that the application is always up to date.",
   "cypress_description": "Cypress enables automated application testing, ensuring the reliability of features.",
   "cucumber_description": "Behavior-driven development (BDD) approach with scenarios written in natural language for greater clarity.",
+  "firebase_description": "Using Firebase Storage for hosting images, allowing to:",
+  "firebase_description_1": "Store images securely and scalably.",
+  "firebase_description_2": "Reduce the load on the main database.",
+  "firebase_description_3": "Manage access permissions to images to ensure data security.",
+
+  "bloc_1_title": "Version Control",
+  "bloc_1_description": "Using Git and GitHub for version control and collaboration on source code.",
+
+  "bloc_2_title": "Containerization",
+  "bloc_2_description": "Using Docker to create lightweight and portable containers for the application, facilitating deployment and scalability.",
+
+  "bloc_3_title": "Code Quality",
+  "bloc_3_description": "Using SonarQube to analyze code quality and detect potential issues, ensuring clean and maintainable code.",
 
   "projects_title": "My Projects",
   "projects_latest_work": "My latest work",

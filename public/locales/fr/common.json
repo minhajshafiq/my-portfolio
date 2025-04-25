@@ -19,7 +19,7 @@
 
   "devops_subtitle": "DevOps",
   "devops_title": "Mon projet le plus pertinent",
-  "devops_description": "Presentation of my Mets & Merveilles project, a web application that allows you to manage menus, dishes, and orders in a restaurant, with a focus on automating processes and managing the logic for creating dishes and menus.",
+  "devops_description": "Présentation de mon projet Mets & Merveilles, une application web qui permet de gérer les menus, plats et commandes dans un restaurant, en mettant l'accent sur l'automatisation des processus et la gestion de la logique de création des plats et menus.",
 
   "kanban_title": "Kanban Board",
   "kanban_description": "Le tableau Kanban dans Mets & Merveilles aide à gérer les tâches liées à la création de menus et aux opérations du restaurant.",
@@ -28,6 +28,19 @@
   "pipeline_description": "J'ai mis en place une pipeline d'intégration et de déploiement continus qui permet de tester, construire et déployer automatiquement l'application à chaque push sur la branche principale.",
   "cypress_description": "Cypress permet de tester l'application de manière automatisée, garantissant la fiabilité des fonctionnalités.",
   "cucumber_description": "Approche behavior-driven development (BDD) avec des scénarios écrits en langage naturel pour plus de clarté.",
+  "firebase_description": "Utilisation de Firebase Storage pour l'hébergement des images, permettant de :",
+  "firebase_description_1": "Stocker les images de manière sécurisée et évolutive.",
+  "firebase_description_2": "Réduire la charge sur la base de données principale",
+  "firebase_description_3": "Gérer les autorisations d'accès aux images pour garantir la sécurité des données.",
+
+  "bloc_1_title": "Gestion de versions",
+  "bloc_1_description": "Utilisation de Git et GitHub pour la gestion de versions et la collaboration sur le code source.",
+
+  "bloc_2_title": "Containerisation",
+  "bloc_2_description": "Utilisation de Docker pour créer des conteneurs légers et portables pour l'application, facilitant le déploiement et la scalabilité.",
+
+  "bloc_3_title": "Code Quality",
+  "bloc_3_description": "Utilisation de SonarQube pour analyser la qualité du code et détecter les problèmes potentiels, garantissant un code propre et maintenable.",
 
   "projects_title": "Mes projets",
   "projects_latest_work": "Mes derniers projets",
