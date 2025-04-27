@@ -107,7 +107,7 @@ const Navbar: React.FC = () => {
 
             {/* Main Navbar Container */}
             <motion.div
-                className={`fixed top-0 w-full px-5 lg:px-8 xl:px-[8%] py-4 z-50 transition-all duration-300 ${isScrolled ? 'backdrop-blur-sm bg-white/80 shadow-md' : ''} ${typeof window !== 'undefined' && window.innerWidth < 768 && !showTopBar ? 'opacity-0 -translate-y-full' : 'opacity-100 translate-y-0'}`}
+                className={`fixed top-0 w-[95%] max-w-7xl mx-auto left-0 right-0 px-5 lg:px-8 xl:px-[10%] py-2 z-50 transition-all duration-300 rounded-full my-3 ${isScrolled ? 'backdrop-blur-sm bg-white/90 shadow-md border border-gray-100/30' : ''} ${typeof window !== 'undefined' && window.innerWidth < 768 && !showTopBar ? 'opacity-0 -translate-y-full' : 'opacity-100 translate-y-0'}`}
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ type: "spring", stiffness: 100, damping: 20 }}

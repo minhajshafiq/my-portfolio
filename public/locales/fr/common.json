@@ -7,10 +7,10 @@
 
 
   "hello": "Bonjour ! Je suis Minhaj Zubair",
-  "job_title": "Développeur Full Stack | Next.js, Java & Spring Boot",
-  "description": "Je suis un développeur Full Stack passionné par la création d'applications web.",
-  "contact_me": "Contactez-moi",
-  "resume": "Mon CV",
+  "job_title": "Développeur Full Stack Next.js | Spring Boot",
+  "description": "Je transforme vos idées en applications performantes et élégantes.",
+  "contact_me": "Travaillons ensemble",
+  "resume": "Voir mon CV",
 
   "about_intro": "Apprenez à me connaître",
   "about_title": "À propos de moi",
@@ -33,8 +33,8 @@
   "firebase_description_2": "Réduire la charge sur la base de données principale",
   "firebase_description_3": "Gérer les autorisations d'accès aux images pour garantir la sécurité des données.",
 
-  "bloc_1_title": "Gestion de versions",
-  "bloc_1_description": "Utilisation de Git et GitHub pour la gestion de versions et la collaboration sur le code source.",
+  "bloc_1_title": "Commits Conventionnels",
+  "bloc_1_description": "Utilisation de Git et GitHub pour le contrôle de version et la collaboration sur le code source. Respect du format des commits conventionnels pour un historique de commits clair et structuré.",
 
   "bloc_2_title": "Containerisation",
   "bloc_2_description": "Utilisation de Docker pour créer des conteneurs légers et portables pour l'application, facilitant le déploiement et la scalabilité.",
