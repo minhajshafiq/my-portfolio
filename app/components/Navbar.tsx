@@ -127,7 +127,14 @@ const Navbar: React.FC = () => {
                         }}
                         transition={{ repeat: Infinity, duration: 3 }}
                     >
-                        <Image src="/logo.png" alt="Logo" width={112} height={28} className="w-28 cursor-pointer" priority />
+                        <Image
+                            src="/logo.png"
+                            alt="Logo"
+                            width={112}
+                            height={28}
+                            className="w-auto h-auto cursor-pointer"
+                            priority
+                        />
                     </motion.a>
 
                     {/* Desktop Navigation - Centré */}

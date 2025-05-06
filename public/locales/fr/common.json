@@ -14,7 +14,13 @@
 
   "about_intro": "Apprenez à me connaître",
   "about_title": "À propos de moi",
-  "about_description": "Je suis un développeur Full Stack passionné, spécialisé en Next.js, Java et Spring Boot.\nJ’adore concevoir des applications web dynamiques et intuitives, où performance et expérience utilisateur vont de pair. Curieux et toujours en quête de nouveaux défis, je prends plaisir à résoudre des problèmes complexes, à apprendre de nouvelles technologies et à affiner mes compétences jour après jour.",
+  "about_description": "Je suis un développeur Full Stack passionné, spécialisé en Next.js, Java et Spring Boot.\nMon objectif : créer des applications web performantes, modernes et pensées pour l'utilisateur.\nAutonome, curieux et orienté produit, j'aime résoudre des problèmes concrets avec du code propre et maintenable.\nChaque projet est pour moi une opportunité d’apprendre, d’innover et de repousser mes limites techniques.",
+  "about_experience_title" : "Expérience",
+  "about_education_title" : "Formation",
+  "about_internship_title" : "Full Stack & Mobile",
+  "about_internship_description" : "Développement d'applications web et mobiles avec Expo et TypeScript.",
+  "about_freelance_title" : "Développeur Full Stack",
+  "about_freelance_description" : "Développement d'applications web et mobiles avec React, Next.js, Java et Spring Boot.",
   "about_techStack_title": "Ma stack technique",
 
   "devops_subtitle": "DevOps",

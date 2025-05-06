@@ -13,8 +13,8 @@ export default function Home() {
         <main className={"relative min-h-screen w-screen overflow-hidden"}>
             <Navbar/>
             <Header/>
-            <About/>
             <MostRelevantProject/>
+            <About/>
             <Projects/>
             <Contact/>
             <Footer/>

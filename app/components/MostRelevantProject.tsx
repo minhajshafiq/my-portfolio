@@ -49,6 +49,7 @@ const MostRelevantProject = () => {
                                     width={2213}
                                     height={956}
                                     className="object-cover rounded-lg w-full"
+                                    priority
                                 />
                             </div>
                         </div>
@@ -93,6 +94,7 @@ const MostRelevantProject = () => {
                                         width={1378}
                                         height={744}
                                         className="rounded-b-md object-cover w-full h-full"
+                                        priority
                                     />
                                 </div>
                             </div>
@@ -212,9 +214,9 @@ const MostRelevantProject = () => {
                                 <Image
                                     src="/work-3.png"
                                     alt="MVP"
-                                    layout="fill"
-                                    objectFit="cover"
-                                    className="rounded-xl"
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    className="rounded-xl object-cover"
                                 />
                                 <div
                                     className="absolute inset-0 z-10 flex items-center justify-center bg-black/40 rounded-xl">
