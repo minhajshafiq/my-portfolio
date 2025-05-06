@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react";
 import { Outfit as OutfitFont, Ovo as OvoFont } from "next/font/google";
 import "./globals.css";
 
@@ -28,6 +30,8 @@ export default function RootLayout({
             className={`${Outfit.className} ${Ovo.className} antialiased leading-8 overflow-x-hidden`}
         >
         {children}
+        <Analytics />
+        <SpeedInsights />
         </body>
         </html>
     );
