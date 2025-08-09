@@ -45,8 +45,8 @@ const projectsData = [
         title: "ohmyfood_title",
         description: "ohmyfood_description",
         tech: ["HTML", "SCSS"],
-        link: "https://minhajshafiq.github.io/Projet-3/",
-        github: "https://wuwa-delta.vercel.app/",
+        link: "https://minhajshafiq.github.io/OhMyFood/",
+        github: "https://github.com/minhajshafiq/OhMyFood",
         longDescription: "ohmyfood_long_description"
     },
     {
@@ -55,7 +55,7 @@ const projectsData = [
         description: "pfc_description",
         tech: ["Next.JS", "Framer Motion"],
         link: "https://pfc-minhaj.netlify.app/",
-        github: "https://wuwa-delta.vercel.app/",
+        github: "https://github.com/minhajshafiq/pierre-feuille-ciseau",
         longDescription: "pfc_long_description"
     },
     {
@@ -63,8 +63,8 @@ const projectsData = [
         title: "project_5_title",
         description: "project_5_description",
         tech: ["HTML", "CSS"],
-        link: "https://minhajshafiq.github.io/Projet-2/",
-        github: "https://wuwa-delta.vercel.app/",
+        link: "https://minhajshafiq.github.io/Booki/",
+        github: "https://github.com/minhajshafiq/Booki",
         longDescription: "project_5_long_description"
     },
     {
@@ -73,7 +73,7 @@ const projectsData = [
         description: "project_7_description",
         tech: ["Public API"],
         link: "https://catfats.netlify.app/",
-        github: "https://wuwa-delta.vercel.app/",
+        github: "https://github.com/minhajshafiq/Cat-Facts",
         longDescription: "project_7_long_description"
     },
     {
@@ -82,7 +82,7 @@ const projectsData = [
         description: "project_8_description",
         tech: ["Node.js", "MongoDB", "JWT"],
         link: "https://github.com/minhajshafiq/Projet-6",
-        github: "https://wuwa-delta.vercel.app/",
+        github: "",
         longDescription: "project_8_long_description"
     }
 ];
