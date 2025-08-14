@@ -19,7 +19,7 @@ const projectsData = [
         description: "wwproject_description",
         tech: ["Next.js 15", "Tailwind CSS v4", "TypeScript", "gsap"],
         link: "https://wuwa-delta.vercel.app/",
-        github: "https://wuwa-delta.vercel.app/",
+        github: "",
         longDescription: "wwproject_long_description"
     },
     {
@@ -28,7 +28,7 @@ const projectsData = [
         description: "project_6_description",
         tech: ["Expo", "React Native", "TypeScript"],
         link: "",
-        github: "https://wuwa-delta.vercel.app/",
+        github: "",
         longDescription: "project_6_long_description"
     },
     {
@@ -37,7 +37,7 @@ const projectsData = [
         description: "kasa_description",
         tech: ["React", "SCSS"],
         link: "https://minhajshafiq-kasa.netlify.app/",
-        github: "https://wuwa-delta.vercel.app/",
+        github: "",
         longDescription: "kasa_long_description"
     },
     {
@@ -112,7 +112,7 @@ const ProjectsContent: React.FC = () => {
 
     const handleImageError = useCallback((e: React.SyntheticEvent<HTMLImageElement>) => {
         const target = e.target as HTMLImageElement;
-        target.src = "/fallback-image.png";
+        target.src = "/logo.png";
     }, []);
 
     useEffect(() => {

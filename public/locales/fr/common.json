@@ -12,6 +12,11 @@
   "contact_me": "Travaillons ensemble",
   "resume": "Voir mon CV",
 
+  "hero_title": "J’industrialise vos produits web avec Next.js & Spring Boot",
+  "hero_subtitle": "Livraisons plus rapides, pipeline CI/CD, perfs Lighthouse 95–100, tests e2e. Disponible en freelance/CDI.",
+  "cta_primary": "Voir mes projets",
+  "cta_secondary": "Télécharger mon CV",
+
   "about_intro": "Apprenez à me connaître",
   "about_title": "À propos de moi",
   "about_description": "Je suis un développeur Full Stack passionné, spécialisé en Next.js, Java et Spring Boot.\nMon objectif : créer des applications web performantes, modernes et pensées pour l'utilisateur.\nAutonome, curieux et orienté produit, j'aime résoudre des problèmes concrets avec du code propre et maintenable.\nChaque projet est pour moi une opportunité d’apprendre, d’innover et de repousser mes limites techniques.",
@@ -47,6 +52,16 @@
 
   "bloc_3_title": "Code Quality",
   "bloc_3_description": "Utilisation de SonarQube pour analyser la qualité du code et détecter les problèmes potentiels, garantissant un code propre et maintenable.",
+
+  "case_problem": "Problème",
+  "case_problem_desc": "Un restaurant avait besoin d'industrialiser la création de menus et la gestion des commandes, avec une traçabilité et des déploiements sûrs.",
+  "case_solution": "Solution",
+  "case_solution_desc": "Front Next.js 15 (app router), back Spring Boot REST, stockage images Firebase, CI/CD GitHub Actions → Docker + Vercel/Railway, tests e2e et BDD.",
+  "case_impact": "Impact",
+  "case_impact_desc": "Mise en prod continue, risques de régression réduits, temps de mise en ligne raccourci. Architecture prête pour la scalabilité.",
+  "view_demo": "Voir la démo",
+  "view_frontend_code": "Code front",
+  "view_backend_code": "Code back",
 
   "projects_title": "Mes projets",
   "projects_latest_work": "Mes derniers projets",

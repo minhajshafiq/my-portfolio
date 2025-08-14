@@ -2,30 +2,98 @@ import React from 'react';
 import Image from 'next/image';
 import {useTranslation} from 'react-i18next';
 import {motion} from 'framer-motion';
-import {CheckCircle2, Code, GitBranch, Play, Server} from 'lucide-react';
+import {CheckCircle2, Code, GitBranch, Play, Server, Lightbulb, TrendingUp} from 'lucide-react';
+
+const cardClass =
+    "rounded-xl p-6 border border-gray-200 bg-white/90 backdrop-blur shadow-sm hover:shadow-lg transition-all";
+const pillClass =
+    "px-3 py-1 text-sm rounded-full border border-gray-200 bg-white/70 text-gray-800";
 
 const MostRelevantProject = () => {
     const {t} = useTranslation();
+    const frontendRepo = ""; // Ajoute l'URL GitHub front si dispo
+    const backendRepo = "";  // Ajoute l'URL GitHub back si dispo
 
     return (
-        <section id="featured-project"
-                 className="relative min-h-dvh w-full overflow-hidden py-20 px-4 md:px-8">
+        <section id="featured-project" className="relative min-h-dvh w-full overflow-hidden py-20 px-4 md:px-8">
             <div className="max-w-7xl mx-auto">
+                {/* En-tête section */}
                 <motion.div
-                    className="text-center mb-16"
+                    className="text-center mb-10"
                     initial={{opacity: 0, y: 20}}
                     whileInView={{opacity: 1, y: 0}}
                     viewport={{once: true}}
                     transition={{duration: 0.6}}
                 >
                     <h4 className="mb-2 text-lg font-outfit text-[#E14F41]">{t("devops_subtitle") || "DevOps & Tests"}</h4>
-                    <h2 className="text-4xl md:text-5xl font-outfit font-bold text-gray-900 mb-8 relative inline-block pb-3 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:transform after:-translate-x-1/2 after:w-full after:h-1 after:bg-[#E14F41] after:rounded-full">
+                    <h2 className="text-4xl md:text-5xl font-outfit font-bold text-gray-900 mb-4 relative inline-block pb-3 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:transform after:-translate-x-1/2 after:w-full after:h-1 after:bg-[#E14F41] after:rounded-full">
                         {t("devops_title") || "Infrastructure as Code"}
                     </h2>
-                    <p className="max-w-2xl mx-auto mt-5 font-outfit text-gray-600">
+                    <p className="max-w-3xl mx-auto mt-3 font-outfit text-gray-600">
                         {t("devops_description") || "Découvrez comment j'ai implémenté une infrastructure DevOps complète avec des tests automatisés et une intégration continue."}
                     </p>
+                    {/* Chips techno */}
+                    <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+                        <span className={pillClass}>Next.js 15</span>
+                        <span className={pillClass}>Spring Boot</span>
+                        <span className={pillClass}>GitHub Actions</span>
+                        <span className={pillClass}>Docker</span>
+                    </div>
                 </motion.div>
+
+                {/* Résumé orienté recrutement: Problème → Solution → Impact */}
+                <motion.div
+                    className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6"
+                    initial={{opacity: 0, y: 20}}
+                    whileInView={{opacity: 1, y: 0}}
+                    viewport={{once: true}}
+                    transition={{duration: 0.6}}
+                >
+                    <div className={`${cardClass} p-5`}>
+                        <div className="flex items-center gap-2 mb-2 text-gray-900">
+                            <Lightbulb size={18} className="text-[#E14F41]"/>
+                            <h3 className="font-semibold">{t('case_problem')}</h3>
+                        </div>
+                        <p className="text-gray-600 text-sm">{t('case_problem_desc')}</p>
+                    </div>
+                    <div className={`${cardClass} p-5`}>
+                        <div className="flex items-center gap-2 mb-2 text-gray-900">
+                            <Code size={18} className="text-[#E14F41]"/>
+                            <h3 className="font-semibold">{t('case_solution')}</h3>
+                        </div>
+                        <p className="text-gray-600 text-sm">{t('case_solution_desc')}</p>
+                    </div>
+                    <div className={`${cardClass} p-5`}>
+                        <div className="flex items-center gap-2 mb-2 text-gray-900">
+                            <TrendingUp size={18} className="text-[#E14F41]"/>
+                            <h3 className="font-semibold">{t('case_impact')}</h3>
+                        </div>
+                        <p className="text-gray-600 text-sm">{t('case_impact_desc')}</p>
+                    </div>
+                </motion.div>
+
+                {/* Liens code (affichés uniquement si présents) */}
+                {(frontendRepo || backendRepo) && (
+                    <motion.div
+                        className="mt-6 flex flex-wrap items-center gap-3"
+                        initial={{opacity: 0, y: 10}}
+                        whileInView={{opacity: 1, y: 0}}
+                        viewport={{once: true}}
+                    >
+                        {frontendRepo && (
+                            <a href={frontendRepo} target="_blank" rel="noopener noreferrer"
+                               className="px-4 py-2 rounded-full border text-sm hover:bg-gray-50">
+                                {t('view_frontend_code')}
+                            </a>
+                        )}
+                        {backendRepo && (
+                            <a href={backendRepo} target="_blank" rel="noopener noreferrer"
+                               className="px-4 py-2 rounded-full border text-sm hover:bg-gray-50">
+                                {t('view_backend_code')}
+                            </a>
+                        )}
+                    </motion.div>
+                )}
 
                 <motion.div
                     className="mt-16 mb-7"
@@ -34,7 +102,7 @@ const MostRelevantProject = () => {
                     viewport={{once: true}}
                     transition={{duration: 0.6, delay: 0.6}}
                 >
-                    <div className="rounded-xl p-6 shadow-lg border border-gray-200 overflow-hidden">
+                    <div className={`${cardClass} shadow-lg overflow-hidden`}>
                         <h3 className="text-2xl font-bold mb-6">{t("kanban_title") || "Gestion de projet Agile"}</h3>
 
                         <p className="text-gray-700 mb-6">
@@ -70,7 +138,7 @@ const MostRelevantProject = () => {
                         transition={{duration: 0.6}}
                         className="space-y-6"
                     >
-                        <div className="rounded-xl p-6 shadow-md border border-gray-100">
+                        <div className={`${cardClass}`}>
 
 
                             <h3 className="text-2xl font-bold">{t("pipeline_title")}</h3>
@@ -120,8 +188,7 @@ const MostRelevantProject = () => {
                         transition={{duration: 0.6, delay: 0.2}}
                         className="space-y-8"
                     >
-                        <div
-                            className=" rounded-xl p-6 shadow-md border border-gray-100 transition-all hover:shadow-lg">
+                        <div className={`${cardClass}`}>
                             <div className="flex items-center mb-4">
                                 <div className="p-2 bg-green-100 rounded-lg mr-4">
                                     <Play size={20} className="text-green-600"/>
@@ -138,8 +205,7 @@ const MostRelevantProject = () => {
                             </div>
                         </div>
 
-                        <div
-                            className=" rounded-xl p-6 shadow-md border border-gray-100 transition-all hover:shadow-lg">
+                        <div className={`${cardClass}`}>
                             <div className="flex items-center mb-4">
                                 <div className="p-2 bg-green-100 rounded-lg mr-4">
                                     <CheckCircle2 size={20} className="text-green-600"/>
@@ -171,7 +237,7 @@ const MostRelevantProject = () => {
                     </motion.div>
 
 
-                    <div className=" rounded-xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-all">
+                    <div className={`${cardClass}`}>
                         <div className="flex items-center mb-4">
                             <div className="w-10 h-10 rounded-lg bg-yellow-100 flex items-center justify-center mr-4">
                                 <svg viewBox="0 0 24 24" className="w-6 h-6 text-yellow-600" fill="currentColor">
@@ -208,9 +274,8 @@ const MostRelevantProject = () => {
                         rel="noopener noreferrer"
                         className="block"
                     >
-                        <div
-                            className="rounded-xl w-full shadow-md border border-gray-100 hover:shadow-lg transition-all">
-                            <div className="relative w-full h-64">
+                        <div className="w-full">
+                            <div className="relative w-full h-64 md:h-80 lg:h-96">
                                 <Image
                                     src="/work-3.png"
                                     alt="MVP"

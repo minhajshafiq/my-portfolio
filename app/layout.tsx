@@ -19,20 +19,14 @@ export const metadata: Metadata = {
     description: "Full Stack Developer | Next.js, Java & Spring Boot",
 };
 
-export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
-    children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <html lang="en" className="scroll-smooth">
-        <body
-            className={`${Outfit.className} ${Ovo.className} antialiased leading-8 overflow-x-hidden`}
-        >
-        {children}
-        <Analytics />
-        <SpeedInsights />
-        </body>
+        <html className="scroll-smooth">
+            <body className={`${Outfit.className} ${Ovo.className} antialiased leading-8 overflow-x-hidden`}>
+                {children}
+                <Analytics />
+                <SpeedInsights />
+            </body>
         </html>
     );
 }

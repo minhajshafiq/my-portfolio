@@ -1,6 +1,6 @@
 "use client";
 import React, {FormEvent, useState} from "react";
-import {useTranslation} from "next-i18next";
+import {useTranslation} from "react-i18next";
 import {FaArrowRight, FaSpinner, FaCheck, FaTimes} from "react-icons/fa";
 import {motion, AnimatePresence} from "framer-motion";
 

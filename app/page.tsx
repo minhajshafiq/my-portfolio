@@ -1,23 +1,5 @@
-'use client'
-import Navbar from "@/app/components/Navbar";
-import Header from "@/app/components/Header";
-import About from "@/app/components/About";
-import Projects from "@/app/components/Projects";
-import Contact from "@/app/components/Contact";
-import Footer from "@/app/components/Footer";
-import MostRelevantProject from "@/app/components/MostRelevantProject";
-import "../i18n"
+import { redirect } from 'next/navigation';
 
 export default function Home() {
-    return (
-        <main className={"relative min-h-screen w-screen overflow-hidden"}>
-            <Navbar/>
-            <Header/>
-            <MostRelevantProject/>
-            <About/>
-            <Projects/>
-            <Contact/>
-            <Footer/>
-        </main>
-    );
+    redirect('/fr');
 }

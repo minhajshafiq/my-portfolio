@@ -6,18 +6,27 @@ import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 
 const Navbar: React.FC = () => {
-    const { i18n, t } = useTranslation();
-    const [currentLang, setCurrentLang] = useState(i18n.language || "en");
+    const { t } = useTranslation();
+    const [currentLang, setCurrentLang] = useState('fr');
     const [isScrolled, setIsScrolled] = useState(false);
     const [isHoveringLang, setIsHoveringLang] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
     const [activeSection, setActiveSection] = useState("home");
     const [showTopBar, setShowTopBar] = useState(true);
+    const [isMobile, setIsMobile] = useState(false);
     const { scrollYProgress } = useScroll();
     const width = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
     useEffect(() => {
         setIsMounted(true);
+        // noop
+        // Déduit la langue depuis l'URL
+        if (typeof window !== 'undefined') {
+            const seg = window.location.pathname.split('/').filter(Boolean)[0];
+            if (seg === 'fr' || seg === 'en') {
+                setCurrentLang(seg);
+            }
+        }
         let previousScrollY = 0;
 
         const handleScroll = () => {
@@ -49,7 +58,9 @@ const Navbar: React.FC = () => {
     useEffect(() => {
         if (isMounted) {
             const handleResize = () => {
-                if (window.innerWidth < 768) {
+                const mobile = window.innerWidth < 768;
+                setIsMobile(mobile);
+                if (mobile) {
                     document.body.style.paddingBottom = "70px";
                     setShowTopBar(true);
                 } else {
@@ -68,10 +79,20 @@ const Navbar: React.FC = () => {
     }, [isMounted]);
 
     const handleLanguageChange = (lang: string) => {
-        i18n.changeLanguage(lang);
-        setCurrentLang(lang);
+        // Navigue vers la route segmentée par langue
+        const base = typeof window !== 'undefined' ? window.location.pathname : '/fr';
+        const parts = base.split('/').filter(Boolean);
+        if (parts.length > 0) {
+            parts[0] = lang;
+        } else {
+            parts.unshift(lang);
+        }
+        const newPath = '/' + parts.join('/');
         setIsHoveringLang(false);
+        window.location.assign(newPath);
     };
+
+    // dark mode removed
 
     const navItems = [
         { name: t('home'), href: "#home" },
@@ -107,7 +128,7 @@ const Navbar: React.FC = () => {
 
             {/* Main Navbar Container */}
             <motion.div
-                className={`fixed top-0 w-[95%] max-w-7xl mx-auto left-0 right-0 px-5 lg:px-8 xl:px-[10%] py-2 z-50 transition-all duration-300 rounded-full my-3 ${isScrolled ? 'backdrop-blur-sm bg-white/90 shadow-md border border-gray-100/30' : ''} ${typeof window !== 'undefined' && window.innerWidth < 768 && !showTopBar ? 'opacity-0 -translate-y-full' : 'opacity-100 translate-y-0'}`}
+                className={`fixed top-0 w-[95%] max-w-7xl mx-auto left-0 right-0 px-5 lg:px-8 xl:px-[10%] py-2 z-50 transition-all duration-300 rounded-full my-3 ${isScrolled ? 'backdrop-blur-sm bg-white/90 shadow-md border border-gray-100/30' : ''} ${isMobile && !showTopBar ? 'opacity-0 -translate-y-full' : 'opacity-100 translate-y-0'}`}
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ type: "spring", stiffness: 100, damping: 20 }}
@@ -117,15 +138,6 @@ const Navbar: React.FC = () => {
                     <motion.a
                         href="#home"
                         className="relative z-50"
-                        whileHover={{ scale: 1.05, filter: "drop-shadow(0 0 6px #E14F41)" }}
-                        animate={{
-                            filter: [
-                                "drop-shadow(0 0 0px #E14F41)",
-                                "drop-shadow(0 0 8px #E14F41)",
-                                "drop-shadow(0 0 0px #E14F41)"
-                            ]
-                        }}
-                        transition={{ repeat: Infinity, duration: 3 }}
                     >
                         <Image
                             src="/logo.png"
@@ -164,8 +176,8 @@ const Navbar: React.FC = () => {
                         </motion.ul>
                     </motion.nav>
 
-                    {/* Language Switcher - Aligné à droite */}
-                    <div className="flex items-center relative z-50">
+                    {/* Actions droites: langue */}
+                    <div className="flex items-center gap-2 relative z-50">
                         <motion.div
                             className="relative"
                             onHoverStart={() => setIsHoveringLang(true)}

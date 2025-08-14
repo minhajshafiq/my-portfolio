@@ -8,10 +8,10 @@ import Backend from "i18next-http-backend";
 // Initialisation d'i18next
 i18n
     .use(Backend) // Charge les fichiers JSON via HTTP
-    .use(LanguageDetector) // Détecte automatiquement la langue du navigateur
+    .use(LanguageDetector) // Active la détection depuis le segment de chemin (/fr, /en)
     .use(initReactI18next) // Initialise i18next avec React
     .init({
-        fallbackLng: "en", // Langue par défaut si la langue détectée n'est pas disponible
+        fallbackLng: "fr", // Utilisé si aucun segment n'est défini
         debug: process.env.NODE_ENV === "development", // Active les logs en mode développement uniquement
         interpolation: {
             escapeValue: false, // Pas besoin d'échapper les valeurs (React s'en occupe)
@@ -20,11 +20,11 @@ i18n
             loadPath: "/locales/{{lng}}/common.json", // Chemin d'accès aux fichiers de traduction
         },
         detection: {
-            order: ["navigator", "localStorage", "cookie"], // Priorité à la langue du navigateur
-            caches: ["localStorage", "cookie"], // Caches utilisées pour garder la langue entre les sessions
-            lookupLocalStorage: "i18nextLng", // Clé pour récupérer la langue stockée dans localStorage
-            lookupCookie: "i18next", // Clé pour récupérer la langue dans les cookies
-            lookupFromPathIndex: 0, // Cherche la langue dans l'URL (si présente)
+            order: ["path", "cookie", "localStorage"],
+            lookupFromPathIndex: 0,
+            caches: ["localStorage", "cookie"],
+            lookupLocalStorage: "i18nextLng",
+            lookupCookie: "i18next",
         },
         react: {
             useSuspense: false, // Désactive le suspense pour les composants React (utile si vous ne voulez pas attendre le chargement des traductions)
