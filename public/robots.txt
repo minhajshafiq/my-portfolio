@@ -1,0 +1,46 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.minhajshafiq.com/sitemap.xml
+
+# Crawl-delay pour éviter de surcharger le serveur
+Crawl-delay: 1
+
+# Bloquer les fichiers non nécessaires
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /*.txt$
+
+# Autoriser les ressources importantes
+Allow: /favicon.ico
+Allow: /portfoliomtd.png
+Allow: /mstile-144x144.png
+Allow: /browserconfig.xml
+
+# Directives spécifiques pour Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Directives spécifiques pour Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Directives pour les images
+User-agent: Googlebot-Image
+Allow: /
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.gif$
+Allow: /*.webp$
+Allow: /*.svg$
+
+# Directives pour les mobiles
+User-agent: *
+Allow: /

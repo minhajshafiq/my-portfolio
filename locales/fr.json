@@ -1,0 +1,329 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "services": "Services",
+    "projects": "Projets",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Développeur Front-End & Full Stack",
+    "subtitle": "Créateur de solutions digitales innovantes",
+    "description": "Je suis Minhaj, développeur passionné qui crée des applications web et mobiles performantes pour entreprises et startups qui veulent se démarquer dans le digital.",
+    "specialization": "Spécialisé en Next.js, Spring Boot et Flutter. Je transforme vos idées en solutions digitales qui convertissent et engagent vos utilisateurs.",
+    "cta_projects": "Voir mes projets",
+    "cta_contact": "Travaillons ensemble",
+    "available_for_work": "Disponible pour travailler",
+    "discover": "Découvrir"
+  },
+  "services": {
+    "title": "Ce que je vous apporte",
+    "subtitle": "Des compétences solides et des solutions concrètes, adaptées à vos besoins en entreprise ou en mission",
+    "switch_cdi": "Mes compétences",
+    "switch_freelance": "Mes services",
+    "cdi": {
+      "title": "Compétences pour CDI",
+      "technical": {
+        "title": "Compétences Techniques",
+        "frontend": "Développement Frontend",
+        "backend": "Développement Backend",
+        "mobile": "Développement Mobile",
+        "devops": "DevOps & Cloud",
+        "database": "Bases de données"
+      },
+      "soft": {
+        "title": "Soft Skills",
+        "teamwork": "Travail d'équipe",
+        "communication": "Communication",
+        "problem_solving": "Résolution de problèmes",
+        "learning": "Apprentissage continu",
+        "leadership": "Leadership"
+      }
+    },
+    "freelance": {
+      "title": "Services Freelance",
+      "web_development": "Développement Web",
+      "mobile_apps": "Applications Mobiles",
+      "consulting": "Conseil Technique",
+      "maintenance": "Maintenance & Support",
+      "optimization": "Optimisation Performance"
+    },
+    "skills": {
+      "web_apps": {
+        "title": "Applications Web",
+        "description": "Développement d'applications web avec Next.js et Spring Boot. Création d'interfaces utilisateur modernes et APIs backend robustes."
+      },
+      "apis": {
+        "title": "APIs Backend",
+        "description": "Développement d'APIs RESTful avec Spring Boot et Java. Intégration de bases de données et gestion des données."
+      },
+      "mobile_apps": {
+        "title": "Applications Mobiles",
+        "description": "Développement d'applications mobiles avec Flutter et React Native. Création d'interfaces utilisateur natives et cross-platform."
+      },
+      "cloud_infrastructure": {
+        "title": "Déploiement Cloud",
+        "description": "Déploiement d'applications avec Firebase, Supabase et Vercel. Configuration de bases de données et services cloud."
+      },
+      "databases": {
+        "title": "Bases de Données",
+        "description": "Conception et gestion de bases de données PostgreSQL et SQLite. Requêtes SQL et optimisation des performances."
+      },
+      "agile_collaboration": {
+        "title": "Travail en Équipe",
+        "description": "Collaboration en équipe avec GitHub, code review et méthodologies agiles. Apprentissage continu et partage de connaissances."
+      },
+      "communication": {
+        "title": "Communication",
+        "description": "Documentation de code et communication technique. Capacité à expliquer les concepts techniques et à travailler en équipe."
+      },
+      "innovative_solutions": {
+        "title": "Résolution de Problèmes",
+        "description": "Analyse et résolution de problèmes techniques. Recherche de solutions et apprentissage de nouvelles technologies."
+      },
+      "tech_watch": {
+        "title": "Veille Technologique",
+        "description": "Suivi des nouvelles technologies et frameworks. Apprentissage continu et adaptation aux évolutions du développement web."
+      },
+      "testing_quality": {
+        "title": "Tests & Qualité",
+        "description": "Écriture de tests unitaires et d'intégration. Bonnes pratiques de développement et amélioration de la qualité du code."
+      }
+    },
+    "freelance_services": {
+      "web_sites": {
+        "title": "Sites Web",
+        "description": "Création de sites web avec Next.js et Spring Boot. Design moderne et responsive pour votre présence en ligne.",
+        "benefits": ["Next.js", "Spring Boot", "Design responsive"],
+        "pricing": "À partir de 800€"
+      },
+      "mobile_applications": {
+        "title": "Applications Mobiles",
+        "description": "Développement d'applications mobiles avec Flutter et React Native. Applications cross-platform et interfaces utilisateur modernes.",
+        "benefits": ["Flutter", "React Native", "Multi-plateforme"],
+        "pricing": "À partir de 1500€"
+      },
+      "proactive_maintenance": {
+        "title": "Maintenance & Support",
+        "description": "Support technique et maintenance de vos applications. Corrections de bugs et améliorations continues.",
+        "benefits": ["Support technique", "Corrections bugs", "Améliorations"],
+        "pricing": "À partir de 150€/mois"
+      },
+      "performance_optimization": {
+        "title": "Optimisation Performance",
+        "description": "Amélioration des performances de vos applications web. Optimisation du code et de l'expérience utilisateur.",
+        "benefits": ["Optimisation code", "Performance web", "UX améliorée"],
+        "pricing": "À partir de 400€"
+      },
+      "secure_deployment": {
+        "title": "Déploiement",
+        "description": "Mise en ligne de vos applications avec Vercel, Firebase et Supabase. Configuration des domaines et SSL.",
+        "benefits": ["Vercel/Firebase", "Configuration SSL", "Mise en ligne"],
+        "pricing": "À partir de 100€"
+      }
+    }
+  },
+  "about": {
+    "title": "À propos de moi",
+    "subtitle": "Mon parcours",
+    "description": "Découvrez mon parcours professionnel et mes compétences en développement web",
+    "profile": {
+      "title": "Mon profil",
+      "paragraph1": "Développeur Junior passionné, j'apprends et développe avec Next.js, Spring Boot et Flutter pour créer des applications web et mobiles.",
+      "paragraph2": "Mon approche ? Transformer vos idées en solutions concrètes avec du code propre et maintenable, en apprenant continuellement.",
+      "paragraph3": "Curieux et motivé, je vois chaque projet comme une opportunité d'apprentissage et d'amélioration de mes compétences.",
+      "paragraph4": "Prêt à rejoindre votre équipe pour contribuer et grandir professionnellement."
+    },
+    "skills": {
+      "title": "Mes compétences",
+      "fullstack": {
+        "title": "Full Stack",
+        "description": "Développement front-end et back-end avec React, Next.js, Spring Boot et bases de données"
+      },
+      "mobile": {
+        "title": "Mobile",
+        "description": "Développement d'applications mobiles avec Flutter et React Native"
+      },
+      "learning": {
+        "title": "Apprentissage",
+        "description": "Apprentissage continu et adaptation aux nouvelles technologies"
+      },
+      "teamwork": {
+        "title": "Travail d'équipe",
+        "description": "Collaboration en équipe, participation aux code reviews et méthodologies agiles"
+      },
+      "communication": {
+        "title": "Communication",
+        "description": "Documentation de code et communication technique avec l'équipe"
+      },
+      "problem_solving": {
+        "title": "Résolution de problèmes",
+        "description": "Analyse et résolution de problèmes techniques avec recherche de solutions"
+      }
+    },
+         "timeline": {
+       "title": "Formation & Expérience",
+       "experience_tab": "Expérience",
+       "education_tab": "Formation",
+       "formation_label": "Formation",
+       "experience_label": "Expérience",
+       "formations": {
+         "stti2d": {
+           "degree": "Bac STI2D",
+           "school": "Lycée Lucie Aubrac",
+           "description": "Formation technologique orientée vers l'innovation et le développement durable."
+         },
+         "openclassrooms": {
+           "degree": "Développeur Web",
+           "school": "OpenClassrooms",
+           "description": "Formation intensive en développement web front-end et back-end."
+         },
+         "doranco": {
+           "degree": "Concepteur Développeur d'Applications",
+           "school": "Doranco",
+           "description": "Formation avancée en conception d'applications et architecture logicielle."
+         }
+       },
+               "experiences": {
+          "freelance": {
+            "degree": "Développeur Freelance",
+            "school": "Freelance",
+            "description": "Conception et développement d'applications web et mobiles sur mesure (front-end & back-end), gestion complète de projets, intégration d'API RESTful sécurisées et optimisation des performances.",
+            "bullet1": "Conception et développement d'applications web et mobiles sur mesure (front-end & back-end)",
+            "bullet2": "Gestion complète de projets: analyse des besoins, architecture, développement, déploiement, maintenance",
+            "bullet3": "Intégration d'API RESTful sécurisées et optimisation des performances"
+          },
+          "ukenoon": {
+            "degree": "Stage Développeur Full Stack & Mobile",
+            "school": "Ukenoon",
+            "description": "Encadrement d'équipe, développement mobile avec Expo (React Native) et Spring Boot, gestion de projet Agile (Scrum) avec GitHub.",
+            "bullet1": "Encadrement et coordination d'une équipe de développeurs",
+            "bullet2": "Développement d'une application mobile avec Expo (React Native) et Spring Boot",
+            "bullet3": "Utilisation de GitHub et méthode Agile (Scrum) pour la gestion du projet"
+          }
+        },
+        "formations": {
+          "stti2d": {
+            "degree": "Bac STI2D",
+            "school": "Lycée Lucie Aubrac",
+            "description": "Formation technologique orientée vers l'innovation et le développement durable."
+          },
+          "openclassrooms": {
+            "degree": "Développeur Web",
+            "school": "OpenClassrooms",
+            "description": "Formation intensive en développement web front-end et back-end.",
+            "bullet1": "Développement web front-end et back-end: JavaScript, API RESTful, React, Node.js/Express",
+            "bullet2": "Sécurité API RESTful, optimisation des performances, création d'applications complètes",
+            "bullet3": "6 projets professionnels sur GitHub (intégration, accessibilité, front-end React, back-end Node.js)"
+          },
+          "doranco": {
+            "degree": "Concepteur Développeur d'Applications",
+            "school": "Doranco",
+            "description": "Formation avancée en conception d'applications et architecture logicielle.",
+            "bullet1": "Développement web: HTML, CSS, JavaScript, React, Java, API RESTful, SQL/NoSQL",
+            "bullet2": "Méthodes: UML, Docker, Figma, Méthodes Agiles (Scrum)",
+            "bullet3": "Projets: Applications web full-stack, gestion de projet agile, documentation technique"
+          }
+        }
+     },
+    "cv": {
+      "title": "Télécharger mon CV",
+      "description": "Découvrez mon parcours complet et mes compétences détaillées",
+      "button": "Télécharger"
+    },
+    "collaboration": {
+      "title": "Envie de travailler ensemble ?",
+      "description": "Je suis ouvert aux opportunités freelance et aux collaborations sur des projets web et mobile.",
+      "button": "Me contacter"
+    }
+  },
+  "projects": {
+    "title": "Projets Clés",
+    "subtitle": "Réalisations récentes",
+    "view_project": "Voir le projet",
+    "technologies": "Technologies",
+    "results": "Résultats",
+    "pocketly": {
+      "title": "Pocketly",
+      "description": "Application mobile de gestion budgétaire intelligente avec suivi des transactions, poches d'épargne personnalisables, statistiques interactives et authentification sécurisée Supabase.",
+      "category": "Mobile App",
+      "results": {
+        "interface": "Interface intuitive",
+        "pockets": "Poches d'épargne",
+        "statistics": "Statistiques détaillées"
+      }
+    },
+    "mets_merveilles": {
+      "title": "Mets & Merveilles",
+      "description": "Plateforme de gestion de recettes et menus avec création de recettes, organisation par catégories, authentification Clerk et base de données PostgreSQL.",
+      "category": "Web App",
+      "results": {
+        "interface": "Interface moderne",
+        "recipes": "Recettes organisées",
+        "search": "Recherche intuitive"
+      }
+    },
+    "portfolio": {
+      "title": "Portfolio Personnel",
+      "description": "Ce portfolio que vous regardez actuellement ! Développé avec Next.js, animations GSAP, design responsive et optimisations SEO avancées.",
+      "category": "Portfolio",
+      "results": {
+        "performance": "Performance 95+",
+        "animations": "Animations fluides",
+        "seo": "SEO optimisé"
+      }
+    },
+    "wuthering_waves": {
+      "title": "Wuthering Waves Project",
+      "description": "Site web Next.js mettant en avant le jeu Wuthering Waves avec animations GSAP, design moderne et interface responsive.",
+      "category": "Web App",
+      "results": {
+        "animations": "Animations GSAP",
+        "design": "Design moderne",
+        "responsive": "Interface responsive"
+      }
+    }
+  },
+  "testimonials": {
+    "title": "Témoignages",
+    "subtitle": "Ce qu'en disent mes clients"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Discutons de votre projet",
+    "name": "Nom",
+    "email": "Email",
+    "message": "Message",
+    "send": "Envoyer",
+    "sending": "Envoi...",
+    "success": "Message envoyé avec succès !",
+    "error": "Erreur lors de l'envoi",
+    "other_means": "Autres moyens de contact",
+    "quick_response": "Réponse rapide garantie",
+    "quick_response_text": "Je réponds généralement dans les 24h. Pour les projets urgents, n'hésitez pas à me contacter directement par email ou LinkedIn.",
+    "available_for": "Disponible pour",
+    "quick_contact": "Contact rapide",
+    "available_immediately": "Disponible immédiatement",
+    "contact_form": "Formulaire de contact",
+    "email_title": "Email",
+    "linkedin_title": "LinkedIn",
+    "github_title": "GitHub"
+  },
+  "footer": {
+    "rights": "Tous droits réservés",
+    "made_with": "Fait avec"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "back_to_top": "Retour en haut"
+  },
+  "errors": {
+    "name": "Le nom est requis",
+    "email": "L'email est requis",
+    "message": "Le message est requis",
+    "invalid_name": "Le nom doit contenir entre 2 et 50 caractères alphabétiques",
+    "invalid_email": "Veuillez entrer une adresse email valide",
+    "invalid_message": "Le message doit contenir au moins 10 caractères"
+  }
+}
