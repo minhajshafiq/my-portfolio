@@ -96,8 +96,8 @@ export function Projects() {
       image: '/portfolio.png',
       technologies: ['Next.js', 'GSAP', 'Framer Motion', 'Tailwind CSS', 'TypeScript'],
       results: [t('projects.portfolio.results.performance'), t('projects.portfolio.results.animations'), t('projects.portfolio.results.seo')],
-      github: 'https://github.com/minhajshafiq/portfolio',
-      demo: 'https://minhaj.dev',
+      github: 'https://github.com/minhajshafiq/my-portfolio',
+      demo: 'https://www.minhajshafiq.com/',
       category: t('projects.portfolio.category'),
       icon: Zap
     },

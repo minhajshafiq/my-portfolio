@@ -153,50 +153,25 @@ function getLatestYear(yearString: string): number {
 
   const { createScrollAnimation } = useGSAPAnimation()
 
-  // Animations GSAP
+  // Animations GSAP simplifiées
   useEffect(() => {
+    // Animation simple du header
     createScrollAnimation(headerRef.current, {
-      from: { opacity: 0, y: 50 },
-      to: { opacity: 1, y: 0, duration: 1, ease: "back.out(1.7)" }
+      from: { opacity: 0, y: 30 },
+      to: { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
     })
 
+    // Animation simple de la photo
     createScrollAnimation(photoRef.current, {
-      from: { opacity: 0, x: -100, scale: 0.8 },
-      to: { opacity: 1, x: 0, scale: 1, duration: 1.2, ease: "back.out(1.7)" }
+      from: { opacity: 0, scale: 0.9 },
+      to: { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" }
     })
 
+    // Animation simple du contenu principal
     createScrollAnimation(descriptionRef.current, {
-      from: { opacity: 0, y: 30 },
-      to: { opacity: 1, y: 0, duration: 0.8, delay: 0.2, ease: "back.out(1.7)" }
+      from: { opacity: 0, y: 20 },
+      to: { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
     })
-
-    createScrollAnimation(strengthsRef.current, {
-      from: { opacity: 0, y: 30 },
-      to: { opacity: 1, y: 0, duration: 0.8, delay: 0.4, ease: "back.out(1.7)" }
-    })
-
-    createScrollAnimation(timelineRef.current, {
-      from: { opacity: 0, y: 30 },
-      to: { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
-    })
-    if (ctaRef.current) {
-      gsap.fromTo(ctaRef.current,
-        { opacity: 0, y: 50, scale: 0.9 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 1.2,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: ctaRef.current,
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse"
-          }
-        }
-      )
-    }
 
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill())
@@ -208,7 +183,7 @@ function getLatestYear(yearString: string): number {
     if (tabIndicatorRef.current) {
       gsap.to(tabIndicatorRef.current, {
         left: activeTab === 'experience' ? '2px' : 'calc(50% + 2px)',
-        duration: 0.4,
+        duration: 0.3,
         ease: "power2.out"
       })
     }
@@ -240,7 +215,7 @@ function getLatestYear(yearString: string): number {
               <div ref={photoRef} className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 h-full flex flex-col items-center justify-center">
                 <div className="relative overflow-hidden rounded-2xl shadow-xl w-64 h-64">
                   <Image
-                    src="/memoji.jpg"
+                    src="/minhaj.jpg"
                     alt="Photo de profil"
                     fill
                     sizes="(max-width: 768px) 100vw, 256px"

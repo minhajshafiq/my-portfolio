@@ -51,16 +51,6 @@ export function Loader({ children }: LoaderProps) {
       duration: 0.35,
       ease: "bounce.out"
     })
-    .to('.loader-dot', {
-      y: -30,
-      duration: 0.3,
-      ease: "back.out(1.3)"
-    })
-    .to('.loader-dot', {
-      y: 0,
-      duration: 0.3,
-      ease: "bounce.out"
-    })
 
     .to('.loader-dot', {
       backgroundColor: 'transparent',
