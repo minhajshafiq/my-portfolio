@@ -70,7 +70,7 @@ export function Projects() {
       technologies: ['Flutter', 'Clean Architecture', 'Riverpod', 'Material Design 3', 'Supabase', 'Flutter Secure Storage'],
       results: [t('projects.pocketly.results.interface'), t('projects.pocketly.results.pockets'), t('projects.pocketly.results.statistics')],
       github: 'https://github.com/minhajshafiq/Budgeting-app',
-      demo: 'https://pocketly-landingpage-hruvd8knz-minhajshafiqs-projects.vercel.app/',
+      demo: 'https://pocketly-web-blush.vercel.app/',
       category: t('projects.pocketly.category'),
       icon: DollarSign
     },
