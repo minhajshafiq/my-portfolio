@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Send, Mail, Linkedin, Github, CheckCircle, AlertCircle, ExternalLink } from 'lucide-react'
+import { Send, Mail, Linkedin, CheckCircle, AlertCircle, ExternalLink } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -131,10 +131,10 @@ export function Contact() {
       isExternal: true
     },
     {
-      icon: Github,
-      title: t('contact.github_title'),
-      value: 'Profil GitHub',
-      href: 'https://github.com/minhajshafiq',
+      icon: ExternalLink,
+      title: t('contact.malt_title'),
+      value: 'Profil Malt',
+      href: 'https://www.malt.fr/profile/minhajzubair',
       isExternal: true
     }
   ]

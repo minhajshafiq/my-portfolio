@@ -1,14 +1,14 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { Github, Linkedin, Mail, Heart, MapPin, Calendar, ArrowUp } from 'lucide-react'
+import { ExternalLink, Linkedin, Mail, Heart, MapPin, Calendar, ArrowUp } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
 const socialLinks = [
   {
-    name: 'GitHub',
-    href: 'https://github.com/minhajshafiq',
-    icon: Github,
+    name: 'Malt',
+    href: 'https://www.malt.fr/profile/minhajzubair',
+    icon: ExternalLink,
   },
   {
     name: 'LinkedIn',
@@ -117,13 +117,13 @@ export function Footer() {
                   <span>LinkedIn</span>
                 </a>
                 <a 
-                  href="https://github.com/minhajshafiq"
+                  href="https://www.malt.fr/profile/minhajzubair"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center space-x-3 text-custom-secondary hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer"
                 >
-                  <Github className="w-4 h-4" />
-                  <span>GitHub</span>
+                  <ExternalLink className="w-4 h-4" />
+                  <span>Malt</span>
                 </a>
               </div>
             </motion.div>

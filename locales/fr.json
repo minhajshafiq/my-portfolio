@@ -129,10 +129,10 @@
     "description": "Découvrez mon parcours professionnel et mes compétences en développement web",
     "profile": {
       "title": "Mon profil",
-      "paragraph1": "Développeur Junior passionné, j'apprends et développe avec Next.js, Spring Boot et Flutter pour créer des applications web et mobiles.",
-      "paragraph2": "Mon approche ? Transformer vos idées en solutions concrètes avec du code propre et maintenable, en apprenant continuellement.",
-      "paragraph3": "Curieux et motivé, je vois chaque projet comme une opportunité d'apprentissage et d'amélioration de mes compétences.",
-      "paragraph4": "Prêt à rejoindre votre équipe pour contribuer et grandir professionnellement."
+      "paragraph1": "👋 Moi c'est Minhaj, développeur passionné par le code, mais aussi par les projets concrets et ambitieux.",
+      "paragraph2": "J'aime apprendre en continu, relever des défis techniques et voir une idée prendre vie grâce au développement.",
+      "paragraph3": "En dehors du code, je m'intéresse à l'entrepreneuriat (applications, immobilier, indépendance financière) et j'aime les projets qui ont un vrai impact. Je suis aussi passionné par le sport et le dépassement de soi : progresser un peu plus chaque jour est ma philosophie, autant dans la salle de sport que derrière mon clavier.",
+      "paragraph4": "💡 Ce qui m'anime : Transformer une idée en solution réelle. Construire pas à pas mes objectifs de vie. Grandir en tant que développeur, mais aussi comme personne. Aujourd'hui, je recherche des projets ou une équipe où je pourrai contribuer avec mon énergie, ma curiosité et ma détermination."
     },
     "skills": {
       "title": "Mes compétences",
@@ -307,7 +307,7 @@
     "contact_form": "Formulaire de contact",
     "email_title": "Email",
     "linkedin_title": "LinkedIn",
-    "github_title": "GitHub"
+    "malt_title": "Malt"
   },
   "footer": {
     "rights": "Tous droits réservés",

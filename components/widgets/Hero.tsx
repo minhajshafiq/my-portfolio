@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, Handshake, Circle, ChevronDown } from 'lucide-react'
 import { gsap } from 'gsap'
+import Image from 'next/image'
 import { useLoader } from '@/hooks/useLoader'
 import { useTranslation } from '@/hooks/useTranslation'
 
@@ -178,6 +179,23 @@ export function Hero() {
         >
 
 
+          {/* Photo de profil */}
+          <motion.div 
+            variants={itemVariants}
+            className="flex justify-center mb-6"
+          >
+            <div className="relative w-32 h-32 lg:w-40 lg:h-40 rounded-full overflow-hidden shadow-2xl border-4 border-white dark:border-gray-800">
+              <Image
+                src="/minhaj.jpg"
+                alt="Photo de profil Minhaj"
+                fill
+                sizes="(max-width: 768px) 128px, 160px"
+                className="object-cover"
+                priority
+              />
+            </div>
+          </motion.div>
+
           {/* Badge disponibilité */}
           <motion.div 
             variants={itemVariants}
@@ -218,7 +236,6 @@ export function Hero() {
           >
             {t('hero.title')}
           </motion.h1>
-
 
           <motion.p 
             variants={itemVariants}
