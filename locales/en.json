@@ -51,75 +51,75 @@
     "skills": {
       "web_apps": {
         "title": "Web Applications",
-        "description": "Web application development with Next.js and Spring Boot. Creation of modern user interfaces and robust backend APIs."
+        "description": "I develop modern web applications with Next.js and Spring Boot. Passionate about creating elegant user interfaces and performant backend APIs that deliver exceptional user experiences."
       },
       "apis": {
         "title": "Backend APIs",
-        "description": "RESTful API development with Spring Boot and Java. Database integration and data management."
+        "description": "I design and develop robust RESTful APIs with Spring Boot and Java. Specialized in database integration and efficient data management for scalable applications."
       },
       "mobile_apps": {
         "title": "Mobile Applications",
-        "description": "Mobile application development with Flutter and React Native. Creation of native and cross-platform user interfaces."
+        "description": "I create cross-platform mobile applications with Flutter and React Native. My goal: develop smooth and performant native interfaces on iOS and Android."
       },
       "cloud_infrastructure": {
         "title": "Cloud Deployment",
-        "description": "Application deployment with Firebase, Supabase and Vercel. Database configuration and cloud services."
+        "description": "I master application deployment on Firebase, Supabase and Vercel. Optimal configuration of databases and cloud services to ensure performance and reliability."
       },
       "databases": {
         "title": "Databases",
-        "description": "Design and management of PostgreSQL and SQLite databases. SQL queries and performance optimization."
+        "description": "I design and optimize PostgreSQL and SQLite databases. Expertise in complex SQL queries and performance optimization for fast and efficient applications."
       },
       "agile_collaboration": {
         "title": "Team Collaboration",
-        "description": "Team collaboration with GitHub, code review and agile methodologies. Continuous learning and knowledge sharing."
+        "description": "I collaborate effectively in teams with GitHub, actively participate in code reviews and apply agile methodologies. Always ready to learn and share my knowledge."
       },
       "communication": {
         "title": "Communication",
-        "description": "Code documentation and technical communication. Ability to explain technical concepts and work in teams."
+        "description": "I document my code clearly and communicate effectively on technical aspects. I enjoy explaining complex concepts in an accessible way and working in synergy with the team."
       },
       "innovative_solutions": {
         "title": "Problem Solving",
-        "description": "Analysis and resolution of technical problems. Solution research and learning of new technologies."
+        "description": "I love analyzing and solving complex technical problems. Curious and persevering, I actively seek innovative solutions and quickly learn new technologies."
       },
       "tech_watch": {
         "title": "Technology Watch",
-        "description": "Following new technologies and frameworks. Continuous learning and adaptation to web development evolution."
+        "description": "I am passionate about new technologies and frameworks. Constantly monitoring, I continuously learn and quickly adapt to web development evolutions to stay up to date."
       },
       "testing_quality": {
         "title": "Testing & Quality",
-        "description": "Writing unit and integration tests. Good development practices and code quality improvement."
+        "description": "I write unit and integration tests to ensure code quality. Committed to best practices, I strive to continuously improve the robustness and maintainability of applications."
       }
     },
     "freelance_services": {
       "web_sites": {
-        "title": "Websites",
-        "description": "Website creation with Next.js and Spring Boot. Modern and responsive design for your online presence.",
-        "benefits": ["Next.js", "Spring Boot", "Responsive design"],
-        "pricing": "Starting from €800"
+        "title": "Web Development",
+        "description": "Monthly support for the development and evolution of your websites with Next.js and Spring Boot. Continuous support and iterative development adapted to your needs.",
+        "benefits": ["Next.js + React", "TypeScript", "Integrated SEO"],
+        "pricing": "Starting from €400/month"
       },
       "mobile_applications": {
         "title": "Mobile Applications",
-        "description": "Mobile application development with Flutter and React Native. Cross-platform applications and modern user interfaces.",
-        "benefits": ["Flutter", "React Native", "Cross-platform"],
-        "pricing": "Starting from €1500"
+        "description": "Monthly development and maintenance of mobile applications with Flutter and React Native. Continuous evolution of your cross-platform application.",
+        "benefits": ["Flutter + Dart", "React Native/Expo", "Cross-platform"],
+        "pricing": "Starting from €500/month"
       },
       "proactive_maintenance": {
         "title": "Maintenance & Support",
-        "description": "Technical support and maintenance of your applications. Bug fixes and continuous improvements.",
-        "benefits": ["Technical support", "Bug fixes", "Improvements"],
-        "pricing": "Starting from €150/month"
+        "description": "Technical support and proactive maintenance of your applications. Bug fixes, security updates and continuous improvements.",
+        "benefits": ["Firebase + Supabase", "24/7 Monitoring", "Automatic backup"],
+        "pricing": "Starting from €120/month"
       },
       "performance_optimization": {
         "title": "Performance Optimization",
-        "description": "Improving the performance of your web applications. Code optimization and user experience enhancement.",
-        "benefits": ["Code optimization", "Web performance", "Enhanced UX"],
-        "pricing": "Starting from €400"
+        "description": "Continuous improvement of your web application performance. Monthly code optimization, loading speed and user experience enhancement.",
+        "benefits": ["Next.js optimization", "Redis cache", "Global CDN"],
+        "pricing": "Starting from €250/month"
       },
       "secure_deployment": {
-        "title": "Deployment",
-        "description": "Online deployment of your applications with Vercel, Firebase and Supabase. Domain configuration and SSL.",
-        "benefits": ["Vercel/Firebase", "SSL configuration", "Online deployment"],
-        "pricing": "Starting from €100"
+        "title": "Deployment & DevOps",
+        "description": "Monthly management of your application deployment with Vercel, Firebase and Supabase. Configuration, monitoring and continuous security.",
+        "benefits": ["Docker + CI/CD", "Clerk authentication", "JWT security"],
+        "pricing": "Starting from €150/month"
       }
     }
   },

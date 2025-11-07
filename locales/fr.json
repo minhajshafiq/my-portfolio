@@ -51,75 +51,75 @@
     "skills": {
       "web_apps": {
         "title": "Applications Web",
-        "description": "Développement d'applications web avec Next.js et Spring Boot. Création d'interfaces utilisateur modernes et APIs backend robustes."
+        "description": "Je développe des applications web modernes avec Next.js et Spring Boot. Passionné par la création d'interfaces utilisateur élégantes et d'APIs backend performantes qui offrent une expérience utilisateur exceptionnelle."
       },
       "apis": {
         "title": "APIs Backend",
-        "description": "Développement d'APIs RESTful avec Spring Boot et Java. Intégration de bases de données et gestion des données."
+        "description": "Je conçois et développe des APIs RESTful robustes avec Spring Boot et Java. Spécialisé dans l'intégration de bases de données et la gestion efficace des données pour des applications scalables."
       },
       "mobile_apps": {
         "title": "Applications Mobiles",
-        "description": "Développement d'applications mobiles avec Flutter et React Native. Création d'interfaces utilisateur natives et cross-platform."
+        "description": "Je crée des applications mobiles cross-platform avec Flutter et React Native. Mon objectif : développer des interfaces natives fluides et performantes sur iOS et Android."
       },
       "cloud_infrastructure": {
         "title": "Déploiement Cloud",
-        "description": "Déploiement d'applications avec Firebase, Supabase et Vercel. Configuration de bases de données et services cloud."
+        "description": "Je maîtrise le déploiement d'applications sur Firebase, Supabase et Vercel. Configuration optimale des bases de données et des services cloud pour garantir performance et fiabilité."
       },
       "databases": {
         "title": "Bases de Données",
-        "description": "Conception et gestion de bases de données PostgreSQL et SQLite. Requêtes SQL et optimisation des performances."
+        "description": "Je conçois et optimise des bases de données PostgreSQL et SQLite. Expertise en requêtes SQL complexes et en optimisation des performances pour des applications rapides et efficaces."
       },
       "agile_collaboration": {
         "title": "Travail en Équipe",
-        "description": "Collaboration en équipe avec GitHub, code review et méthodologies agiles. Apprentissage continu et partage de connaissances."
+        "description": "Je collabore efficacement en équipe avec GitHub, participe activement aux code reviews et applique les méthodologies agiles. Toujours prêt à apprendre et partager mes connaissances."
       },
       "communication": {
         "title": "Communication",
-        "description": "Documentation de code et communication technique. Capacité à expliquer les concepts techniques et à travailler en équipe."
+        "description": "Je documente mon code de manière claire et communique efficacement sur les aspects techniques. J'aime expliquer les concepts complexes de manière accessible et travailler en synergie avec l'équipe."
       },
       "innovative_solutions": {
         "title": "Résolution de Problèmes",
-        "description": "Analyse et résolution de problèmes techniques. Recherche de solutions et apprentissage de nouvelles technologies."
+        "description": "J'adore analyser et résoudre des problèmes techniques complexes. Curieux et persévérant, je recherche activement des solutions innovantes et j'apprends rapidement les nouvelles technologies."
       },
       "tech_watch": {
         "title": "Veille Technologique",
-        "description": "Suivi des nouvelles technologies et frameworks. Apprentissage continu et adaptation aux évolutions du développement web."
+        "description": "Je suis passionné par les nouvelles technologies et frameworks. En veille constante, j'apprends continuellement et m'adapte rapidement aux évolutions du développement web pour rester à jour."
       },
       "testing_quality": {
         "title": "Tests & Qualité",
-        "description": "Écriture de tests unitaires et d'intégration. Bonnes pratiques de développement et amélioration de la qualité du code."
+        "description": "Je rédige des tests unitaires et d'intégration pour garantir la qualité du code. Attaché aux bonnes pratiques, je m'efforce d'améliorer continuellement la robustesse et la maintenabilité des applications."
       }
     },
     "freelance_services": {
       "web_sites": {
-        "title": "Sites Web",
-        "description": "Création de sites web avec Next.js et Spring Boot. Design moderne et responsive pour votre présence en ligne.",
-        "benefits": ["Next.js", "Spring Boot", "Design responsive"],
-        "pricing": "À partir de 800€"
+        "title": "Développement Web",
+        "description": "Accompagnement mensuel pour le développement et l'évolution de vos sites web avec Next.js et Spring Boot. Support continu et développement itératif adapté à vos besoins.",
+        "benefits": ["Next.js + React", "TypeScript", "SEO intégré"],
+        "pricing": "À partir de 400€/mois"
       },
       "mobile_applications": {
         "title": "Applications Mobiles",
-        "description": "Développement d'applications mobiles avec Flutter et React Native. Applications cross-platform et interfaces utilisateur modernes.",
-        "benefits": ["Flutter", "React Native", "Multi-plateforme"],
-        "pricing": "À partir de 1500€"
+        "description": "Développement et maintenance mensuelle d'applications mobiles avec Flutter et React Native. Évolution continue de votre application cross-platform.",
+        "benefits": ["Flutter + Dart", "React Native/Expo", "Cross-platform"],
+        "pricing": "À partir de 500€/mois"
       },
       "proactive_maintenance": {
         "title": "Maintenance & Support",
-        "description": "Support technique et maintenance de vos applications. Corrections de bugs et améliorations continues.",
-        "benefits": ["Support technique", "Corrections bugs", "Améliorations"],
-        "pricing": "À partir de 150€/mois"
+        "description": "Support technique et maintenance proactive de vos applications. Corrections de bugs, mises à jour de sécurité et améliorations continues.",
+        "benefits": ["Firebase + Supabase", "Monitoring 24/7", "Sauvegarde automatique"],
+        "pricing": "À partir de 120€/mois"
       },
       "performance_optimization": {
         "title": "Optimisation Performance",
-        "description": "Amélioration des performances de vos applications web. Optimisation du code et de l'expérience utilisateur.",
-        "benefits": ["Optimisation code", "Performance web", "UX améliorée"],
-        "pricing": "À partir de 400€"
+        "description": "Amélioration continue des performances de vos applications web. Optimisation mensuelle du code, de la vitesse de chargement et de l'expérience utilisateur.",
+        "benefits": ["Optimisation Next.js", "Cache Redis", "CDN global"],
+        "pricing": "À partir de 250€/mois"
       },
       "secure_deployment": {
-        "title": "Déploiement",
-        "description": "Mise en ligne de vos applications avec Vercel, Firebase et Supabase. Configuration des domaines et SSL.",
-        "benefits": ["Vercel/Firebase", "Configuration SSL", "Mise en ligne"],
-        "pricing": "À partir de 100€"
+        "title": "Déploiement & DevOps",
+        "description": "Gestion mensuelle du déploiement de vos applications avec Vercel, Firebase et Supabase. Configuration, monitoring et sécurité continue.",
+        "benefits": ["Docker + CI/CD", "Authentification Clerk", "Sécurité JWT"],
+        "pricing": "À partir de 150€/mois"
       }
     }
   },

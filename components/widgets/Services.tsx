@@ -85,35 +85,35 @@ export function Services() {
       icon: Code, 
       title: t('services.freelance_services.web_sites.title'), 
       description: t('services.freelance_services.web_sites.description'),
-      benefits: ['Next.js 15 + React', 'TypeScript', 'Integrated SEO'],
+      benefits: t('services.freelance_services.web_sites.benefits', { returnObjects: true }) as string[],
       pricing: t('services.freelance_services.web_sites.pricing')
     },
     { 
       icon: Smartphone, 
       title: t('services.freelance_services.mobile_applications.title'), 
       description: t('services.freelance_services.mobile_applications.description'),
-      benefits: ['Flutter + Dart', 'React Native/Expo', 'Cross-platform'],
+      benefits: t('services.freelance_services.mobile_applications.benefits', { returnObjects: true }) as string[],
       pricing: t('services.freelance_services.mobile_applications.pricing')
     },
     { 
       icon: Settings, 
       title: t('services.freelance_services.proactive_maintenance.title'), 
       description: t('services.freelance_services.proactive_maintenance.description'),
-      benefits: ['Firebase + Supabase', '24/7 Monitoring', 'Automatic backup'],
+      benefits: t('services.freelance_services.proactive_maintenance.benefits', { returnObjects: true }) as string[],
       pricing: t('services.freelance_services.proactive_maintenance.pricing')
     },
     { 
       icon: Zap, 
       title: t('services.freelance_services.performance_optimization.title'), 
       description: t('services.freelance_services.performance_optimization.description'),
-      benefits: ['Next.js optimization', 'Redis cache', 'Global CDN'],
+      benefits: t('services.freelance_services.performance_optimization.benefits', { returnObjects: true }) as string[],
       pricing: t('services.freelance_services.performance_optimization.pricing')
     },
     { 
       icon: Globe, 
       title: t('services.freelance_services.secure_deployment.title'), 
       description: t('services.freelance_services.secure_deployment.description'),
-      benefits: ['Docker + CI/CD', 'Clerk authentication', 'JWT security'],
+      benefits: t('services.freelance_services.secure_deployment.benefits', { returnObjects: true }) as string[],
       pricing: t('services.freelance_services.secure_deployment.pricing')
     },
   ]

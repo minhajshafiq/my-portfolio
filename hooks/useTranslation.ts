@@ -49,7 +49,7 @@ export function useTranslation() {
     }
   }, [language])
 
-  const t = (key: string, params?: Record<string, string>) => {
+  const t = (key: string, params?: Record<string, any>) => {
     const keys = key.split('.')
     let value: any = translations[language]
     
@@ -61,8 +61,13 @@ export function useTranslation() {
       }
     }
 
+    // Support for returnObjects option
+    if (params?.returnObjects && Array.isArray(value)) {
+      return value
+    }
+
     if (typeof value === 'string' && params) {
-      return Object.entries(params).reduce((str: string, [key, val]: [string, string]) => {
+      return Object.entries(params).reduce((str: string, [key, val]: [string, any]) => {
         return str.replace(new RegExp(`{{${key}}}`, 'g'), val)
       }, value)
     }
