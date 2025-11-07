@@ -30,91 +30,91 @@ export function Services() {
   const cdiSkills = [
     { 
       icon: Code, 
-      title: t('services.skills.web_apps.title'), 
-      description: t('services.skills.web_apps.description') 
+      title: t('services.skills.web_apps.title') as string, 
+      description: t('services.skills.web_apps.description') as string
     },
     { 
       icon: Database, 
-      title: t('services.skills.apis.title'), 
-      description: t('services.skills.apis.description') 
+      title: t('services.skills.apis.title') as string, 
+      description: t('services.skills.apis.description') as string
     },
     { 
       icon: Smartphone, 
-      title: t('services.skills.mobile_apps.title'), 
-      description: t('services.skills.mobile_apps.description') 
+      title: t('services.skills.mobile_apps.title') as string, 
+      description: t('services.skills.mobile_apps.description') as string
     },
     { 
       icon: Cloud, 
-      title: t('services.skills.cloud_infrastructure.title'), 
-      description: t('services.skills.cloud_infrastructure.description') 
+      title: t('services.skills.cloud_infrastructure.title') as string, 
+      description: t('services.skills.cloud_infrastructure.description') as string
     },
     { 
       icon: Database, 
-      title: t('services.skills.databases.title'), 
-      description: t('services.skills.databases.description') 
+      title: t('services.skills.databases.title') as string, 
+      description: t('services.skills.databases.description') as string
     },
     { 
       icon: Users, 
-      title: t('services.skills.agile_collaboration.title'), 
-      description: t('services.skills.agile_collaboration.description') 
+      title: t('services.skills.agile_collaboration.title') as string, 
+      description: t('services.skills.agile_collaboration.description') as string
     },
     { 
       icon: MessageSquare, 
-      title: t('services.skills.communication.title'), 
-      description: t('services.skills.communication.description') 
+      title: t('services.skills.communication.title') as string, 
+      description: t('services.skills.communication.description') as string
     },
     { 
       icon: Lightbulb, 
-      title: t('services.skills.innovative_solutions.title'), 
-      description: t('services.skills.innovative_solutions.description') 
+      title: t('services.skills.innovative_solutions.title') as string, 
+      description: t('services.skills.innovative_solutions.description') as string
     },
     { 
       icon: TrendingUp, 
-      title: t('services.skills.tech_watch.title'), 
-      description: t('services.skills.tech_watch.description') 
+      title: t('services.skills.tech_watch.title') as string, 
+      description: t('services.skills.tech_watch.description') as string
     },
     { 
       icon: Briefcase, 
-      title: t('services.skills.testing_quality.title'), 
-      description: t('services.skills.testing_quality.description') 
+      title: t('services.skills.testing_quality.title') as string, 
+      description: t('services.skills.testing_quality.description') as string
     },
   ]
 
   const freelanceServices = [
     { 
       icon: Code, 
-      title: t('services.freelance_services.web_sites.title'), 
-      description: t('services.freelance_services.web_sites.description'),
+      title: t('services.freelance_services.web_sites.title') as string, 
+      description: t('services.freelance_services.web_sites.description') as string,
       benefits: t('services.freelance_services.web_sites.benefits', { returnObjects: true }) as string[],
-      pricing: t('services.freelance_services.web_sites.pricing')
+      pricing: t('services.freelance_services.web_sites.pricing') as string
     },
     { 
       icon: Smartphone, 
-      title: t('services.freelance_services.mobile_applications.title'), 
-      description: t('services.freelance_services.mobile_applications.description'),
+      title: t('services.freelance_services.mobile_applications.title') as string, 
+      description: t('services.freelance_services.mobile_applications.description') as string,
       benefits: t('services.freelance_services.mobile_applications.benefits', { returnObjects: true }) as string[],
-      pricing: t('services.freelance_services.mobile_applications.pricing')
+      pricing: t('services.freelance_services.mobile_applications.pricing') as string
     },
     { 
       icon: Settings, 
-      title: t('services.freelance_services.proactive_maintenance.title'), 
-      description: t('services.freelance_services.proactive_maintenance.description'),
+      title: t('services.freelance_services.proactive_maintenance.title') as string, 
+      description: t('services.freelance_services.proactive_maintenance.description') as string,
       benefits: t('services.freelance_services.proactive_maintenance.benefits', { returnObjects: true }) as string[],
-      pricing: t('services.freelance_services.proactive_maintenance.pricing')
+      pricing: t('services.freelance_services.proactive_maintenance.pricing') as string
     },
     { 
       icon: Zap, 
-      title: t('services.freelance_services.performance_optimization.title'), 
-      description: t('services.freelance_services.performance_optimization.description'),
+      title: t('services.freelance_services.performance_optimization.title') as string, 
+      description: t('services.freelance_services.performance_optimization.description') as string,
       benefits: t('services.freelance_services.performance_optimization.benefits', { returnObjects: true }) as string[],
-      pricing: t('services.freelance_services.performance_optimization.pricing')
+      pricing: t('services.freelance_services.performance_optimization.pricing') as string
     },
     { 
       icon: Globe, 
-      title: t('services.freelance_services.secure_deployment.title'), 
-      description: t('services.freelance_services.secure_deployment.description'),
+      title: t('services.freelance_services.secure_deployment.title') as string, 
+      description: t('services.freelance_services.secure_deployment.description') as string,
       benefits: t('services.freelance_services.secure_deployment.benefits', { returnObjects: true }) as string[],
-      pricing: t('services.freelance_services.secure_deployment.pricing')
+      pricing: t('services.freelance_services.secure_deployment.pricing') as string
     },
   ]
 

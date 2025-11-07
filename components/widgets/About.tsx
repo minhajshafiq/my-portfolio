@@ -30,33 +30,33 @@ export function About() {
   const STRENGTHS_DATA = [
     {
       icon: FaCode,
-      title: t('about.skills.fullstack.title'),
-      description: t('about.skills.fullstack.description')
+      title: t('about.skills.fullstack.title') as string,
+      description: t('about.skills.fullstack.description') as string
     },
     {
       icon: FaBriefcase,
-      title: t('about.skills.mobile.title'),
-      description: t('about.skills.mobile.description')
+      title: t('about.skills.mobile.title') as string,
+      description: t('about.skills.mobile.description') as string
     },
     {
       icon: FaGraduationCap,
-      title: t('about.skills.learning.title'),
-      description: t('about.skills.learning.description')
+      title: t('about.skills.learning.title') as string,
+      description: t('about.skills.learning.description') as string
     },
     {
       icon: FaUsers,
-      title: t('about.skills.teamwork.title'),
-      description: t('about.skills.teamwork.description')
+      title: t('about.skills.teamwork.title') as string,
+      description: t('about.skills.teamwork.description') as string
     },
     {
       icon: FaComments,
-      title: t('about.skills.communication.title'),
-      description: t('about.skills.communication.description')
+      title: t('about.skills.communication.title') as string,
+      description: t('about.skills.communication.description') as string
     },
     {
       icon: FaLightbulb,
-      title: t('about.skills.problem_solving.title'),
-      description: t('about.skills.problem_solving.description')
+      title: t('about.skills.problem_solving.title') as string,
+      description: t('about.skills.problem_solving.description') as string
     },
   ]
 
@@ -65,38 +65,38 @@ export function About() {
       formations: [
         {
           year: "2017-2019",
-          degree: t('about.timeline.formations.stti2d.degree'),
-          school: t('about.timeline.formations.stti2d.school'),
+          degree: t('about.timeline.formations.stti2d.degree') as string,
+          school: t('about.timeline.formations.stti2d.school') as string,
           type: "formation",
-          description: t('about.timeline.formations.stti2d.description')
+          description: t('about.timeline.formations.stti2d.description') as string
         },
         {
           year: "2022-2023",
-          degree: t('about.timeline.formations.openclassrooms.degree'),
-          school: t('about.timeline.formations.openclassrooms.school'),
+          degree: t('about.timeline.formations.openclassrooms.degree') as string,
+          school: t('about.timeline.formations.openclassrooms.school') as string,
           type: "formation",
-          description: t('about.timeline.formations.openclassrooms.description')
+          description: t('about.timeline.formations.openclassrooms.description') as string
         },
         {
           year: "2024-2025",
-          degree: t('about.timeline.formations.doranco.degree'),
-          school: t('about.timeline.formations.doranco.school'),
+          degree: t('about.timeline.formations.doranco.degree') as string,
+          school: t('about.timeline.formations.doranco.school') as string,
           type: "formation",
-          description: t('about.timeline.formations.doranco.description')
+          description: t('about.timeline.formations.doranco.description') as string
         },
         {
           year: "Mars 2025",
-          degree: t('about.timeline.experiences.freelance.degree'),
-          school: t('about.timeline.experiences.freelance.school'),
+          degree: t('about.timeline.experiences.freelance.degree') as string,
+          school: t('about.timeline.experiences.freelance.school') as string,
           type: "experience",
-          description: t('about.timeline.experiences.freelance.description')
+          description: t('about.timeline.experiences.freelance.description') as string
         },
         {
           year: "Nov 2024 - Fév 2025",
-          degree: t('about.timeline.experiences.ukenoon.degree'),
-          school: t('about.timeline.experiences.ukenoon.school'),
+          degree: t('about.timeline.experiences.ukenoon.degree') as string,
+          school: t('about.timeline.experiences.ukenoon.school') as string,
           type: "experience",
-          description: t('about.timeline.experiences.ukenoon.description')
+          description: t('about.timeline.experiences.ukenoon.description') as string
         },
       ],
     },
@@ -149,7 +149,6 @@ function getLatestYear(yearString: string): number {
   const strengthsRef = useRef<HTMLDivElement>(null)
   const timelineRef = useRef<HTMLDivElement>(null)
   const tabIndicatorRef = useRef<HTMLDivElement>(null)
-  const ctaRef = useRef<HTMLDivElement>(null)
 
   const { createScrollAnimation } = useGSAPAnimation()
 

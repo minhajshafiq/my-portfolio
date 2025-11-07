@@ -40,11 +40,11 @@ export function Contact() {
     if (touched[name]) {
       let error = ""
       if (!value.trim()) {
-        error = t(`errors.${name}`)
+        error = t(`errors.${name}`) as string
       } else {
-        if (name === "name" && !validateName(value)) error = t("errors.invalid_name")
-        if (name === "email" && !validateEmail(value)) error = t("errors.invalid_email")
-        if (name === "message" && !validateMessage(value)) error = t("errors.invalid_message")
+        if (name === "name" && !validateName(value)) error = t("errors.invalid_name") as string
+        if (name === "email" && !validateEmail(value)) error = t("errors.invalid_email") as string
+        if (name === "message" && !validateMessage(value)) error = t("errors.invalid_message") as string
       }
       setErrors(prev => ({ ...prev, [name]: error }))
     }
@@ -64,9 +64,9 @@ export function Contact() {
 
 
     const newErrors: { [key: string]: string } = {}
-    if (!formData.name || !validateName(formData.name)) newErrors.name = t("errors.invalid_name")
-    if (!formData.email || !validateEmail(formData.email)) newErrors.email = t("errors.invalid_email")
-    if (!formData.message || !validateMessage(formData.message)) newErrors.message = t("errors.invalid_message")
+    if (!formData.name || !validateName(formData.name)) newErrors.name = t("errors.invalid_name") as string
+    if (!formData.email || !validateEmail(formData.email)) newErrors.email = t("errors.invalid_email") as string
+    if (!formData.message || !validateMessage(formData.message)) newErrors.message = t("errors.invalid_message") as string
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors)
@@ -118,21 +118,21 @@ export function Contact() {
   const contactMethods = [
     {
       icon: Mail,
-      title: t('contact.email_title'),
+      title: t('contact.email_title') as string,
       value: 'Email pro',
       href: 'mailto:minhaj.shafiq@icloud.com',
       isExternal: true
     },
     {
       icon: Linkedin,
-      title: t('contact.linkedin_title'),
+      title: t('contact.linkedin_title') as string,
       value: 'Profil LinkedIn',
       href: 'https://www.linkedin.com/in/minhajshafiq/',
       isExternal: true
     },
     {
       icon: ExternalLink,
-      title: t('contact.malt_title'),
+      title: t('contact.malt_title') as string,
       value: 'Profil Malt',
       href: 'https://www.malt.fr/profile/minhajzubair',
       isExternal: true
