@@ -3,8 +3,10 @@
 import { useState, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Send, Mail, Linkedin, CheckCircle, AlertCircle, ExternalLink } from 'lucide-react'
+import { Send, Mail, Linkedin, CheckCircle, AlertCircle, ExternalLink, Calendar, Circle } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
+import FadeIn from '@/components/ui/FadeIn'
+import Container from '@/components/ui/Container'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -117,9 +119,17 @@ export function Contact() {
 
   const contactMethods = [
     {
+      icon: Calendar,
+      title: 'Réserver un appel',
+      value: 'Calendrier de disponibilités',
+      href: 'https://cal.com/minhajshafiq',
+      isExternal: true,
+      isPrimary: true
+    },
+    {
       icon: Mail,
       title: t('contact.email_title') as string,
-      value: 'Email pro',
+      value: 'minhaj.shafiq@icloud.com',
       href: 'mailto:minhaj.shafiq@icloud.com',
       isExternal: true
     },
@@ -177,18 +187,30 @@ export function Contact() {
         <div className="absolute bottom-20 right-10 w-1 h-1 bg-[#8C0605] dark:bg-[#FFD6D6] rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-                 {/* En-tête */}
-         <div ref={headerRef} className="text-center mb-16">
-           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6 relative">
-             {t('contact.title')}
-             <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-[#8C0605] dark:bg-[#FFD6D6] rounded-full"></span>
-           </h2>
-           
-           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-             {t('contact.subtitle')}
-           </p>
-         </div>
+      <Container size="xl">
+        {/* En-tête */}
+        <FadeIn delay={0.2}>
+          <div ref={headerRef} className="text-center mb-16">
+            {/* Badge de disponibilité */}
+            <div className="flex justify-center mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-full">
+                <Circle className="w-2 h-2 fill-green-500 text-green-500 animate-pulse" />
+                <span className="text-sm font-medium text-green-700 dark:text-green-300">
+                  {t('hero.available_for_work')}
+                </span>
+              </div>
+            </div>
+
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6 relative">
+              {t('contact.title')}
+              <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-[#8C0605] dark:bg-[#FFD6D6] rounded-full"></span>
+            </h2>
+
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              {t('contact.subtitle')}
+            </p>
+          </div>
+        </FadeIn>
 
         <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start max-w-4xl lg:max-w-6xl mx-auto">
                      {/* Méthodes de contact */}
@@ -204,21 +226,44 @@ export function Contact() {
                    href={method.href}
                    target="_blank"
                    rel="noopener noreferrer"
-                   className="contact-method group flex items-center gap-4 p-4 bg-white dark:bg-gray-800 rounded-xl hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border border-gray-200 dark:border-gray-700 cursor-pointer"
+                   className={`contact-method group flex items-center gap-4 p-4 rounded-xl hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 cursor-pointer ${
+                     method.isPrimary
+                       ? 'bg-[#8C0605] dark:bg-[#FFD6D6] border-2 border-[#8C0605] dark:border-[#FFD6D6] shadow-lg'
+                       : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700'
+                   }`}
                  >
-                   <div className="p-3 bg-[#8C0605]/10 dark:bg-[#FFD6D6]/10 rounded-lg group-hover:bg-[#8C0605]/20 dark:group-hover:bg-[#FFD6D6]/20 transition-colors duration-300">
-                     <method.icon className="w-6 h-6 text-[#8C0605] dark:text-[#FFD6D6] group-hover:scale-110 transition-transform duration-300" />
+                   <div className={`p-3 rounded-lg transition-colors duration-300 ${
+                     method.isPrimary
+                       ? 'bg-white/20 dark:bg-gray-900/20 group-hover:bg-white/30 dark:group-hover:bg-gray-900/30'
+                       : 'bg-[#8C0605]/10 dark:bg-[#FFD6D6]/10 group-hover:bg-[#8C0605]/20 dark:group-hover:bg-[#FFD6D6]/20'
+                   }`}>
+                     <method.icon className={`w-6 h-6 group-hover:scale-110 transition-transform duration-300 ${
+                       method.isPrimary
+                         ? 'text-white dark:text-gray-900'
+                         : 'text-[#8C0605] dark:text-[#FFD6D6]'
+                     }`} />
                    </div>
                    <div className="flex-1">
-                     <h4 className="font-semibold text-gray-900 dark:text-white group-hover:text-[#8C0605] dark:group-hover:text-[#FFD6D6] transition-colors duration-300">
+                     <h4 className={`font-semibold transition-colors duration-300 ${
+                       method.isPrimary
+                         ? 'text-white dark:text-gray-900 group-hover:text-white/90 dark:group-hover:text-gray-800'
+                         : 'text-gray-900 dark:text-white group-hover:text-[#8C0605] dark:group-hover:text-[#FFD6D6]'
+                     }`}>
                        {method.title}
                      </h4>
-                     <p className="text-gray-600 dark:text-gray-300">
+                     <p className={method.isPrimary
+                       ? 'text-white/80 dark:text-gray-900/80'
+                       : 'text-gray-600 dark:text-gray-300'
+                     }>
                        {method.value}
                      </p>
                    </div>
                    {method.isExternal && (
-                     <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#8C0605] dark:group-hover:text-[#FFD6D6] transition-colors duration-300" />
+                     <ExternalLink className={`w-4 h-4 transition-colors duration-300 ${
+                       method.isPrimary
+                         ? 'text-white/70 dark:text-gray-900/70 group-hover:text-white dark:group-hover:text-gray-900'
+                         : 'text-gray-400 group-hover:text-[#8C0605] dark:group-hover:text-[#FFD6D6]'
+                     }`} />
                    )}
                  </a>
                ))}
@@ -360,8 +405,8 @@ export function Contact() {
             </form>
           </div>
         </div>
-      </div>
-    </div>
+        </div>
+      </Container>
     </section>
   )
 }

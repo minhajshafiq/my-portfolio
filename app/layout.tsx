@@ -2,10 +2,16 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
-import { Loader } from '@/components/widgets/Loader'
+import { Loader } from '@/components/sections/Loader'
 import { metadata as siteMetadata } from './metadata'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/react'
+import {
+  personStructuredData,
+  websiteStructuredData,
+  profilePageStructuredData,
+  breadcrumbStructuredData,
+} from './structured-data'
 
 export const metadata: Metadata = siteMetadata
 
@@ -79,6 +85,32 @@ export default function RootLayout({
                   (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)
               );
             `,
+          }}
+        />
+
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personStructuredData),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteStructuredData),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(profilePageStructuredData),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(breadcrumbStructuredData),
           }}
         />
       </head>

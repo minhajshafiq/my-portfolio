@@ -219,13 +219,13 @@ export function Header() {
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out will-change-transform',
         scrolled
-          ? 'bg-custom-primary/80 backdrop-blur-xl border-b border-gray-200/20 dark:border-gray-700/20'
+          ? 'bg-white/70 dark:bg-gray-900/70 backdrop-blur-lg border-b border-gray-200/20 dark:border-gray-700/20 shadow-sm'
           : 'bg-transparent'
       )}
     >
       <div className={cn(
         "container mx-auto px-6 py-4",
-        isOpen && "bg-custom-primary/95 backdrop-blur-xl"
+        isOpen && "bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-b-2xl"
       )}>
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -347,7 +347,7 @@ export function Header() {
                 opacity: { duration: 0.15 },
                 height: { duration: 0.2 }
               }}
-              className="md:hidden mt-4 pb-4 border-t border-gray-200/20 dark:border-gray-700/20 bg-custom-primary/95 backdrop-blur-xl"
+              className="md:hidden mt-4 pb-4 border-t border-gray-200/20 dark:border-gray-700/20"
             >
               <div className="flex flex-col space-y-2 pt-4">
                 {navItems.map((item, index) => (

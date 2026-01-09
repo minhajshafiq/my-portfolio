@@ -100,19 +100,6 @@ export function Projects() {
       demo: 'https://www.minhajshafiq.com/',
       category: t('projects.portfolio.category') as string,
       icon: Zap
-    },
-    {
-      id: 4,
-      key: 'wuthering_waves',
-      title: t('projects.wuthering_waves.title') as string,
-      description: t('projects.wuthering_waves.description') as string,
-      image: '/wuwa.png',
-      technologies: ['Next.js', 'GSAP', 'Tailwind CSS', 'TypeScript'],
-      results: [t('projects.wuthering_waves.results.animations') as string, t('projects.wuthering_waves.results.design') as string, t('projects.wuthering_waves.results.responsive') as string],
-      github: 'https://github.com/minhajshafiq/wuthering-waves-project',
-      demo: 'https://wuwa-delta.vercel.app',
-      category: t('projects.wuthering_waves.category') as string,
-      icon: Zap
     }
   ]
 
@@ -270,21 +257,23 @@ export function Projects() {
 
                     {/* Liens du projet */}
                     <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-                      <motion.a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 backdrop-blur-sm rounded-full transition-colors border font-medium text-sm sm:text-base ${
-                          project.key === 'mets_merveilles' || project.key === 'pocketly' || project.key === 'portfolio' || project.key === 'wuthering_waves'
-                            ? 'bg-white/10 text-white hover:bg-white/20 border-white/30'
-                            : 'bg-[#8C0605]/10 dark:bg-[#FFD6D6]/10 text-[#8C0605] dark:text-[#FFD6D6] hover:bg-[#8C0605]/20 dark:hover:bg-[#FFD6D6]/20 border-[#8C0605]/20 dark:border-[#FFD6D6]/20'
-                        }`}
-                      >
-                        <Github className="w-4 h-4" />
-                        GitHub
-                      </motion.a>
+                      {project.key !== 'pocketly' && (
+                        <motion.a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 backdrop-blur-sm rounded-full transition-colors border font-medium text-sm sm:text-base ${
+                            project.key === 'mets_merveilles' || project.key === 'pocketly' || project.key === 'portfolio' || project.key === 'wuthering_waves'
+                              ? 'bg-white/10 text-white hover:bg-white/20 border-white/30'
+                              : 'bg-[#8C0605]/10 dark:bg-[#FFD6D6]/10 text-[#8C0605] dark:text-[#FFD6D6] hover:bg-[#8C0605]/20 dark:hover:bg-[#FFD6D6]/20 border-[#8C0605]/20 dark:border-[#FFD6D6]/20'
+                          }`}
+                        >
+                          <Github className="w-4 h-4" />
+                          GitHub
+                        </motion.a>
+                      )}
                       <motion.a
                         href={project.demo}
                         target="_blank"
