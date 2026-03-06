@@ -1,38 +1,32 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from '@/hooks/useTranslation'
-import { 
-  ExternalLink, 
-  Github, 
-  ArrowRight, 
-  DollarSign, 
-  ShoppingBag, 
-  Zap,
-  Shield,
-  Layers,
-  Settings
-} from 'lucide-react'
-import { 
-  SiFlutter, 
-  SiNextdotjs, 
-  SiSpringboot, 
-  SiPostgresql, 
-  SiFirebase, 
-  SiClerk, 
-  SiTailwindcss, 
-  SiTypescript, 
-  SiNodedotjs, 
-  SiDocker, 
-  SiRedis, 
-  SiPrometheus, 
-  SiFramer, 
-  SiMaterialdesign
-} from 'react-icons/si'
-import { RiSupabaseFill } from 'react-icons/ri'
 import Image from 'next/image'
+import {
+  FaGithub,
+  FaExternalLinkAlt,
+  FaArrowRight,
+  FaMobileAlt,
+  FaUtensils,
+  FaLaptopCode,
+  FaLeaf,
+} from 'react-icons/fa'
+import {
+  SiFlutter,
+  SiNextdotjs,
+  SiSpringboot,
+  SiPostgresql,
+  SiFirebase,
+  SiClerk,
+  SiTailwindcss,
+  SiTypescript,
+  SiFramer,
+  SiSupabase,
+  SiSanity,
+} from 'react-icons/si'
 
-// Mapping des technologies vers leurs icônes
 const technologyIcons: { [key: string]: React.ComponentType<{ className?: string }> } = {
   'Flutter': SiFlutter,
   'Next.js': SiNextdotjs,
@@ -42,278 +36,371 @@ const technologyIcons: { [key: string]: React.ComponentType<{ className?: string
   'Clerk': SiClerk,
   'Tailwind CSS': SiTailwindcss,
   'TypeScript': SiTypescript,
-  'Node.js': SiNodedotjs,
-  'Docker': SiDocker,
-  'Redis': SiRedis,
-  'JWT': Shield,
-  'Prometheus': SiPrometheus,
-  'GSAP': Zap,
   'Framer Motion': SiFramer,
-  'Clean Architecture': Layers,
-  'Riverpod': Settings,
-  'Material Design 3': SiMaterialdesign,
-  'Supabase': RiSupabaseFill,
-  'Flutter Secure Storage': Shield
+  'Supabase': SiSupabase,
+  'GSAP': () => <span className="text-xs font-bold">GS</span>,
+  'Sanity': SiSanity,
 }
 
 export function Projects() {
   const { t } = useTranslation()
+  const [hoveredProject, setHoveredProject] = useState<number | null>(null)
 
   const projects = [
     {
       id: 1,
       key: 'pocketly',
-      title: t('projects.pocketly.title') as string,
-      description: t('projects.pocketly.description') as string,
+      title: t('projects.pocketly.title'),
+      description: t('projects.pocketly.description'),
       image: '/pocketly.jpg',
-      imageMobile: '/pocketly.jpg',
-      technologies: ['Flutter', 'Clean Architecture', 'Riverpod', 'Material Design 3', 'Supabase', 'Flutter Secure Storage'],
-      results: [t('projects.pocketly.results.interface') as string, t('projects.pocketly.results.pockets') as string, t('projects.pocketly.results.statistics') as string],
-      github: 'https://github.com/minhajshafiq/Budgeting-app',
+      technologies: ['Flutter', 'Supabase', 'TypeScript'],
+      results: [
+        t('projects.pocketly.results.interface'),
+        t('projects.pocketly.results.pockets'),
+        t('projects.pocketly.results.statistics'),
+      ],
+      github: null,
       demo: 'https://pocketly-web-blush.vercel.app/',
-      category: t('projects.pocketly.category') as string,
-      icon: DollarSign
+      category: t('projects.pocketly.category'),
+      icon: FaMobileAlt,
+      color: 'from-emerald-500 to-teal-600',
+      featured: true,
     },
     {
       id: 2,
       key: 'mets_merveilles',
-      title: t('projects.mets_merveilles.title') as string,
-      description: t('projects.mets_merveilles.description') as string,
-      image: '/metsmerveilles-mobile.png',
-      imageMobile: '/metsmerveilles.webp',
-      technologies: ['Next.js', 'Spring Boot', 'PostgreSQL', 'Firebase', 'Clerk', 'Tailwind CSS', 'TypeScript'],
-      results: [t('projects.mets_merveilles.results.interface') as string, t('projects.mets_merveilles.results.recipes') as string, t('projects.mets_merveilles.results.search') as string],
+      title: t('projects.mets_merveilles.title'),
+      description: t('projects.mets_merveilles.description'),
+      image: '/metsmerveilles.webp',
+      technologies: ['Next.js', 'Spring Boot', 'PostgreSQL', 'Firebase', 'Clerk'],
+      results: [
+        t('projects.mets_merveilles.results.interface'),
+        t('projects.mets_merveilles.results.recipes'),
+        t('projects.mets_merveilles.results.search'),
+      ],
       github: 'https://github.com/minhajshafiq/mets-merveilles',
       demo: 'https://front-mets-merveilles.vercel.app/',
-      category: t('projects.mets_merveilles.category') as string,
-      icon: ShoppingBag
+      category: t('projects.mets_merveilles.category'),
+      icon: FaUtensils,
+      color: 'from-orange-500 to-red-600',
     },
     {
       id: 3,
       key: 'portfolio',
-      title: t('projects.portfolio.title') as string,
-      description: t('projects.portfolio.description') as string,
+      title: t('projects.portfolio.title'),
+      description: t('projects.portfolio.description'),
       image: '/portfolio.png',
-      technologies: ['Next.js', 'GSAP', 'Framer Motion', 'Tailwind CSS', 'TypeScript'],
-      results: [t('projects.portfolio.results.performance') as string, t('projects.portfolio.results.animations') as string, t('projects.portfolio.results.seo') as string],
+      technologies: ['Next.js', 'GSAP', 'Framer Motion', 'Tailwind CSS'],
+      results: [
+        t('projects.portfolio.results.performance'),
+        t('projects.portfolio.results.animations'),
+        t('projects.portfolio.results.seo'),
+      ],
       github: 'https://github.com/minhajshafiq/my-portfolio',
       demo: 'https://www.minhajshafiq.com/',
-      category: t('projects.portfolio.category') as string,
-      icon: Zap
-    }
+      category: t('projects.portfolio.category'),
+      icon: FaLaptopCode,
+      color: 'from-purple-500 to-pink-600',
+    },
+    {
+      id: 4,
+      key: 'unityvert',
+      title: t('projects.unityvert.title'),
+      description: t('projects.unityvert.description'),
+      image: '/photos/unityvert.jpg',
+      technologies: ['Next.js', 'Tailwind CSS', 'TypeScript', 'Sanity'],
+      results: [
+        t('projects.unityvert.results.presence'),
+        t('projects.unityvert.results.design'),
+        t('projects.unityvert.results.contact'),
+      ],
+      github: null,
+      demo: 'https://unityvert.fr/',
+      category: t('projects.unityvert.category'),
+      icon: FaLeaf,
+      color: 'from-green-600 to-emerald-700',
+    },
   ]
 
+  const featuredProject = projects.find((p) => p.featured)
+  const otherProjects = projects.filter((p) => !p.featured)
+
   return (
-    <section 
-      id="projects" 
-      className="section bg-custom-primary"
-      style={{ 
-        paddingTop: '80px', /* Espace pour la navbar */
-        minHeight: '100vh'
-      }}
-    >
-      <div className="container">
-        {/* En-tête */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-4xl lg:text-5xl font-bold text-custom-title mb-4">
-            Ce que j&apos;ai réalisé
-          </h2>
-          <p className="text-xl text-custom-secondary max-w-2xl mx-auto">
-            Une sélection de projets concrets, développés avec soin et impact.
-          </p>
-        </motion.div>
+    <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-900/50 overflow-hidden">
+      <div className="container mx-auto px-6">
+        <div className="max-w-6xl mx-auto">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <span className="text-[#8C0605] dark:text-[#FFD6D6] font-mono text-sm tracking-widest uppercase mb-4 block">
+              {'<'} {t('projects.title')} {'/>'}
+            </span>
+            <h2 className="text-5xl md:text-7xl font-black text-custom-title leading-none mb-6">
+              {t('projects.subtitle')}
+            </h2>
+            <p className="text-lg text-custom-secondary max-w-2xl">
+              Une sélection de projets concrets, développés avec passion et attention aux détails.
+            </p>
+          </motion.div>
 
-        {/* Conteneur des cartes */}
-        <ul id="cards">
-          {projects.map((project, index) => (
-            <li key={project.id} id={`card${index + 1}`} className="card">
-              <div className="card-body">
-                <div className="flex flex-col lg:flex-row h-full w-full">
-                  {/* Image du projet */}
-                  <div className={`lg:w-2/5 relative h-40 lg:h-full overflow-hidden group hidden lg:block ${
-                    project.key === 'mets_merveilles' || project.key === 'pocketly' ? 'rounded-2xl' : ''
-                  }`}>
-                    {project.image && project.image !== '/api/placeholder/600/400' ? (
-                      <>
-
-                        <Image 
-                          src={project.image} 
-                          alt={project.title}
-                          fill
-                          className="object-cover transition-all duration-500 group-hover:scale-105"
-                        />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500"></div>
-                      </>
-                    ) : (
-                                              <div className={`absolute inset-0 flex items-center justify-center transition-all duration-500 group-hover:scale-105 ${
-                          project.key === 'mets_merveilles' || project.key === 'pocketly'
-                            ? 'bg-gradient-to-br from-gray-400/20 to-gray-500/10'
-                            : 'bg-gradient-to-br from-[#8C0605]/20 to-[#8C0605]/10 dark:from-[#FFD6D6]/20 dark:to-[#FFD6D6]/10'
-                        }`}>
-                          <project.icon className={`w-16 h-16 transition-all duration-500 group-hover:scale-110 ${
-                            project.key === 'mets_merveilles' || project.key === 'pocketly'
-                              ? 'text-white'
-                              : 'text-[#8C0605] dark:text-[#FFD6D6]'
-                          }`} />
-                      </div>
-                    )}
-                                          <div className={`absolute top-4 right-4 backdrop-blur-sm px-3 py-1 rounded-full text-sm font-medium z-10 ${
-                        project.key === 'mets_merveilles' || project.key === 'pocketly' || project.key === 'portfolio' || project.key === 'wuthering_waves'
-                          ? 'bg-red-600/80 text-white'
-                          : 'bg-white/20 dark:bg-gray-900/20 text-custom-title dark:text-white'
-                      }`}>
-                        {project.category}
-                      </div>
-                  </div>
-
-                  {/* Contenu du projet */}
-                  <div className={`w-full lg:w-3/5 p-4 sm:p-6 lg:p-8 flex flex-col justify-center relative z-10 ${
-                    project.key === 'mets_merveilles' || project.key === 'pocketly' || project.key === 'portfolio' || project.key === 'wuthering_waves'
-                      ? 'text-white'
-                      : ''
-                  }`}>
-                    <h3 className={`text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4 ${
-                      project.key === 'mets_merveilles' || project.key === 'pocketly' || project.key === 'portfolio' || project.key === 'wuthering_waves'
-                        ? 'text-white'
-                        : 'text-custom-title dark:text-white'
-                    }`}>
-                      {project.title}
-                    </h3>
-                    <p className={`text-base sm:text-lg mb-4 sm:mb-6 leading-relaxed ${
-                      project.key === 'mets_merveilles' || project.key === 'pocketly' || project.key === 'portfolio' || project.key === 'wuthering_waves'
-                        ? 'text-white/90'
-                        : 'text-custom-secondary dark:text-gray-300'
-                    }`}>
-                      {project.description}
-                    </p>
-
-                    {/* Technologies */}
-                    <div className="mb-4 sm:mb-6">
-                      <h4 className={`font-semibold mb-2 sm:mb-3 text-base sm:text-lg ${
-                        project.key === 'mets_merveilles' || project.key === 'pocketly' || project.key === 'portfolio' || project.key === 'wuthering_waves'
-                          ? 'text-white'
-                          : 'text-custom-title dark:text-white'
-                      }`}>
-                        Technologies
-                      </h4>
-                      <div className="flex flex-wrap gap-2 sm:gap-3">
-                        {project.technologies.map((tech) => {
-                          const IconComponent = technologyIcons[tech];
-                          return (
-                            <div
-                              key={tech}
-                              className={`flex items-center gap-1 px-2 sm:px-3 py-1 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium border ${
-                                project.key === 'mets_merveilles' || project.key === 'pocketly' || project.key === 'portfolio' || project.key === 'wuthering_waves'
-                                  ? 'bg-white/20 text-white border-white/30 hover:bg-white/30 transition-colors'
-                                  : 'bg-[#8C0605]/10 dark:bg-[#FFD6D6]/10 text-[#8C0605] dark:text-[#FFD6D6] border-[#8C0605]/20 dark:border-[#FFD6D6]/20'
-                              }`}
-                              title={tech}
-                            >
-                              {IconComponent ? (
-                                <>
-                                  <IconComponent className="w-3 h-3 sm:w-4 sm:h-4" />
-                                  <span className="hidden sm:inline">{tech}</span>
-                                </>
-                              ) : (
-                                <span>{tech}</span>
-                              )}
-                            </div>
-                          );
-                        })}
-                      </div>
+          {/* Featured Project */}
+          {featuredProject && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="mb-12"
+            >
+              <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-gray-900 to-black">
+                <div className="grid grid-cols-1 lg:grid-cols-2">
+                  {/* Content */}
+                  <div className="p-8 md:p-12 flex flex-col justify-center order-2 lg:order-1">
+                    {/* Badge */}
+                    <div className="flex items-center gap-3 mb-6">
+                      <span className="px-3 py-1 bg-[#8C0605] text-white text-xs font-bold rounded-full">
+                        PROJET VEDETTE
+                      </span>
+                      <span className="text-gray-400 text-sm">{featuredProject.category}</span>
                     </div>
 
-                    {/* Résultats */}
-                    <div className="mb-4 sm:mb-6">
-                      <h4 className={`font-semibold mb-2 sm:mb-3 text-base sm:text-lg ${
-                        project.key === 'mets_merveilles' || project.key === 'pocketly' || project.key === 'portfolio' || project.key === 'wuthering_waves'
-                          ? 'text-white'
-                          : 'text-custom-title dark:text-white'
-                      }`}>
-                        Résultats
-                      </h4>
-                      <ul className="space-y-1 sm:space-y-2">
-                        {project.results.map((result, resultIndex) => (
-                          <li key={resultIndex} className={`flex items-center text-sm sm:text-base ${
-                            project.key === 'mets_merveilles' || project.key === 'pocketly' || project.key === 'portfolio' || project.key === 'wuthering_waves'
-                              ? 'text-white/90'
-                              : 'text-custom-secondary dark:text-gray-300'
-                          }`}>
-                            <div className={`w-2 h-2 rounded-full mr-2 sm:mr-3 ${
-                              project.key === 'mets_merveilles' || project.key === 'pocketly' || project.key === 'portfolio' || project.key === 'wuthering_waves'
-                                ? 'bg-white'
-                                : 'bg-[#8C0605] dark:bg-[#FFD6D6]'
-                            }`} />
+                    <h3 className="text-3xl md:text-4xl font-black text-white mb-4">
+                      {featuredProject.title}
+                    </h3>
+
+                    <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                      {featuredProject.description}
+                    </p>
+
+                    {/* Tech stack */}
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {featuredProject.technologies.map((tech) => {
+                        const IconComponent = technologyIcons[tech]
+                        return (
+                          <span
+                            key={tech}
+                            className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/10 rounded-full text-white text-sm"
+                          >
+                            {IconComponent && <IconComponent className="w-4 h-4" />}
+                            {tech}
+                          </span>
+                        )
+                      })}
+                    </div>
+
+                    {/* Results */}
+                    <div className="mb-8">
+                      <h4 className="text-white font-semibold mb-3">Résultats clés</h4>
+                      <ul className="space-y-2">
+                        {featuredProject.results.map((result, i) => (
+                          <li key={i} className="flex items-start gap-2 text-gray-300 text-sm">
+                            <span className="text-[#8C0605] mt-1">→</span>
                             {result}
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    {/* Liens du projet */}
-                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-                      {project.key !== 'pocketly' && (
-                        <motion.a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 backdrop-blur-sm rounded-full transition-colors border font-medium text-sm sm:text-base ${
-                            project.key === 'mets_merveilles' || project.key === 'pocketly' || project.key === 'portfolio' || project.key === 'wuthering_waves'
-                              ? 'bg-white/10 text-white hover:bg-white/20 border-white/30'
-                              : 'bg-[#8C0605]/10 dark:bg-[#FFD6D6]/10 text-[#8C0605] dark:text-[#FFD6D6] hover:bg-[#8C0605]/20 dark:hover:bg-[#FFD6D6]/20 border-[#8C0605]/20 dark:border-[#FFD6D6]/20'
-                          }`}
-                        >
-                          <Github className="w-4 h-4" />
-                          GitHub
-                        </motion.a>
-                      )}
+                    {/* Actions */}
+                    <div className="flex flex-wrap gap-3">
                       <motion.a
-                        href={project.demo}
+                        href={featuredProject.demo}
                         target="_blank"
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className={`flex items-center justify-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full transition-colors font-medium shadow-lg text-sm sm:text-base ${
-                          project.key === 'mets_merveilles' || project.key === 'pocketly' || project.key === 'portfolio' || project.key === 'wuthering_waves'
-                            ? 'bg-white text-gray-900 hover:bg-gray-100'
-                            : 'bg-[#8C0605] dark:bg-[#FFD6D6] text-white dark:text-gray-900 hover:bg-[#8C0605]/90 dark:hover:bg-[#FFD6D6]/90'
-                        }`}
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-[#8C0605] text-white font-semibold rounded-full hover:bg-[#8C0605]/90 transition-colors"
                       >
-                        <ExternalLink className="w-4 h-4" />
-                        Démo
+                        <FaExternalLinkAlt className="w-4 h-4" />
+                        Voir le projet
                       </motion.a>
+                      {featuredProject.github && (
+                        <motion.a
+                          href={featuredProject.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 text-white font-semibold rounded-full hover:bg-white/20 transition-colors"
+                        >
+                          <FaGithub className="w-4 h-4" />
+                          Code source
+                        </motion.a>
+                      )}
                     </div>
+                  </div>
+
+                  {/* Image */}
+                  <div className="relative h-64 lg:h-auto order-1 lg:order-2">
+                    <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-l from-gray-900 via-transparent to-transparent z-10" />
+                    <Image
+                      src={featuredProject.image}
+                      alt={String(featuredProject.title)}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                 </div>
               </div>
-            </li>
-          ))}
-        </ul>
+            </motion.div>
+          )}
 
-        {/* Appel à l'action */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mt-12"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => window.open('https://github.com/minhajshafiq', '_blank')}
-            className="flex items-center gap-2 bg-[#8C0605] dark:bg-[#FFD6D6] text-white dark:text-gray-900 px-8 py-4 rounded-full font-semibold hover:bg-[#8C0605]/90 dark:hover:bg-[#FFD6D6]/90 transition-colors mx-auto shadow-lg hover:shadow-xl cursor-pointer"
+          {/* Other Projects Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {otherProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                onMouseEnter={() => setHoveredProject(project.id)}
+                onMouseLeave={() => setHoveredProject(null)}
+                className="group relative"
+              >
+                <div className="relative bg-white dark:bg-gray-800 rounded-3xl overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                  {/* Image */}
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
+                      src={project.image}
+                      alt={String(project.title)}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+
+                    {/* Category badge */}
+                    <div className="absolute top-4 left-4">
+                      <span className="px-3 py-1 bg-white/90 dark:bg-gray-900/90 text-gray-900 dark:text-white text-xs font-medium rounded-full">
+                        {project.category}
+                      </span>
+                    </div>
+
+                    {/* Hover overlay with links */}
+                    <AnimatePresence>
+                      {hoveredProject === project.id && (
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          className="absolute inset-0 bg-black/60 flex items-center justify-center gap-4"
+                        >
+                          {project.github && (
+                            <motion.a
+                              href={project.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              exit={{ scale: 0 }}
+                              whileHover={{ scale: 1.1 }}
+                              className="p-3 bg-white rounded-full text-gray-900 hover:bg-gray-100 transition-colors"
+                            >
+                              <FaGithub className="w-5 h-5" />
+                            </motion.a>
+                          )}
+                          <motion.a
+                            href={project.demo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            exit={{ scale: 0 }}
+                            transition={{ delay: 0.05 }}
+                            whileHover={{ scale: 1.1 }}
+                            className="p-3 bg-[#8C0605] rounded-full text-white hover:bg-[#8C0605]/90 transition-colors"
+                          >
+                            <FaExternalLinkAlt className="w-5 h-5" />
+                          </motion.a>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                      {project.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
+                      {project.description}
+                    </p>
+
+                    {/* Tech stack */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.technologies.slice(0, 4).map((tech) => {
+                        const IconComponent = technologyIcons[tech]
+                        return (
+                          <span
+                            key={tech}
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-700 dark:text-gray-300 text-xs"
+                          >
+                            {IconComponent && <IconComponent className="w-3 h-3" />}
+                            {tech}
+                          </span>
+                        )
+                      })}
+                      {project.technologies.length > 4 && (
+                        <span className="px-2.5 py-1 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-500 dark:text-gray-400 text-xs">
+                          +{project.technologies.length - 4}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Results preview */}
+                    <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                      <ul className="space-y-1">
+                        {project.results.slice(0, 2).map((result, i) => (
+                          <li
+                            key={i}
+                            className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-2"
+                          >
+                            <span className="w-1 h-1 rounded-full bg-[#8C0605] dark:bg-[#FFD6D6]" />
+                            {result}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-16 text-center"
           >
-            Voir plus de projets
-            <ArrowRight className="w-5 h-5" />
-          </motion.button>
-        </motion.div>
+            <div className="inline-flex flex-col sm:flex-row items-center gap-4 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
+              <div className="text-left">
+                <p className="text-gray-900 dark:text-white font-semibold">
+                  Envie de voir plus ?
+                </p>
+                <p className="text-gray-500 dark:text-gray-400 text-sm">
+                  Explorez tous mes projets sur GitHub
+                </p>
+              </div>
+              <motion.a
+                href="https://github.com/minhajshafiq"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold rounded-full hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
+              >
+                <FaGithub className="w-5 h-5" />
+                Mon GitHub
+                <FaArrowRight className="w-4 h-4" />
+              </motion.a>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   )

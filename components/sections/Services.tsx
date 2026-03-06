@@ -1,322 +1,186 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  Code, 
-  Database, 
-  Smartphone, 
-  Cloud, 
-  Users, 
-  MessageSquare, 
-  Lightbulb, 
-  TrendingUp,
-  Settings,
-  Zap,
-  Briefcase,
-  Globe
-} from 'lucide-react'
-import { gsap } from 'gsap'
+import { motion } from 'framer-motion'
 import { useTranslation } from '@/hooks/useTranslation'
+import {
+  SiNextdotjs,
+  SiReact,
+  SiTypescript,
+  SiSpringboot,
+  SiFlutter,
+  SiPostgresql,
+  SiTailwindcss,
+  SiDocker,
+  SiSupabase,
+  SiFirebase,
+  SiGooglecloud,
+} from 'react-icons/si'
+import { FaCode, FaServer, FaMobile, FaSearch } from 'react-icons/fa'
 
-type ServiceMode = 'cdi' | 'freelance'
+const mainServices = [
+  {
+    icon: FaCode,
+    title: 'Frontend',
+    description: 'Interfaces modernes et réactives avec React et Next.js',
+    techs: [
+      { name: 'Next.js', icon: SiNextdotjs },
+      { name: 'React', icon: SiReact },
+      { name: 'TypeScript', icon: SiTypescript },
+      { name: 'Tailwind', icon: SiTailwindcss },
+      { name: 'SEO', icon: FaSearch },
+    ],
+  },
+  {
+    icon: FaServer,
+    title: 'Backend & Cloud',
+    description: 'APIs robustes et services cloud avec Spring Boot, Supabase et Firebase',
+    techs: [
+      { name: 'Spring Boot', icon: SiSpringboot },
+      { name: 'Supabase', icon: SiSupabase },
+      { name: 'Firebase', icon: SiFirebase },
+      { name: 'Google Cloud', icon: SiGooglecloud },
+      { name: 'PostgreSQL', icon: SiPostgresql },
+      { name: 'Docker', icon: SiDocker },
+    ],
+  },
+  {
+    icon: FaMobile,
+    title: 'Mobile',
+    description: 'Applications cross-platform avec Flutter et Supabase',
+    techs: [
+      { name: 'Flutter', icon: SiFlutter },
+      { name: 'Supabase', icon: SiSupabase },
+      { name: 'Firebase', icon: SiFirebase },
+    ],
+  },
+]
 
 export function Services() {
-  const [mode, setMode] = useState<ServiceMode>('cdi')
-  const switchRef = useRef<HTMLDivElement>(null)
-  const sliderRef = useRef<HTMLDivElement>(null)
   const { t } = useTranslation()
 
-  const cdiSkills = [
-    { 
-      icon: Code, 
-      title: t('services.skills.web_apps.title') as string, 
-      description: t('services.skills.web_apps.description') as string
-    },
-    { 
-      icon: Database, 
-      title: t('services.skills.apis.title') as string, 
-      description: t('services.skills.apis.description') as string
-    },
-    { 
-      icon: Smartphone, 
-      title: t('services.skills.mobile_apps.title') as string, 
-      description: t('services.skills.mobile_apps.description') as string
-    },
-    { 
-      icon: Cloud, 
-      title: t('services.skills.cloud_infrastructure.title') as string, 
-      description: t('services.skills.cloud_infrastructure.description') as string
-    },
-    { 
-      icon: Database, 
-      title: t('services.skills.databases.title') as string, 
-      description: t('services.skills.databases.description') as string
-    },
-    { 
-      icon: Users, 
-      title: t('services.skills.agile_collaboration.title') as string, 
-      description: t('services.skills.agile_collaboration.description') as string
-    },
-    { 
-      icon: MessageSquare, 
-      title: t('services.skills.communication.title') as string, 
-      description: t('services.skills.communication.description') as string
-    },
-    { 
-      icon: Lightbulb, 
-      title: t('services.skills.innovative_solutions.title') as string, 
-      description: t('services.skills.innovative_solutions.description') as string
-    },
-    { 
-      icon: TrendingUp, 
-      title: t('services.skills.tech_watch.title') as string, 
-      description: t('services.skills.tech_watch.description') as string
-    },
-    { 
-      icon: Briefcase, 
-      title: t('services.skills.testing_quality.title') as string, 
-      description: t('services.skills.testing_quality.description') as string
-    },
-  ]
-
-  const freelanceServices = [
-    { 
-      icon: Code, 
-      title: t('services.freelance_services.web_sites.title') as string, 
-      description: t('services.freelance_services.web_sites.description') as string,
-      benefits: t('services.freelance_services.web_sites.benefits', { returnObjects: true }) as string[],
-      pricing: t('services.freelance_services.web_sites.pricing') as string
-    },
-    { 
-      icon: Smartphone, 
-      title: t('services.freelance_services.mobile_applications.title') as string, 
-      description: t('services.freelance_services.mobile_applications.description') as string,
-      benefits: t('services.freelance_services.mobile_applications.benefits', { returnObjects: true }) as string[],
-      pricing: t('services.freelance_services.mobile_applications.pricing') as string
-    },
-    { 
-      icon: Settings, 
-      title: t('services.freelance_services.proactive_maintenance.title') as string, 
-      description: t('services.freelance_services.proactive_maintenance.description') as string,
-      benefits: t('services.freelance_services.proactive_maintenance.benefits', { returnObjects: true }) as string[],
-      pricing: t('services.freelance_services.proactive_maintenance.pricing') as string
-    },
-    { 
-      icon: Zap, 
-      title: t('services.freelance_services.performance_optimization.title') as string, 
-      description: t('services.freelance_services.performance_optimization.description') as string,
-      benefits: t('services.freelance_services.performance_optimization.benefits', { returnObjects: true }) as string[],
-      pricing: t('services.freelance_services.performance_optimization.pricing') as string
-    },
-    { 
-      icon: Globe, 
-      title: t('services.freelance_services.secure_deployment.title') as string, 
-      description: t('services.freelance_services.secure_deployment.description') as string,
-      benefits: t('services.freelance_services.secure_deployment.benefits', { returnObjects: true }) as string[],
-      pricing: t('services.freelance_services.secure_deployment.pricing') as string
-    },
-  ]
-
-  useEffect(() => {
-    const slider = sliderRef.current
-    const container = switchRef.current
-    const buttons = container?.querySelectorAll('button')
-    
-    if (slider && container && buttons) {
-      const activeButton = mode === 'freelance' ? buttons[1] : buttons[0]
-      const containerRect = container.getBoundingClientRect()
-      const buttonRect = activeButton.getBoundingClientRect()
-      
-
-      gsap.to(slider, {
-        x: buttonRect.left - containerRect.left + 2,
-        width: buttonRect.width - 4,
-        duration: 0.5,
-        ease: "power2.out"
-      })
-    }
-  }, [mode])
-
-
-  useEffect(() => {
-    const slider = sliderRef.current
-    const container = switchRef.current
-    const buttons = container?.querySelectorAll('button')
-    
-    if (slider && container && buttons) {
-      const activeButton = mode === 'freelance' ? buttons[1] : buttons[0]
-      const containerRect = container.getBoundingClientRect()
-      const buttonRect = activeButton.getBoundingClientRect()
-      
-
-      gsap.set(slider, {
-        x: buttonRect.left - containerRect.left + 2,
-        width: buttonRect.width - 4
-      })
-    }
-  }, [mode])
-
   return (
-    <section id="services" className="py-20 bg-custom-primary">
-      <div className="container mx-auto px-4">
-        {/* En-tête */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl lg:text-5xl font-bold text-custom-title mb-4">
-            {t('services.title')}
-          </h2>
-          <p className="text-xl text-custom-secondary max-w-2xl mx-auto">
-            {t('services.subtitle')}
-          </p>
-        </motion.div>
+    <section id="services" className="py-20 bg-gray-50 dark:bg-gray-900/50 overflow-hidden">
+      <div className="container mx-auto px-6">
+        <div className="max-w-6xl mx-auto">
 
-        {/* Basculement de mode */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex justify-center mb-16"
-        >
-          <div 
-            ref={switchRef}
-            className="relative bg-white dark:bg-gray-900 rounded-full p-1 pr-3 shadow-xl border border-gray-200 dark:border-gray-600 hover:shadow-2xl transition-all duration-300"
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16"
           >
-            <div 
-              ref={sliderRef}
-              className="absolute top-1.5 left-0.5 h-9 bg-gradient-to-r from-[#8C0605] to-[#8C0605]/90 dark:from-[#FFD6D6] dark:to-[#FFD6D6]/90 rounded-full shadow-lg transition-all duration-300"
-            />
-            <div className="flex relative z-10">
-              <motion.button
-                onClick={() => setMode('cdi')}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className={`flex-1 px-3 sm:px-6 py-2 rounded-full font-semibold transition-all duration-300 whitespace-nowrap text-sm sm:text-base ${
-                  mode === 'cdi' 
-                    ? 'text-white dark:text-gray-900' 
-                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-                }`}
+            <span className="text-[#8C0605] dark:text-[#FFD6D6] font-mono text-sm tracking-widest uppercase mb-4 block">
+              {'{ '}{t('services.title')}{' }'}
+            </span>
+            <h2 className="text-5xl md:text-7xl font-black text-custom-title leading-none">
+              Ce que je fais
+            </h2>
+          </motion.div>
+
+          {/* Services Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            {mainServices.map((service, index) => (
+              <motion.div
+                key={service.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="group"
               >
-                {t('services.switch_cdi')}
-              </motion.button>
-              <motion.button
-                onClick={() => setMode('freelance')}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className={`flex-1 px-3 sm:px-6 py-2 rounded-full font-semibold transition-all duration-300 whitespace-nowrap text-sm sm:text-base ${
-                  mode === 'freelance' 
-                    ? 'text-white dark:text-gray-900' 
-                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-                }`}
-              >
-                {t('services.switch_freelance')}
-              </motion.button>
-            </div>
+                <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 h-full border border-gray-200 dark:border-gray-700 hover:border-[#8C0605] dark:hover:border-[#FFD6D6] transition-colors">
+                  {/* Icon */}
+                  <div className="w-12 h-12 rounded-xl bg-[#8C0605] dark:bg-[#FFD6D6] flex items-center justify-center mb-4">
+                    <service.icon className="w-6 h-6 text-white dark:text-gray-900" />
+                  </div>
+
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                    {service.title}
+                  </h3>
+
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-6">
+                    {service.description}
+                  </p>
+
+                  {/* Techs */}
+                  <div className="flex flex-wrap gap-2">
+                    {service.techs.map((tech) => (
+                      <div
+                        key={tech.name}
+                        className="flex items-center gap-1.5 px-2.5 py-1.5 bg-gray-100 dark:bg-gray-700 rounded-lg"
+                      >
+                        <tech.icon className="w-3.5 h-3.5 text-gray-600 dark:text-gray-300" />
+                        <span className="text-xs text-gray-700 dark:text-gray-300">{tech.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
-        </motion.div>
 
-        {/* Contenu */}
-        <AnimatePresence mode="wait">
-          {mode === 'cdi' ? (
-            <motion.div
-              key="cdi"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.4 }}
-              className="grid grid-cols-12 gap-4 max-w-7xl mx-auto"
-            >
-              {cdiSkills.map((skill, index) => {
-                const getCardSize = (index: number) => {
-                  if (index === 0) return 'col-span-12 lg:col-span-6'
-                  if (index === 1) return 'col-span-12 lg:col-span-6'
-                  if (index === 2) return 'col-span-12 md:col-span-6 lg:col-span-4'
-                  if (index === 3) return 'col-span-12 md:col-span-6 lg:col-span-4'
-                  if (index === 4) return 'col-span-12 md:col-span-6 lg:col-span-4'
-                  if (index === 5) return 'col-span-12 md:col-span-6 lg:col-span-6'
-                  if (index === 6) return 'col-span-12 md:col-span-6 lg:col-span-6'
-                  if (index === 7) return 'col-span-12 md:col-span-6 lg:col-span-4'
-                  if (index === 8) return 'col-span-12 md:col-span-6 lg:col-span-4'
-                  if (index === 9) return 'col-span-12 lg:col-span-4'
-                  return 'col-span-12 md:col-span-6 lg:col-span-4'
-                }
+          {/* What I can do for you */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          >
+            {/* Left - Pour les entreprises */}
+            <div className="bg-gray-900 dark:bg-black rounded-2xl p-8">
+              <span className="text-xs font-mono text-gray-500 uppercase tracking-wider">
+                CDI / Alternance
+              </span>
+              <h3 className="text-2xl font-bold text-white mt-2 mb-4">
+                Pour les entreprises
+              </h3>
+              <ul className="space-y-3">
+                {[
+                  'Intégration dans une équipe de développement',
+                  'Développement de nouvelles fonctionnalités',
+                  'Maintenance et amélioration de l\'existant',
+                  'Collaboration en méthode Agile',
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-gray-300 text-sm">
+                    <span className="text-[#8C0605] dark:text-[#FFD6D6] mt-0.5">→</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-                return (
-                  <motion.div
-                    key={skill.title}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    className={`${getCardSize(index)} bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-700`}
-                  >
-                    <skill.icon className="w-8 h-8 text-[#8C0605] dark:text-[#FFD6D6] mb-4" />
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
-                      {skill.title}
-                    </h4>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm">
-                      {skill.description}
-                    </p>
-                  </motion.div>
-                )
-              })}
-            </motion.div>
-          ) : (
-            <motion.div
-              key="freelance"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.4 }}
-              className="grid grid-cols-12 gap-4 max-w-7xl mx-auto"
-            >
-              {freelanceServices.map((service, index) => {
-                const getCardSize = (index: number) => {
-                  if (index === 0) return 'col-span-12 lg:col-span-8'
-                  if (index === 1) return 'col-span-12 lg:col-span-4'
-                  if (index === 2) return 'col-span-12 md:col-span-6 lg:col-span-6'
-                  if (index === 3) return 'col-span-12 md:col-span-6 lg:col-span-6'
-                  if (index === 4) return 'col-span-12 lg:col-span-12'
-                  return 'col-span-12 md:col-span-6 lg:col-span-4'
-                }
+            {/* Right - Freelance */}
+            <div className="bg-[#8C0605] dark:bg-[#FFD6D6] rounded-2xl p-8">
+              <span className="text-xs font-mono text-white/60 dark:text-gray-900/60 uppercase tracking-wider">
+                Freelance
+              </span>
+              <h3 className="text-2xl font-bold text-white dark:text-gray-900 mt-2 mb-4">
+                Pour vos projets
+              </h3>
+              <ul className="space-y-3">
+                {[
+                  'Création de sites web sur mesure',
+                  'Développement d\'applications mobiles',
+                  'Refonte et optimisation de sites existants',
+                  'Accompagnement technique',
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-white/90 dark:text-gray-900/90 text-sm">
+                    <span className="text-white/60 dark:text-gray-900/60 mt-0.5">→</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="#contact"
+                className="inline-block mt-6 px-5 py-2.5 bg-white dark:bg-gray-900 text-[#8C0605] dark:text-[#FFD6D6] font-semibold rounded-full text-sm hover:opacity-90 transition-opacity"
+              >
+                Discuter de votre projet →
+              </a>
+            </div>
+          </motion.div>
 
-                return (
-                  <motion.div
-                    key={service.title}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    className={`${getCardSize(index)} bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-200 dark:border-gray-700`}
-                  >
-                    <service.icon className="w-10 h-10 text-[#8C0605] dark:text-[#FFD6D6] mb-4" />
-                    <h4 className="font-semibold text-gray-900 dark:text-white mb-3 text-lg">
-                      {service.title}
-                    </h4>
-                    <p className="text-gray-600 dark:text-gray-300 mb-4">
-                      {service.description}
-                    </p>
-                    <ul className="space-y-2">
-                      {service.benefits.map((benefit, benefitIndex) => (
-                        <li key={benefitIndex} className="flex items-center text-sm text-gray-600 dark:text-gray-300">
-                          <div className="w-1.5 h-1.5 bg-[#8C0605] dark:bg-[#FFD6D6] rounded-full mr-2" />
-                          {benefit}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
-                      <p className="text-sm text-gray-600 dark:text-gray-300">
-                        <span className="font-medium">Tarif:</span> {service.pricing}
-                      </p>
-                    </div>
-                  </motion.div>
-                )
-              })}
-            </motion.div>
-          )}
-        </AnimatePresence>
+        </div>
       </div>
     </section>
   )

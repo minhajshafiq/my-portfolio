@@ -1,29 +1,49 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Linkedin, Mail, Heart, MapPin, Calendar, ArrowUp } from 'lucide-react'
+import { ArrowUp } from 'lucide-react'
 import { useState, useEffect } from 'react'
+import { FaLinkedinIn, FaEnvelope, FaGithub } from 'react-icons/fa'
+import { SiMalt } from 'react-icons/si'
 
 const socialLinks = [
   {
-    name: 'Malt',
-    href: 'https://www.malt.fr/profile/minhajzubair',
-    icon: ExternalLink,
-  },
-  {
     name: 'LinkedIn',
     href: 'https://www.linkedin.com/in/minhajshafiq/',
-    icon: Linkedin,
+    icon: FaLinkedinIn,
+    color: 'hover:bg-[#0A66C2]',
+  },
+  {
+    name: 'GitHub',
+    href: 'https://github.com/minhajshafiq',
+    icon: FaGithub,
+    color: 'hover:bg-gray-700',
+  },
+  {
+    name: 'Malt',
+    href: 'https://www.malt.fr/profile/minhajzubair',
+    icon: SiMalt,
+    color: 'hover:bg-[#FC5757]',
   },
   {
     name: 'Email',
     href: 'mailto:minhaj.shafiq@icloud.com',
-    icon: Mail,
+    icon: FaEnvelope,
+    color: 'hover:bg-[#8C0605]',
   },
+]
+
+const quickLinks = [
+  { name: 'Accueil', href: '#home' },
+  { name: 'Services', href: '#services' },
+  { name: 'Projets', href: '#projects' },
+  { name: 'À propos', href: '#about' },
+  { name: 'Contact', href: '#contact' },
 ]
 
 export function Footer() {
   const [showScrollButton, setShowScrollButton] = useState(false)
+  const currentYear = new Date().getFullYear()
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -52,161 +72,209 @@ export function Footer() {
   }, [])
 
   return (
-    <footer className="bg-custom-primary py-16 relative">
-      <div className="container mx-auto px-4">
-        {/* Section principale */}
-        <div className="flex flex-col items-center mb-12">
-          {/* Disponibilité et Contact */}
-          <div className="grid md:grid-cols-2 gap-8 md:gap-16 lg:gap-24 xl:gap-32 mb-8">
-            {/* Disponibilité */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="space-y-4"
-            >
-              <h3 className="text-lg font-semibold text-custom-title text-center md:text-left">
-                Disponible pour
-              </h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-custom-secondary">CDI - Paris/Remote</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <span className="text-custom-secondary">Freelance - France/Europe</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <MapPin className="w-4 h-4 text-custom-secondary" />
-                  <span className="text-custom-secondary">Paris, France</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Calendar className="w-4 h-4 text-custom-secondary" />
-                  <span className="text-custom-secondary">Disponible immédiatement</span>
-                </div>
-              </div>
-            </motion.div>
+    <footer className="bg-gray-900 dark:bg-black relative overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#8C0605]/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-[#8C0605]/5 rounded-full blur-3xl" />
+      </div>
 
-            {/* Contact rapide */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="space-y-4"
-            >
-              <h3 className="text-lg font-semibold text-custom-title text-center md:text-left mb-4">
-                Contact rapide
-              </h3>
-              <div className="space-y-3">
-                <a 
-                  href="mailto:minhaj.shafiq@icloud.com"
-                  className="flex items-center space-x-3 text-custom-secondary hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer"
-                >
-                  <Mail className="w-4 h-4" />
-                  <span>minhaj.shafiq@icloud.com</span>
-                </a>
-                <a 
-                  href="https://www.linkedin.com/in/minhajshafiq/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-3 text-custom-secondary hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer"
-                >
-                  <Linkedin className="w-4 h-4" />
-                  <span>LinkedIn</span>
-                </a>
-                <a 
-                  href="https://www.malt.fr/profile/minhajzubair"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-3 text-custom-secondary hover:text-red-600 dark:hover:text-red-400 transition-colors cursor-pointer"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  <span>Malt</span>
-                </a>
-              </div>
-            </motion.div>
-          </div>
+      {/* Main content */}
+      <div className="container mx-auto px-6 relative z-10">
 
-          {/* Logo */}
+        {/* Top section - Big CTA */}
+        <div className="py-16 border-b border-gray-800">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <span className="text-[#8C0605] dark:text-[#FFD6D6] font-mono text-sm tracking-widest uppercase mb-4 block">
+              {'// '}Ready to collaborate?
+            </span>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight mb-6">
+              Let&apos;s build
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#8C0605] to-red-500">
+                something great
+              </span>
+            </h2>
+            <p className="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
+              Une idée de projet ? Une opportunité ? N&apos;hésitez pas à me contacter.
+              Je suis toujours ouvert à discuter de nouveaux projets.
+            </p>
+            <motion.a
+              href="mailto:minhaj.shafiq@icloud.com"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center gap-3 bg-[#8C0605] hover:bg-[#8C0605]/90 text-white px-8 py-4 rounded-full font-semibold text-lg transition-colors"
+            >
+              <FaEnvelope className="w-5 h-5" />
+              minhaj.shafiq@icloud.com
+            </motion.a>
+          </motion.div>
+        </div>
+
+        {/* Middle section - Links grid */}
+        <div className="py-12 grid grid-cols-1 md:grid-cols-12 gap-8 border-b border-gray-800">
+
+          {/* Logo & tagline */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="md:col-span-5"
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-3xl font-black text-white">Minhaj</span>
+              <div className="w-3 h-3 bg-[#8C0605] rounded-full animate-pulse" />
+            </div>
+            <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-sm">
+              Développeur Full-Stack passionné par la création d&apos;expériences digitales
+              uniques et performantes. Basé à Paris, disponible partout.
+            </p>
+
+            {/* Status badge */}
+            <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              <span className="text-green-400 text-sm font-medium">Disponible pour nouveaux projets</span>
+            </div>
+          </motion.div>
+
+          {/* Quick links */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="md:col-span-3"
+          >
+            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
+              Navigation
+            </h3>
+            <ul className="space-y-3">
+              {quickLinks.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    className="text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-2 group"
+                  >
+                    <span className="w-0 group-hover:w-2 h-px bg-[#8C0605] transition-all duration-300" />
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Contact info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="flex flex-col items-center space-y-2"
+            className="md:col-span-4"
           >
-            <div className="flex items-center space-x-2">
-              <span className="text-3xl font-bold text-custom-title">Minhaj</span>
-              <div className="w-3 h-3 bg-red-600 dark:bg-red-400 rounded-full"></div>
+            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
+              Contact
+            </h3>
+            <div className="space-y-3 text-sm">
+              <div className="flex items-center gap-3 text-gray-400">
+                <span className="text-lg">📍</span>
+                <span>Paris, France</span>
+              </div>
+              <div className="flex items-center gap-3 text-gray-400">
+                <span className="text-lg">💼</span>
+                <span>CDI / Freelance / Remote</span>
+              </div>
+              <div className="flex items-center gap-3 text-gray-400">
+                <span className="text-lg">⚡</span>
+                <span>Réponse sous 24h</span>
+              </div>
             </div>
-            <div className="flex items-center space-x-1 text-sm text-custom-secondary">
-              <span>Made with</span>
-              <span className="text-red-600 dark:text-red-400">❤️</span>
+
+            {/* Social links */}
+            <div className="flex gap-3 mt-6">
+              {socialLinks.map((link) => (
+                <motion.a
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white transition-all duration-300 ${link.color}`}
+                  title={link.name}
+                >
+                  <link.icon className="w-4 h-4" />
+                </motion.a>
+              ))}
             </div>
           </motion.div>
         </div>
 
-        {/* Séparateur */}
-        <div className="border-t border-gray-200 dark:border-gray-700 mb-8"></div>
-
-        {/* Footer bottom */}
-        <div className="flex flex-col md:flex-row items-center justify-between">
-          {/* Copyright */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+        {/* Bottom section - Copyright */}
+        <div className="py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-custom-secondary text-center md:text-left mb-4 md:mb-0"
+            className="text-gray-500 text-sm"
           >
-            <p className="flex items-center gap-2">
-              © 2024 Minhaj. Tous droits réservés.
-              <Heart className="w-4 h-4 text-red-600 dark:text-red-400" />
-            </p>
-          </motion.div>
+            © {currentYear} Minhaj Zubair. Tous droits réservés.
+          </motion.p>
 
-          {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="flex items-center space-x-4"
+            className="text-gray-500 text-sm flex items-center gap-2"
           >
-            {socialLinks.map((link) => (
-              <motion.a
-                key={link.name}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="p-3 rounded-full bg-custom-primary hover:bg-red-50 dark:hover:bg-gray-600 transition-all duration-300 shadow-sm hover:shadow-md cursor-pointer"
-              >
-                <link.icon className="w-5 h-5 text-custom-secondary" />
-              </motion.a>
-            ))}
+            Fait avec
+            <span className="text-[#8C0605] animate-pulse">❤️</span>
+            et beaucoup de
+            <span className="text-amber-500">☕</span>
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="flex items-center gap-2 text-gray-500 text-sm"
+          >
+            <span className="font-mono text-xs bg-gray-800 px-2 py-1 rounded">
+              Next.js
+            </span>
+            <span className="font-mono text-xs bg-gray-800 px-2 py-1 rounded">
+              Tailwind
+            </span>
+            <span className="font-mono text-xs bg-gray-800 px-2 py-1 rounded">
+              GSAP
+            </span>
           </motion.div>
         </div>
-
-        {/* Bouton Retour en haut */}
-        <AnimatePresence>
-          {showScrollButton && (
-            <motion.button
-              initial={{ opacity: 0, scale: 0.5, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.5, y: 20 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
-              onClick={scrollToTop}
-              whileHover={{ scale: 1.1, y: -3 }}
-              whileTap={{ scale: 0.95 }}
-              className="fixed bottom-8 right-8 z-50 group p-4 bg-[#8C0605] dark:bg-[#FFD6D6] text-white dark:text-gray-900 rounded-full transition-all duration-300 hover:shadow-xl hover:bg-[#8C0605]/90 dark:hover:bg-[#FFD6D6]/90 shadow-lg cursor-pointer"
-            >
-              <ArrowUp className="w-6 h-6 group-hover:-translate-y-2 transition-all duration-300 ease-out" />
-            </motion.button>
-          )}
-        </AnimatePresence>
       </div>
+
+      {/* Scroll to top button */}
+      <AnimatePresence>
+        {showScrollButton && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.5, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.5, y: 20 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            onClick={scrollToTop}
+            whileHover={{ scale: 1.1, y: -3 }}
+            whileTap={{ scale: 0.95 }}
+            className="fixed bottom-8 right-8 z-50 group p-4 bg-[#8C0605] dark:bg-[#FFD6D6] text-white dark:text-gray-900 rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-[#8C0605]/25 shadow-lg cursor-pointer"
+          >
+            <ArrowUp className="w-6 h-6 group-hover:-translate-y-1 transition-transform duration-300" />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </footer>
   )
 }

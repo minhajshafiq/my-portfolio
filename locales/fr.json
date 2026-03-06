@@ -4,12 +4,15 @@
     "about": "À propos",
     "services": "Services",
     "projects": "Projets",
+    "beyondCode": "Passions",
     "contact": "Contact"
   },
   "hero": {
+    "greeting": "Je suis",
     "title": "Développeur Front-End & Full Stack",
     "subtitle": "Créateur de solutions digitales innovantes",
-    "description": "Je suis Minhaj, développeur passionné qui crée des applications web et mobiles performantes pour entreprises et startups qui veulent se démarquer dans le digital.",
+    "tagline": "Je développe des apps web et mobile qui convertissent.",
+    "description": "Développeur passionné qui crée des applications web et mobiles performantes pour entreprises et startups qui veulent se démarquer dans le digital.",
     "specialization": "Spécialisé en Next.js, Spring Boot et Flutter. Je transforme vos idées en solutions digitales qui convertissent et engagent vos utilisateurs.",
     "cta_projects": "Voir mes projets",
     "cta_contact": "Travaillons ensemble",
@@ -18,214 +21,56 @@
   },
   "services": {
     "title": "Ce que je vous apporte",
-    "subtitle": "Des compétences solides et des solutions concrètes, adaptées à vos besoins en entreprise ou en mission",
-    "switch_cdi": "Mes compétences",
-    "switch_freelance": "Mes services",
-    "cdi": {
-      "title": "Compétences pour CDI",
-      "technical": {
-        "title": "Compétences Techniques",
-        "frontend": "Développement Frontend",
-        "backend": "Développement Backend",
-        "mobile": "Développement Mobile",
-        "devops": "DevOps & Cloud",
-        "database": "Bases de données"
-      },
-      "soft": {
-        "title": "Soft Skills",
-        "teamwork": "Travail d'équipe",
-        "communication": "Communication",
-        "problem_solving": "Résolution de problèmes",
-        "learning": "Apprentissage continu",
-        "leadership": "Leadership"
-      }
-    },
-    "freelance": {
-      "title": "Services Freelance",
-      "web_development": "Développement Web",
-      "mobile_apps": "Applications Mobiles",
-      "consulting": "Conseil Technique",
-      "maintenance": "Maintenance & Support",
-      "optimization": "Optimisation Performance"
-    },
-    "skills": {
-      "web_apps": {
-        "title": "Applications Web",
-        "description": "Je développe des applications web modernes avec Next.js et Spring Boot. Passionné par la création d'interfaces utilisateur élégantes et d'APIs backend performantes qui offrent une expérience utilisateur exceptionnelle."
-      },
-      "apis": {
-        "title": "APIs Backend",
-        "description": "Je conçois et développe des APIs RESTful robustes avec Spring Boot et Java. Spécialisé dans l'intégration de bases de données et la gestion efficace des données pour des applications scalables."
-      },
-      "mobile_apps": {
-        "title": "Applications Mobiles",
-        "description": "Je crée des applications mobiles cross-platform avec Flutter et React Native. Mon objectif : développer des interfaces natives fluides et performantes sur iOS et Android."
-      },
-      "cloud_infrastructure": {
-        "title": "Déploiement Cloud",
-        "description": "Je maîtrise le déploiement d'applications sur Firebase, Supabase et Vercel. Configuration optimale des bases de données et des services cloud pour garantir performance et fiabilité."
-      },
-      "databases": {
-        "title": "Bases de Données",
-        "description": "Je conçois et optimise des bases de données PostgreSQL et SQLite. Expertise en requêtes SQL complexes et en optimisation des performances pour des applications rapides et efficaces."
-      },
-      "agile_collaboration": {
-        "title": "Travail en Équipe",
-        "description": "Je collabore efficacement en équipe avec GitHub, participe activement aux code reviews et applique les méthodologies agiles. Toujours prêt à apprendre et partager mes connaissances."
-      },
-      "communication": {
-        "title": "Communication",
-        "description": "Je documente mon code de manière claire et communique efficacement sur les aspects techniques. J'aime expliquer les concepts complexes de manière accessible et travailler en synergie avec l'équipe."
-      },
-      "innovative_solutions": {
-        "title": "Résolution de Problèmes",
-        "description": "J'adore analyser et résoudre des problèmes techniques complexes. Curieux et persévérant, je recherche activement des solutions innovantes et j'apprends rapidement les nouvelles technologies."
-      },
-      "tech_watch": {
-        "title": "Veille Technologique",
-        "description": "Je suis passionné par les nouvelles technologies et frameworks. En veille constante, j'apprends continuellement et m'adapte rapidement aux évolutions du développement web pour rester à jour."
-      },
-      "testing_quality": {
-        "title": "Tests & Qualité",
-        "description": "Je rédige des tests unitaires et d'intégration pour garantir la qualité du code. Attaché aux bonnes pratiques, je m'efforce d'améliorer continuellement la robustesse et la maintenabilité des applications."
-      }
-    },
-    "freelance_services": {
-      "web_sites": {
-        "title": "Développement Web",
-        "description": "Accompagnement mensuel pour le développement et l'évolution de vos sites web avec Next.js et Spring Boot. Support continu et développement itératif adapté à vos besoins.",
-        "benefits": ["Next.js + React", "TypeScript", "SEO intégré"],
-        "pricing": "À partir de 400€/mois"
-      },
-      "mobile_applications": {
-        "title": "Applications Mobiles",
-        "description": "Développement et maintenance mensuelle d'applications mobiles avec Flutter et React Native. Évolution continue de votre application cross-platform.",
-        "benefits": ["Flutter + Dart", "React Native/Expo", "Cross-platform"],
-        "pricing": "À partir de 500€/mois"
-      },
-      "proactive_maintenance": {
-        "title": "Maintenance & Support",
-        "description": "Support technique et maintenance proactive de vos applications. Corrections de bugs, mises à jour de sécurité et améliorations continues.",
-        "benefits": ["Firebase + Supabase", "Monitoring 24/7", "Sauvegarde automatique"],
-        "pricing": "À partir de 120€/mois"
-      },
-      "performance_optimization": {
-        "title": "Optimisation Performance",
-        "description": "Amélioration continue des performances de vos applications web. Optimisation mensuelle du code, de la vitesse de chargement et de l'expérience utilisateur.",
-        "benefits": ["Optimisation Next.js", "Cache Redis", "CDN global"],
-        "pricing": "À partir de 250€/mois"
-      },
-      "secure_deployment": {
-        "title": "Déploiement & DevOps",
-        "description": "Gestion mensuelle du déploiement de vos applications avec Vercel, Firebase et Supabase. Configuration, monitoring et sécurité continue.",
-        "benefits": ["Docker + CI/CD", "Authentification Clerk", "Sécurité JWT"],
-        "pricing": "À partir de 150€/mois"
-      }
-    }
+    "subtitle": "Des compétences solides et des solutions concrètes, adaptées à vos besoins en entreprise ou en mission"
   },
   "about": {
     "title": "À propos de moi",
     "subtitle": "Mon parcours",
     "description": "Découvrez mon parcours professionnel et mes compétences en développement web",
     "profile": {
-      "title": "Mon profil",
-      "paragraph1": "👋 Moi c'est Minhaj, développeur passionné par le code, mais aussi par les projets concrets et ambitieux.",
-      "paragraph2": "J'aime apprendre en continu, relever des défis techniques et voir une idée prendre vie grâce au développement.",
-      "paragraph3": "En dehors du code, je m'intéresse à l'entrepreneuriat (applications, immobilier, indépendance financière) et j'aime les projets qui ont un vrai impact. Je suis aussi passionné par le sport et le dépassement de soi : progresser un peu plus chaque jour est ma philosophie, autant dans la salle de sport que derrière mon clavier.",
-      "paragraph4": "💡 Ce qui m'anime : Transformer une idée en solution réelle. Construire pas à pas mes objectifs de vie. Grandir en tant que développeur, mais aussi comme personne. Aujourd'hui, je recherche des projets ou une équipe où je pourrai contribuer avec mon énergie, ma curiosité et ma détermination."
+      "title": "Qui je suis",
+      "paragraph1": "Minhaj, 25 ans, développeur basé à Paris. J'ai commencé à coder par curiosité, aujourd'hui c'est devenu mon métier.",
+      "paragraph2": "Mon truc : prendre une idée et la transformer en quelque chose de concret. Que ce soit une app mobile, un site web ou une API, j'aime voir le résultat de mon travail.",
+      "paragraph3": "Quand je ne code pas, je suis à la salle ou je me renseigne sur l'immobilier et l'entrepreneuriat. J'aime construire des choses, que ce soit un projet ou ma vie.",
+      "paragraph4": "Actuellement dispo pour des missions freelance ou un CDI. Si t'as un projet en tête, on en parle."
     },
-    "skills": {
-      "title": "Mes compétences",
-      "fullstack": {
-        "title": "Full Stack",
-        "description": "Développement front-end et back-end avec React, Next.js, Spring Boot et bases de données"
+    "timeline": {
+      "title": "Formation & Expérience",
+      "experience_tab": "Expérience",
+      "education_tab": "Formation",
+      "experiences": {
+        "freelance": {
+          "degree": "Développeur Freelance",
+          "school": "Freelance",
+          "bullet1": "Conception et développement d'applications web et mobiles sur mesure (front-end & back-end)",
+          "bullet2": "Gestion complète de projets: analyse des besoins, architecture, développement, déploiement, maintenance",
+          "bullet3": "Intégration d'API RESTful sécurisées et optimisation des performances"
+        },
+        "ukenoon": {
+          "degree": "Stage Développeur Full Stack & Mobile",
+          "school": "Ukenoon",
+          "bullet1": "Encadrement et coordination d'une équipe de développeurs",
+          "bullet2": "Développement d'une application mobile avec Expo (React Native) et Spring Boot",
+          "bullet3": "Utilisation de GitHub et méthode Agile (Scrum) pour la gestion du projet"
+        }
       },
-      "mobile": {
-        "title": "Mobile",
-        "description": "Développement d'applications mobiles avec Flutter et React Native"
-      },
-      "learning": {
-        "title": "Apprentissage",
-        "description": "Apprentissage continu et adaptation aux nouvelles technologies"
-      },
-      "teamwork": {
-        "title": "Travail d'équipe",
-        "description": "Collaboration en équipe, participation aux code reviews et méthodologies agiles"
-      },
-      "communication": {
-        "title": "Communication",
-        "description": "Documentation de code et communication technique avec l'équipe"
-      },
-      "problem_solving": {
-        "title": "Résolution de problèmes",
-        "description": "Analyse et résolution de problèmes techniques avec recherche de solutions"
+      "formations": {
+        "openclassrooms": {
+          "degree": "Développeur Web",
+          "school": "OpenClassrooms",
+          "bullet1": "Développement web front-end et back-end: JavaScript, API RESTful, React, Node.js/Express",
+          "bullet2": "Sécurité API RESTful, optimisation des performances, création d'applications complètes",
+          "bullet3": "6 projets professionnels sur GitHub (intégration, accessibilité, front-end React, back-end Node.js)"
+        },
+        "doranco": {
+          "degree": "Concepteur Développeur d'Applications",
+          "school": "Doranco",
+          "bullet1": "Développement web: HTML, CSS, JavaScript, React, Java, API RESTful, SQL/NoSQL",
+          "bullet2": "Méthodes: UML, Docker, Figma, Méthodes Agiles (Scrum)",
+          "bullet3": "Projets: Applications web full-stack, gestion de projet agile, documentation technique"
+        }
       }
     },
-         "timeline": {
-       "title": "Formation & Expérience",
-       "experience_tab": "Expérience",
-       "education_tab": "Formation",
-       "formation_label": "Formation",
-       "experience_label": "Expérience",
-       "formations": {
-         "stti2d": {
-           "degree": "Bac STI2D",
-           "school": "Lycée Lucie Aubrac",
-           "description": "Formation technologique orientée vers l'innovation et le développement durable."
-         },
-         "openclassrooms": {
-           "degree": "Développeur Web",
-           "school": "OpenClassrooms",
-           "description": "Formation intensive en développement web front-end et back-end."
-         },
-         "doranco": {
-           "degree": "Concepteur Développeur d'Applications",
-           "school": "Doranco",
-           "description": "Formation avancée en conception d'applications et architecture logicielle."
-         }
-       },
-               "experiences": {
-          "freelance": {
-            "degree": "Développeur Freelance",
-            "school": "Freelance",
-            "description": "Conception et développement d'applications web et mobiles sur mesure (front-end & back-end), gestion complète de projets, intégration d'API RESTful sécurisées et optimisation des performances.",
-            "bullet1": "Conception et développement d'applications web et mobiles sur mesure (front-end & back-end)",
-            "bullet2": "Gestion complète de projets: analyse des besoins, architecture, développement, déploiement, maintenance",
-            "bullet3": "Intégration d'API RESTful sécurisées et optimisation des performances"
-          },
-          "ukenoon": {
-            "degree": "Stage Développeur Full Stack & Mobile",
-            "school": "Ukenoon",
-            "description": "Encadrement d'équipe, développement mobile avec Expo (React Native) et Spring Boot, gestion de projet Agile (Scrum) avec GitHub.",
-            "bullet1": "Encadrement et coordination d'une équipe de développeurs",
-            "bullet2": "Développement d'une application mobile avec Expo (React Native) et Spring Boot",
-            "bullet3": "Utilisation de GitHub et méthode Agile (Scrum) pour la gestion du projet"
-          }
-        },
-        "formations": {
-          "stti2d": {
-            "degree": "Bac STI2D",
-            "school": "Lycée Lucie Aubrac",
-            "description": "Formation technologique orientée vers l'innovation et le développement durable."
-          },
-          "openclassrooms": {
-            "degree": "Développeur Web",
-            "school": "OpenClassrooms",
-            "description": "Formation intensive en développement web front-end et back-end.",
-            "bullet1": "Développement web front-end et back-end: JavaScript, API RESTful, React, Node.js/Express",
-            "bullet2": "Sécurité API RESTful, optimisation des performances, création d'applications complètes",
-            "bullet3": "6 projets professionnels sur GitHub (intégration, accessibilité, front-end React, back-end Node.js)"
-          },
-          "doranco": {
-            "degree": "Concepteur Développeur d'Applications",
-            "school": "Doranco",
-            "description": "Formation avancée en conception d'applications et architecture logicielle.",
-            "bullet1": "Développement web: HTML, CSS, JavaScript, React, Java, API RESTful, SQL/NoSQL",
-            "bullet2": "Méthodes: UML, Docker, Figma, Méthodes Agiles (Scrum)",
-            "bullet3": "Projets: Applications web full-stack, gestion de projet agile, documentation technique"
-          }
-        }
-     },
     "cv": {
       "title": "Télécharger mon CV",
       "description": "Découvrez mon parcours complet et mes compétences détaillées",
@@ -273,20 +118,16 @@
         "seo": "SEO optimisé"
       }
     },
-    "wuthering_waves": {
-      "title": "Wuthering Waves Project",
-      "description": "Site web Next.js mettant en avant le jeu Wuthering Waves avec animations GSAP, design moderne et interface responsive.",
-      "category": "Web App",
+    "unityvert": {
+      "title": "Unityvert",
+      "description": "Site vitrine réalisé pour un jardinier souhaitant une présence en ligne pour développer son activité. Design épuré, services mis en avant et formulaire de contact.",
+      "category": "Site vitrine",
       "results": {
-        "animations": "Animations GSAP",
-        "design": "Design moderne",
-        "responsive": "Interface responsive"
+        "presence": "Présence en ligne",
+        "design": "Design soigné",
+        "contact": "Formulaire de contact"
       }
     }
-  },
-  "testimonials": {
-    "title": "Témoignages",
-    "subtitle": "Ce qu'en disent mes clients"
   },
   "contact": {
     "title": "Contact",
@@ -313,17 +154,39 @@
     "rights": "Tous droits réservés",
     "made_with": "Fait avec"
   },
-  "common": {
-    "loading": "Chargement...",
-    "error": "Une erreur est survenue",
-    "back_to_top": "Retour en haut"
-  },
   "errors": {
-    "name": "Le nom est requis",
-    "email": "L'email est requis",
-    "message": "Le message est requis",
     "invalid_name": "Le nom doit contenir entre 2 et 50 caractères alphabétiques",
     "invalid_email": "Veuillez entrer une adresse email valide",
     "invalid_message": "Le message doit contenir au moins 10 caractères"
+  },
+  "beyondCode": {
+    "badge": "Au-delà du code",
+    "title": "Ce qui me définit",
+    "description": "Le développement n'est qu'une partie de qui je suis. Voici ce qui m'anime au quotidien, mes passions et mes valeurs.",
+    "passions": {
+      "fitness": {
+        "title": "Sport & Fitness",
+        "description": "Discipline, régularité, dépassement de soi. Ce que je construis à la salle, je l'applique dans mes projets."
+      },
+      "entrepreneurship": {
+        "title": "Entrepreneuriat",
+        "description": "Passionné par la création de valeur. Applications, immobilier, indépendance financière - je construis mon avenir brique par brique."
+      },
+      "cars": {
+        "title": "Automobile",
+        "description": "Fan de belles mécaniques. J'aime les voitures, leur design, leur son, leur histoire."
+      },
+      "music": {
+        "title": "Musique",
+        "artist": "Artiste préféré : The Weeknd",
+        "description": "La musique m'accompagne partout, peu importe mon humeur ou ce que je fais."
+      },
+      "travel": {
+        "title": "Voyages",
+        "description": "Le monde me remet les idées en place. D'autres fuseaux, d'autres cultures, d'autres assiettes — je reviens toujours avec un regard neuf."
+      }
+    },
+    "quote": "Je construis autant la personne que je deviens que les projets sur lesquels je travaille.",
+    "quoteSubtitle": "Grandir, comprendre, tomber, recommencer."
   }
 }

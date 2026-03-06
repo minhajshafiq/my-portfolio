@@ -18,6 +18,7 @@ const navItems = [
   { href: '#services', key: 'nav.services' },
   { href: '#projects', key: 'nav.projects' },
   { href: '#about', key: 'nav.about' },
+  { href: '#beyond-code', key: 'nav.beyondCode' },
   { href: '#contact', key: 'nav.contact' },
 ]
 

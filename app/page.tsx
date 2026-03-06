@@ -3,6 +3,7 @@ import { About } from '@/components/sections/About'
 import { Services } from '@/components/sections/Services'
 import { Projects } from '@/components/sections/Projects'
 import { Contact } from '@/components/sections/Contact'
+import { BeyondCode } from '@/components/sections/BeyondCode'
 
 export default function Home() {
   return (
@@ -11,7 +12,7 @@ export default function Home() {
       <Services />
       <Projects />
       <About />
-      {/* <Testimonials /> */}
+      <BeyondCode />
       <Contact />
     </>
   )

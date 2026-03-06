@@ -3,440 +3,419 @@
 import { useState, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { FaCode, FaBriefcase, FaGraduationCap, FaDownload, FaArrowRight, FaUsers, FaComments, FaLightbulb } from 'react-icons/fa'
+import { motion, AnimatePresence } from 'framer-motion'
+import { FaDownload, FaArrowRight, FaCalendarAlt, FaDocker, FaGitAlt, FaJava } from 'react-icons/fa'
+import {
+  SiNextdotjs,
+  SiReact,
+  SiTypescript,
+  SiSpringboot,
+  SiFlutter,
+  SiPostgresql,
+  SiTailwindcss,
+  SiNodedotjs,
+  SiFigma,
+  SiSupabase,
+  SiFirebase,
+  SiGooglecloud,
+} from 'react-icons/si'
 import Image from 'next/image'
 import { useTranslation } from '@/hooks/useTranslation'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Types
-interface Formation {
-  year: string
-  degree: string
-  school: string
-  type?: "formation" | "experience"
-  description?: string
-}
+// Stack technique par catégorie
+const TECH_CATEGORIES = [
+  {
+    name: 'Frontend',
+    techs: [
+      { name: 'Next.js', icon: SiNextdotjs },
+      { name: 'React', icon: SiReact },
+      { name: 'TypeScript', icon: SiTypescript },
+      { name: 'Tailwind', icon: SiTailwindcss },
+    ]
+  },
+  {
+    name: 'Backend & Cloud',
+    techs: [
+      { name: 'Spring Boot', icon: SiSpringboot },
+      { name: 'Supabase', icon: SiSupabase },
+      { name: 'Firebase', icon: SiFirebase },
+      { name: 'Google Cloud', icon: SiGooglecloud },
+    ]
+  },
+  {
+    name: 'Mobile & Tools',
+    techs: [
+      { name: 'Flutter', icon: SiFlutter },
+      { name: 'Docker', icon: FaDocker },
+      { name: 'Git', icon: FaGitAlt },
+      { name: 'Figma', icon: SiFigma },
+    ]
+  },
+]
 
-interface CareerInfo {
-  formations: Formation[]
-}
-
-  // Données
 export function About() {
-  const [activeTab, setActiveTab] = useState<"formation" | "experience">("experience")
+  const [activeTab, setActiveTab] = useState<'experience' | 'formation'>('experience')
   const { t } = useTranslation()
+  const sectionRef = useRef<HTMLElement>(null)
+  const photoRef = useRef<HTMLDivElement>(null)
 
-  const STRENGTHS_DATA = [
-    {
-      icon: FaCode,
-      title: t('about.skills.fullstack.title') as string,
-      description: t('about.skills.fullstack.description') as string
-    },
-    {
-      icon: FaBriefcase,
-      title: t('about.skills.mobile.title') as string,
-      description: t('about.skills.mobile.description') as string
-    },
-    {
-      icon: FaGraduationCap,
-      title: t('about.skills.learning.title') as string,
-      description: t('about.skills.learning.description') as string
-    },
-    {
-      icon: FaUsers,
-      title: t('about.skills.teamwork.title') as string,
-      description: t('about.skills.teamwork.description') as string
-    },
-    {
-      icon: FaComments,
-      title: t('about.skills.communication.title') as string,
-      description: t('about.skills.communication.description') as string
-    },
-    {
-      icon: FaLightbulb,
-      title: t('about.skills.problem_solving.title') as string,
-      description: t('about.skills.problem_solving.description') as string
-    },
-  ]
+  // Animation de la photo au scroll
+  useEffect(() => {
+    if (photoRef.current) {
+      gsap.fromTo(
+        photoRef.current,
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: photoRef.current,
+            start: 'top 80%',
+          },
+        }
+      )
+    }
 
-  const CAREER_DATA: CareerInfo[] = [
+    return () => {
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+    }
+  }, [])
+
+  const TIMELINE_DATA = [
     {
-      formations: [
-        {
-          year: "2017-2019",
-          degree: t('about.timeline.formations.stti2d.degree') as string,
-          school: t('about.timeline.formations.stti2d.school') as string,
-          type: "formation",
-          description: t('about.timeline.formations.stti2d.description') as string
-        },
-        {
-          year: "2022-2023",
-          degree: t('about.timeline.formations.openclassrooms.degree') as string,
-          school: t('about.timeline.formations.openclassrooms.school') as string,
-          type: "formation",
-          description: t('about.timeline.formations.openclassrooms.description') as string
-        },
-        {
-          year: "2024-2025",
-          degree: t('about.timeline.formations.doranco.degree') as string,
-          school: t('about.timeline.formations.doranco.school') as string,
-          type: "formation",
-          description: t('about.timeline.formations.doranco.description') as string
-        },
-        {
-          year: "Mars 2025",
-          degree: t('about.timeline.experiences.freelance.degree') as string,
-          school: t('about.timeline.experiences.freelance.school') as string,
-          type: "experience",
-          description: t('about.timeline.experiences.freelance.description') as string
-        },
-        {
-          year: "Nov 2024 - Fév 2025",
-          degree: t('about.timeline.experiences.ukenoon.degree') as string,
-          school: t('about.timeline.experiences.ukenoon.school') as string,
-          type: "experience",
-          description: t('about.timeline.experiences.ukenoon.description') as string
-        },
+      year: 'Mars 2025',
+      title: t('about.timeline.experiences.freelance.degree'),
+      company: t('about.timeline.experiences.freelance.school'),
+      type: 'experience' as const,
+      bullets: [
+        t('about.timeline.experiences.freelance.bullet1'),
+        t('about.timeline.experiences.freelance.bullet2'),
+        t('about.timeline.experiences.freelance.bullet3'),
+      ],
+    },
+    {
+      year: 'Nov 2024 - Fév 2025',
+      title: t('about.timeline.experiences.ukenoon.degree'),
+      company: t('about.timeline.experiences.ukenoon.school'),
+      type: 'experience' as const,
+      bullets: [
+        t('about.timeline.experiences.ukenoon.bullet1'),
+        t('about.timeline.experiences.ukenoon.bullet2'),
+        t('about.timeline.experiences.ukenoon.bullet3'),
+      ],
+    },
+    {
+      year: '2024 - 2025',
+      title: t('about.timeline.formations.doranco.degree'),
+      company: t('about.timeline.formations.doranco.school'),
+      type: 'formation' as const,
+      bullets: [
+        t('about.timeline.formations.doranco.bullet1'),
+        t('about.timeline.formations.doranco.bullet2'),
+        t('about.timeline.formations.doranco.bullet3'),
+      ],
+    },
+    {
+      year: '2022 - 2023',
+      title: t('about.timeline.formations.openclassrooms.degree'),
+      company: t('about.timeline.formations.openclassrooms.school'),
+      type: 'formation' as const,
+      bullets: [
+        t('about.timeline.formations.openclassrooms.bullet1'),
+        t('about.timeline.formations.openclassrooms.bullet2'),
+        t('about.timeline.formations.openclassrooms.bullet3'),
       ],
     },
   ]
 
-
-
-
-
-// Hook pour les animations GSAP
-function useGSAPAnimation() {
-  const createScrollAnimation = (element: HTMLElement | null, animation: { from: Record<string, unknown>, to: Record<string, unknown> }) => {
-    if (element && element.dataset.animated !== 'true') {
-      gsap.fromTo(element, animation.from, {
-        ...animation.to,
-        scrollTrigger: {
-          trigger: element,
-          start: "top 85%",
-          end: "bottom 15%",
-          toggleActions: "play none none reverse"
-        },
-        onComplete: () => {
-          if (element) {
-            element.dataset.animated = 'true'
-          }
-        }
-      })
-    }
-  }
-
-  return { createScrollAnimation }
-}
-
-// Fonction pour obtenir l'année la plus récente
-function getLatestYear(yearString: string): number {
-  const years = yearString.match(/\d{4}/g)
-  if (years) {
-    return Math.max(...years.map(Number))
-  }
-  return 0
-}
-
-
-
-  // Références
-  const sectionRef = useRef<HTMLElement>(null)
-  const headerRef = useRef<HTMLDivElement>(null)
-  const descriptionRef = useRef<HTMLParagraphElement>(null)
-  const photoRef = useRef<HTMLDivElement>(null)
-  const strengthsRef = useRef<HTMLDivElement>(null)
-  const timelineRef = useRef<HTMLDivElement>(null)
-  const tabIndicatorRef = useRef<HTMLDivElement>(null)
-
-  const { createScrollAnimation } = useGSAPAnimation()
-
-  // Animations GSAP simplifiées
-  useEffect(() => {
-    // Animation simple du header
-    createScrollAnimation(headerRef.current, {
-      from: { opacity: 0, y: 30 },
-      to: { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
-    })
-
-    // Animation simple de la photo
-    createScrollAnimation(photoRef.current, {
-      from: { opacity: 0, scale: 0.9 },
-      to: { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" }
-    })
-
-    // Animation simple du contenu principal
-    createScrollAnimation(descriptionRef.current, {
-      from: { opacity: 0, y: 20 },
-      to: { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
-    })
-
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
-    }
-  }, [createScrollAnimation])
-
-
-  useEffect(() => {
-    if (tabIndicatorRef.current) {
-      gsap.to(tabIndicatorRef.current, {
-        left: activeTab === 'experience' ? '2px' : 'calc(50% + 2px)',
-        duration: 0.3,
-        ease: "power2.out"
-      })
-    }
-  }, [activeTab])
-
-
-  const filteredFormations = CAREER_DATA[0].formations
-    .filter(formation => formation.type === activeTab)
-    .sort((a, b) => getLatestYear(b.year) - getLatestYear(a.year))
+  const filteredTimeline = TIMELINE_DATA.filter((item) => item.type === activeTab)
 
   return (
-    <section ref={sectionRef} id="about" className="py-16 bg-custom-primary">
+    <section ref={sectionRef} id="about" className="py-20 bg-custom-primary overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
-          {/* En-tête */}
-          <div ref={headerRef} className="text-center mb-12">
-            <h2 className="text-4xl lg:text-5xl font-bold text-custom-title mb-6">
+
+          {/* Header style signature */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <span className="text-[#8C0605] dark:text-[#FFD6D6] font-mono text-sm tracking-widest uppercase mb-4 block">
+              {'< '}{t('about.title')}{' />'}
+            </span>
+            <h2 className="text-5xl md:text-7xl font-black text-custom-title leading-none">
               {t('about.subtitle')}
             </h2>
-            
-            <p className="text-lg text-custom-secondary max-w-3xl mx-auto leading-relaxed">
-              {t('about.description')}
-            </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-12 gap-6 w-full max-w-7xl mx-auto">
-            {/* Photo */}
-            <div className="col-span-12 lg:col-span-4 row-span-1">
-              <div ref={photoRef} className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 h-full flex flex-col items-center justify-center">
-                <div className="relative overflow-hidden rounded-2xl shadow-xl w-64 h-64">
-                  <Image
-                    src="/minhaj.jpg"
-                    alt="Photo de profil"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 256px"
-                    className="object-cover"
-                  />
+          {/* Grille principale */}
+          <div className="grid grid-cols-12 gap-4 md:gap-6">
+
+            {/* Grande carte photo + intro */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="col-span-12 lg:col-span-5 row-span-2"
+            >
+              <div
+                ref={photoRef}
+                className="relative h-full min-h-[500px] rounded-3xl overflow-hidden group"
+              >
+                {/* Photo de fond */}
+                <Image
+                  src="/minhaj.jpg"
+                  alt="Minhaj"
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+
+                {/* Overlay gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+
+                {/* Contenu */}
+                <div className="absolute bottom-0 left-0 right-0 p-8">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
+                    <span className="text-green-400 text-sm font-medium">
+                      {t('contact.available_immediately')}
+                    </span>
+                  </div>
+
+                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-2">
+                    Minhaj Zubair
+                  </h3>
+                  <p className="text-white/70 text-lg mb-4">
+                    Full-Stack Developer
+                  </p>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {['Next.js', 'Spring Boot', 'Flutter'].map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Badge coin */}
+                <div className="absolute top-6 right-6 bg-[#8C0605] text-white px-4 py-2 rounded-full text-sm font-bold transform rotate-3 shadow-lg">
+                  Paris, FR 🇫🇷
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Description */}
-            <div className="col-span-12 lg:col-span-8 row-span-1">
-              <div ref={descriptionRef} className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 h-full flex flex-col justify-center">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">{t('about.profile.title')}</h3>
-                <div className="text-gray-600 dark:text-gray-300 leading-relaxed space-y-3">
-                  <p>
-                    {t('about.profile.paragraph1')}
-                  </p>
-                  <p>
-                    {t('about.profile.paragraph2')}
-                  </p>
-                  <p>
-                    {t('about.profile.paragraph3')}
-                  </p>
-                  <p>
+            {/* Bio personnelle */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="col-span-12 lg:col-span-7"
+            >
+              <div className="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-3xl shadow-lg h-full">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
+                  {t('about.profile.title')}
+                </h3>
+
+                <div className="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed">
+                  <p>{t('about.profile.paragraph1')}</p>
+                  <p>{t('about.profile.paragraph2')}</p>
+                  <p>{t('about.profile.paragraph3')}</p>
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                  <p className="text-[#8C0605] dark:text-[#FFD6D6] font-medium">
                     {t('about.profile.paragraph4')}
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Compétences */}
-            <div className="col-span-12 row-span-2">
-              <div ref={strengthsRef} className="bg-white dark:bg-gray-800 p-4 lg:p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 h-full">
-                <h3 className="text-lg lg:text-xl font-bold text-gray-900 dark:text-white mb-4 lg:mb-6">{t('about.skills.title')}</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
-                  {STRENGTHS_DATA.map((strength) => (
-                    <div key={strength.title} className="flex items-start gap-3 p-3 lg:p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
-                      <div className="p-2 bg-[#8C0605]/10 dark:bg-[#FFD6D6]/10 rounded-lg flex-shrink-0 mt-0.5">
-                        <strength.icon className="w-4 h-4 lg:w-6 lg:h-6 text-[#8C0605] dark:text-[#FFD6D6]" />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <h4 className="font-semibold text-gray-900 dark:text-white text-sm lg:text-base mb-1">
-                          {strength.title}
-                        </h4>
-                        <p className="text-gray-600 dark:text-gray-300 text-xs lg:text-sm leading-relaxed">
-                          {strength.description}
-                        </p>
+            {/* Tech Stack - Aligné avec la bio */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="col-span-12 lg:col-span-7"
+            >
+              <div className="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-3xl shadow-lg h-full">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
+                  Stack technique
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {TECH_CATEGORIES.map((category) => (
+                    <div key={category.name}>
+                      <span className="text-xs font-mono text-[#8C0605] dark:text-[#FFD6D6] uppercase tracking-wider mb-3 block">
+                        {category.name}
+                      </span>
+                      <div className="space-y-2">
+                        {category.techs.map((tech) => (
+                          <div
+                            key={tech.name}
+                            className="flex items-center gap-3 text-gray-700 dark:text-gray-300 hover:text-[#8C0605] dark:hover:text-[#FFD6D6] transition-colors"
+                          >
+                            <tech.icon className="w-5 h-5" />
+                            <span className="text-sm font-medium">
+                              {tech.name}
+                            </span>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Timeline */}
-            <div className="col-span-12 lg:col-span-8 row-span-2">
-              <div ref={timelineRef} className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 h-full">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">{t('about.timeline.title')}</h3>
-                
-                {/* Onglets de filtrage */}
-                <div className="flex mb-6 bg-gray-100 dark:bg-gray-700 p-1 rounded-xl w-full sm:w-fit border border-gray-200 dark:border-gray-600 relative">
-                  <div 
-                    ref={tabIndicatorRef}
-                    className="absolute top-1 bottom-1 bg-[#8C0605] dark:bg-[#FFD6D6] rounded-lg shadow-lg"
-                    style={{ 
-                      width: 'calc(50% - 4px)', 
-                      left: '2px'
-                    }}
-                  />
-                  
-                  <button
-                    onClick={() => setActiveTab('experience')}
-                    className={`relative z-10 flex-1 sm:flex-none px-3 sm:px-6 py-2 rounded-lg font-medium transition-all duration-300 cursor-pointer text-sm sm:text-base ${
-                      activeTab === 'experience'
-                        ? 'text-white dark:text-gray-900'
-                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-                    }`}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="col-span-12 lg:col-span-5"
+            >
+              <div className="bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-lg h-full">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                    <FaCalendarAlt className="text-[#8C0605] dark:text-[#FFD6D6]" />
+                    {t('about.timeline.title')}
+                  </h3>
+
+                  {/* Toggle */}
+                  <div className="flex bg-gray-100 dark:bg-gray-700 p-1 rounded-lg">
+                    <button
+                      onClick={() => setActiveTab('experience')}
+                      className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+                        activeTab === 'experience'
+                          ? 'bg-[#8C0605] text-white dark:bg-[#FFD6D6] dark:text-gray-900'
+                          : 'text-gray-600 dark:text-gray-400'
+                      }`}
+                    >
+                      💼 XP
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('formation')}
+                      className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+                        activeTab === 'formation'
+                          ? 'bg-[#8C0605] text-white dark:bg-[#FFD6D6] dark:text-gray-900'
+                          : 'text-gray-600 dark:text-gray-400'
+                      }`}
+                    >
+                      🎓 Edu
+                    </button>
+                  </div>
+                </div>
+
+                {/* Timeline items */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeTab}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="space-y-4"
                   >
-                    {t('about.timeline.experience_tab')}
-                  </button>
+                    {filteredTimeline.map((item, index) => (
+                      <motion.div
+                        key={`${item.year}-${index}`}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="relative pl-6 border-l-2 border-gray-200 dark:border-gray-700"
+                      >
+                        {/* Dot */}
+                        <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-[#8C0605] dark:bg-[#FFD6D6] border-2 border-white dark:border-gray-800" />
+
+                        <span className="text-xs font-mono text-[#8C0605] dark:text-[#FFD6D6] bg-[#8C0605]/10 dark:bg-[#FFD6D6]/10 px-2 py-0.5 rounded">
+                          {item.year}
+                        </span>
+                        <h4 className="font-bold text-gray-900 dark:text-white mt-2">
+                          {item.title}
+                        </h4>
+                        <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                          {item.company}
+                        </p>
+                        <ul className="space-y-1">
+                          {item.bullets.map((bullet, i) => (
+                            <li
+                              key={i}
+                              className="text-xs text-gray-600 dark:text-gray-400 flex items-start gap-2"
+                            >
+                              <span className="text-[#8C0605] dark:text-[#FFD6D6] mt-0.5">→</span>
+                              {bullet}
+                            </li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </motion.div>
+
+            {/* CTA Cards - empilées à côté de la Timeline */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="col-span-12 lg:col-span-7"
+            >
+              <div className="flex flex-col gap-4 h-full">
+                {/* CV Card */}
+                <div className="bg-gradient-to-br from-gray-900 to-gray-800 p-6 rounded-3xl flex-1 flex flex-col justify-between relative overflow-hidden group">
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0" style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                    }} />
+                  </div>
+                  <div className="relative z-10">
+                    <span className="text-gray-400 text-sm uppercase tracking-wider">PDF</span>
+                    <h3 className="text-xl font-bold text-white mt-2">{t('about.cv.title')}</h3>
+                    <p className="text-gray-400 text-sm mt-2">{t('about.cv.description')}</p>
+                  </div>
                   <button
-                    onClick={() => setActiveTab('formation')}
-                    className={`relative z-10 flex-1 sm:flex-none px-3 sm:px-6 py-2 rounded-lg font-medium transition-all duration-300 cursor-pointer text-sm sm:text-base ${
-                      activeTab === 'formation'
-                        ? 'text-white dark:text-gray-900'
-                        : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-                    }`}
+                    onClick={() => window.open('/cv-minhaj_zubair.pdf', '_blank')}
+                    className="relative z-10 mt-4 inline-flex items-center gap-2 bg-white text-gray-900 px-5 py-2.5 rounded-full font-semibold text-sm hover:bg-gray-100 transition-colors w-fit"
                   >
-                    {t('about.timeline.education_tab')}
+                    <FaDownload className="w-4 h-4" />
+                    {t('about.cv.button')}
                   </button>
                 </div>
 
-                {/* Chronologie */}
-                <div className="space-y-4">
-                  {filteredFormations.map((formation) => (
-                    <div key={`${formation.degree}-${formation.year}`} className="flex items-start gap-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-xl">
-                      <div className="flex-shrink-0 w-8 h-8 bg-[#8C0605]/10 dark:bg-[#FFD6D6]/10 rounded-full flex items-center justify-center">
-                        {formation.type === 'formation' ? (
-                          <FaGraduationCap size={16} className="text-[#8C0605] dark:text-[#FFD6D6]" />
-                        ) : (
-                          <FaBriefcase size={16} className="text-[#8C0605] dark:text-[#FFD6D6]" />
-                        )}
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-medium text-[#8C0605] dark:text-[#FFD6D6] bg-[#8C0605]/10 dark:bg-[#FFD6D6]/10 px-2 py-1 rounded-full">
-                            {formation.year}
-                          </span>
-                        </div>
-                        <h4 className="font-semibold text-gray-900 dark:text-white mb-1">
-                          {formation.degree}
-                        </h4>
-                        <p className="text-gray-600 dark:text-gray-300 text-sm mb-2">
-                          {formation.school}
-                        </p>
-                        {formation.description && (
-                          <div className="text-gray-500 dark:text-gray-400 text-xs">
-                            {formation.school === t('about.timeline.experiences.ukenoon.school') ? (
-                              <ul className="space-y-1">
-                                <li className="flex items-start gap-2">
-                                  <span className="w-1.5 h-1.5 bg-[#8C0605] dark:bg-[#FFD6D6] rounded-full mt-1.5 flex-shrink-0"></span>
-                                  <span>{t('about.timeline.experiences.ukenoon.bullet1')}</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                  <span className="w-1.5 h-1.5 bg-[#8C0605] dark:bg-[#FFD6D6] rounded-full mt-1.5 flex-shrink-0"></span>
-                                  <span>{t('about.timeline.experiences.ukenoon.bullet2')}</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                  <span className="w-1.5 h-1.5 bg-[#8C0605] dark:bg-[#FFD6D6] rounded-full mt-1.5 flex-shrink-0"></span>
-                                  <span>{t('about.timeline.experiences.ukenoon.bullet3')}</span>
-                                </li>
-                              </ul>
-                            ) : formation.school === t('about.timeline.experiences.freelance.school') ? (
-                              <ul className="space-y-1">
-                                <li className="flex items-start gap-2">
-                                  <span className="w-1.5 h-1.5 bg-[#8C0605] dark:bg-[#FFD6D6] rounded-full mt-1.5 flex-shrink-0"></span>
-                                  <span>{t('about.timeline.experiences.freelance.bullet1')}</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                  <span className="w-1.5 h-1.5 bg-[#8C0605] dark:bg-[#FFD6D6] rounded-full mt-1.5 flex-shrink-0"></span>
-                                  <span>{t('about.timeline.experiences.freelance.bullet2')}</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                  <span className="w-1.5 h-1.5 bg-[#8C0605] dark:bg-[#FFD6D6] rounded-full mt-1.5 flex-shrink-0"></span>
-                                  <span>{t('about.timeline.experiences.freelance.bullet3')}</span>
-                                </li>
-                              </ul>
-                            ) : formation.school === t('about.timeline.formations.doranco.school') ? (
-                              <ul className="space-y-1">
-                                <li className="flex items-start gap-2">
-                                  <span className="w-1.5 h-1.5 bg-[#8C0605] dark:bg-[#FFD6D6] rounded-full mt-1.5 flex-shrink-0"></span>
-                                  <span>{t('about.timeline.formations.doranco.bullet1')}</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                  <span className="w-1.5 h-1.5 bg-[#8C0605] dark:bg-[#FFD6D6] rounded-full mt-1.5 flex-shrink-0"></span>
-                                  <span>{t('about.timeline.formations.doranco.bullet2')}</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                  <span className="w-1.5 h-1.5 bg-[#8C0605] dark:bg-[#FFD6D6] rounded-full mt-1.5 flex-shrink-0"></span>
-                                  <span>{t('about.timeline.formations.doranco.bullet3')}</span>
-                                </li>
-                              </ul>
-                            ) : formation.school === t('about.timeline.formations.openclassrooms.school') ? (
-                              <ul className="space-y-1">
-                                <li className="flex items-start gap-2">
-                                  <span className="w-1.5 h-1.5 bg-[#8C0605] dark:bg-[#FFD6D6] rounded-full mt-1.5 flex-shrink-0"></span>
-                                  <span>{t('about.timeline.formations.openclassrooms.bullet1')}</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                  <span className="w-1.5 h-1.5 bg-[#8C0605] dark:bg-[#FFD6D6] rounded-full mt-1.5 flex-shrink-0"></span>
-                                  <span>{t('about.timeline.formations.openclassrooms.bullet2')}</span>
-                                </li>
-                                <li className="flex items-start gap-2">
-                                  <span className="w-1.5 h-1.5 bg-[#8C0605] dark:bg-[#FFD6D6] rounded-full mt-1.5 flex-shrink-0"></span>
-                                  <span>{t('about.timeline.formations.openclassrooms.bullet3')}</span>
-                                </li>
-                              </ul>
-                            ) : (
-                              <p>{formation.description}</p>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  ))}
+                {/* Let's Talk Card */}
+                <div className="bg-[#8C0605] dark:bg-[#FFD6D6] p-6 rounded-3xl flex-1 flex flex-col justify-between relative overflow-hidden">
+                  <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 dark:bg-gray-900/10 rounded-full" />
+                  <div className="relative z-10">
+                    <span className="text-white/70 dark:text-gray-900/70 text-sm uppercase tracking-wider">
+                      Let&apos;s talk
+                    </span>
+                    <h3 className="text-xl font-bold text-white dark:text-gray-900 mt-2">
+                      {t('about.collaboration.title')}
+                    </h3>
+                    <p className="text-white/80 dark:text-gray-900/80 text-sm mt-2">
+                      {t('about.collaboration.description')}
+                    </p>
+                  </div>
+                  <a
+                    href="#contact"
+                    className="relative z-10 mt-4 inline-flex items-center gap-2 bg-white dark:bg-gray-900 text-[#8C0605] dark:text-[#FFD6D6] px-5 py-2.5 rounded-full font-semibold text-sm hover:shadow-lg transition-shadow w-fit group"
+                  >
+                    {t('about.collaboration.button')}
+                    <FaArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </a>
                 </div>
               </div>
-            </div>
-
-            {/* CTA CV */}
-            <div className="col-span-12 lg:col-span-4 row-span-1">
-                          <div className="bg-gradient-to-br from-[#8C0605] to-[#8C0605]/90 dark:from-[#FFD6D6] dark:to-[#FFD6D6]/90 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col items-center justify-center text-center">
-              <h3 className="text-xl font-bold text-white dark:text-gray-900 mb-4">{t('about.cv.title')}</h3>
-              <p className="text-white/90 dark:text-gray-900/90 mb-6 text-sm">
-                {t('about.cv.description')}
-              </p>
-              <button
-                onClick={() => window.open('/cv-minhaj_zubair.pdf', '_blank')}
-                className="group flex items-center gap-2 px-6 py-3 bg-white dark:bg-gray-900 text-[#8C0605] dark:text-[#FFD6D6] rounded-full font-semibold transition-all duration-300 hover:shadow-2xl hover:scale-105 active:scale-95 shadow-lg cursor-pointer"
-              >
-                <FaDownload className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
-                {t('about.cv.button')}
-              </button>
-            </div>
-            </div>
-
-            {/* CTA Collaboration */}
-            <div className="col-span-12 lg:col-span-4 row-span-1">
-                          <div className="bg-gradient-to-br from-[#8C0605] to-[#8C0605]/90 dark:from-[#FFD6D6] dark:to-[#FFD6D6]/90 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col items-center justify-center text-center">
-              <h3 className="text-xl font-bold text-white dark:text-gray-900 mb-4">{t('about.collaboration.title')}</h3>
-              <p className="text-white/90 dark:text-gray-900/90 mb-6 text-sm">
-                {t('about.collaboration.description')}
-              </p>
-              <a
-                href="#contact"
-                className="group inline-flex items-center gap-2 bg-white dark:bg-gray-900 text-[#8C0605] dark:text-[#FFD6D6] px-6 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 cursor-pointer"
-              >
-                {t('about.collaboration.button')}
-                <FaArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
-            </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

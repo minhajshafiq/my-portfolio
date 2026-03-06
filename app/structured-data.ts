@@ -52,7 +52,7 @@ export const websiteStructuredData = {
 export const profilePageStructuredData = {
   '@context': 'https://schema.org',
   '@type': 'ProfilePage',
-  dateCreated: '2024-01-01T00:00:00+00:00',
+  dateCreated: '2025-01-01T00:00:00+00:00',
   dateModified: new Date().toISOString(),
   mainEntity: personStructuredData,
 }
@@ -70,26 +70,27 @@ export const breadcrumbStructuredData = {
   ],
 }
 
-export const offerStructuredData = {
+export const serviceStructuredData = {
   '@context': 'https://schema.org',
-  '@type': 'Offer',
-  name: 'Services de Développement Full-Stack',
-  description: 'Développement d\'applications web et mobiles sur mesure',
-  seller: {
+  '@type': 'Service',
+  name: 'Développement Web & Mobile Full-Stack',
+  description: 'Services de développement d\'applications web et mobiles sur mesure avec Next.js, Spring Boot et Flutter.',
+  provider: {
     '@type': 'Person',
     name: siteConfig.author,
+    url: siteConfig.url,
   },
-  availability: 'https://schema.org/InStock',
-  itemOffered: {
-    '@type': 'Service',
-    name: 'Développement Full-Stack',
-    provider: {
-      '@type': 'Person',
-      name: siteConfig.author,
-    },
-    areaServed: {
-      '@type': 'Country',
-      name: 'France',
+  areaServed: {
+    '@type': 'Country',
+    name: 'France',
+  },
+  serviceType: ['Développement Web', 'Développement Mobile', 'Développement Full-Stack'],
+  offers: {
+    '@type': 'Offer',
+    availability: 'https://schema.org/InStock',
+    priceSpecification: {
+      '@type': 'PriceSpecification',
+      priceCurrency: 'EUR',
     },
   },
 }

@@ -156,8 +156,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    yandex: 'your-yandex-verification-code',
-    yahoo: 'your-yahoo-verification-code',
+    google: 'your-google-verification-code',
   },
   other: {
     // Métadonnées supplémentaires pour le SEO
@@ -226,13 +225,7 @@ export const metadata: Metadata = {
     'twitter:app:url:ipad': siteConfig.url,
     'twitter:app:url:googleplay': siteConfig.url,
     
-         // Métadonnées pour les applications mobiles
-     'apple-itunes-app': 'app-id=',
-     'msapplication-TileImage': '/mstile-144x144.png',
-     'msapplication-TileColor': '#8C0605',
-     'msapplication-config': '/browserconfig.xml',
-    
-    // Métadonnées pour les performances
+// Métadonnées pour les performances
     'dcterms.creator': siteConfig.author,
     'dcterms.publisher': siteConfig.author,
     'dcterms.title': siteConfig.name,
@@ -240,8 +233,8 @@ export const metadata: Metadata = {
     'dcterms.subject': 'Développement Web, Mobile, Full-Stack',
     'dcterms.language': 'fr',
     'dcterms.coverage': 'France',
-    'dcterms.rights': 'Copyright © 2024 Minhaj Shafiq. Tous droits réservés.',
-    'dcterms.date': '2024',
+    'dcterms.rights': 'Copyright © 2026 Minhaj Zubair. Tous droits réservés.',
+    'dcterms.date': '2026',
     'dcterms.type': 'Text',
     'dcterms.format': 'text/html',
     'dcterms.identifier': siteConfig.url,
