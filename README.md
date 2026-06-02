@@ -186,7 +186,7 @@ Ce portfolio actuel, développé avec Next.js 15 et optimisé pour le SEO.
 
 Je suis ouvert aux opportunités de collaboration et aux discussions professionnelles :
 
-- 📧 **Email** : minhaj.shafiq@icloud.com
+- 📧 **Email** : contact@minhajshafiq.com
 - 💼 **LinkedIn** : [linkedin.com/in/minhajshafiq](https://www.linkedin.com/in/minhajshafiq/)
 - 🐙 **GitHub** : [github.com/minhajshafiq](https://github.com/minhajshafiq)
 - 🌐 **Portfolio** : [minhajshafiq.com](https://www.minhajshafiq.com)

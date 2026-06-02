@@ -27,8 +27,8 @@ const contactMethods = [
   {
     icon: FaEnvelope,
     title: 'Email',
-    description: 'minhaj.shafiq@icloud.com',
-    href: 'mailto:minhaj.shafiq@icloud.com',
+    description: 'contact@minhajshafiq.com',
+    href: 'mailto:contact@minhajshafiq.com',
     color: 'from-blue-500 to-cyan-500',
   },
   {

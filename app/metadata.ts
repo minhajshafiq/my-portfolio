@@ -7,12 +7,12 @@ export const siteConfig = {
   url: 'https://www.minhajshafiq.com',
   ogImage: 'https://www.minhajshafiq.com/portfoliomtd.png',
   author: 'Minhaj Zubair',
-  email: 'minhaj.shafiq@icloud.com',
+  email: 'contact@minhajshafiq.com',
   location: 'France',
   links: {
     github: 'https://github.com/minhajshafiq',
     linkedin: 'https://www.linkedin.com/in/minhajshafiq/',
-    email: 'mailto:minhaj.shafiq@icloud.com',
+    email: 'mailto:contact@minhajshafiq.com',
   },
 }
 

@@ -27,7 +27,7 @@ const socialLinks = [
   },
   {
     name: 'Email',
-    href: 'mailto:minhaj.shafiq@icloud.com',
+    href: 'mailto:contact@minhajshafiq.com',
     icon: FaEnvelope,
     color: 'hover:bg-[#8C0605]',
   },
@@ -104,13 +104,13 @@ export function Footer() {
               Je suis toujours ouvert à discuter de nouveaux projets.
             </p>
             <motion.a
-              href="mailto:minhaj.shafiq@icloud.com"
+              href="mailto:contact@minhajshafiq.com"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="inline-flex items-center gap-3 bg-[#8C0605] hover:bg-[#8C0605]/90 text-white px-8 py-4 rounded-full font-semibold text-lg transition-colors"
             >
               <FaEnvelope className="w-5 h-5" />
-              minhaj.shafiq@icloud.com
+              contact@minhajshafiq.com
             </motion.a>
           </motion.div>
         </div>

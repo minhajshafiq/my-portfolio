@@ -1,11 +1,14 @@
 'use client'
 
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, useCallback } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
+
+type LightboxState = { images: string[]; index: number }
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -44,7 +47,40 @@ export function BeyondCode() {
   const marqueeRef = useRef<HTMLDivElement>(null)
   const { t } = useTranslation()
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({})
-  const [selectedImage, setSelectedImage] = useState<string | null>(null)
+  const [lightbox, setLightbox] = useState<LightboxState | null>(null)
+
+  const openLightbox = (images: string[], index: number) => {
+    setLightbox({ images, index })
+  }
+
+  const closeLightbox = useCallback(() => setLightbox(null), [])
+
+  const goToPrev = useCallback(() => {
+    setLightbox(prev => {
+      if (!prev || prev.images.length <= 1) return prev
+      return { ...prev, index: (prev.index - 1 + prev.images.length) % prev.images.length }
+    })
+  }, [])
+
+  const goToNext = useCallback(() => {
+    setLightbox(prev => {
+      if (!prev || prev.images.length <= 1) return prev
+      return { ...prev, index: (prev.index + 1) % prev.images.length }
+    })
+  }, [])
+
+  useEffect(() => {
+    if (!lightbox) return
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeLightbox()
+      if (e.key === 'ArrowLeft') goToPrev()
+      if (e.key === 'ArrowRight') goToNext()
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [lightbox, closeLightbox, goToPrev, goToNext])
 
   // Animation du marquee
   useEffect(() => {
@@ -143,7 +179,7 @@ export function BeyondCode() {
           >
             <div
               className="relative h-[300px] md:h-[350px] rounded-2xl overflow-hidden group cursor-pointer"
-              onClick={() => setSelectedImage(PHOTOS.fitness)}
+              onClick={() => openLightbox([PHOTOS.fitness], 0)}
             >
               <ImageWithFallback
                 src={PHOTOS.fitness}
@@ -172,7 +208,7 @@ export function BeyondCode() {
           >
             <div
               className="relative h-[300px] md:h-[350px] rounded-2xl overflow-hidden group cursor-pointer"
-              onClick={() => setSelectedImage(PHOTOS.entrepreneurship)}
+              onClick={() => openLightbox([PHOTOS.entrepreneurship], 0)}
             >
               <ImageWithFallback
                 src={PHOTOS.entrepreneurship}
@@ -206,7 +242,7 @@ export function BeyondCode() {
                   <div
                     key={src}
                     className="relative overflow-hidden group cursor-pointer"
-                    onClick={() => setSelectedImage(src)}
+                    onClick={() => openLightbox(CAR_PHOTOS, index)}
                   >
                     <ImageWithFallback
                       src={src}
@@ -242,7 +278,7 @@ export function BeyondCode() {
                   <div
                     key={src}
                     className="relative overflow-hidden group cursor-pointer"
-                    onClick={() => setSelectedImage(src)}
+                    onClick={() => openLightbox(TRAVEL_PHOTOS, index)}
                   >
                     <ImageWithFallback
                       src={src}
@@ -332,14 +368,15 @@ export function BeyondCode() {
       </div>
 
       {/* Lightbox */}
-      <AnimatePresence>
-        {selectedImage && (
+      <AnimatePresence mode="wait">
+        {lightbox && (
           <motion.div
+            key="lightbox-overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
-            onClick={() => setSelectedImage(null)}
+            onClick={closeLightbox}
           >
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
@@ -348,18 +385,54 @@ export function BeyondCode() {
               className="relative max-w-4xl max-h-[90vh] w-full h-full"
               onClick={(e) => e.stopPropagation()}
             >
-              <Image
-                src={selectedImage}
-                alt="Image agrandie"
-                fill
-                className="object-contain"
-              />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={lightbox.images[lightbox.index]}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="relative w-full h-full"
+                >
+                  <Image
+                    src={lightbox.images[lightbox.index]}
+                    alt="Image agrandie"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </motion.div>
+              </AnimatePresence>
+
               <button
-                onClick={() => setSelectedImage(null)}
-                className="absolute top-4 right-4 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors"
+                onClick={closeLightbox}
+                className="absolute top-4 right-4 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors z-10"
+                aria-label="Fermer"
               >
                 ✕
               </button>
+
+              {lightbox.images.length > 1 && (
+                <>
+                  <button
+                    onClick={goToPrev}
+                    className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors z-10"
+                    aria-label="Photo précédente"
+                  >
+                    <ChevronLeft className="w-6 h-6 md:w-7 md:h-7" />
+                  </button>
+                  <button
+                    onClick={goToNext}
+                    className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors z-10"
+                    aria-label="Photo suivante"
+                  >
+                    <ChevronRight className="w-6 h-6 md:w-7 md:h-7" />
+                  </button>
+                  <span className="absolute bottom-4 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-white/10 text-white text-sm tabular-nums z-10">
+                    {lightbox.index + 1} / {lightbox.images.length}
+                  </span>
+                </>
+              )}
             </motion.div>
           </motion.div>
         )}
