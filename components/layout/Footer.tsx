@@ -72,7 +72,7 @@ export function Footer() {
   }, [])
 
   return (
-    <footer className="bg-gray-900 dark:bg-black relative overflow-hidden">
+    <footer className="bg-custom-primary relative overflow-hidden">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-[#8C0605]/10 rounded-full blur-3xl" />
@@ -83,7 +83,7 @@ export function Footer() {
       <div className="container mx-auto px-6 relative z-10">
 
         {/* Top section - Big CTA */}
-        <div className="py-16 border-b border-gray-800">
+        <div className="py-16 border-b border-gray-200 dark:border-gray-700">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -93,13 +93,13 @@ export function Footer() {
             <span className="text-[#8C0605] dark:text-[#FFD6D6] font-mono text-sm tracking-widest uppercase mb-4 block">
               {'// '}Ready to collaborate?
             </span>
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight mb-6">
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-black text-custom-title leading-tight mb-6">
               Let&apos;s build
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#8C0605] to-red-500">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#8C0605] to-red-500 dark:from-[#FFD6D6] dark:to-red-400">
                 something great
               </span>
             </h2>
-            <p className="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
+            <p className="text-custom-secondary text-lg mb-8 max-w-2xl mx-auto">
               Une idée de projet ? Une opportunité ? N&apos;hésitez pas à me contacter.
               Je suis toujours ouvert à discuter de nouveaux projets.
             </p>
@@ -116,7 +116,7 @@ export function Footer() {
         </div>
 
         {/* Middle section - Links grid */}
-        <div className="py-12 grid grid-cols-1 md:grid-cols-12 gap-8 border-b border-gray-800">
+        <div className="py-12 grid grid-cols-1 md:grid-cols-12 gap-8 border-b border-gray-200 dark:border-gray-700">
 
           {/* Logo & tagline */}
           <motion.div
@@ -126,10 +126,10 @@ export function Footer() {
             className="md:col-span-5"
           >
             <div className="flex items-center gap-2 mb-4">
-              <span className="text-3xl font-black text-white">Minhaj</span>
+              <span className="text-3xl font-black text-custom-title">Minhaj</span>
               <div className="w-3 h-3 bg-[#8C0605] rounded-full animate-pulse" />
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-sm">
+            <p className="text-custom-secondary text-sm leading-relaxed mb-6 max-w-sm">
               Développeur Full-Stack passionné par la création d&apos;expériences digitales
               uniques et performantes. Basé à Paris, disponible partout.
             </p>
@@ -140,7 +140,7 @@ export function Footer() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
               </span>
-              <span className="text-green-400 text-sm font-medium">Disponible pour nouveaux projets</span>
+              <span className="text-green-600 dark:text-green-400 text-sm font-medium">Disponible pour nouveaux projets</span>
             </div>
           </motion.div>
 
@@ -152,7 +152,7 @@ export function Footer() {
             transition={{ delay: 0.1 }}
             className="md:col-span-3"
           >
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
+            <h3 className="text-custom-title font-semibold mb-4 text-sm uppercase tracking-wider">
               Navigation
             </h3>
             <ul className="space-y-3">
@@ -160,7 +160,7 @@ export function Footer() {
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-gray-400 hover:text-white transition-colors text-sm flex items-center gap-2 group"
+                    className="text-custom-secondary hover:text-custom-title transition-colors text-sm flex items-center gap-2 group"
                   >
                     <span className="w-0 group-hover:w-2 h-px bg-[#8C0605] transition-all duration-300" />
                     {link.name}
@@ -178,19 +178,19 @@ export function Footer() {
             transition={{ delay: 0.2 }}
             className="md:col-span-4"
           >
-            <h3 className="text-white font-semibold mb-4 text-sm uppercase tracking-wider">
+            <h3 className="text-custom-title font-semibold mb-4 text-sm uppercase tracking-wider">
               Contact
             </h3>
             <div className="space-y-3 text-sm">
-              <div className="flex items-center gap-3 text-gray-400">
+              <div className="flex items-center gap-3 text-custom-secondary">
                 <span className="text-lg">📍</span>
                 <span>Paris, France</span>
               </div>
-              <div className="flex items-center gap-3 text-gray-400">
+              <div className="flex items-center gap-3 text-custom-secondary">
                 <span className="text-lg">💼</span>
                 <span>CDI / Freelance / Remote</span>
               </div>
-              <div className="flex items-center gap-3 text-gray-400">
+              <div className="flex items-center gap-3 text-custom-secondary">
                 <span className="text-lg">⚡</span>
                 <span>Réponse sous 24h</span>
               </div>
@@ -206,7 +206,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white transition-all duration-300 ${link.color}`}
+                  className={`w-10 h-10 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center text-custom-secondary hover:text-white transition-all duration-300 ${link.color}`}
                   title={link.name}
                 >
                   <link.icon className="w-4 h-4" />
@@ -222,7 +222,7 @@ export function Footer() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-gray-500 text-sm"
+            className="text-custom-secondary text-sm"
           >
             © {currentYear} Minhaj Zubair. Tous droits réservés.
           </motion.p>
@@ -231,7 +231,7 @@ export function Footer() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-gray-500 text-sm flex items-center gap-2"
+            className="text-custom-secondary text-sm flex items-center gap-2"
           >
             Fait avec
             <span className="text-[#8C0605] animate-pulse">❤️</span>
@@ -243,15 +243,15 @@ export function Footer() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="flex items-center gap-2 text-gray-500 text-sm"
+            className="flex items-center gap-2 text-custom-secondary text-sm"
           >
-            <span className="font-mono text-xs bg-gray-800 px-2 py-1 rounded">
+            <span className="font-mono text-xs bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-2 py-1 rounded text-custom-title">
               Next.js
             </span>
-            <span className="font-mono text-xs bg-gray-800 px-2 py-1 rounded">
+            <span className="font-mono text-xs bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-2 py-1 rounded text-custom-title">
               Tailwind
             </span>
-            <span className="font-mono text-xs bg-gray-800 px-2 py-1 rounded">
+            <span className="font-mono text-xs bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-2 py-1 rounded text-custom-title">
               GSAP
             </span>
           </motion.div>

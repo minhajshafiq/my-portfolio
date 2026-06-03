@@ -59,7 +59,7 @@ export function Services() {
   const { t } = useTranslation()
 
   return (
-    <section id="services" className="py-20 bg-gray-50 dark:bg-gray-900/50 overflow-hidden">
+    <section id="services" className="py-20 bg-custom-primary overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
 

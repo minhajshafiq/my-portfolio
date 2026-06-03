@@ -126,7 +126,7 @@ export function Projects() {
   const otherProjects = projects.filter((p) => !p.featured)
 
   return (
-    <section id="projects" className="py-20 bg-gray-50 dark:bg-gray-900/50 overflow-hidden">
+    <section id="projects" className="py-20 bg-custom-primary overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           {/* Header */}

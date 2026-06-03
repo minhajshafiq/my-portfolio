@@ -85,7 +85,7 @@ export default function RootLayout({
         <CustomCursor />
         <Loader>
           <Header />
-          <main>
+          <main className="bg-custom-primary">
             {children}
           </main>
           <Footer />
