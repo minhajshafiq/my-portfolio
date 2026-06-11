@@ -2,8 +2,8 @@ import { Metadata } from 'next'
 
 export const siteConfig = {
   name: 'Minhaj Zubair - Développeur Full-Stack',
-  description: 'Développeur Full-Stack passionné par Next.js, Spring Boot et Flutter. Spécialisé dans le développement d\'applications web et mobiles modernes. Disponible pour CDI et Freelance.',
-  shortDescription: 'Développeur Full-Stack | Next.js, Spring Boot, Flutter',
+  description: 'Développeur Full-Stack passionné par Next.js, Spring Boot et React Native. Spécialisé dans le développement d\'applications web et mobiles modernes. Disponible pour CDI et Freelance.',
+  shortDescription: 'Développeur Full-Stack | Next.js, Spring Boot, React Native',
   url: 'https://www.minhajshafiq.com',
   ogImage: 'https://www.minhajshafiq.com/portfoliomtd.png',
   author: 'Minhaj Zubair',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   keywords: [
     // Technologies principales
     'développeur full-stack',
-    'développeur junior',
+    'développeur',
     'next.js',
     'spring boot',
     'flutter',
@@ -156,7 +156,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'your-google-verification-code',
+    google: 'Ae_td0e89Y7avXHN7AOk28Yyd8MNXMLsVLOiqNO0L6Q',
   },
   other: {
     // Métadonnées supplémentaires pour le SEO
@@ -185,10 +185,6 @@ export const metadata: Metadata = {
     // Métadonnées pour LinkedIn
     'linkedin:owner': siteConfig.author,
     'linkedin:page_id': 'minhajshafiq',
-    
-         // Métadonnées pour les moteurs de recherche
-     'msvalidate.01': 'your-bing-verification-code',
-     'yandex-verification': 'your-yandex-verification-code',
     
     // Métadonnées pour les performances
     'viewport': 'width=device-width, initial-scale=1, shrink-to-fit=no',
