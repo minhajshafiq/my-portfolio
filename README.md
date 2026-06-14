@@ -1,12 +1,12 @@
 # Portfolio Personnel - Minhaj Shafiq
 
-**Développeur Full-Stack Junior passionné par Next.js, Spring Boot et Flutter**
+**Développeur Full-Stack passionné par Next.js, Spring Boot et React Native**
 
 Un portfolio moderne et professionnel construit avec Next.js 15, TypeScript et Tailwind CSS, conçu pour présenter mes compétences et attirer les opportunités de CDI et de freelance.
 
 ## 👨‍💻 À propos de moi
 
-Je suis **Minhaj Shafiq**, développeur Full-Stack Junior basé en France, spécialisé dans le développement d'applications web et mobiles modernes. Passionné par les technologies Next.js, Spring Boot et Flutter, je recherche des opportunités pour contribuer à des projets innovants.
+Je suis **Minhaj Shafiq**, développeur Full-Stack basé en France, spécialisé dans le développement d'applications web et mobiles modernes. Passionné par les technologies Next.js, Spring Boot et React Native, je recherche des opportunités pour contribuer à des projets innovants.
 
 ### 🎯 Objectifs
 - **CDI** : Intégrer une équipe dynamique pour développer mes compétences
@@ -26,7 +26,7 @@ Je suis **Minhaj Shafiq**, développeur Full-Stack Junior basé en France, spéc
 - **Hero** : Présentation personnelle avec CTA et spécialisations
 - **À propos** : Mon parcours, compétences et expérience
 - **Projets** : Mes réalisations principales avec technologies et résultats
-- **Services** : Offres freelance adaptées à mon niveau junior
+- **Services** : Offres freelance adaptées à mes compétences
 - **Contact** : Formulaire sécurisé avec alternatives
 
 ### Fonctionnalités Avancées
@@ -48,7 +48,7 @@ Je suis **Minhaj Shafiq**, développeur Full-Stack Junior basé en France, spéc
 
 ### Backend & Mobile
 - **Spring Boot** : API REST robustes
-- **Flutter** : Applications mobiles cross-platform
+- **React Native/Expo** : Applications mobiles cross-platform
 - **PostgreSQL** : Base de données relationnelle
 - **Supabase** : Backend-as-a-Service
 
@@ -171,7 +171,7 @@ npm run lint         # Linting
 ## 🎯 Mes Projets
 
 ### Pocketly
-Application mobile de gestion budgétaire développée avec Flutter, Clean Architecture et Supabase.
+Application mobile de gestion budgétaire développée avec React Native/Expo, Clean Architecture et Supabase.
 
 ### Mets & Merveilles
 Plateforme web de gestion de recettes avec Next.js, Spring Boot et PostgreSQL.
@@ -199,4 +199,4 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 **Développé avec ❤️ par Minhaj Shafiq**
 
-*Développeur Full-Stack Junior | Next.js, Spring Boot, Flutter*
+*Développeur Full-Stack | Next.js, Spring Boot, React Native*

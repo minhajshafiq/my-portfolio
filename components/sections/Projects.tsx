@@ -14,7 +14,7 @@ import {
   FaLeaf,
 } from 'react-icons/fa'
 import {
-  SiFlutter,
+  SiExpo,
   SiNextdotjs,
   SiSpringboot,
   SiPostgresql,
@@ -28,7 +28,7 @@ import {
 } from 'react-icons/si'
 
 const technologyIcons: { [key: string]: React.ComponentType<{ className?: string }> } = {
-  'Flutter': SiFlutter,
+  'React Native': SiExpo,
   'Next.js': SiNextdotjs,
   'Spring Boot': SiSpringboot,
   'PostgreSQL': SiPostgresql,
@@ -53,7 +53,7 @@ export function Projects() {
       title: t('projects.pocketly.title'),
       description: t('projects.pocketly.description'),
       image: '/pocketly.jpg',
-      technologies: ['Flutter', 'Supabase', 'TypeScript'],
+      technologies: ['React Native', 'Supabase', 'TypeScript'],
       results: [
         t('projects.pocketly.results.interface'),
         t('projects.pocketly.results.pockets'),

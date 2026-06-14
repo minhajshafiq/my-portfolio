@@ -14,7 +14,7 @@ import {
 } from 'react-icons/fa'
 import {
   SiNextdotjs,
-  SiFlutter,
+  SiExpo,
   SiSpringboot,
   SiTypescript,
 } from 'react-icons/si'
@@ -27,7 +27,7 @@ const VALUE_PROPS = [
 
 const TECH_STACK = [
   { icon: SiNextdotjs, name: 'Next.js', color: 'group-hover:text-black dark:group-hover:text-white' },
-  { icon: SiFlutter, name: 'Flutter', color: 'group-hover:text-[#02569B]' },
+  { icon: SiExpo, name: 'React Native', color: 'group-hover:text-[#4630EB]' },
   { icon: SiSpringboot, name: 'Spring', color: 'group-hover:text-[#6DB33F]' },
   { icon: SiTypescript, name: 'TypeScript', color: 'group-hover:text-[#3178C6]' },
 ]
@@ -279,7 +279,7 @@ export function Hero() {
                   <div className="relative w-full h-full rounded-[2rem] overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl">
                     <Image
                       src="/minhaj.jpg"
-                      alt="Minhaj"
+                      alt="Minhaj Zubair - Développeur Full-Stack basé à Paris"
                       fill
                       className="object-cover"
                       priority

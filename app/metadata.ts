@@ -23,18 +23,18 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: [
-    // Technologies principales
+    // Technologies
     'développeur full-stack',
     'développeur',
     'next.js',
     'spring boot',
-    'flutter',
+    'react native',
     'typescript',
     'javascript',
     'react',
     'java',
-    'dart',
-    
+    'expo',
+
     // Compétences
     'développement web',
     'développement mobile',
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     'tailwind css',
     'gsap',
     'framer motion',
-    
+
     // Services
     'freelance',
     'développeur freelance',
@@ -53,51 +53,43 @@ export const metadata: Metadata = {
     'application mobile',
     'api backend',
     'consultant développeur',
-    
+
     // Localisation
     'développeur france',
     'développeur paris',
     'développeur remote',
     'télétravail',
-    
+
     // Portfolio
     'portfolio développeur',
     'projets développeur',
     'cv développeur',
     'recrutement développeur',
     'emploi développeur',
-    'stage développeur',
     'alternance développeur',
-    
+
     // Spécialisations
     'développement frontend',
     'développement backend',
-    'architecture logicielle',
     'clean architecture',
-    'test driven development',
     'agile',
     'scrum',
     'git',
     'docker',
-    'deployment',
     'vercel',
-    'heroku',
-    
+
     // Industries
     'e-commerce',
     'fintech',
     'application gestion',
     'site vitrine',
-    'application web progressive',
-    'mobile first',
     'responsive design',
-    'accessibilité',
     'performance web',
     'seo',
   ],
-  authors: [{ 
+  authors: [{
     name: siteConfig.author,
-    url: siteConfig.url 
+    url: siteConfig.url
   }],
   creator: siteConfig.author,
   publisher: siteConfig.author,
@@ -111,14 +103,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   alternates: {
     canonical: '/',
-    languages: {
-      'fr-FR': '/',
-      'en-US': '/en',
-    },
   },
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
+    alternateLocale: 'en_US',
     url: siteConfig.url,
     title: siteConfig.name,
     description: siteConfig.description,
@@ -129,7 +118,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: `${siteConfig.name} - Portfolio Développeur Full-Stack`,
-        type: 'image/jpeg',
+        type: 'image/png',
       },
     ],
     countryName: 'France',
@@ -151,88 +140,20 @@ export const metadata: Metadata = {
       'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,
-      'noimageindex': false,
-      'notranslate': false,
     },
   },
   verification: {
     google: 'Ae_td0e89Y7avXHN7AOk28Yyd8MNXMLsVLOiqNO0L6Q',
   },
   other: {
-    // Métadonnées supplémentaires pour le SEO
     'application-name': siteConfig.name,
     'apple-mobile-web-app-title': siteConfig.shortDescription,
     'apple-mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-status-bar-style': 'default',
     'mobile-web-app-capable': 'yes',
-         'theme-color': '#8C0605',
+    'theme-color': '#8C0605',
     'color-scheme': 'light dark',
-    
-    // Métadonnées pour les réseaux sociaux
-    'og:type': 'website',
-    'og:locale': 'fr_FR',
-    'og:locale:alternate': 'en_US',
-    'og:site_name': siteConfig.name,
-    'og:email': siteConfig.email,
-    'og:phone_number': '',
-    'og:fax_number': '',
-    'og:street_address': '',
-    'og:locality': 'France',
-    'og:region': '',
-    'og:postal_code': '',
-    'og:country_name': 'France',
-    
-    // Métadonnées pour LinkedIn
-    'linkedin:owner': siteConfig.author,
-    'linkedin:page_id': 'minhajshafiq',
-    
-    // Métadonnées pour les performances
-    'viewport': 'width=device-width, initial-scale=1, shrink-to-fit=no',
-    'X-UA-Compatible': 'IE=edge',
-    
-    // Métadonnées pour la sécurité
-    'X-Content-Type-Options': 'nosniff',
-    'X-Frame-Options': 'DENY',
-    'X-XSS-Protection': '1; mode=block',
-    'Referrer-Policy': 'strict-origin-when-cross-origin',
-    
-    // Métadonnées pour l'accessibilité
-    'accessibility-control': 'full-mouse-control',
-    'accessibility-hazard': 'none',
-    'accessibility-api': 'ARIA',
-    
-    // Métadonnées pour les performances
-    'resource-type': 'document',
-    'distribution': 'global',
-    'rating': 'general',
-    'revisit-after': '7 days',
-    'robots': 'index, follow',
-    'language': 'French',
     'geo.region': 'FR',
-    'geo.placename': 'France',
-    'geo.position': '',
-    'ICBM': '',
-    
-    // Métadonnées pour les réseaux sociaux
-    'twitter:app:name:iphone': siteConfig.name,
-    'twitter:app:name:ipad': siteConfig.name,
-    'twitter:app:name:googleplay': siteConfig.name,
-    'twitter:app:url:iphone': siteConfig.url,
-    'twitter:app:url:ipad': siteConfig.url,
-    'twitter:app:url:googleplay': siteConfig.url,
-    
-// Métadonnées pour les performances
-    'dcterms.creator': siteConfig.author,
-    'dcterms.publisher': siteConfig.author,
-    'dcterms.title': siteConfig.name,
-    'dcterms.description': siteConfig.description,
-    'dcterms.subject': 'Développement Web, Mobile, Full-Stack',
-    'dcterms.language': 'fr',
-    'dcterms.coverage': 'France',
-    'dcterms.rights': 'Copyright © 2026 Minhaj Zubair. Tous droits réservés.',
-    'dcterms.date': '2026',
-    'dcterms.type': 'Text',
-    'dcterms.format': 'text/html',
-    'dcterms.identifier': siteConfig.url,
+    'geo.placename': 'Paris',
   },
 }

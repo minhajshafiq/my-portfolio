@@ -10,7 +10,7 @@ import {
   SiReact,
   SiTypescript,
   SiSpringboot,
-  SiFlutter,
+  SiExpo,
   SiPostgresql,
   SiTailwindcss,
   SiNodedotjs,
@@ -47,7 +47,7 @@ const TECH_CATEGORIES = [
   {
     name: 'Mobile & Tools',
     techs: [
-      { name: 'Flutter', icon: SiFlutter },
+      { name: 'React Native', icon: SiExpo },
       { name: 'Docker', icon: FaDocker },
       { name: 'Git', icon: FaGitAlt },
       { name: 'Figma', icon: SiFigma },
@@ -171,7 +171,7 @@ export function About() {
                 {/* Photo de fond */}
                 <Image
                   src="/minhaj.jpg"
-                  alt="Minhaj"
+                  alt="Minhaj Zubair - Développeur Full-Stack basé à Paris"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -197,7 +197,7 @@ export function About() {
 
                   {/* Tags */}
                   <div className="flex flex-wrap gap-2">
-                    {['Next.js', 'Spring Boot', 'Flutter'].map((tech) => (
+                    {['Next.js', 'Spring Boot', 'React Native'].map((tech) => (
                       <span
                         key={tech}
                         className="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm"

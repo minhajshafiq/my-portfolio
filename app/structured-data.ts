@@ -6,7 +6,7 @@ export const personStructuredData = {
   name: 'Minhaj Zubair',
   alternateName: 'Minhaj Shafiq',
   url: siteConfig.url,
-  image: `${siteConfig.url}/profile.jpg`,
+  image: `${siteConfig.url}/minhaj.jpg`,
   email: siteConfig.email,
   jobTitle: 'Développeur Full-Stack',
   worksFor: {
@@ -23,7 +23,7 @@ export const personStructuredData = {
     'React',
     'TypeScript',
     'Spring Boot',
-    'Flutter',
+    'React Native',
     'PostgreSQL',
     'Full-Stack Development',
     'Web Development',
@@ -32,7 +32,7 @@ export const personStructuredData = {
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'FR',
-    addressLocality: 'France',
+    addressLocality: 'Paris',
   },
 }
 
@@ -74,7 +74,7 @@ export const serviceStructuredData = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'Développement Web & Mobile Full-Stack',
-  description: 'Services de développement d\'applications web et mobiles sur mesure avec Next.js, Spring Boot et Flutter.',
+  description: 'Services de développement d\'applications web et mobiles sur mesure avec Next.js, Spring Boot et React Native.',
   provider: {
     '@type': 'Person',
     name: siteConfig.author,

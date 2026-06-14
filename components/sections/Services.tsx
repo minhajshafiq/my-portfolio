@@ -7,7 +7,7 @@ import {
   SiReact,
   SiTypescript,
   SiSpringboot,
-  SiFlutter,
+  SiExpo,
   SiPostgresql,
   SiTailwindcss,
   SiDocker,
@@ -46,9 +46,9 @@ const mainServices = [
   {
     icon: FaMobile,
     title: 'Mobile',
-    description: 'Applications cross-platform avec Flutter et Supabase',
+    description: 'Applications cross-platform avec React Native/Expo et Supabase',
     techs: [
-      { name: 'Flutter', icon: SiFlutter },
+      { name: 'React Native', icon: SiExpo },
       { name: 'Supabase', icon: SiSupabase },
       { name: 'Firebase', icon: SiFirebase },
     ],
