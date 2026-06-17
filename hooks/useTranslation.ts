@@ -18,8 +18,12 @@ export function useTranslation() {
   useEffect(() => {
     setMounted(true)
     const savedLanguage = localStorage.getItem('language') as Language
-    if (savedLanguage) {
+
+    if (savedLanguage === 'fr' || savedLanguage === 'en') {
       setLanguage(savedLanguage)
+    } else {
+      const browserLanguage = navigator.language || ''
+      setLanguage(browserLanguage.toLowerCase().startsWith('fr') ? 'fr' : 'en')
     }
 
 

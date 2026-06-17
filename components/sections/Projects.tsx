@@ -240,6 +240,7 @@ export function Projects() {
                       src={featuredProject.image}
                       alt={String(featuredProject.title)}
                       fill
+                      sizes="(min-width: 1024px) 576px, 100vw"
                       className="object-cover"
                     />
                   </div>
@@ -268,6 +269,7 @@ export function Projects() {
                       src={project.image}
                       alt={String(project.title)}
                       fill
+                      sizes="(min-width: 768px) 564px, 100vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />

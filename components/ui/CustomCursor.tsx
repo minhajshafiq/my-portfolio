@@ -9,11 +9,13 @@ export function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false)
   const [isHovering, setIsHovering] = useState(false)
   const [isClicking, setIsClicking] = useState(false)
+  const [isTouchDevice, setIsTouchDevice] = useState(false)
 
   useEffect(() => {
     // Only show custom cursor on desktop
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
-    if (isTouchDevice) return
+    const touchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+    setIsTouchDevice(touchDevice)
+    if (touchDevice) return
 
     const cursor = cursorRef.current
     const cursorDot = cursorDotRef.current
@@ -82,10 +84,7 @@ export function CustomCursor() {
   }, [isVisible])
 
   // Don't render on touch devices
-  if (typeof window !== 'undefined') {
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
-    if (isTouchDevice) return null
-  }
+  if (isTouchDevice) return null
 
   return (
     <>

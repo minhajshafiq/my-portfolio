@@ -281,6 +281,7 @@ export function Hero() {
                       src="/minhaj.jpg"
                       alt="Minhaj Zubair - Développeur Full-Stack basé à Paris"
                       fill
+                      sizes="(min-width: 1024px) 384px, (min-width: 768px) 320px, 288px"
                       className="object-cover"
                       priority
                     />

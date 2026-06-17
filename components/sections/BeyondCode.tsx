@@ -107,12 +107,14 @@ export function BeyondCode() {
     src,
     alt,
     className,
-    fallbackKey
+    fallbackKey,
+    sizes
   }: {
     src: string
     alt: string
     className?: string
     fallbackKey: string
+    sizes: string
   }) => {
     if (imageErrors[fallbackKey]) {
       return (
@@ -130,6 +132,7 @@ export function BeyondCode() {
         src={src}
         alt={alt}
         fill
+        sizes={sizes}
         className={`object-cover ${className}`}
         onError={() => handleImageError(fallbackKey)}
       />
@@ -186,6 +189,7 @@ export function BeyondCode() {
                 alt="Fitness"
                 className="transition-transform duration-700 group-hover:scale-105"
                 fallbackKey="fitness"
+                sizes="(min-width: 768px) 768px, 100vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -215,6 +219,7 @@ export function BeyondCode() {
                 alt="Entrepreneuriat"
                 className="transition-transform duration-700 group-hover:scale-105"
                 fallbackKey="entrepreneurship"
+                sizes="(min-width: 768px) 384px, 100vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -249,6 +254,7 @@ export function BeyondCode() {
                       alt={`Voiture ${index + 1}`}
                       className="transition-transform duration-500 group-hover:scale-110"
                       fallbackKey={`car-${index}`}
+                      sizes="(min-width: 768px) 192px, 33vw"
                     />
                   </div>
                 ))}
@@ -285,6 +291,7 @@ export function BeyondCode() {
                       alt={`Voyage ${index + 1}`}
                       className="transition-transform duration-500 group-hover:scale-110"
                       fallbackKey={`travel-${index}`}
+                      sizes="(min-width: 768px) 144px, 25vw"
                     />
                   </div>
                 ))}
@@ -334,6 +341,7 @@ export function BeyondCode() {
                   src="/photos/after-hours.jpg"
                   alt="After Hours - The Weeknd"
                   fill
+                  sizes="96px"
                   className="object-cover"
                 />
               </div>

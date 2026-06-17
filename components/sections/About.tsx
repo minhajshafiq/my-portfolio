@@ -4,16 +4,14 @@ import { useState, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FaDownload, FaArrowRight, FaCalendarAlt, FaDocker, FaGitAlt, FaJava } from 'react-icons/fa'
+import { FaDownload, FaArrowRight, FaCalendarAlt, FaDocker, FaGitAlt } from 'react-icons/fa'
 import {
   SiNextdotjs,
   SiReact,
   SiTypescript,
   SiSpringboot,
   SiExpo,
-  SiPostgresql,
   SiTailwindcss,
-  SiNodedotjs,
   SiFigma,
   SiSupabase,
   SiFirebase,
@@ -173,6 +171,7 @@ export function About() {
                   src="/minhaj.jpg"
                   alt="Minhaj Zubair - Développeur Full-Stack basé à Paris"
                   fill
+                  sizes="(min-width: 1024px) 480px, 100vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
 
