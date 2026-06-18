@@ -13,7 +13,6 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(SplitText)
 }
 
-const SCROLL_THRESHOLD = 20
 const FOOTER_OFFSET = 100
 const EASE_SMOOTH = [0.33, 1, 0.68, 1] as const
 
@@ -30,7 +29,7 @@ const transitionClass =
   'transition-[top,padding,background-color,box-shadow,border-color,border-radius,grid-template-rows,opacity] duration-[900ms] ease-[cubic-bezier(0.33,1,0.68,1)]'
 
 const floatingBarClass =
-  'bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg shadow-black/[0.04] dark:shadow-black/20 rounded-3xl md:rounded-full md:max-w-6xl'
+  'bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg shadow-black/[0.04] dark:shadow-black/20 rounded-3xl md:rounded-full'
 
 function NavSplitLabel({ id, label }: { id: string; label: string }) {
   return (
@@ -47,15 +46,12 @@ function NavSplitLabel({ id, label }: { id: string; label: string }) {
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
   const [nearFooter, setNearFooter] = useState(false)
   const { theme, toggleTheme, mounted } = useTheme()
   const { language, changeLanguage, t, mounted: tMounted } = useTranslation()
   const logoDotRef = useRef<HTMLDivElement>(null)
   const navItemRefs = useRef<(HTMLButtonElement | null)[]>([])
   const splitCleanup = useRef<(() => void) | null>(null)
-
-  const isFloating = scrolled || isOpen
 
   const handleNavClick = useCallback((href: string) => {
     setIsOpen(false)
@@ -136,8 +132,6 @@ export function Header() {
 
   useEffect(() => {
     const updateScrollState = () => {
-      setScrolled(window.scrollY > SCROLL_THRESHOLD)
-
       const footer = document.querySelector('footer')
       if (!footer) return
 
@@ -187,19 +181,16 @@ export function Header() {
       initial={{ y: -8, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: EASE_SMOOTH }}
-      className={cn(
-        'fixed z-50 left-0 right-0',
-        transitionClass,
-        isFloating ? 'top-3 px-3 md:top-4 md:px-4 lg:px-6' : 'top-0 px-0'
-      )}
+      className={cn('fixed z-50 left-0 right-0 top-3 md:top-4', transitionClass)}
     >
-      <div
-        className={cn(
-          'mx-auto w-full px-4 py-3 md:px-6 md:py-4',
-          transitionClass,
-          isFloating ? floatingBarClass : 'bg-transparent border border-transparent shadow-none'
-        )}
-      >
+      <div className={cn('container mx-auto px-3 md:px-4 lg:px-6', transitionClass)}>
+        <div
+          className={cn(
+            'w-full px-4 py-3 md:px-6 md:py-4',
+            transitionClass,
+            floatingBarClass
+          )}
+        >
         <div className="flex items-center justify-between">
           <button
             type="button"
@@ -298,6 +289,7 @@ export function Header() {
             </div>
           </div>
         </nav>
+        </div>
       </div>
     </motion.header>
   )
