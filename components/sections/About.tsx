@@ -85,7 +85,7 @@ export function About() {
 
   const TIMELINE_DATA = [
     {
-      year: 'Mars 2025',
+      year: t('about.timeline.experiences.freelance.year') as string,
       title: t('about.timeline.experiences.freelance.degree'),
       company: t('about.timeline.experiences.freelance.school'),
       type: 'experience' as const,
@@ -96,7 +96,7 @@ export function About() {
       ],
     },
     {
-      year: 'Nov 2024 - Fév 2025',
+      year: t('about.timeline.experiences.ukenoon.year') as string,
       title: t('about.timeline.experiences.ukenoon.degree'),
       company: t('about.timeline.experiences.ukenoon.school'),
       type: 'experience' as const,
@@ -169,7 +169,7 @@ export function About() {
                 {/* Photo de fond */}
                 <Image
                   src="/minhaj.jpg"
-                  alt="Minhaj Zubair - Développeur Full-Stack basé à Paris"
+                  alt={t('hero.photo_alt') as string}
                   fill
                   sizes="(min-width: 1024px) 480px, 100vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -191,7 +191,7 @@ export function About() {
                     Minhaj Zubair
                   </h3>
                   <p className="text-white/70 text-lg mb-4">
-                    Full-Stack Developer
+                    {t('about.role')}
                   </p>
 
                   {/* Tags */}
@@ -249,7 +249,7 @@ export function About() {
             >
               <div className="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-3xl shadow-lg h-full">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
-                  Stack technique
+                  {t('about.tech_stack_title')}
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {TECH_CATEGORIES.map((category) => (

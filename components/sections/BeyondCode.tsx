@@ -120,7 +120,7 @@ export function BeyondCode() {
       return (
         <div className={`bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center ${className}`}>
           <span className="text-gray-400 dark:text-gray-500 text-sm text-center px-4">
-            Ajoute ta photo ici<br />
+            {t('beyondCode.add_photo_placeholder')}<br />
             <code className="text-xs">{src}</code>
           </span>
         </div>
@@ -216,7 +216,7 @@ export function BeyondCode() {
             >
               <ImageWithFallback
                 src={PHOTOS.entrepreneurship}
-                alt="Entrepreneuriat"
+                alt={t('beyondCode.passions.entrepreneurship.title') as string}
                 className="transition-transform duration-700 group-hover:scale-105"
                 fallbackKey="entrepreneurship"
                 sizes="(min-width: 768px) 384px, 100vw"
@@ -251,7 +251,7 @@ export function BeyondCode() {
                   >
                     <ImageWithFallback
                       src={src}
-                      alt={`Voiture ${index + 1}`}
+                      alt={t('beyondCode.car_alt', { n: index + 1 }) as string}
                       className="transition-transform duration-500 group-hover:scale-110"
                       fallbackKey={`car-${index}`}
                       sizes="(min-width: 768px) 192px, 33vw"
@@ -288,7 +288,7 @@ export function BeyondCode() {
                   >
                     <ImageWithFallback
                       src={src}
-                      alt={`Voyage ${index + 1}`}
+                      alt={t('beyondCode.travel_alt', { n: index + 1 }) as string}
                       className="transition-transform duration-500 group-hover:scale-110"
                       fallbackKey={`travel-${index}`}
                       sizes="(min-width: 768px) 144px, 25vw"
@@ -404,7 +404,7 @@ export function BeyondCode() {
                 >
                   <Image
                     src={lightbox.images[lightbox.index]}
-                    alt="Image agrandie"
+                    alt={t('beyondCode.enlarged_image_alt') as string}
                     fill
                     className="object-contain"
                     priority
@@ -415,7 +415,7 @@ export function BeyondCode() {
               <button
                 onClick={closeLightbox}
                 className="absolute top-4 right-4 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors z-10"
-                aria-label="Fermer"
+                aria-label={t('beyondCode.close') as string}
               >
                 ✕
               </button>
@@ -425,14 +425,14 @@ export function BeyondCode() {
                   <button
                     onClick={goToPrev}
                     className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors z-10"
-                    aria-label="Photo précédente"
+                    aria-label={t('beyondCode.prev_photo') as string}
                   >
                     <ChevronLeft className="w-6 h-6 md:w-7 md:h-7" />
                   </button>
                   <button
                     onClick={goToNext}
                     className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-11 h-11 md:w-12 md:h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors z-10"
-                    aria-label="Photo suivante"
+                    aria-label={t('beyondCode.next_photo') as string}
                   >
                     <ChevronRight className="w-6 h-6 md:w-7 md:h-7" />
                   </button>

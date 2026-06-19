@@ -15,38 +15,6 @@ import { SiMalt } from 'react-icons/si'
 
 type FormStatus = 'idle' | 'sending' | 'success' | 'error'
 
-const contactMethods = [
-  {
-    icon: FaCalendarAlt,
-    title: 'Réserver un appel',
-    description: 'Discutons de votre projet',
-    href: 'https://calendly.com/minhaj-shafiq/30min',
-    color: 'from-purple-500 to-pink-500',
-    isPrimary: true,
-  },
-  {
-    icon: FaEnvelope,
-    title: 'Email',
-    description: 'contact@minhajshafiq.com',
-    href: 'mailto:contact@minhajshafiq.com',
-    color: 'from-blue-500 to-cyan-500',
-  },
-  {
-    icon: FaLinkedinIn,
-    title: 'LinkedIn',
-    description: 'Connectons-nous',
-    href: 'https://www.linkedin.com/in/minhajshafiq/',
-    color: 'from-[#0A66C2] to-blue-600',
-  },
-  {
-    icon: SiMalt,
-    title: 'Malt',
-    description: 'Mon profil freelance',
-    href: 'https://www.malt.fr/profile/minhajzubair',
-    color: 'from-[#FC5757] to-red-600',
-  },
-]
-
 export function Contact() {
   const [formData, setFormData] = useState({
     name: '',
@@ -58,6 +26,38 @@ export function Contact() {
   const [touched, setTouched] = useState<{ [key: string]: boolean }>({})
   const { t } = useTranslation()
   const formRef = useRef<HTMLFormElement>(null)
+
+  const contactMethods = [
+    {
+      icon: FaCalendarAlt,
+      title: t('contact.methods.call.title') as string,
+      description: t('contact.methods.call.description') as string,
+      href: 'https://calendly.com/minhaj-shafiq/30min',
+      color: 'from-purple-500 to-pink-500',
+      isPrimary: true,
+    },
+    {
+      icon: FaEnvelope,
+      title: t('contact.email_title') as string,
+      description: 'contact@minhajshafiq.com',
+      href: 'mailto:contact@minhajshafiq.com',
+      color: 'from-blue-500 to-cyan-500',
+    },
+    {
+      icon: FaLinkedinIn,
+      title: t('contact.linkedin_title') as string,
+      description: t('contact.methods.linkedin.description') as string,
+      href: 'https://www.linkedin.com/in/minhajshafiq/',
+      color: 'from-[#0A66C2] to-blue-600',
+    },
+    {
+      icon: SiMalt,
+      title: t('contact.malt_title') as string,
+      description: t('contact.methods.malt.description') as string,
+      href: 'https://www.malt.fr/profile/minhajzubair',
+      color: 'from-[#FC5757] to-red-600',
+    },
+  ]
 
   const validateName = (name: string) => /^[a-zA-ZÀ-ÿ\s]{2,50}$/.test(name)
   const validateEmail = (email: string) => /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)
@@ -360,7 +360,7 @@ export function Contact() {
                           ? 'border-red-400 focus:border-red-500'
                           : 'border-gray-200 dark:border-gray-700 focus:border-[#8C0605] dark:focus:border-[#FFD6D6]'
                       }`}
-                      placeholder="Parlez-moi de votre projet..."
+                      placeholder={t('contact.message_placeholder') as string}
                     />
                     {touched.message && errors.message && (
                       <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
@@ -412,7 +412,7 @@ export function Contact() {
 
                 {/* Privacy note */}
                 <p className="text-center text-gray-400 text-xs mt-4">
-                  🔒 Vos données ne seront jamais partagées
+                  🔒 {t('contact.privacy_note')}
                 </p>
               </div>
             </motion.div>

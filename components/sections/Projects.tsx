@@ -143,7 +143,7 @@ export function Projects() {
               {t('projects.subtitle')}
             </h2>
             <p className="text-lg text-custom-secondary max-w-2xl">
-              Une sélection de projets concrets, développés avec passion et attention aux détails.
+              {t('projects.intro')}
             </p>
           </motion.div>
 
@@ -161,8 +161,8 @@ export function Projects() {
                   <div className="p-8 md:p-12 flex flex-col justify-center order-2 lg:order-1">
                     {/* Badge */}
                     <div className="flex items-center gap-3 mb-6">
-                      <span className="px-3 py-1 bg-[#8C0605] text-white text-xs font-bold rounded-full">
-                        PROJET VEDETTE
+                      <span className="px-3 py-1 bg-[#8C0605] text-white text-xs font-bold rounded-full uppercase">
+                        {t('projects.featured_badge')}
                       </span>
                       <span className="text-gray-400 text-sm">{featuredProject.category}</span>
                     </div>
@@ -193,7 +193,7 @@ export function Projects() {
 
                     {/* Results */}
                     <div className="mb-8">
-                      <h4 className="text-white font-semibold mb-3">Résultats clés</h4>
+                      <h4 className="text-white font-semibold mb-3">{t('projects.key_results')}</h4>
                       <ul className="space-y-2">
                         {featuredProject.results.map((result, i) => (
                           <li key={i} className="flex items-start gap-2 text-gray-300 text-sm">
@@ -215,7 +215,7 @@ export function Projects() {
                         className="inline-flex items-center gap-2 px-6 py-3 bg-[#8C0605] text-white font-semibold rounded-full hover:bg-[#8C0605]/90 transition-colors"
                       >
                         <FaExternalLinkAlt className="w-4 h-4" />
-                        Voir le projet
+                        {t('projects.view_project')}
                       </motion.a>
                       {featuredProject.github && (
                         <motion.a
@@ -227,7 +227,7 @@ export function Projects() {
                           className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 text-white font-semibold rounded-full hover:bg-white/20 transition-colors"
                         >
                           <FaGithub className="w-4 h-4" />
-                          Code source
+                          {t('projects.source_code')}
                         </motion.a>
                       )}
                     </div>
@@ -382,10 +382,10 @@ export function Projects() {
             <div className="inline-flex flex-col sm:flex-row items-center gap-4 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
               <div className="text-left">
                 <p className="text-gray-900 dark:text-white font-semibold">
-                  Envie de voir plus ?
+                  {t('projects.see_more_title')}
                 </p>
                 <p className="text-gray-500 dark:text-gray-400 text-sm">
-                  Explorez tous mes projets sur GitHub
+                  {t('projects.see_more_subtitle')}
                 </p>
               </div>
               <motion.a
@@ -397,7 +397,7 @@ export function Projects() {
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold rounded-full hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
               >
                 <FaGithub className="w-5 h-5" />
-                Mon GitHub
+                {t('projects.my_github')}
                 <FaArrowRight className="w-4 h-4" />
               </motion.a>
             </div>

@@ -5,7 +5,14 @@
     "services": "Services",
     "projects": "Projects",
     "beyondCode": "Passions",
-    "contact": "Contact"
+    "contact": "Contact",
+    "back_to_top": "Back to top",
+    "open_menu": "Open menu",
+    "close_menu": "Close menu",
+    "main_nav": "Main navigation",
+    "mobile_nav": "Mobile navigation",
+    "dark_mode": "Switch to dark mode",
+    "light_mode": "Switch to light mode"
   },
   "hero": {
     "greeting": "I am",
@@ -17,11 +24,48 @@
     "cta_projects": "View my projects",
     "cta_contact": "Let's work together",
     "available_for_work": "Available for work",
-    "discover": "Discover"
+    "discover": "Discover",
+    "value_apps": "High-performing apps",
+    "value_web_mobile": "Web & Mobile",
+    "value_clean_code": "Clean code",
+    "find_me": "Find me →",
+    "experience_badge": "1 yr exp",
+    "photo_alt": "Minhaj Zubair - Full-Stack Developer based in Paris"
   },
   "services": {
     "title": "What I bring to you",
-    "subtitle": "Solid skills and concrete solutions, adapted to your needs in business or on mission"
+    "subtitle": "Solid skills and concrete solutions, adapted to your needs in business or on mission",
+    "heading": "What I do",
+    "frontend": {
+      "description": "Modern, responsive interfaces with React and Next.js"
+    },
+    "backend": {
+      "description": "Robust APIs and cloud services with Spring Boot, Supabase and Firebase"
+    },
+    "mobile": {
+      "description": "Cross-platform applications with React Native/Expo and Supabase"
+    },
+    "companies": {
+      "badge": "Full-time / Work-study",
+      "title": "For companies",
+      "items": [
+        "Integration into a development team",
+        "Development of new features",
+        "Maintenance and improvement of existing systems",
+        "Collaboration using Agile methodology"
+      ]
+    },
+    "freelance": {
+      "badge": "Freelance",
+      "title": "For your projects",
+      "items": [
+        "Custom website creation",
+        "Mobile application development",
+        "Redesign and optimization of existing sites",
+        "Technical guidance"
+      ],
+      "cta": "Discuss your project"
+    }
   },
   "about": {
     "title": "About me",
@@ -34,12 +78,15 @@
       "paragraph3": "When I'm not coding, I'm at the gym or learning about real estate and entrepreneurship. I like building things, whether it's a project or my life.",
       "paragraph4": "Currently available for freelance gigs or a full-time role. Got a project in mind? Let's talk."
     },
+    "tech_stack_title": "Tech stack",
+    "role": "Full-Stack Developer",
     "timeline": {
       "title": "Education & Experience",
       "experience_tab": "Experience",
       "education_tab": "Education",
       "experiences": {
         "freelance": {
+          "year": "March 2025",
           "degree": "Freelance Developer",
           "school": "Freelance",
           "bullet1": "Design and development of custom web and mobile applications (front-end & back-end)",
@@ -47,6 +94,7 @@
           "bullet3": "Integration of secure RESTful APIs and performance optimization"
         },
         "ukenoon": {
+          "year": "Nov 2024 - Feb 2025",
           "degree": "Full Stack & Mobile Developer Internship",
           "school": "Ukenoon",
           "bullet1": "Team supervision and coordination of developers",
@@ -88,6 +136,13 @@
     "view_project": "View project",
     "technologies": "Technologies",
     "results": "Results",
+    "intro": "A selection of real-world projects, built with passion and attention to detail.",
+    "featured_badge": "Featured project",
+    "key_results": "Key results",
+    "source_code": "Source code",
+    "see_more_title": "Want to see more?",
+    "see_more_subtitle": "Explore all my projects on GitHub",
+    "my_github": "My GitHub",
     "pocketly": {
       "title": "Pocketly",
       "description": "Intelligent mobile budget management application with transaction tracking, customizable savings pockets, interactive statistics and secure Supabase authentication.",
@@ -148,7 +203,21 @@
     "contact_form": "Contact form",
     "email_title": "Email",
     "linkedin_title": "LinkedIn",
-    "malt_title": "Malt"
+    "malt_title": "Malt",
+    "message_placeholder": "Tell me about your project...",
+    "privacy_note": "Your data will never be shared",
+    "methods": {
+      "call": {
+        "title": "Book a call",
+        "description": "Let's discuss your project"
+      },
+      "linkedin": {
+        "description": "Let's connect"
+      },
+      "malt": {
+        "description": "My freelance profile"
+      }
+    }
   },
   "footer": {
     "rights": "All rights reserved",
@@ -196,7 +265,14 @@
       }
     },
     "quote": "I'm building the person I'm becoming as much as the projects I work on.",
-    "quoteSubtitle": "Grow, understand, fall, start again."
+    "quoteSubtitle": "Grow, understand, fall, start again.",
+    "add_photo_placeholder": "Add your photo here",
+    "car_alt": "Car {{n}}",
+    "travel_alt": "Travel {{n}}",
+    "enlarged_image_alt": "Enlarged image",
+    "close": "Close",
+    "prev_photo": "Previous photo",
+    "next_photo": "Next photo"
   },
   "maintenance": {
     "badge": "Web maintenance",

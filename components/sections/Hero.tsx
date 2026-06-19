@@ -19,10 +19,10 @@ import {
   SiTypescript,
 } from 'react-icons/si'
 
-const VALUE_PROPS = [
-  { emoji: '🚀', text: 'Apps performantes' },
-  { emoji: '📱', text: 'Web & Mobile' },
-  { emoji: '⚡', text: 'Code propre' },
+const VALUE_PROP_KEYS = [
+  { emoji: '🚀', key: 'hero.value_apps' },
+  { emoji: '📱', key: 'hero.value_web_mobile' },
+  { emoji: '⚡', key: 'hero.value_clean_code' },
 ]
 
 const TECH_STACK = [
@@ -154,16 +154,16 @@ export function Hero() {
 
               {/* Value props */}
               <div className="flex flex-wrap gap-3">
-                {VALUE_PROPS.map((prop, index) => (
+                {VALUE_PROP_KEYS.map((prop, index) => (
                   <motion.div
-                    key={prop.text}
+                    key={prop.key}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.5 + index * 0.1 }}
                     className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800/50 rounded-full border border-gray-200 dark:border-gray-700"
                   >
                     <span>{prop.emoji}</span>
-                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{prop.text}</span>
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t(prop.key)}</span>
                   </motion.div>
                 ))}
               </div>
@@ -236,7 +236,7 @@ export function Hero() {
               transition={{ delay: 1 }}
               className="flex items-center gap-4 mt-8"
             >
-              <span className="text-gray-400 text-sm">Me retrouver →</span>
+              <span className="text-gray-400 text-sm">{t('hero.find_me')}</span>
               {SOCIAL_LINKS.map((link) => (
                 <motion.a
                   key={link.label}
@@ -279,7 +279,7 @@ export function Hero() {
                   <div className="relative w-full h-full rounded-[2rem] overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl">
                     <Image
                       src="/minhaj.jpg"
-                      alt="Minhaj Zubair - Développeur Full-Stack basé à Paris"
+                      alt={t('hero.photo_alt') as string}
                       fill
                       sizes="(min-width: 1024px) 384px, (min-width: 768px) 320px, 288px"
                       className="object-cover"
@@ -309,7 +309,7 @@ export function Hero() {
                     transition={{ delay: 1, type: 'spring' }}
                     className="absolute top-1/2 -right-6 bg-gradient-to-br from-[#8C0605] to-red-600 p-3 rounded-xl shadow-xl text-white"
                   >
-                    <span className="text-sm font-bold">1 an XP</span>
+                    <span className="text-sm font-bold">{t('hero.experience_badge')}</span>
                   </motion.div>
                 </div>
               </div>

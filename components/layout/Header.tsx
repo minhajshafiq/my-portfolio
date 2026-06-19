@@ -196,7 +196,7 @@ export function Header() {
             type="button"
             onClick={scrollToTop}
             className="flex items-center gap-2 cursor-pointer group"
-            aria-label="Retour en haut"
+            aria-label={t('nav.back_to_top') as string}
           >
             <span className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-red-800 dark:group-hover:text-red-400 transition-colors duration-300">
               Minhaj
@@ -210,7 +210,7 @@ export function Header() {
             />
           </button>
 
-          <nav className="hidden md:flex items-center gap-1" aria-label="Navigation principale">
+          <nav className="hidden md:flex items-center gap-1" aria-label={t('nav.main_nav') as string}>
             {navItems.map((item, index) => (
               <button
                 key={item.key}
@@ -240,7 +240,7 @@ export function Header() {
               type="button"
               onClick={toggleTheme}
               className="p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300 cursor-pointer"
-              aria-label={theme === 'light' ? 'Activer le mode sombre' : 'Activer le mode clair'}
+              aria-label={(theme === 'light' ? t('nav.dark_mode') : t('nav.light_mode')) as string}
             >
               {theme === 'light' ? (
                 <Moon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
@@ -254,7 +254,7 @@ export function Header() {
               onClick={() => setIsOpen((open) => !open)}
               className="md:hidden p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-300 cursor-pointer"
               aria-expanded={isOpen}
-              aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+              aria-label={(isOpen ? t('nav.close_menu') : t('nav.open_menu')) as string}
             >
               {isOpen ? (
                 <X className="w-6 h-6 text-gray-600 dark:text-gray-400" />
@@ -272,7 +272,7 @@ export function Header() {
             isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
           )}
           aria-hidden={!isOpen}
-          aria-label="Navigation mobile"
+          aria-label={t('nav.mobile_nav') as string}
         >
           <div className="min-h-0 overflow-hidden">
             <div className="mt-4 pt-4 pb-2 border-t border-gray-200/20 dark:border-gray-700/20 flex flex-col gap-1">

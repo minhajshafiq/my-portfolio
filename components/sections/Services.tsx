@@ -17,46 +17,49 @@ import {
 } from 'react-icons/si'
 import { FaCode, FaServer, FaMobile, FaSearch } from 'react-icons/fa'
 
-const mainServices = [
-  {
-    icon: FaCode,
-    title: 'Frontend',
-    description: 'Interfaces modernes et réactives avec React et Next.js',
-    techs: [
-      { name: 'Next.js', icon: SiNextdotjs },
-      { name: 'React', icon: SiReact },
-      { name: 'TypeScript', icon: SiTypescript },
-      { name: 'Tailwind', icon: SiTailwindcss },
-      { name: 'SEO', icon: FaSearch },
-    ],
-  },
-  {
-    icon: FaServer,
-    title: 'Backend & Cloud',
-    description: 'APIs robustes et services cloud avec Spring Boot, Supabase et Firebase',
-    techs: [
-      { name: 'Spring Boot', icon: SiSpringboot },
-      { name: 'Supabase', icon: SiSupabase },
-      { name: 'Firebase', icon: SiFirebase },
-      { name: 'Google Cloud', icon: SiGooglecloud },
-      { name: 'PostgreSQL', icon: SiPostgresql },
-      { name: 'Docker', icon: SiDocker },
-    ],
-  },
-  {
-    icon: FaMobile,
-    title: 'Mobile',
-    description: 'Applications cross-platform avec React Native/Expo et Supabase',
-    techs: [
-      { name: 'React Native', icon: SiExpo },
-      { name: 'Supabase', icon: SiSupabase },
-      { name: 'Firebase', icon: SiFirebase },
-    ],
-  },
-]
-
 export function Services() {
   const { t } = useTranslation()
+
+  const mainServices = [
+    {
+      icon: FaCode,
+      title: 'Frontend',
+      description: t('services.frontend.description') as string,
+      techs: [
+        { name: 'Next.js', icon: SiNextdotjs },
+        { name: 'React', icon: SiReact },
+        { name: 'TypeScript', icon: SiTypescript },
+        { name: 'Tailwind', icon: SiTailwindcss },
+        { name: 'SEO', icon: FaSearch },
+      ],
+    },
+    {
+      icon: FaServer,
+      title: 'Backend & Cloud',
+      description: t('services.backend.description') as string,
+      techs: [
+        { name: 'Spring Boot', icon: SiSpringboot },
+        { name: 'Supabase', icon: SiSupabase },
+        { name: 'Firebase', icon: SiFirebase },
+        { name: 'Google Cloud', icon: SiGooglecloud },
+        { name: 'PostgreSQL', icon: SiPostgresql },
+        { name: 'Docker', icon: SiDocker },
+      ],
+    },
+    {
+      icon: FaMobile,
+      title: 'Mobile',
+      description: t('services.mobile.description') as string,
+      techs: [
+        { name: 'React Native', icon: SiExpo },
+        { name: 'Supabase', icon: SiSupabase },
+        { name: 'Firebase', icon: SiFirebase },
+      ],
+    },
+  ]
+
+  const companyItems = t('services.companies.items', { returnObjects: true }) as string[]
+  const freelanceItems = t('services.freelance.items', { returnObjects: true }) as string[]
 
   return (
     <section id="services" className="py-20 bg-custom-primary overflow-hidden">
@@ -74,7 +77,7 @@ export function Services() {
               {'{ '}{t('services.title')}{' }'}
             </span>
             <h2 className="text-5xl md:text-7xl font-black text-custom-title leading-none">
-              Ce que je fais
+              {t('services.heading')}
             </h2>
           </motion.div>
 
@@ -130,18 +133,13 @@ export function Services() {
             {/* Left - Pour les entreprises */}
             <div className="bg-gray-900 dark:bg-black rounded-2xl p-8">
               <span className="text-xs font-mono text-gray-500 uppercase tracking-wider">
-                CDI / Alternance
+                {t('services.companies.badge')}
               </span>
               <h3 className="text-2xl font-bold text-white mt-2 mb-4">
-                Pour les entreprises
+                {t('services.companies.title')}
               </h3>
               <ul className="space-y-3">
-                {[
-                  'Intégration dans une équipe de développement',
-                  'Développement de nouvelles fonctionnalités',
-                  'Maintenance et amélioration de l\'existant',
-                  'Collaboration en méthode Agile',
-                ].map((item, i) => (
+                {companyItems.map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-gray-300 text-sm">
                     <span className="text-[#8C0605] dark:text-[#FFD6D6] mt-0.5">→</span>
                     {item}
@@ -153,18 +151,13 @@ export function Services() {
             {/* Right - Freelance */}
             <div className="bg-[#8C0605] dark:bg-[#FFD6D6] rounded-2xl p-8">
               <span className="text-xs font-mono text-white/60 dark:text-gray-900/60 uppercase tracking-wider">
-                Freelance
+                {t('services.freelance.badge')}
               </span>
               <h3 className="text-2xl font-bold text-white dark:text-gray-900 mt-2 mb-4">
-                Pour vos projets
+                {t('services.freelance.title')}
               </h3>
               <ul className="space-y-3">
-                {[
-                  'Création de sites web sur mesure',
-                  'Développement d\'applications mobiles',
-                  'Refonte et optimisation de sites existants',
-                  'Accompagnement technique',
-                ].map((item, i) => (
+                {freelanceItems.map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-white/90 dark:text-gray-900/90 text-sm">
                     <span className="text-white/60 dark:text-gray-900/60 mt-0.5">→</span>
                     {item}
@@ -175,7 +168,7 @@ export function Services() {
                 href="#contact"
                 className="inline-block mt-6 px-5 py-2.5 bg-white dark:bg-gray-900 text-[#8C0605] dark:text-[#FFD6D6] font-semibold rounded-full text-sm hover:opacity-90 transition-opacity"
               >
-                Discuter de votre projet →
+                {t('services.freelance.cta')} →
               </a>
             </div>
           </motion.div>
