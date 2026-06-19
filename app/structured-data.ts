@@ -1,96 +1,142 @@
 import { siteConfig } from './metadata'
+import type { Locale } from '@/utils/i18n'
 
-export const personStructuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: 'Minhaj Zubair',
-  alternateName: 'Minhaj Shafiq',
-  url: siteConfig.url,
-  image: `${siteConfig.url}/minhaj.jpg`,
-  email: siteConfig.email,
-  jobTitle: 'Développeur Full-Stack',
-  worksFor: {
-    '@type': 'Organization',
-    name: 'Freelance',
-  },
-  sameAs: [
-    siteConfig.links.linkedin,
-    siteConfig.links.github,
-    'https://www.malt.fr/profile/minhajshafiq',
-  ],
-  knowsAbout: [
-    'Next.js',
-    'React',
-    'TypeScript',
-    'Spring Boot',
-    'React Native',
-    'PostgreSQL',
-    'Full-Stack Development',
-    'Web Development',
-    'Mobile Development',
-  ],
-  address: {
-    '@type': 'PostalAddress',
-    addressCountry: 'FR',
-    addressLocality: 'Paris',
-  },
+const localizedJobTitle: Record<Locale, string> = {
+  fr: 'Développeur Full-Stack',
+  en: 'Full-Stack Developer',
 }
 
-export const websiteStructuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: siteConfig.name,
-  url: siteConfig.url,
-  description: siteConfig.description,
-  author: {
+const localizedDescription: Record<Locale, string> = {
+  fr: 'Développeur Full-Stack passionné par Next.js, Spring Boot et React Native. Spécialisé dans le développement d\'applications web et mobiles modernes. Disponible pour CDI et Freelance.',
+  en: 'Full-Stack Developer passionate about Next.js, Spring Boot and React Native. Specialized in building modern web and mobile applications. Available for full-time and freelance work.',
+}
+
+const localizedSiteName: Record<Locale, string> = {
+  fr: 'Minhaj Zubair - Développeur Full-Stack',
+  en: 'Minhaj Zubair - Full-Stack Developer',
+}
+
+const localizedBreadcrumbHome: Record<Locale, string> = {
+  fr: 'Accueil',
+  en: 'Home',
+}
+
+const localizedServiceName: Record<Locale, string> = {
+  fr: 'Développement Web & Mobile Full-Stack',
+  en: 'Full-Stack Web & Mobile Development',
+}
+
+const localizedServiceDescription: Record<Locale, string> = {
+  fr: 'Services de développement d\'applications web et mobiles sur mesure avec Next.js, Spring Boot et React Native.',
+  en: 'Custom web and mobile application development services using Next.js, Spring Boot and React Native.',
+}
+
+const localizedServiceTypes: Record<Locale, string[]> = {
+  fr: ['Développement Web', 'Développement Mobile', 'Développement Full-Stack'],
+  en: ['Web Development', 'Mobile Development', 'Full-Stack Development'],
+}
+
+export function getStructuredData(locale: Locale) {
+  const personStructuredData = {
+    '@context': 'https://schema.org',
     '@type': 'Person',
-    name: siteConfig.author,
-  },
-  inLanguage: ['fr-FR', 'en-US'],
-}
-
-export const profilePageStructuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfilePage',
-  dateCreated: '2025-01-01T00:00:00+00:00',
-  dateModified: new Date().toISOString(),
-  mainEntity: personStructuredData,
-}
-
-export const breadcrumbStructuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    {
-      '@type': 'ListItem',
-      position: 1,
-      name: 'Accueil',
-      item: siteConfig.url,
+    name: 'Minhaj Zubair',
+    alternateName: 'Minhaj Shafiq',
+    url: `${siteConfig.url}/${locale}`,
+    image: `${siteConfig.url}/minhaj.jpg`,
+    email: siteConfig.email,
+    jobTitle: localizedJobTitle[locale],
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Freelance',
     },
-  ],
-}
-
-export const serviceStructuredData = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: 'Développement Web & Mobile Full-Stack',
-  description: 'Services de développement d\'applications web et mobiles sur mesure avec Next.js, Spring Boot et React Native.',
-  provider: {
-    '@type': 'Person',
-    name: siteConfig.author,
-    url: siteConfig.url,
-  },
-  areaServed: {
-    '@type': 'Country',
-    name: 'France',
-  },
-  serviceType: ['Développement Web', 'Développement Mobile', 'Développement Full-Stack'],
-  offers: {
-    '@type': 'Offer',
-    availability: 'https://schema.org/InStock',
-    priceSpecification: {
-      '@type': 'PriceSpecification',
-      priceCurrency: 'EUR',
+    sameAs: [
+      siteConfig.links.linkedin,
+      siteConfig.links.github,
+      'https://www.malt.fr/profile/minhajshafiq',
+    ],
+    knowsAbout: [
+      'Next.js',
+      'React',
+      'TypeScript',
+      'Spring Boot',
+      'React Native',
+      'PostgreSQL',
+      'Full-Stack Development',
+      'Web Development',
+      'Mobile Development',
+    ],
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'FR',
+      addressLocality: 'Paris',
     },
-  },
+  }
+
+  const websiteStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: localizedSiteName[locale],
+    url: `${siteConfig.url}/${locale}`,
+    description: localizedDescription[locale],
+    author: {
+      '@type': 'Person',
+      name: siteConfig.author,
+    },
+    inLanguage: locale === 'fr' ? ['fr-FR', 'en-US'] : ['en-US', 'fr-FR'],
+  }
+
+  const profilePageStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    dateCreated: '2025-01-01T00:00:00+00:00',
+    dateModified: new Date().toISOString(),
+    mainEntity: personStructuredData,
+  }
+
+  const breadcrumbStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: localizedBreadcrumbHome[locale],
+        item: `${siteConfig.url}/${locale}`,
+      },
+    ],
+  }
+
+  const serviceStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: localizedServiceName[locale],
+    description: localizedServiceDescription[locale],
+    provider: {
+      '@type': 'Person',
+      name: siteConfig.author,
+      url: `${siteConfig.url}/${locale}`,
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'France',
+    },
+    serviceType: localizedServiceTypes[locale],
+    offers: {
+      '@type': 'Offer',
+      availability: 'https://schema.org/InStock',
+      priceSpecification: {
+        '@type': 'PriceSpecification',
+        priceCurrency: 'EUR',
+      },
+    },
+  }
+
+  return {
+    personStructuredData,
+    websiteStructuredData,
+    profilePageStructuredData,
+    breadcrumbStructuredData,
+    serviceStructuredData,
+  }
 }

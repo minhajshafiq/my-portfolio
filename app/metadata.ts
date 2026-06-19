@@ -1,9 +1,7 @@
 import { Metadata } from 'next'
+import { locales, type Locale } from '@/utils/i18n'
 
 export const siteConfig = {
-  name: 'Minhaj Zubair - Développeur Full-Stack',
-  description: 'Développeur Full-Stack passionné par Next.js, Spring Boot et React Native. Spécialisé dans le développement d\'applications web et mobiles modernes. Disponible pour CDI et Freelance.',
-  shortDescription: 'Développeur Full-Stack | Next.js, Spring Boot, React Native',
   url: 'https://www.minhajshafiq.com',
   ogImage: 'https://www.minhajshafiq.com/portfoliomtd.png',
   author: 'Minhaj Zubair',
@@ -16,13 +14,28 @@ export const siteConfig = {
   },
 }
 
-export const metadata: Metadata = {
-  title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.shortDescription}`,
+const localizedContent: Record<
+  Locale,
+  { name: string; description: string; shortDescription: string; ogAlt: string }
+> = {
+  fr: {
+    name: 'Minhaj Zubair - Développeur Full-Stack',
+    description:
+      'Développeur Full-Stack passionné par Next.js, Spring Boot et React Native. Spécialisé dans le développement d\'applications web et mobiles modernes. Disponible pour CDI et Freelance.',
+    shortDescription: 'Développeur Full-Stack | Next.js, Spring Boot, React Native',
+    ogAlt: 'Minhaj Zubair - Portfolio Développeur Full-Stack',
   },
-  description: siteConfig.description,
-  keywords: [
+  en: {
+    name: 'Minhaj Zubair - Full-Stack Developer',
+    description:
+      'Full-Stack Developer passionate about Next.js, Spring Boot and React Native. Specialized in building modern web and mobile applications. Available for full-time and freelance work.',
+    shortDescription: 'Full-Stack Developer | Next.js, Spring Boot, React Native',
+    ogAlt: 'Minhaj Zubair - Full-Stack Developer Portfolio',
+  },
+}
+
+const keywordsByLocale: Record<Locale, string[]> = {
+  fr: [
     // Technologies
     'développeur full-stack',
     'développeur',
@@ -87,73 +100,157 @@ export const metadata: Metadata = {
     'performance web',
     'seo',
   ],
-  authors: [{
-    name: siteConfig.author,
-    url: siteConfig.url
-  }],
-  creator: siteConfig.author,
-  publisher: siteConfig.author,
-  category: 'Technology',
-  classification: 'Portfolio',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL(siteConfig.url),
-  alternates: {
-    canonical: '/',
-  },
-  openGraph: {
-    type: 'website',
-    locale: 'fr_FR',
-    alternateLocale: 'en_US',
-    url: siteConfig.url,
-    title: siteConfig.name,
-    description: siteConfig.description,
-    siteName: siteConfig.name,
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: `${siteConfig.name} - Portfolio Développeur Full-Stack`,
-        type: 'image/png',
+  en: [
+    // Technologies
+    'full-stack developer',
+    'developer',
+    'next.js',
+    'spring boot',
+    'react native',
+    'typescript',
+    'javascript',
+    'react',
+    'java',
+    'expo',
+
+    // Skills
+    'web development',
+    'mobile development',
+    'rest api',
+    'database',
+    'postgresql',
+    'supabase',
+    'tailwind css',
+    'gsap',
+    'framer motion',
+
+    // Services
+    'freelance',
+    'freelance developer',
+    'website creation',
+    'mobile application',
+    'backend api',
+    'developer consultant',
+
+    // Location
+    'developer france',
+    'developer paris',
+    'remote developer',
+    'remote work',
+
+    // Portfolio
+    'developer portfolio',
+    'developer projects',
+    'developer resume',
+    'developer hiring',
+    'developer jobs',
+
+    // Specializations
+    'frontend development',
+    'backend development',
+    'clean architecture',
+    'agile',
+    'scrum',
+    'git',
+    'docker',
+    'vercel',
+
+    // Industries
+    'e-commerce',
+    'fintech',
+    'management application',
+    'showcase website',
+    'responsive design',
+    'web performance',
+    'seo',
+  ],
+}
+
+export function getMetadata(locale: Locale): Metadata {
+  const content = localizedContent[locale]
+  const path = `/${locale}`
+  const ogLocale = locale === 'fr' ? 'fr_FR' : 'en_US'
+  const alternateOgLocale = locale === 'fr' ? 'en_US' : 'fr_FR'
+
+  return {
+    title: {
+      default: content.name,
+      template: `%s | ${content.shortDescription}`,
+    },
+    description: content.description,
+    keywords: keywordsByLocale[locale],
+    authors: [{ name: siteConfig.author, url: siteConfig.url }],
+    creator: siteConfig.author,
+    publisher: siteConfig.author,
+    category: 'Technology',
+    classification: 'Portfolio',
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    },
+    metadataBase: new URL(siteConfig.url),
+    alternates: {
+      canonical: path,
+      languages: {
+        fr: '/fr',
+        en: '/en',
+        'x-default': '/fr',
       },
-    ],
-    countryName: 'France',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: [siteConfig.ogImage],
-    creator: '@minhajshafiq',
-    site: '@minhajshafiq',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+    },
+    openGraph: {
+      type: 'website',
+      locale: ogLocale,
+      alternateLocale: alternateOgLocale,
+      url: `${siteConfig.url}${path}`,
+      title: content.name,
+      description: content.description,
+      siteName: content.name,
+      images: [
+        {
+          url: siteConfig.ogImage,
+          width: 1200,
+          height: 630,
+          alt: content.ogAlt,
+          type: 'image/png',
+        },
+      ],
+      countryName: 'France',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: content.name,
+      description: content.description,
+      images: [siteConfig.ogImage],
+      creator: '@minhajshafiq',
+      site: '@minhajshafiq',
+    },
+    robots: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
-  },
-  verification: {
-    google: 'Ae_td0e89Y7avXHN7AOk28Yyd8MNXMLsVLOiqNO0L6Q',
-  },
-  other: {
-    'application-name': siteConfig.name,
-    'apple-mobile-web-app-title': siteConfig.shortDescription,
-    'apple-mobile-web-app-capable': 'yes',
-    'apple-mobile-web-app-status-bar-style': 'default',
-    'mobile-web-app-capable': 'yes',
-    'theme-color': '#8C0605',
-    'color-scheme': 'light dark',
-    'geo.region': 'FR',
-    'geo.placename': 'Paris',
-  },
+    verification: {
+      google: 'Ae_td0e89Y7avXHN7AOk28Yyd8MNXMLsVLOiqNO0L6Q',
+    },
+    other: {
+      'application-name': content.name,
+      'apple-mobile-web-app-title': content.shortDescription,
+      'apple-mobile-web-app-capable': 'yes',
+      'apple-mobile-web-app-status-bar-style': 'default',
+      'mobile-web-app-capable': 'yes',
+      'theme-color': '#8C0605',
+      'color-scheme': 'light dark',
+      'geo.region': 'FR',
+      'geo.placename': 'Paris',
+    },
+  }
 }
+
+export { locales }

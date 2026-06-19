@@ -152,7 +152,16 @@
   },
   "footer": {
     "rights": "Tous droits réservés",
-    "made_with": "Fait avec"
+    "made_with": "Fait avec",
+    "and_lots_of": "et beaucoup de",
+    "cta_description": "Une idée de projet ? Une opportunité ? N'hésitez pas à me contacter. Je suis toujours ouvert à discuter de nouveaux projets.",
+    "tagline": "Développeur Full-Stack passionné par la création d'expériences digitales uniques et performantes. Basé à Paris, disponible partout.",
+    "status_badge": "Disponible pour nouveaux projets",
+    "nav_title": "Navigation",
+    "contact_title": "Contact",
+    "location": "Paris, France",
+    "availability": "CDI / Freelance / Remote",
+    "response_time": "Réponse sous 24h"
   },
   "errors": {
     "invalid_name": "Le nom doit contenir entre 2 et 50 caractères alphabétiques",
@@ -188,5 +197,61 @@
     },
     "quote": "Je construis autant la personne que je deviens que les projets sur lesquels je travaille.",
     "quoteSubtitle": "Grandir, comprendre, tomber, recommencer."
+  },
+  "maintenance": {
+    "badge": "Maintenance web",
+    "title": "Votre site entre de bonnes mains.",
+    "subtitle": "Hébergement, sécurité et présence Google — sans que vous ayez à y penser.",
+    "offers_badge": "Nos offres",
+    "why_badge": "Pourquoi moi",
+    "per_month": "/mois",
+    "choose": "Choisir {{name}}",
+    "cta_title": "Une question avant de choisir ?",
+    "cta_button": "Me contacter",
+    "plans": {
+      "essentiel": {
+        "name": "Essentiel",
+        "positioning": "Votre site reste en ligne. Vous n'y pensez plus.",
+        "included": [
+          "Hébergement et domaine géré",
+          "Surveillance uptime 24h/24",
+          "Mises à jour de sécurité",
+          "Certificat SSL actif",
+          "Sauvegarde mensuelle",
+          "Support email (réponse sous 5 jours)"
+        ],
+        "excluded": [
+          "Modifications (facturées 50€/h)",
+          "Google My Business"
+        ]
+      },
+      "serenite": {
+        "name": "Sérénité",
+        "badge": "Recommandé",
+        "positioning": "Votre site travaille pour vous pendant que vous êtes sur le chantier.",
+        "includesPrevious": "Tout ce qui est dans Essentiel",
+        "included": [
+          "Sauvegarde hebdomadaire",
+          "1h de modifications incluse / mois",
+          "Support WhatsApp + appel (prioritaire)",
+          "Réponse sous 24-48h",
+          "Google My Business géré chaque mois (photos de réalisations, posts mensuels, réponses aux avis)"
+        ]
+      }
+    },
+    "reassurance": {
+      "direct_contact": {
+        "title": "Un interlocuteur direct",
+        "description": "Mon numéro, pas un ticket de support anonyme."
+      },
+      "cancel_anytime": {
+        "title": "Résiliable à tout moment",
+        "description": "Préavis de 30 jours par écrit. Sans pénalité."
+      },
+      "cheaper_than_agency": {
+        "title": "Moins cher qu'une agence",
+        "description": "Une agence facture 150-300€/mois pour le même service."
+      }
+    }
   }
 }

@@ -1,62 +1,27 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useParams, usePathname, useRouter } from 'next/navigation'
 import frTranslations from '../locales/fr.json'
 import enTranslations from '../locales/en.json'
-
-type Language = 'fr' | 'en'
+import { isValidLocale, defaultLocale, type Locale } from '@/utils/i18n'
 
 const translations = {
   fr: frTranslations,
-  en: enTranslations
+  en: enTranslations,
 }
 
 export function useTranslation() {
-  const [language, setLanguage] = useState<Language>('fr')
-  const [mounted, setMounted] = useState(false)
+  const params = useParams<{ locale?: string | string[] }>()
+  const pathname = usePathname()
+  const router = useRouter()
 
-  useEffect(() => {
-    setMounted(true)
-    const savedLanguage = localStorage.getItem('language') as Language
+  const rawLocale = Array.isArray(params?.locale) ? params.locale[0] : params?.locale
+  const language: Locale = rawLocale && isValidLocale(rawLocale) ? rawLocale : defaultLocale
 
-    if (savedLanguage === 'fr' || savedLanguage === 'en') {
-      setLanguage(savedLanguage)
-    } else {
-      const browserLanguage = navigator.language || ''
-      setLanguage(browserLanguage.toLowerCase().startsWith('fr') ? 'fr' : 'en')
-    }
-
-
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'language' && e.newValue) {
-        setLanguage(e.newValue as Language)
-      }
-    }
-
-
-    window.addEventListener('storage', handleStorageChange)
-
-
-    const handleCustomStorageChange = () => {
-      const currentLanguage = localStorage.getItem('language') as Language
-      if (currentLanguage && currentLanguage !== language) {
-        setLanguage(currentLanguage)
-      }
-    }
-
-
-    window.addEventListener('languageChange', handleCustomStorageChange)
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange)
-      window.removeEventListener('languageChange', handleCustomStorageChange)
-    }
-  }, [language])
-
-  const t = (key: string, params?: Record<string, any>) => {
+  const t = (key: string, options?: Record<string, any>) => {
     const keys = key.split('.')
     let value: any = translations[language]
-    
+
     for (const k of keys) {
       if (value && typeof value === 'object' && k in value) {
         value = value[k]
@@ -66,12 +31,12 @@ export function useTranslation() {
     }
 
     // Support for returnObjects option
-    if (params?.returnObjects && Array.isArray(value)) {
+    if (options?.returnObjects && Array.isArray(value)) {
       return value
     }
 
-    if (typeof value === 'string' && params) {
-      return Object.entries(params).reduce((str: string, [key, val]: [string, any]) => {
+    if (typeof value === 'string' && options) {
+      return Object.entries(options).reduce((str: string, [key, val]: [string, any]) => {
         return str.replace(new RegExp(`{{${key}}}`, 'g'), val)
       }, value)
     }
@@ -79,17 +44,19 @@ export function useTranslation() {
     return typeof value === 'string' ? value : key
   }
 
-  const changeLanguage = (lang: Language) => {
-    setLanguage(lang)
-    localStorage.setItem('language', lang)
+  const changeLanguage = (lang: Locale) => {
+    if (lang === language) return
 
-    window.dispatchEvent(new Event('languageChange'))
+    document.cookie = `NEXT_LOCALE=${lang}; path=/; max-age=31536000`
+
+    const segments = pathname.split('/')
+    segments[1] = lang
+    router.push(segments.join('/') || `/${lang}`)
   }
 
   return {
     language,
     changeLanguage,
     t,
-    mounted
   }
 }

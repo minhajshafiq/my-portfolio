@@ -152,7 +152,16 @@
   },
   "footer": {
     "rights": "All rights reserved",
-    "made_with": "Made with"
+    "made_with": "Made with",
+    "and_lots_of": "and lots of",
+    "cta_description": "Got a project idea? An opportunity? Feel free to reach out. I'm always open to discussing new projects.",
+    "tagline": "Full-Stack Developer passionate about building unique, high-performing digital experiences. Based in Paris, available everywhere.",
+    "status_badge": "Available for new projects",
+    "nav_title": "Navigation",
+    "contact_title": "Contact",
+    "location": "Paris, France",
+    "availability": "Full-time / Freelance / Remote",
+    "response_time": "Reply within 24h"
   },
   "errors": {
     "invalid_name": "Name must contain between 2 and 50 alphabetical characters",
@@ -188,5 +197,61 @@
     },
     "quote": "I'm building the person I'm becoming as much as the projects I work on.",
     "quoteSubtitle": "Grow, understand, fall, start again."
+  },
+  "maintenance": {
+    "badge": "Web maintenance",
+    "title": "Your website is in good hands.",
+    "subtitle": "Hosting, security and Google presence — without you having to think about it.",
+    "offers_badge": "Our plans",
+    "why_badge": "Why me",
+    "per_month": "/mo",
+    "choose": "Choose {{name}}",
+    "cta_title": "A question before you choose?",
+    "cta_button": "Contact me",
+    "plans": {
+      "essentiel": {
+        "name": "Essential",
+        "positioning": "Your website stays online. You don't have to think about it.",
+        "included": [
+          "Hosting and domain management",
+          "24/7 uptime monitoring",
+          "Security updates",
+          "Active SSL certificate",
+          "Monthly backup",
+          "Email support (response within 5 days)"
+        ],
+        "excluded": [
+          "Changes (billed at €50/h)",
+          "Google My Business"
+        ]
+      },
+      "serenite": {
+        "name": "Peace of Mind",
+        "badge": "Recommended",
+        "positioning": "Your website works for you while you're busy on site.",
+        "includesPrevious": "Everything in Essential",
+        "included": [
+          "Weekly backup",
+          "1h of changes included / month",
+          "WhatsApp + call support (priority)",
+          "Response within 24-48h",
+          "Google My Business managed monthly (project photos, monthly posts, review replies)"
+        ]
+      }
+    },
+    "reassurance": {
+      "direct_contact": {
+        "title": "A direct point of contact",
+        "description": "My number, not an anonymous support ticket."
+      },
+      "cancel_anytime": {
+        "title": "Cancel anytime",
+        "description": "30-day written notice. No penalty."
+      },
+      "cheaper_than_agency": {
+        "title": "Cheaper than an agency",
+        "description": "An agency charges €150-300/month for the same service."
+      }
+    }
   }
 }

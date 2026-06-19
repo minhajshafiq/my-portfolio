@@ -5,6 +5,7 @@ import { ArrowUp } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { FaLinkedinIn, FaEnvelope, FaGithub } from 'react-icons/fa'
 import { SiMalt } from 'react-icons/si'
+import { useTranslation } from '@/hooks/useTranslation'
 
 const socialLinks = [
   {
@@ -34,16 +35,17 @@ const socialLinks = [
 ]
 
 const quickLinks = [
-  { name: 'Accueil', href: '#home' },
-  { name: 'Services', href: '#services' },
-  { name: 'Projets', href: '#projects' },
-  { name: 'À propos', href: '#about' },
-  { name: 'Contact', href: '#contact' },
+  { key: 'nav.home', href: '#home' },
+  { key: 'nav.services', href: '#services' },
+  { key: 'nav.projects', href: '#projects' },
+  { key: 'nav.about', href: '#about' },
+  { key: 'nav.contact', href: '#contact' },
 ]
 
 export function Footer() {
   const [showScrollButton, setShowScrollButton] = useState(false)
   const currentYear = new Date().getFullYear()
+  const { t } = useTranslation()
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -100,8 +102,7 @@ export function Footer() {
               </span>
             </h2>
             <p className="text-custom-secondary text-lg mb-8 max-w-2xl mx-auto">
-              Une idée de projet ? Une opportunité ? N&apos;hésitez pas à me contacter.
-              Je suis toujours ouvert à discuter de nouveaux projets.
+              {t('footer.cta_description')}
             </p>
             <motion.a
               href="mailto:contact@minhajshafiq.com"
@@ -130,8 +131,7 @@ export function Footer() {
               <div className="w-3 h-3 bg-[#8C0605] rounded-full animate-pulse" />
             </div>
             <p className="text-custom-secondary text-sm leading-relaxed mb-6 max-w-sm">
-              Développeur Full-Stack passionné par la création d&apos;expériences digitales
-              uniques et performantes. Basé à Paris, disponible partout.
+              {t('footer.tagline')}
             </p>
 
             {/* Status badge */}
@@ -140,7 +140,7 @@ export function Footer() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
               </span>
-              <span className="text-green-600 dark:text-green-400 text-sm font-medium">Disponible pour nouveaux projets</span>
+              <span className="text-green-600 dark:text-green-400 text-sm font-medium">{t('footer.status_badge')}</span>
             </div>
           </motion.div>
 
@@ -153,17 +153,17 @@ export function Footer() {
             className="md:col-span-3"
           >
             <h3 className="text-custom-title font-semibold mb-4 text-sm uppercase tracking-wider">
-              Navigation
+              {t('footer.nav_title')}
             </h3>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
-                <li key={link.name}>
+                <li key={link.key}>
                   <a
                     href={link.href}
                     className="text-custom-secondary hover:text-custom-title transition-colors text-sm flex items-center gap-2 group"
                   >
                     <span className="w-0 group-hover:w-2 h-px bg-[#8C0605] transition-all duration-300" />
-                    {link.name}
+                    {t(link.key)}
                   </a>
                 </li>
               ))}
@@ -179,20 +179,20 @@ export function Footer() {
             className="md:col-span-4"
           >
             <h3 className="text-custom-title font-semibold mb-4 text-sm uppercase tracking-wider">
-              Contact
+              {t('footer.contact_title')}
             </h3>
             <div className="space-y-3 text-sm">
               <div className="flex items-center gap-3 text-custom-secondary">
                 <span className="text-lg">📍</span>
-                <span>Paris, France</span>
+                <span>{t('footer.location')}</span>
               </div>
               <div className="flex items-center gap-3 text-custom-secondary">
                 <span className="text-lg">💼</span>
-                <span>CDI / Freelance / Remote</span>
+                <span>{t('footer.availability')}</span>
               </div>
               <div className="flex items-center gap-3 text-custom-secondary">
                 <span className="text-lg">⚡</span>
-                <span>Réponse sous 24h</span>
+                <span>{t('footer.response_time')}</span>
               </div>
             </div>
 
@@ -224,7 +224,7 @@ export function Footer() {
             viewport={{ once: true }}
             className="text-custom-secondary text-sm"
           >
-            © {currentYear} Minhaj Zubair. Tous droits réservés.
+            © {currentYear} Minhaj Zubair. {t('footer.rights')}.
           </motion.p>
 
           <motion.p
@@ -233,9 +233,9 @@ export function Footer() {
             viewport={{ once: true }}
             className="text-custom-secondary text-sm flex items-center gap-2"
           >
-            Fait avec
+            {t('footer.made_with')}
             <span className="text-[#8C0605] animate-pulse">❤️</span>
-            et beaucoup de
+            {t('footer.and_lots_of')}
             <span className="text-amber-500">☕</span>
           </motion.p>
 

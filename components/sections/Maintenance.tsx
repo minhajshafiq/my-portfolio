@@ -4,71 +4,61 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { FaCheck, FaTimes, FaArrowRight, FaEnvelope } from 'react-icons/fa'
 import { UserCheck, CalendarClock, PiggyBank } from 'lucide-react'
+import { useTranslation } from '@/hooks/useTranslation'
 
 // Liens de souscription — pour l'instant routés vers le formulaire interne,
 // [À REMPLACER] par les vrais Payment Links Stripe une fois créés dans le dashboard
 const STRIPE_ESSENTIEL = '/maintenance/souscrire?plan=essentiel'
 const STRIPE_SERENITE = '/maintenance/souscrire?plan=serenite'
 
-const PLANS = [
-  {
-    id: 'essentiel',
-    name: 'Essentiel',
-    price: '50',
-    badge: null,
-    positioning: "Votre site reste en ligne. Vous n'y pensez plus.",
-    includesPrevious: null as string | null,
-    included: [
-      'Hébergement et domaine géré',
-      'Surveillance uptime 24h/24',
-      'Mises à jour de sécurité',
-      'Certificat SSL actif',
-      'Sauvegarde mensuelle',
-      'Support email (réponse sous 5 jours)',
-    ],
-    excluded: ['Modifications (facturées 50€/h)', 'Google My Business'],
-    href: STRIPE_ESSENTIEL,
-    dark: false,
-  },
-  {
-    id: 'serenite',
-    name: 'Sérénité',
-    price: '80',
-    badge: 'Recommandé',
-    positioning: 'Votre site travaille pour vous pendant que vous êtes sur le chantier.',
-    includesPrevious: 'Tout ce qui est dans Essentiel',
-    included: [
-      'Sauvegarde hebdomadaire',
-      '1h de modifications incluse / mois',
-      'Support WhatsApp + appel (prioritaire)',
-      'Réponse sous 24-48h',
-      'Google My Business géré chaque mois (photos de réalisations, posts mensuels, réponses aux avis)',
-    ],
-    excluded: [] as string[],
-    href: STRIPE_SERENITE,
-    dark: true,
-  },
-] as const
-
-const REASSURANCE_POINTS = [
-  {
-    icon: UserCheck,
-    title: 'Un interlocuteur direct',
-    description: 'Mon numéro, pas un ticket de support anonyme.',
-  },
-  {
-    icon: CalendarClock,
-    title: 'Résiliable à tout moment',
-    description: 'Préavis de 30 jours par écrit. Sans pénalité.',
-  },
-  {
-    icon: PiggyBank,
-    title: 'Moins cher qu\'une agence',
-    description: 'Une agence facture 150-300€/mois pour le même service.',
-  },
-]
-
 export function Maintenance() {
+  const { t, language } = useTranslation()
+
+  const PLANS = [
+    {
+      id: 'essentiel',
+      name: t('maintenance.plans.essentiel.name') as string,
+      price: '50',
+      badge: null as string | null,
+      positioning: t('maintenance.plans.essentiel.positioning') as string,
+      includesPrevious: null as string | null,
+      included: t('maintenance.plans.essentiel.included', { returnObjects: true }) as string[],
+      excluded: t('maintenance.plans.essentiel.excluded', { returnObjects: true }) as string[],
+      href: STRIPE_ESSENTIEL,
+      dark: false,
+    },
+    {
+      id: 'serenite',
+      name: t('maintenance.plans.serenite.name') as string,
+      price: '80',
+      badge: t('maintenance.plans.serenite.badge') as string,
+      positioning: t('maintenance.plans.serenite.positioning') as string,
+      includesPrevious: t('maintenance.plans.serenite.includesPrevious') as string,
+      included: t('maintenance.plans.serenite.included', { returnObjects: true }) as string[],
+      excluded: [] as string[],
+      href: STRIPE_SERENITE,
+      dark: true,
+    },
+  ]
+
+  const REASSURANCE_POINTS = [
+    {
+      icon: UserCheck,
+      title: t('maintenance.reassurance.direct_contact.title') as string,
+      description: t('maintenance.reassurance.direct_contact.description') as string,
+    },
+    {
+      icon: CalendarClock,
+      title: t('maintenance.reassurance.cancel_anytime.title') as string,
+      description: t('maintenance.reassurance.cancel_anytime.description') as string,
+    },
+    {
+      icon: PiggyBank,
+      title: t('maintenance.reassurance.cheaper_than_agency.title') as string,
+      description: t('maintenance.reassurance.cheaper_than_agency.description') as string,
+    },
+  ]
+
   return (
     <>
       {/* Hero */}
@@ -83,13 +73,13 @@ export function Maintenance() {
             className="max-w-3xl mx-auto text-center"
           >
             <span className="text-[#8C0605] dark:text-[#FFD6D6] font-mono text-sm tracking-widest uppercase mb-4 block">
-              {'// '}Maintenance web
+              {'// '}{t('maintenance.badge')}
             </span>
             <h1 className="text-5xl md:text-7xl font-black text-custom-title leading-[1.05] mb-6">
-              Votre site entre de bonnes mains.
+              {t('maintenance.title')}
             </h1>
             <p className="text-lg md:text-xl text-custom-secondary max-w-xl mx-auto leading-relaxed">
-              Hébergement, sécurité et présence Google — sans que vous ayez à y penser.
+              {t('maintenance.subtitle')}
             </p>
           </motion.div>
         </div>
@@ -106,7 +96,7 @@ export function Maintenance() {
               className="mb-12"
             >
               <span className="text-[#8C0605] dark:text-[#FFD6D6] font-mono text-sm tracking-widest uppercase mb-4 block">
-                {'// '}Nos offres
+                {'// '}{t('maintenance.offers_badge')}
               </span>
             </motion.div>
 
@@ -146,7 +136,7 @@ export function Maintenance() {
                         {plan.price}€
                       </span>
                       <span className={plan.dark ? 'text-gray-400' : 'text-gray-500 dark:text-gray-400'}>
-                        /mois
+                        {t('maintenance.per_month')}
                       </span>
                     </div>
 
@@ -199,7 +189,7 @@ export function Maintenance() {
                       href={plan.href}
                       className="group flex items-center justify-center gap-2 w-full bg-[#8C0605] hover:bg-[#8C0605]/90 text-white font-semibold py-3.5 rounded-full transition-all shadow-lg hover:shadow-xl"
                     >
-                      Choisir {plan.name}
+                      {t('maintenance.choose', { name: plan.name })}
                       <FaArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                     </Link>
                   </div>
@@ -221,7 +211,7 @@ export function Maintenance() {
               className="mb-12"
             >
               <span className="text-[#8C0605] dark:text-[#FFD6D6] font-mono text-sm tracking-widest uppercase mb-4 block">
-                {'// '}Pourquoi moi
+                {'// '}{t('maintenance.why_badge')}
               </span>
             </motion.div>
 
@@ -261,14 +251,14 @@ export function Maintenance() {
             className="max-w-xl mx-auto text-center"
           >
             <h3 className="text-2xl font-bold text-custom-title mb-6">
-              Une question avant de choisir ?
+              {t('maintenance.cta_title')}
             </h3>
             <Link
-              href="/#contact"
+              href={`/${language}#contact`}
               className="group inline-flex items-center gap-2 border-2 border-[#8C0605] dark:border-[#FFD6D6] text-[#8C0605] dark:text-[#FFD6D6] hover:bg-[#8C0605] hover:text-white dark:hover:bg-[#FFD6D6] dark:hover:text-gray-900 px-6 py-3 rounded-full font-semibold text-sm transition-colors"
             >
               <FaEnvelope className="w-4 h-4" />
-              Me contacter
+              {t('maintenance.cta_button')}
               <FaArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </motion.div>

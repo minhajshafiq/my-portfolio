@@ -1,22 +1,16 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import { Poppins } from 'next/font/google'
-import './globals.css'
+import '../globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { Loader } from '@/components/sections/Loader'
 import { CustomCursor } from '@/components/ui/CustomCursor'
-import { metadata as siteMetadata } from './metadata'
+import { getMetadata } from '../metadata'
+import { getStructuredData } from '../structured-data'
+import { locales, isValidLocale } from '@/utils/i18n'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/react'
-import {
-  personStructuredData,
-  websiteStructuredData,
-  profilePageStructuredData,
-  breadcrumbStructuredData,
-  serviceStructuredData,
-} from './structured-data'
-
-export const metadata: Metadata = siteMetadata
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -25,13 +19,40 @@ const poppins = Poppins({
   display: 'swap',
 })
 
-export default function RootLayout({
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }))
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  if (!isValidLocale(locale)) return {}
+  return getMetadata(locale)
+}
+
+export default async function RootLayout({
   children,
+  params,
 }: {
   children: React.ReactNode
+  params: Promise<{ locale: string }>
 }) {
+  const { locale } = await params
+  if (!isValidLocale(locale)) notFound()
+
+  const {
+    personStructuredData,
+    websiteStructuredData,
+    profilePageStructuredData,
+    breadcrumbStructuredData,
+    serviceStructuredData,
+  } = getStructuredData(locale)
+
   return (
-    <html lang="fr" className={poppins.variable} suppressHydrationWarning>
+    <html lang={locale} className={poppins.variable} suppressHydrationWarning>
       <head>
         {/* Favicons */}
         <link rel="apple-touch-icon" href="/apple-touch-icon.jpg" />

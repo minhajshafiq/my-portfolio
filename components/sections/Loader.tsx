@@ -101,46 +101,47 @@ export function Loader({ children }: LoaderProps) {
     }
   }, [setLoading])
 
-  if (!localLoading) {
-    return <>{children}</>
-  }
-
   return (
-    <div
-      ref={containerRef}
-      className="loader-container fixed inset-0 z-50 flex items-center justify-center"
-    >
-      {/* Barre supérieure */}
-      <div className="loader-bar-top absolute top-0 left-0 right-0 h-1/2 bg-[#121212]" />
+    <>
+      {children}
+      {localLoading && (
+        <div
+          ref={containerRef}
+          className="loader-container fixed inset-0 z-50 flex items-center justify-center"
+        >
+          {/* Barre supérieure */}
+          <div className="loader-bar-top absolute top-0 left-0 right-0 h-1/2 bg-[#121212]" />
 
-      {/* Barre inférieure */}
-      <div className="loader-bar-bottom absolute bottom-0 left-0 right-0 h-1/2 bg-[#121212]" />
+          {/* Barre inférieure */}
+          <div className="loader-bar-bottom absolute bottom-0 left-0 right-0 h-1/2 bg-[#121212]" />
 
-      {/* Contenu central */}
-      <div className="loader-content relative z-10 flex flex-col items-center gap-6">
-        {/* Logo/Initiales */}
-        <div className="flex items-center gap-1">
-          <span className="text-5xl font-black text-white tracking-tighter">
-            M
-          </span>
-          <span className="text-5xl font-black text-[#8C0605] tracking-tighter">
-            Z
-          </span>
-        </div>
+          {/* Contenu central */}
+          <div className="loader-content relative z-10 flex flex-col items-center gap-6">
+            {/* Logo/Initiales */}
+            <div className="flex items-center gap-1">
+              <span className="text-5xl font-black text-white tracking-tighter">
+                M
+              </span>
+              <span className="text-5xl font-black text-[#8C0605] tracking-tighter">
+                Z
+              </span>
+            </div>
 
-        {/* Terminal */}
-        <div className="bg-[#1a1a1a] rounded-lg p-4 min-w-[280px] border border-gray-800">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
-            <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-            <div className="w-3 h-3 rounded-full bg-[#27ca40]" />
+            {/* Terminal */}
+            <div className="bg-[#1a1a1a] rounded-lg p-4 min-w-[280px] border border-gray-800">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+                <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+                <div className="w-3 h-3 rounded-full bg-[#27ca40]" />
+              </div>
+              <div className="font-mono text-sm text-green-400 flex items-center">
+                <span ref={textRef}></span>
+                <span className="animate-pulse ml-0.5">▊</span>
+              </div>
+            </div>
           </div>
-          <div className="font-mono text-sm text-green-400 flex items-center">
-            <span ref={textRef}></span>
-            <span className="animate-pulse ml-0.5">▊</span>
-          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   )
 }

@@ -48,7 +48,7 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [nearFooter, setNearFooter] = useState(false)
   const { theme, toggleTheme, mounted } = useTheme()
-  const { language, changeLanguage, t, mounted: tMounted } = useTranslation()
+  const { language, changeLanguage, t } = useTranslation()
   const logoDotRef = useRef<HTMLDivElement>(null)
   const navItemRefs = useRef<(HTMLButtonElement | null)[]>([])
   const splitCleanup = useRef<(() => void) | null>(null)
@@ -63,7 +63,7 @@ export function Header() {
   }, [])
 
   useEffect(() => {
-    if (!mounted || !tMounted || window.innerWidth < 768) return
+    if (!mounted || window.innerWidth < 768) return
 
     const timer = setTimeout(() => {
       const splitsA: SplitText[] = []
@@ -128,7 +128,7 @@ export function Header() {
       splitCleanup.current?.()
       splitCleanup.current = null
     }
-  }, [t, language, mounted, tMounted])
+  }, [t, language, mounted])
 
   useEffect(() => {
     const updateScrollState = () => {
@@ -174,7 +174,7 @@ export function Header() {
     })
   }, [nearFooter])
 
-  if (!mounted || !tMounted) return null
+  if (!mounted) return null
 
   return (
     <motion.header
