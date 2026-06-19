@@ -275,18 +275,19 @@
     "next_photo": "Photo suivante"
   },
   "maintenance": {
-    "badge": "Maintenance web",
-    "title": "Votre site entre de bonnes mains.",
-    "subtitle": "Hébergement, sécurité et présence Google — sans que vous ayez à y penser.",
-    "offers_badge": "Nos offres",
+    "badge": "Maintenance & Croissance",
+    "title": "Votre site, entretenu. Vos clients, livrés.",
+    "subtitle": "Trois façons de travailler ensemble selon où vous en êtes.",
+    "compare_badge": "Les formules",
     "why_badge": "Pourquoi moi",
     "per_month": "/mois",
-    "choose": "Choisir {{name}}",
     "cta_title": "Une question avant de choisir ?",
     "cta_button": "Me contacter",
     "plans": {
-      "essentiel": {
-        "name": "Essentiel",
+      "maintenance": {
+        "label": "La base",
+        "name": "Maintenance",
+        "price": "60€",
         "positioning": "Votre site reste en ligne. Vous n'y pensez plus.",
         "included": [
           "Hébergement et domaine géré",
@@ -294,25 +295,41 @@
           "Mises à jour de sécurité",
           "Certificat SSL actif",
           "Sauvegarde mensuelle",
-          "Support email (réponse sous 5 jours)"
+          "Support email/WhatsApp — réponse sous 72h",
+          "30 min de modifications incluses/mois"
         ],
-        "excluded": [
-          "Modifications (facturées 50€/h)",
-          "Google My Business"
-        ]
+        "cta": "Choisir Maintenance"
       },
-      "serenite": {
-        "name": "Sérénité",
-        "badge": "Recommandé",
-        "positioning": "Votre site travaille pour vous pendant que vous êtes sur le chantier.",
-        "includesPrevious": "Tout ce qui est dans Essentiel",
+      "growth": {
+        "label": "En complément",
+        "requires_badge": "Nécessite la Maintenance active",
+        "name": "Croissance",
+        "price": "150€",
+        "setup_note": "+ 200€ de mise en place",
+        "positioning": "Votre site convertit. Maintenant on lui amène du monde.",
         "included": [
-          "Sauvegarde hebdomadaire",
-          "1h de modifications incluse / mois",
-          "Support WhatsApp + appel (prioritaire)",
-          "Réponse sous 24-48h",
-          "Google My Business géré chaque mois (photos de réalisations, posts mensuels, réponses aux avis)"
-        ]
+          "Campagnes Google Ads (création + optimisation mensuelle)",
+          "Suivi des conversions (appels, formulaires)",
+          "Gestion active de votre fiche Google My Business",
+          "Bilan mensuel simple"
+        ],
+        "meta_note": "Option Meta Ads disponible (+50€/mois) pour les métiers à fort rendu visuel",
+        "cta": "Choisir Croissance"
+      },
+      "pack": {
+        "label": "Le pack complet",
+        "badge": "Recommandé",
+        "name": "Pack Croissance Complète",
+        "price": "180€",
+        "setup_note": "+ 200€ de mise en place",
+        "savings": "Au lieu de 210€/mois en séparé — vous économisez 30€/mois",
+        "positioning": "L'entretien du site et la génération de clients, dans un seul forfait.",
+        "included": [
+          "Tout ce qui est dans Maintenance",
+          "Tout ce qui est dans Croissance",
+          "Un seul contrat, un seul interlocuteur, un seul prélèvement"
+        ],
+        "cta": "Démarrer le Pack"
       }
     },
     "reassurance": {
@@ -322,11 +339,11 @@
       },
       "cancel_anytime": {
         "title": "Résiliable à tout moment",
-        "description": "Préavis de 30 jours par écrit. Sans pénalité."
+        "description": "Préavis de 30 jours par écrit, sans pénalité."
       },
-      "cheaper_than_agency": {
-        "title": "Moins cher qu'une agence",
-        "description": "Une agence facture 150-300€/mois pour le même service."
+      "no_fake_guarantee": {
+        "title": "Aucune garantie marketing déguisée",
+        "description": "Je vous dis honnêtement ce qui marche et ce qui ne marche pas, mois après mois."
       }
     }
   }

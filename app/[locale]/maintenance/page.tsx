@@ -5,17 +5,18 @@ import { isValidLocale, defaultLocale, type Locale } from '@/utils/i18n'
 
 const content: Record<Locale, { title: string; description: string; ogDescription: string }> = {
   fr: {
-    title: 'Maintenance web',
+    title: 'Maintenance & Croissance',
     description:
-      'Offres de maintenance web : hébergement, sécurité, sauvegardes et support. Gardez votre site en bonne santé sans vous en soucier.',
+      'Trois formules pour votre site : Maintenance seule (hébergement, sécurité, support), Croissance seule (Google Ads, Google My Business) ou le Pack Croissance Complète qui réunit les deux.',
     ogDescription:
-      'Offres de maintenance web : hébergement, sécurité, sauvegardes et support.',
+      'Trois formules : la maintenance qui garde votre site en bonne santé, la croissance qui lui amène des clients, ou le pack complet qui réunit les deux.',
   },
   en: {
-    title: 'Website maintenance',
+    title: 'Maintenance & Growth',
     description:
-      'Website maintenance plans: hosting, security, backups and support. Keep your site healthy without the hassle.',
-    ogDescription: 'Website maintenance plans: hosting, security, backups and support.',
+      'Three plans for your website: Maintenance alone (hosting, security, support), Growth alone (Google Ads, Google Business Profile), or the Full Growth Package combining both.',
+    ogDescription:
+      'Three plans: maintenance keeps your website healthy, growth brings it customers, or the full package combines both.',
   },
 }
 

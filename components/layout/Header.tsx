@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
+import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Menu, X, Sun, Moon } from 'lucide-react'
 import { useTheme } from '@/hooks/useTheme'
@@ -49,18 +51,22 @@ export function Header() {
   const [nearFooter, setNearFooter] = useState(false)
   const { theme, toggleTheme, mounted } = useTheme()
   const { language, changeLanguage, t } = useTranslation()
+  const pathname = usePathname()
+  const router = useRouter()
+  const isHome = pathname === `/${language}`
   const logoDotRef = useRef<HTMLDivElement>(null)
-  const navItemRefs = useRef<(HTMLButtonElement | null)[]>([])
+  const navItemRefs = useRef<(HTMLAnchorElement | null)[]>([])
   const splitCleanup = useRef<(() => void) | null>(null)
 
-  const handleNavClick = useCallback((href: string) => {
-    setIsOpen(false)
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
-  }, [])
+  const closeMenu = useCallback(() => setIsOpen(false), [])
 
-  const scrollToTop = useCallback(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }, [])
+  const handleLogoClick = useCallback(() => {
+    if (isHome) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } else {
+      router.push(`/${language}`)
+    }
+  }, [isHome, language, router])
 
   useEffect(() => {
     if (!mounted || window.innerWidth < 768) return
@@ -70,7 +76,7 @@ export function Header() {
       const splitsB: SplitText[] = []
       const timelines: gsap.core.Timeline[] = []
       const listeners: Array<{
-        el: HTMLButtonElement
+        el: HTMLAnchorElement
         onEnter: () => void
         onLeave: () => void
       }> = []
@@ -194,7 +200,7 @@ export function Header() {
         <div className="flex items-center justify-between">
           <button
             type="button"
-            onClick={scrollToTop}
+            onClick={handleLogoClick}
             className="flex items-center gap-2 cursor-pointer group"
             aria-label={t('nav.back_to_top') as string}
           >
@@ -212,18 +218,18 @@ export function Header() {
 
           <nav className="hidden md:flex items-center gap-1" aria-label={t('nav.main_nav') as string}>
             {navItems.map((item, index) => (
-              <button
+              <Link
                 key={item.key}
                 ref={(el) => {
                   navItemRefs.current[index] = el
                 }}
-                type="button"
-                onClick={() => handleNavClick(item.href)}
+                href={`/${language}${item.href}`}
+                onClick={closeMenu}
                 className="relative px-5 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-300 group overflow-hidden cursor-pointer"
               >
                 <NavSplitLabel id={`split-${index}`} label={t(item.key) as string} />
                 <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-red-600 dark:bg-red-400 group-hover:w-full group-hover:left-0 transition-all duration-300 ease-out" />
-              </button>
+              </Link>
             ))}
           </nav>
 
@@ -277,14 +283,14 @@ export function Header() {
           <div className="min-h-0 overflow-hidden">
             <div className="mt-4 pt-4 pb-2 border-t border-gray-200/20 dark:border-gray-700/20 flex flex-col gap-1">
               {navItems.map((item) => (
-                <button
+                <Link
                   key={item.key}
-                  type="button"
-                  onClick={() => handleNavClick(item.href)}
+                  href={`/${language}${item.href}`}
+                  onClick={closeMenu}
                   className="text-left text-gray-900 dark:text-white hover:text-[#8C0605] dark:hover:text-[#FFD6D6] transition-colors duration-300 font-medium py-3 px-3 rounded-lg hover:bg-gray-100/80 dark:hover:bg-gray-800/50 cursor-pointer"
                 >
                   {t(item.key)}
-                </button>
+                </Link>
               ))}
             </div>
           </div>
