@@ -1,135 +1,186 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
+
+const HOVERABLE_SELECTOR = [
+  'a',
+  'button',
+  'input',
+  'textarea',
+  'select',
+  'label',
+  '[role="button"]',
+  '[data-cursor="hover"]',
+  '.hoverable',
+].join(',')
 
 export function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null)
   const cursorDotRef = useRef<HTMLDivElement>(null)
+
   const [isVisible, setIsVisible] = useState(false)
   const [isHovering, setIsHovering] = useState(false)
   const [isClicking, setIsClicking] = useState(false)
-  const [isTouchDevice, setIsTouchDevice] = useState(false)
+  const [shouldRender, setShouldRender] = useState(false)
 
   useEffect(() => {
-    // Only show custom cursor on desktop
-    const touchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
-    setIsTouchDevice(touchDevice)
-    if (touchDevice) return
+    const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+
+    if (!isFinePointer || isTouchDevice || prefersReducedMotion) {
+      setShouldRender(false)
+      return
+    }
+
+    setShouldRender(true)
+  }, [])
+
+  useEffect(() => {
+    if (!shouldRender) return
 
     const cursor = cursorRef.current
     const cursorDot = cursorDotRef.current
+
     if (!cursor || !cursorDot) return
 
-    const onMouseMove = (e: MouseEvent) => {
-      if (!isVisible) setIsVisible(true)
+    gsap.set([cursor, cursorDot], {
+      xPercent: -50,
+      yPercent: -50,
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2,
+      force3D: true,
+    })
 
-      // Main cursor follows with slight delay
-      gsap.to(cursor, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.5,
-        ease: 'power3.out',
-      })
+    const cursorX = gsap.quickTo(cursor, 'x', {
+      duration: 0.45,
+      ease: 'power3.out',
+    })
 
-      // Dot follows immediately
-      gsap.to(cursorDot, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.1,
-        ease: 'power2.out',
-      })
+    const cursorY = gsap.quickTo(cursor, 'y', {
+      duration: 0.45,
+      ease: 'power3.out',
+    })
+
+    const dotX = gsap.quickTo(cursorDot, 'x', {
+      duration: 0.08,
+      ease: 'power2.out',
+    })
+
+    const dotY = gsap.quickTo(cursorDot, 'y', {
+      duration: 0.08,
+      ease: 'power2.out',
+    })
+
+    const onMouseMove = (event: MouseEvent) => {
+      setIsVisible(true)
+
+      cursorX(event.clientX)
+      cursorY(event.clientY)
+
+      dotX(event.clientX)
+      dotY(event.clientY)
+
+      const target = event.target as HTMLElement | null
+      const hoverable = target?.closest(HOVERABLE_SELECTOR)
+
+      setIsHovering(Boolean(hoverable))
     }
 
-    const onMouseEnter = () => setIsVisible(true)
-    const onMouseLeave = () => setIsVisible(false)
-    const onMouseDown = () => setIsClicking(true)
-    const onMouseUp = () => setIsClicking(false)
-
-    // Detect hoverable elements
-    const addHoverListeners = () => {
-      const hoverables = document.querySelectorAll(
-        'a, button, [role="button"], input, textarea, select, .hoverable'
-      )
-
-      hoverables.forEach((el) => {
-        el.addEventListener('mouseenter', () => setIsHovering(true))
-        el.addEventListener('mouseleave', () => setIsHovering(false))
-      })
+    const onMouseDown = () => {
+      setIsClicking(true)
     }
 
-    document.addEventListener('mousemove', onMouseMove)
-    document.addEventListener('mouseenter', onMouseEnter)
-    document.addEventListener('mouseleave', onMouseLeave)
+    const onMouseUp = () => {
+      setIsClicking(false)
+    }
+
+    const onMouseLeave = () => {
+      setIsVisible(false)
+      setIsHovering(false)
+      setIsClicking(false)
+    }
+
+    const onMouseEnter = () => {
+      setIsVisible(true)
+    }
+
+    const onWindowBlur = () => {
+      setIsVisible(false)
+      setIsHovering(false)
+      setIsClicking(false)
+    }
+
+    document.addEventListener('mousemove', onMouseMove, { passive: true })
     document.addEventListener('mousedown', onMouseDown)
     document.addEventListener('mouseup', onMouseUp)
-
-    // Add hover listeners after a small delay to ensure DOM is ready
-    setTimeout(addHoverListeners, 100)
-
-    // Re-add hover listeners when DOM changes
-    const observer = new MutationObserver(() => {
-      addHoverListeners()
-    })
-    observer.observe(document.body, { childList: true, subtree: true })
+    document.documentElement.addEventListener('mouseleave', onMouseLeave)
+    document.documentElement.addEventListener('mouseenter', onMouseEnter)
+    window.addEventListener('blur', onWindowBlur)
 
     return () => {
       document.removeEventListener('mousemove', onMouseMove)
-      document.removeEventListener('mouseenter', onMouseEnter)
-      document.removeEventListener('mouseleave', onMouseLeave)
       document.removeEventListener('mousedown', onMouseDown)
       document.removeEventListener('mouseup', onMouseUp)
-      observer.disconnect()
+      document.documentElement.removeEventListener('mouseleave', onMouseLeave)
+      document.documentElement.removeEventListener('mouseenter', onMouseEnter)
+      window.removeEventListener('blur', onWindowBlur)
     }
-  }, [isVisible])
+  }, [shouldRender])
 
-  // Don't render on touch devices
-  if (isTouchDevice) return null
+  if (!shouldRender) return null
 
   return (
     <>
       {/* Main cursor ring */}
       <div
         ref={cursorRef}
-        className={`fixed pointer-events-none z-[9999] mix-blend-difference transition-opacity duration-300 ${
-          isVisible ? 'opacity-100' : 'opacity-0'
-        }`}
-        style={{
-          transform: 'translate(-50%, -50%)',
-        }}
+        className={`pointer-events-none fixed left-0 top-0 z-[9999] mix-blend-difference transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'
+          }`}
+        aria-hidden="true"
       >
         <div
-          className={`rounded-full border-2 border-white transition-all duration-200 ${
-            isHovering
-              ? 'w-16 h-16 bg-white/10'
-              : isClicking
-              ? 'w-6 h-6'
-              : 'w-10 h-10'
-          }`}
+          className={[
+            'rounded-full border border-white transition-[width,height,background-color,border-color,transform] duration-200 ease-out',
+            isClicking
+              ? 'h-6 w-6 scale-90 bg-white/20'
+              : isHovering
+                ? 'h-16 w-16 bg-white/10'
+                : 'h-10 w-10 bg-transparent',
+          ].join(' ')}
         />
       </div>
 
       {/* Cursor dot */}
       <div
         ref={cursorDotRef}
-        className={`fixed pointer-events-none z-[9999] mix-blend-difference transition-opacity duration-300 ${
-          isVisible ? 'opacity-100' : 'opacity-0'
-        }`}
-        style={{
-          transform: 'translate(-50%, -50%)',
-        }}
+        className={`pointer-events-none fixed left-0 top-0 z-[9999] mix-blend-difference transition-opacity duration-300 ${isVisible ? 'opacity-100' : 'opacity-0'
+          }`}
+        aria-hidden="true"
       >
         <div
-          className={`rounded-full bg-white transition-all duration-200 ${
-            isHovering ? 'w-2 h-2' : 'w-1.5 h-1.5'
-          }`}
+          className={[
+            'rounded-full bg-white transition-[width,height,transform,opacity] duration-200 ease-out',
+            isHovering ? 'h-2 w-2 opacity-80' : 'h-1.5 w-1.5 opacity-100',
+            isClicking ? 'scale-150' : 'scale-100',
+          ].join(' ')}
         />
       </div>
 
-      {/* Hide default cursor */}
       <style jsx global>{`
         @media (hover: hover) and (pointer: fine) {
-          * {
+          html,
+          body,
+          a,
+          button,
+          input,
+          textarea,
+          select,
+          label,
+          [role='button'],
+          [data-cursor='hover'],
+          .hoverable {
             cursor: none !important;
           }
         }

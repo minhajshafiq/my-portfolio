@@ -182,6 +182,26 @@
         "design": "Polished design",
         "contact": "Contact form"
       }
+    },
+    "toiture_artisan": {
+      "title": "Toiture Artisan",
+      "description": "Modern showcase website for a roofing craftsman, designed to build trust, present services clearly, and generate quote requests.",
+      "category": "Showcase",
+      "results": {
+        "local_seo": "Optimized for local visibility",
+        "conversion": "Clear path toward quote requests",
+        "trust": "Services and trust signals highlighted"
+      }
+    },
+    "photographe": {
+      "title": "Photographe",
+      "description": "Showcase website for a photographer client who wanted an online presence to grow his business. Clean design, services highlighted and contact form.",
+      "category": "Creative Portfolio",
+      "results": {
+        "gallery": "Immersive and responsive photo gallery",
+        "branding": "Elegant and consistent branding",
+        "contact": "Simplified contact flow for bookings"
+      }
     }
   },
   "contact": {

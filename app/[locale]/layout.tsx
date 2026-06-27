@@ -105,7 +105,7 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className="antialiased grain-texture">
+      <body className="bg-custom-primary antialiased">
         <CustomCursor />
         <Loader>
           <Header />

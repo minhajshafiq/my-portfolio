@@ -1,282 +1,317 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import {
+  motion,
+  MotionConfig,
+  useReducedMotion,
+  type Transition,
+  type Variants,
+} from 'framer-motion'
 import Image from 'next/image'
-import { Globe } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
+import { cn } from '@/utils/cn'
 
 interface LuxaShowcaseCardProps {
   demoUrl?: string
+  className?: string
 }
 
-export function LuxaShowcaseCard({ demoUrl = 'https://pocketly-web-blush.vercel.app/' }: LuxaShowcaseCardProps) {
-  const springTransition = {
-    type: 'spring' as const,
-    stiffness: 100,
-    damping: 18,
-    mass: 0.8,
-    duration: 0.7,
-  }
+type PhoneProps = {
+  src: string
+  alt: string
+  variants: Variants
+  className?: string
+  sizes?: string
+  priority?: boolean
+}
 
-  // Animation variants for the card background glow and gradient shifts
-  const bgVariants = {
+const LUXA_DEMO_URL = 'https://pocketly-web-blush.vercel.app/'
+
+const PHONE_IMAGES = {
+  stats: '/images/luxa_stats-portrait.webp',
+  calendar: '/images/luxa_calendar-portrait.webp',
+  dashboard: '/images/luxa_dashboard-portrait.webp',
+  mascot: '/images/luxa_mascot.webp',
+} as const
+
+const EASE_OUT = [0.22, 1, 0.36, 1] as const
+
+function Phone({
+  src,
+  alt,
+  variants,
+  className,
+  sizes = '(max-width: 768px) 180px, (max-width: 1280px) 220px, 260px',
+  priority = false,
+}: PhoneProps) {
+  return (
+    <motion.div
+      variants={variants}
+      className={cn(
+        'absolute bottom-[-4%] left-1/2 aspect-[9/19.5] will-change-transform',
+        className
+      )}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        priority={priority}
+        sizes={sizes}
+        draggable={false}
+        className="select-none object-contain drop-shadow-[0_24px_44px_rgba(0,0,0,0.48)]"
+      />
+    </motion.div>
+  )
+}
+
+export function LuxaShowcaseCard({
+  demoUrl = LUXA_DEMO_URL,
+  className,
+}: LuxaShowcaseCardProps) {
+  const reduceMotion = useReducedMotion()
+
+  const spring: Transition = reduceMotion
+    ? { duration: 0 }
+    : {
+      type: 'spring',
+      stiffness: 110,
+      damping: 18,
+      mass: 0.8,
+    }
+
+  const smooth: Transition = reduceMotion
+    ? { duration: 0 }
+    : {
+      duration: 0.7,
+      ease: EASE_OUT,
+    }
+
+  const bgGlow: Variants = {
     initial: {
-      background: 'radial-gradient(circle at 50% 120%, rgba(139, 92, 246, 0.4) 0%, rgba(88, 28, 135, 0.15) 50%, rgba(0, 0, 0, 1) 100%)',
+      opacity: 0.72,
       scale: 1,
     },
     hover: {
-      background: 'radial-gradient(circle at 50% 100%, rgba(167, 139, 250, 0.6) 0%, rgba(124, 58, 237, 0.3) 40%, rgba(15, 23, 42, 1) 100%)',
-      scale: 1.01,
+      opacity: 1,
+      scale: 1.035,
     },
   }
 
-  // Left Phone Animation Variants
-  const leftPhoneVariants = {
+  const headline: Variants = {
     initial: {
-      x: '-15%',
-      y: '18%',
-      rotate: -12,
-      scale: 1.05,
-      opacity: 0.65,
-      filter: 'brightness(0.75) blur(0.5px)',
+      opacity: 0.76,
+      y: 0,
+    },
+    hover: {
+      opacity: 0.98,
+      y: -2,
+    },
+  }
+
+  const arrow: Variants = {
+    initial: {
+      x: 0,
+      y: 0,
+      rotate: 0,
+    },
+    hover: {
+      x: 6,
+      y: -6,
+      rotate: 4,
+    },
+  }
+
+  const mascot: Variants = {
+    initial: {
+      opacity: 1,
+      scale: 1,
+      rotate: -5,
+      y: 0,
+    },
+    hover: {
+      opacity: 1,
+      scale: 1.06,
+      rotate: 3,
+      y: -5,
+    },
+  }
+
+  const leftPhone: Variants = {
+    initial: {
+      x: '-122%',
+      y: '17%',
+      rotate: -14,
+      scale: 0.96,
+      opacity: 0.48,
+      filter: 'brightness(0.72) blur(0.4px)',
       zIndex: 10,
     },
     hover: {
-      x: '-105%',
-      y: '-8%',
-      rotate: 0,
-      scale: 1.1,
-      opacity: 1,
-      filter: 'brightness(1) blur(0px)',
-      zIndex: 10,
+      x: '-146%',
+      y: '3%',
+      rotate: -4,
+      scale: 1,
+      opacity: 0.95,
+      filter: 'brightness(0.94) blur(0px)',
+      zIndex: 20,
     },
   }
 
-  // Center Phone Animation Variants (Higher z-index, centered, moves slightly up)
-  const centerPhoneVariants = {
+  const centerPhone: Variants = {
     initial: {
       x: '-50%',
-      y: '2%',
-      scale: 1.1,
-      filter: 'brightness(0.95)',
+      y: '0%',
+      rotate: 0,
+      scale: 1.06,
+      opacity: 1,
+      filter: 'brightness(1)',
       zIndex: 30,
     },
     hover: {
       x: '-50%',
-      y: '-8%',
-      scale: 1.15,
+      y: '-7%',
+      rotate: 0,
+      scale: 1.1,
+      opacity: 1,
       filter: 'brightness(1)',
       zIndex: 30,
     },
   }
 
-  // Right Phone Animation Variants
-  const rightPhoneVariants = {
+  const rightPhone: Variants = {
     initial: {
-      x: '15%',
-      y: '18%',
-      rotate: 12,
-      scale: 1.05,
-      opacity: 0.65,
-      filter: 'brightness(0.75) blur(0.5px)',
-      zIndex: 20,
+      x: '22%',
+      y: '17%',
+      rotate: 14,
+      scale: 0.96,
+      opacity: 0.48,
+      filter: 'brightness(0.72) blur(0.4px)',
+      zIndex: 10,
     },
     hover: {
-      x: '105%',
-      y: '-8%',
-      rotate: 0,
-      scale: 1.1,
-      opacity: 1,
-      filter: 'brightness(1) blur(0px)',
+      x: '46%',
+      y: '3%',
+      rotate: 4,
+      scale: 1,
+      opacity: 0.95,
+      filter: 'brightness(0.94) blur(0px)',
       zIndex: 20,
     },
-  }
-
-  // Mascot 1 (Top Left): Pops up and rotates slightly
-  const mascot1Variants = {
-    initial: { opacity: 0, scale: 0.2, rotate: -30, y: 20 },
-    hover: { opacity: 1, scale: 1, rotate: -5, y: 0 },
-  }
-
-  // Mascot 2 (Top Right): Peeks out from the top right, rotating slightly
-  const mascot2Variants = {
-    initial: { opacity: 0, scale: 0.2, rotate: 30, x: 20, y: 10 },
-    hover: { opacity: 1, scale: 1, rotate: 12, x: 0, y: 0 },
-  }
-
-  // Mascot 3 (Bottom Left): Popping up near left phone
-  const mascot3Variants = {
-    initial: { opacity: 0, scale: 0.2, rotate: -15, y: 30 },
-    hover: { opacity: 1, scale: 0.9, rotate: -8, y: 0 },
-  }
-
-  // Mascot 4 (Bottom Right): Peeking near right phone
-  const mascot4Variants = {
-    initial: { opacity: 0, scale: 0.2, rotate: 15, y: 30 },
-    hover: { opacity: 0.85, scale: 0.95, rotate: 6, y: 0 },
-  }
-
-  // Arrow Translation Animation
-  const arrowVariants = {
-    initial: { x: 0, y: 0 },
-    hover: { x: 8, y: -8 },
   }
 
   return (
-    <motion.a
-      href={demoUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      initial="initial"
-      whileHover="hover"
-      className="group relative block w-full h-full min-h-[420px] lg:min-h-full overflow-hidden cursor-pointer"
-    >
-      {/* Premium Outer Inner Glow & Gradient Background */}
-      <motion.div
-        variants={bgVariants}
-        transition={springTransition}
-        className="absolute inset-0 w-full h-full flex flex-col justify-between p-6 md:p-8 overflow-hidden"
+    <MotionConfig transition={spring}>
+      <motion.a
+        href={demoUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open Luxa project"
+        initial="initial"
+        whileHover="hover"
+        whileFocus="hover"
+        whileTap={reduceMotion ? undefined : { scale: 0.995 }}
+        className={cn(
+          'group relative isolate z-0 block h-full w-full overflow-hidden rounded-[28px] border border-white/10 bg-[#0c0c10] p-2',
+          'shadow-[0_20px_60px_rgba(0,0,0,0.35)]',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07070a]',
+          '[transform:translateZ(0)]',
+          className
+        )}
       >
-        {/* Subtle grid pattern overlay for texture */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+        <div className="relative isolate z-0 h-full min-h-[420px] overflow-hidden rounded-[24px] md:min-h-[500px] lg:min-h-full">
+          {/* Base background */}
+          <div className="absolute inset-0 z-0 bg-[hsl(353_100%_22%)]" />
 
-        {/* Top Section: Globe Button only */}
-        <div className="relative z-40 flex justify-end items-start">
+          <div className="absolute inset-0 z-0 bg-[linear-gradient(135deg,hsl(353_100%_22%)_0%,hsl(340_75%_30%)_44%,hsl(315_70%_68%)_100%)]" />
+
           <motion.div
-            variants={arrowVariants}
-            transition={springTransition}
-            className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white group-hover:bg-white group-hover:text-black transition-colors duration-300 shadow-lg"
+            variants={bgGlow}
+            transition={smooth}
+            className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_100%,rgba(255,255,255,0.20)_0%,rgba(255,255,255,0.07)_30%,transparent_66%)]"
+          />
+
+          <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:24px_24px] opacity-25" />
+
+          <div className="absolute -left-16 -top-16 z-0 h-52 w-52 rounded-full bg-white/10 blur-3xl" />
+          <div className="absolute right-0 top-0 z-0 h-44 w-44 rounded-full bg-pink-200/12 blur-3xl" />
+          <div className="absolute bottom-0 left-1/2 z-0 h-72 w-72 -translate-x-1/2 rounded-full bg-white/10 blur-3xl" />
+
+          {/* Header */}
+          <div className="relative z-20 flex items-start justify-between gap-4 p-5 md:p-6">
+            <div className="max-w-[80%]">
+
+              <motion.h3
+                variants={headline}
+                transition={smooth}
+                className="text-[clamp(20px,2.6vw,32px)] font-black leading-[1.02] tracking-[-0.055em] text-white/78"
+              >
+                An intuitive mobile companion for organizing your digital wallets
+                and analyzing your financial health
+              </motion.h3>
+            </div>
+
+            <motion.div
+              variants={arrow}
+              transition={spring}
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 backdrop-blur-md transition-colors duration-300 group-hover:bg-white/16"
+              aria-hidden="true"
+            >
+              <ArrowUpRight className="h-5 w-5" />
+            </motion.div>
+          </div>
+
+          {/* Mascot */}
+          <motion.div
+            variants={mascot}
+            transition={spring}
+            className="absolute right-5 top-[116px] z-20 md:right-6 md:top-[138px]"
+            aria-hidden="true"
           >
-            <Globe className="w-5 h-5 md:w-6 md:h-6" />
+            <div className="relative h-14 w-14 rounded-full border border-white/20 bg-white/10 p-2 shadow-[0_12px_30px_rgba(0,0,0,0.25)] backdrop-blur-md md:h-16 md:w-16">
+              <Image
+                src={PHONE_IMAGES.mascot}
+                alt=""
+                fill
+                sizes="64px"
+                draggable={false}
+                className="select-none object-contain p-2"
+              />
+            </div>
           </motion.div>
+
+          {/* Phones */}
+          <div className="absolute inset-x-0 bottom-0 z-10 h-[66%] md:h-[68%]">
+            <Phone
+              src={PHONE_IMAGES.stats}
+              alt="Luxa statistics screen"
+              variants={leftPhone}
+              className="w-[33%] min-w-[150px] max-w-[220px]"
+            />
+
+            <Phone
+              src={PHONE_IMAGES.calendar}
+              alt="Luxa calendar screen"
+              variants={rightPhone}
+              className="w-[33%] min-w-[150px] max-w-[220px]"
+            />
+
+            <Phone
+              src={PHONE_IMAGES.dashboard}
+              alt="Luxa dashboard screen"
+              variants={centerPhone}
+              priority
+              className="w-[40%] min-w-[180px] max-w-[260px]"
+            />
+          </div>
+
+          {/* Bottom fade */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-32 bg-gradient-to-t from-black/30 via-black/10 to-transparent" />
+
+          {/* Inner ring */}
+          <div className="pointer-events-none absolute inset-0 z-30 rounded-[24px] ring-1 ring-inset ring-white/10" />
         </div>
-
-        {/* Center/Bottom Section: Interactive Phone Showcase */}
-        <div className="relative w-full h-[60%] md:h-[65%] mt-auto flex items-end justify-center">
-          
-          {/* Mascot 1 - Top Left */}
-          <motion.div
-            variants={mascot1Variants}
-            transition={{ ...springTransition, delay: 0.05 }}
-            className="absolute left-[2%] top-[5%] md:left-[8%] z-40 pointer-events-none"
-          >
-            <div className="relative w-16 h-16 md:w-20 md:h-20 drop-shadow-2xl">
-              <Image
-                src="/images/luxa_mascot.webp"
-                alt="Luxa Mascot 1"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-          </motion.div>
-
-          {/* Mascot 2 - Top Right */}
-          <motion.div
-            variants={mascot2Variants}
-            transition={{ ...springTransition, delay: 0.1 }}
-            className="absolute right-[4%] top-[15%] md:right-[10%] z-40 pointer-events-none"
-          >
-            <div className="relative w-14 h-14 md:w-18 md:h-18 drop-shadow-2xl">
-              <Image
-                src="/images/luxa_mascot_2.webp"
-                alt="Luxa Mascot 2"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-          </motion.div>
-
-          {/* Mascot 3 - Bottom Left */}
-          <motion.div
-            variants={mascot3Variants}
-            transition={{ ...springTransition, delay: 0.15 }}
-            className="absolute left-[3%] bottom-[8%] md:left-[10%] z-40 pointer-events-none"
-          >
-            <div className="relative w-12 h-12 md:w-16 md:h-16 drop-shadow-2xl">
-              <Image
-                src="/images/luxa_mascot_3.webp"
-                alt="Luxa Mascot 3"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-          </motion.div>
-
-          {/* Mascot 4 - Bottom Right */}
-          <motion.div
-            variants={mascot4Variants}
-            transition={{ ...springTransition, delay: 0.2 }}
-            className="absolute right-[3%] bottom-[12%] md:right-[8%] z-40 pointer-events-none"
-          >
-            <div className="relative w-12 h-12 md:w-16 md:h-16 drop-shadow-2xl">
-              <Image
-                src="/images/luxa_mascot_4.webp"
-                alt="Luxa Mascot 4"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-          </motion.div>
-
-          {/* Left Phone Mockup (using user provided mockup) */}
-          <motion.div
-            variants={leftPhoneVariants}
-            transition={springTransition}
-            className="absolute bottom-[-110px] left-[32%] w-[48%] sm:w-[42%] md:w-[32%] aspect-[9/19.5]"
-          >
-            <div className="relative w-full h-full">
-              <Image
-                src="/images/luxa_stats-portrait.webp"
-                alt="Luxa Stats"
-                fill
-                sizes="(max-width: 768px) 180px, 260px"
-                className="object-contain"
-                priority
-              />
-            </div>
-          </motion.div>
-
-          {/* Right Phone Mockup (using user provided mockup) */}
-          <motion.div
-            variants={rightPhoneVariants}
-            transition={springTransition}
-            className="absolute bottom-[-110px] right-[32%] w-[48%] sm:w-[42%] md:w-[32%] aspect-[9/19.5]"
-          >
-            <div className="relative w-full h-full">
-              <Image
-                src="/images/luxa_calendar-portrait.webp"
-                alt="Luxa Calendar"
-                fill
-                sizes="(max-width: 768px) 180px, 260px"
-                className="object-contain"
-                priority
-              />
-            </div>
-          </motion.div>
-
-          {/* Center Phone Mockup (z-index highest, using user provided mockup) */}
-          <motion.div
-            variants={centerPhoneVariants}
-            transition={springTransition}
-            className="absolute bottom-[-90px] left-1/2 w-[52%] sm:w-[46%] md:w-[36%] aspect-[9/19.5]"
-          >
-            <div className="relative w-full h-full">
-              <Image
-                src="/images/luxa_dashboard-portrait.webp"
-                alt="Luxa Dashboard"
-                fill
-                sizes="(max-width: 768px) 200px, 300px"
-                className="object-contain"
-                priority
-              />
-            </div>
-          </motion.div>
-
-        </div>
-      </motion.div>
-    </motion.a>
+      </motion.a>
+    </MotionConfig>
   )
 }

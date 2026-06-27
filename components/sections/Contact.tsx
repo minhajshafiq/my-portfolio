@@ -1,132 +1,240 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useRef, useState } from 'react'
+import type { ChangeEvent, ComponentType, FocusEvent, FormEvent } from 'react'
 import { motion } from 'framer-motion'
 import { useTranslation } from '@/hooks/useTranslation'
 import {
-  FaPaperPlane,
+  FaCalendarAlt,
   FaCheckCircle,
+  FaEnvelope,
   FaExclamationCircle,
   FaLinkedinIn,
-  FaEnvelope,
-  FaCalendarAlt,
+  FaPaperPlane,
 } from 'react-icons/fa'
 import { SiMalt } from 'react-icons/si'
 
 type FormStatus = 'idle' | 'sending' | 'success' | 'error'
 
+type FormData = {
+  name: string
+  email: string
+  message: string
+}
+
+type FormErrors = Partial<Record<keyof FormData, string>>
+type TouchedFields = Partial<Record<keyof FormData, boolean>>
+
+type ContactMethod = {
+  icon: ComponentType<{ className?: string }>
+  title: string
+  description: string
+  href: string
+  colorClassName: string
+  isPrimary?: boolean
+}
+
+const EASE_SMOOTH = [0.33, 1, 0.68, 1] as const
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 22 },
+  visible: { opacity: 1, y: 0 },
+}
+
+const initialFormData: FormData = {
+  name: '',
+  email: '',
+  message: '',
+}
+
+function SectionBackground() {
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="absolute right-[4%] top-16 h-[clamp(15rem,24vw,28rem)] w-[clamp(15rem,24vw,28rem)] rounded-full bg-[#8C0605]/10 blur-3xl dark:bg-red-400/[0.08] lg:right-[10%] xl:right-[14%]" />
+
+      <div className="absolute bottom-16 left-[2%] h-[clamp(14rem,20vw,24rem)] w-[clamp(14rem,20vw,24rem)] rounded-full bg-[#8C0605]/[0.08] blur-3xl dark:bg-red-400/[0.06] lg:left-[8%]" />
+
+      <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-white/18 to-transparent dark:from-black/20" />
+
+      <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-white/14 to-transparent dark:from-black/20" />
+    </div>
+  )
+}
+
+function FieldError({ message }: { message?: string }) {
+  if (!message) return null
+
+  return (
+    <p className="mt-2 flex items-center gap-1.5 text-xs font-medium text-red-500">
+      <FaExclamationCircle className="h-3.5 w-3.5" />
+      {message}
+    </p>
+  )
+}
+
 export function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  })
+  const [formData, setFormData] = useState<FormData>(initialFormData)
   const [status, setStatus] = useState<FormStatus>('idle')
-  const [errors, setErrors] = useState<{ [key: string]: string }>({})
-  const [touched, setTouched] = useState<{ [key: string]: boolean }>({})
+  const [errors, setErrors] = useState<FormErrors>({})
+  const [touched, setTouched] = useState<TouchedFields>({})
+
   const { t } = useTranslation()
   const formRef = useRef<HTMLFormElement>(null)
 
-  const contactMethods = [
+  const tr = (key: string): string => {
+    const value = t(key)
+    return Array.isArray(value) ? value.join(' ') : String(value)
+  }
+
+  const contactMethods: ContactMethod[] = [
     {
       icon: FaCalendarAlt,
-      title: t('contact.methods.call.title') as string,
-      description: t('contact.methods.call.description') as string,
+      title: tr('contact.methods.call.title'),
+      description: tr('contact.methods.call.description'),
       href: 'https://calendly.com/minhaj-shafiq/30min',
-      color: 'from-purple-500 to-pink-500',
+      colorClassName: 'from-purple-500 to-pink-500',
       isPrimary: true,
     },
     {
       icon: FaEnvelope,
-      title: t('contact.email_title') as string,
+      title: tr('contact.email_title'),
       description: 'contact@minhajshafiq.com',
       href: 'mailto:contact@minhajshafiq.com',
-      color: 'from-blue-500 to-cyan-500',
+      colorClassName: 'from-blue-500 to-cyan-500',
     },
     {
       icon: FaLinkedinIn,
-      title: t('contact.linkedin_title') as string,
-      description: t('contact.methods.linkedin.description') as string,
+      title: tr('contact.linkedin_title'),
+      description: tr('contact.methods.linkedin.description'),
       href: 'https://www.linkedin.com/in/minhajshafiq/',
-      color: 'from-[#0A66C2] to-blue-600',
+      colorClassName: 'from-[#0A66C2] to-blue-600',
     },
     {
       icon: SiMalt,
-      title: t('contact.malt_title') as string,
-      description: t('contact.methods.malt.description') as string,
+      title: tr('contact.malt_title'),
+      description: tr('contact.methods.malt.description'),
       href: 'https://www.malt.fr/profile/minhajzubair',
-      color: 'from-[#FC5757] to-red-600',
+      colorClassName: 'from-[#FC5757] to-red-600',
     },
   ]
 
-  const validateName = (name: string) => /^[a-zA-ZÀ-ÿ\s]{2,50}$/.test(name)
-  const validateEmail = (email: string) => /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)
-  const validateMessage = (message: string) => message.length >= 10
+  const primaryContact = contactMethods.find((method) => method.isPrimary)
+  const secondaryContacts = contactMethods.filter((method) => !method.isPrimary)
+  const PrimaryIcon = primaryContact?.icon
+
+  const validateName = (name: string) => /^[a-zA-ZÀ-ÿ\s'-]{2,50}$/.test(name.trim())
+  const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())
+  const validateMessage = (message: string) => message.trim().length >= 10
+
+  const validateField = (name: keyof FormData, value: string): string => {
+    if (!value.trim()) {
+      return tr(`errors.${name}`)
+    }
+
+    if (name === 'name' && !validateName(value)) {
+      return tr('errors.invalid_name')
+    }
+
+    if (name === 'email' && !validateEmail(value)) {
+      return tr('errors.invalid_email')
+    }
+
+    if (name === 'message' && !validateMessage(value)) {
+      return tr('errors.invalid_message')
+    }
+
+    return ''
+  }
+
+  const validateForm = (): FormErrors => {
+    const nextErrors: FormErrors = {}
+
+      ; (Object.keys(formData) as Array<keyof FormData>).forEach((fieldName) => {
+        const error = validateField(fieldName, formData[fieldName])
+
+        if (error) {
+          nextErrors[fieldName] = error
+        }
+      })
+
+    return nextErrors
+  }
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
+    const fieldName = event.target.name as keyof FormData
+    const { value } = event.target
 
-    if (touched[name]) {
-      let error = ''
-      if (!value.trim()) {
-        error = t(`errors.${name}`) as string
-      } else {
-        if (name === 'name' && !validateName(value))
-          error = t('errors.invalid_name') as string
-        if (name === 'email' && !validateEmail(value))
-          error = t('errors.invalid_email') as string
-        if (name === 'message' && !validateMessage(value))
-          error = t('errors.invalid_message') as string
-      }
-      setErrors((prev) => ({ ...prev, [name]: error }))
+    setFormData((previousData) => ({
+      ...previousData,
+      [fieldName]: value,
+    }))
+
+    if (touched[fieldName]) {
+      const error = validateField(fieldName, value)
+
+      setErrors((previousErrors) => ({
+        ...previousErrors,
+        [fieldName]: error,
+      }))
     }
   }
 
   const handleBlur = (
-    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: FocusEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name } = e.target
-    if (!touched[name]) {
-      setTouched((prev) => ({ ...prev, [name]: true }))
-      handleInputChange(e as React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>)
-    }
+    const fieldName = event.target.name as keyof FormData
+    const { value } = event.target
+
+    setTouched((previousTouched) => ({
+      ...previousTouched,
+      [fieldName]: true,
+    }))
+
+    const error = validateField(fieldName, value)
+
+    setErrors((previousErrors) => ({
+      ...previousErrors,
+      [fieldName]: error,
+    }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setStatus('sending')
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
 
-    const newErrors: { [key: string]: string } = {}
-    if (!formData.name || !validateName(formData.name))
-      newErrors.name = t('errors.invalid_name') as string
-    if (!formData.email || !validateEmail(formData.email))
-      newErrors.email = t('errors.invalid_email') as string
-    if (!formData.message || !validateMessage(formData.message))
-      newErrors.message = t('errors.invalid_message') as string
+    if (status === 'sending') return
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors)
-      setStatus('idle')
-      setTouched({ name: true, email: true, message: true })
+    const nextErrors = validateForm()
+
+    if (Object.keys(nextErrors).length > 0) {
+      setErrors(nextErrors)
+      setTouched({
+        name: true,
+        email: true,
+        message: true,
+      })
       return
     }
 
+    setStatus('sending')
+
     try {
       const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY
+
       if (!accessKey) {
         setStatus('error')
-        setTimeout(() => setStatus('idle'), 5000)
+        window.setTimeout(() => setStatus('idle'), 5000)
         return
       }
 
       const submissionData = new FormData()
-      submissionData.append('name', formData.name)
-      submissionData.append('email', formData.email)
-      submissionData.append('message', formData.message)
+      submissionData.append('name', formData.name.trim())
+      submissionData.append('email', formData.email.trim())
+      submissionData.append('message', formData.message.trim())
       submissionData.append('access_key', accessKey)
+      submissionData.append('subject', `Nouveau message portfolio - ${formData.name.trim()}`)
+      submissionData.append('from_name', 'Portfolio Minhaj Shafiq')
 
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -137,283 +245,357 @@ export function Contact() {
 
       if (data.success) {
         setStatus('success')
-        setFormData({ name: '', email: '', message: '' })
+        setFormData(initialFormData)
         setErrors({})
         setTouched({})
+        formRef.current?.reset()
       } else {
         setStatus('error')
       }
 
-      setTimeout(() => setStatus('idle'), 5000)
+      window.setTimeout(() => setStatus('idle'), 5000)
     } catch {
       setStatus('error')
-      setTimeout(() => setStatus('idle'), 5000)
+      window.setTimeout(() => setStatus('idle'), 5000)
     }
   }
 
-  return (
-    <section id="contact" className="py-20 bg-custom-primary overflow-hidden">
-      <div className="container mx-auto px-6">
-        <div className="max-w-6xl mx-auto">
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-16"
-          >
-            <span className="text-[#8C0605] dark:text-[#FFD6D6] font-mono text-sm tracking-widest uppercase mb-4 block">
-              {'>> '}{t('contact.title')}
-            </span>
-            <h2 className="text-5xl md:text-7xl font-black text-custom-title leading-none mb-6">
-              {t('contact.subtitle')}
-            </h2>
+  const getSubmitContent = () => {
+    if (status === 'sending') {
+      return (
+        <>
+          <span className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+          {tr('contact.sending')}
+        </>
+      )
+    }
 
-            {/* Availability badge */}
-            <div className="inline-flex items-center gap-3 bg-green-500/10 border border-green-500/20 rounded-full px-5 py-2.5 mt-4">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-              </span>
-              <span className="text-green-600 dark:text-green-400 font-medium">
-                {t('hero.available_for_work')}
-              </span>
+    if (status === 'success') {
+      return (
+        <>
+          <FaCheckCircle className="h-5 w-5" />
+          {tr('contact.success')}
+        </>
+      )
+    }
+
+    if (status === 'error') {
+      return (
+        <>
+          <FaExclamationCircle className="h-5 w-5" />
+          {tr('contact.error')}
+        </>
+      )
+    }
+
+    return (
+      <>
+        <FaPaperPlane className="h-5 w-5" />
+        {tr('contact.send')}
+      </>
+    )
+  }
+
+  return (
+    <section
+      id="contact"
+      className="relative isolate overflow-hidden bg-custom-primary py-[clamp(4rem,5.5vw,6.5rem)]"
+    >
+      <SectionBackground />
+
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-5 sm:px-8 md:px-10 lg:px-[clamp(2.5rem,4vw,5rem)]">
+        <div className="mx-auto w-full max-w-[min(1120px,calc(100vw-5rem))] xl:max-w-[min(1160px,calc(100vw-7rem))] 2xl:max-w-[1160px]">
+          {/* Section header */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.65, ease: EASE_SMOOTH }}
+            className="relative mb-10 md:mb-12"
+          >
+            <div className="grid min-h-[clamp(12rem,20vh,17rem)] grid-cols-1 content-end gap-6 pb-9 pt-3 md:grid-cols-12 md:pb-10">
+              <div className="md:col-span-8">
+                <span className="mb-4 block font-mono text-xs uppercase tracking-[0.28em] text-[#8C0605] dark:text-red-400 sm:text-sm">
+                  {'>> '}
+                  {tr('contact.title')}
+                </span>
+
+                <h2 className="max-w-[min(820px,100%)] text-4xl font-black leading-[0.94] tracking-[-0.065em] text-custom-title sm:text-5xl md:text-[clamp(3.35rem,5.4vw,5.2rem)] lg:text-[clamp(3.75rem,5vw,5.7rem)]">
+                  {tr('contact.subtitle')}
+                </h2>
+              </div>
+
+              <div className="md:col-span-4 md:self-end">
+                <p className="max-w-sm text-sm leading-6 text-custom-secondary md:text-[15px] md:leading-7">
+                  {tr('contact.quick_response_text')}
+                </p>
+
+                <div className="mt-4 inline-flex items-center gap-2.5 rounded-full border border-green-500/20 bg-green-500/10 px-4 py-2 backdrop-blur-md">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+                  </span>
+
+                  <span className="text-xs font-semibold text-green-600 dark:text-green-400 md:text-sm">
+                    {tr('hero.available_for_work')}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="h-px w-full bg-gradient-to-r from-[#8C0605]/30 via-gray-300 to-transparent dark:from-red-400/30 dark:via-white/10" />
+
+            <div className="pointer-events-none absolute -bottom-7 right-0 hidden select-none text-[5.75rem] font-black leading-none tracking-[-0.08em] text-gray-950/[0.035] dark:text-white/[0.035] md:block">
+              05
             </div>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-            {/* Left column - Contact methods */}
+          <div className="mx-auto grid w-full max-w-[min(1080px,100%)] grid-cols-1 gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch lg:gap-10">
+            {/* Contact methods */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="space-y-6"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.62, ease: EASE_SMOOTH }}
+              className="flex h-full flex-col gap-5 lg:min-h-[660px]"
             >
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
-                {t('contact.other_means')}
-              </h3>
+              <div>
+                <p className="mb-3 font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#8C0605] dark:text-red-400">
+                  Direct contact
+                </p>
 
-              {/* Primary contact - Réserver un appel */}
-              {contactMethods.filter(m => m.isPrimary).map((method, index) => (
-                <motion.a
-                  key={method.title}
-                  href={method.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ y: -4 }}
-                  className="block group relative p-5 rounded-2xl transition-all duration-300 overflow-hidden bg-[#8C0605] text-white"
-                >
-                  <div className="inline-flex p-3 rounded-xl mb-3 bg-white/20">
-                    <method.icon className="w-5 h-5 text-white" />
-                  </div>
-                  <h4 className="font-bold mb-1 text-white">{method.title}</h4>
-                  <p className="text-sm text-white/80">{method.description}</p>
-                  <div className="absolute top-5 right-5 transition-transform duration-300 group-hover:translate-x-1 text-white/70">
-                    →
-                  </div>
-                </motion.a>
-              ))}
-
-              {/* Secondary contacts - Email, LinkedIn, Malt */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {contactMethods.filter(m => !m.isPrimary).map((method, index) => (
-                  <motion.a
-                    key={method.title}
-                    href={method.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: (index + 1) * 0.1 }}
-                    whileHover={{ y: -4 }}
-                    className="group relative p-4 rounded-2xl transition-all duration-300 overflow-hidden bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-lg"
-                  >
-                    <div className={`inline-flex p-3 rounded-xl mb-3 bg-gradient-to-br ${method.color}`}>
-                      <method.icon className="w-5 h-5 text-white" />
-                    </div>
-                    <h4 className="font-bold mb-1 text-gray-900 dark:text-white text-sm">
-                      {method.title}
-                    </h4>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                      {method.description}
-                    </p>
-                    <div className="absolute top-4 right-4 transition-transform duration-300 group-hover:translate-x-1 text-gray-400">
-                      →
-                    </div>
-                  </motion.a>
-                ))}
+                <h3 className="max-w-[12ch] text-[clamp(2rem,3.3vw,2.75rem)] font-black leading-[1.02] tracking-[-0.06em] text-custom-title">
+                  {tr('contact.other_means')}
+                </h3>
               </div>
 
-              {/* Info card */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-                className="bg-gray-900 dark:bg-black p-6 rounded-2xl"
-              >
-                <div className="flex items-center gap-3 mb-4">
+              {primaryContact && PrimaryIcon && (
+                <motion.a
+                  href={primaryContact.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group relative block overflow-hidden rounded-[1.75rem] bg-[#8C0605] p-6 text-white shadow-[0_22px_70px_rgba(140,6,5,0.20)] dark:bg-red-400 dark:text-gray-950 md:p-7"
+                >
+                  <div className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full bg-white/10 dark:bg-gray-950/10" />
+                  <div className="pointer-events-none absolute bottom-0 left-0 h-40 w-40 rounded-full bg-black/10 blur-3xl dark:bg-gray-950/10" />
+
+                  <div className="relative z-10">
+                    <div className="mb-6 inline-flex h-[52px] w-[52px] items-center justify-center rounded-2xl border border-white/15 bg-white/15 backdrop-blur-md dark:border-gray-950/10 dark:bg-gray-950/10 md:h-14 md:w-14">
+                      <PrimaryIcon className="h-5 w-5 md:h-6 md:w-6" />
+                    </div>
+
+                    <h4 className="text-2xl font-black leading-tight tracking-[-0.04em]">
+                      {primaryContact.title}
+                    </h4>
+
+                    <p className="mt-3 max-w-md text-sm leading-6 text-white/80 dark:text-gray-950/75 md:text-[15px]">
+                      {primaryContact.description}
+                    </p>
+
+                    <span className="mt-7 inline-flex items-center gap-2 text-sm font-bold">
+                      Réserver maintenant
+                      <span className="transition-transform duration-300 group-hover:translate-x-1">
+                        →
+                      </span>
+                    </span>
+                  </div>
+                </motion.a>
+              )}
+
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                {secondaryContacts.map((method, index) => {
+                  const MethodIcon = method.icon
+
+                  return (
+                    <motion.a
+                      key={method.title}
+                      href={method.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      initial={{ opacity: 0, y: 18 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-80px' }}
+                      transition={{
+                        delay: index * 0.07,
+                        duration: 0.45,
+                        ease: EASE_SMOOTH,
+                      }}
+                      whileHover={{ y: -4 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="group relative overflow-hidden rounded-[1.5rem] border border-gray-200 bg-white/76 p-4 shadow-[0_16px_48px_rgba(0,0,0,0.055)] backdrop-blur-md transition-all hover:border-[#8C0605]/25 dark:border-white/10 dark:bg-white/[0.04] dark:hover:border-red-400/30"
+                    >
+                      <div
+                        className={`mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br ${method.colorClassName} text-white shadow-lg`}
+                      >
+                        <MethodIcon className="h-4 w-4" />
+                      </div>
+
+                      <h4 className="mb-1 truncate text-sm font-black text-custom-title">
+                        {method.title}
+                      </h4>
+
+                      <p className="truncate text-xs text-custom-secondary">
+                        {method.description}
+                      </p>
+
+                      <span className="absolute right-4 top-4 text-custom-muted transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[#8C0605] dark:group-hover:text-red-400">
+                        →
+                      </span>
+                    </motion.a>
+                  )
+                })}
+              </div>
+
+              <div className="relative mt-auto overflow-hidden rounded-[1.75rem] bg-gray-950 p-6 shadow-[0_22px_70px_rgba(0,0,0,0.16)]">
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(255,255,255,0.10),transparent_34%)]" />
+
+                <div className="relative z-10 flex items-start gap-4">
                   <span className="text-2xl">⚡</span>
-                  <h4 className="text-white font-bold">{t('contact.quick_response')}</h4>
+
+                  <div>
+                    <h4 className="font-black tracking-[-0.03em] text-white">
+                      {tr('contact.quick_response')}
+                    </h4>
+
+                    <p className="mt-2 text-sm leading-6 text-gray-400">
+                      {tr('contact.quick_response_text')}
+                    </p>
+                  </div>
                 </div>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  {t('contact.quick_response_text')}
-                </p>
-              </motion.div>
+              </div>
             </motion.div>
 
-            {/* Right column - Form */}
+            {/* Form */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ delay: 0.08, duration: 0.65, ease: EASE_SMOOTH }}
+              className="h-full"
             >
-              <div className="bg-white dark:bg-gray-800 p-6 md:p-8 rounded-3xl shadow-xl border border-gray-200 dark:border-gray-700">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                  <span className="text-2xl">✉️</span>
-                  {t('contact.contact_form')}
-                </h3>
+              <div className="relative flex h-full min-h-[660px] flex-col overflow-hidden rounded-[2rem] border border-gray-200 bg-white/76 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.07)] backdrop-blur-md dark:border-white/10 dark:bg-white/[0.04] md:p-8">
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(140,6,5,0.08),transparent_34%)] dark:bg-[radial-gradient(circle_at_12%_20%,rgba(248,113,113,0.06),transparent_34%)]" />
 
-                <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
-                  {/* Name field */}
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-                    >
-                      {t('contact.name')}
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      onBlur={handleBlur}
-                      className={`w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 border-2 transition-all duration-200 outline-none ${
-                        errors.name
-                          ? 'border-red-400 focus:border-red-500'
-                          : 'border-gray-200 dark:border-gray-700 focus:border-[#8C0605] dark:focus:border-[#FFD6D6]'
-                      }`}
-                      placeholder="John Doe"
-                    />
-                    {touched.name && errors.name && (
-                      <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
-                        <FaExclamationCircle className="w-3 h-3" />
-                        {errors.name}
-                      </p>
-                    )}
+                <div className="relative z-10 flex h-full flex-col">
+                  <div className="mb-8">
+                    <span className="mb-3 block font-mono text-xs font-bold uppercase tracking-[0.22em] text-[#8C0605] dark:text-red-400">
+                      Message
+                    </span>
+
+                    <h3 className="flex items-center gap-3 text-3xl font-black tracking-[-0.05em] text-custom-title md:text-4xl">
+                      {tr('contact.contact_form')}
+                    </h3>
                   </div>
 
-                  {/* Email field */}
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-                    >
-                      {t('contact.email')}
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      onBlur={handleBlur}
-                      className={`w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 border-2 transition-all duration-200 outline-none ${
-                        errors.email
-                          ? 'border-red-400 focus:border-red-500'
-                          : 'border-gray-200 dark:border-gray-700 focus:border-[#8C0605] dark:focus:border-[#FFD6D6]'
-                      }`}
-                      placeholder="john@example.com"
-                    />
-                    {touched.email && errors.email && (
-                      <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
-                        <FaExclamationCircle className="w-3 h-3" />
-                        {errors.email}
+                  <form ref={formRef} onSubmit={handleSubmit} className="flex flex-1 flex-col">
+                    <div className="space-y-5">
+                      <div>
+                        <label
+                          htmlFor="name"
+                          className="mb-2 block text-sm font-bold text-custom-title"
+                        >
+                          {tr('contact.name')}
+                        </label>
+
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          onBlur={handleBlur}
+                          autoComplete="name"
+                          className={`w-full rounded-2xl border bg-white/70 px-4 py-3.5 text-custom-title outline-none transition-all duration-200 placeholder:text-custom-muted focus:ring-4 dark:bg-white/[0.04] ${errors.name
+                              ? 'border-red-400 focus:border-red-500 focus:ring-red-500/10'
+                              : 'border-gray-200 focus:border-[#8C0605] focus:ring-[#8C0605]/10 dark:border-white/10 dark:focus:border-red-400 dark:focus:ring-red-400/10'
+                            }`}
+                          placeholder="John Doe"
+                        />
+
+                        {touched.name && <FieldError message={errors.name} />}
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="email"
+                          className="mb-2 block text-sm font-bold text-custom-title"
+                        >
+                          {tr('contact.email')}
+                        </label>
+
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          onBlur={handleBlur}
+                          autoComplete="email"
+                          className={`w-full rounded-2xl border bg-white/70 px-4 py-3.5 text-custom-title outline-none transition-all duration-200 placeholder:text-custom-muted focus:ring-4 dark:bg-white/[0.04] ${errors.email
+                              ? 'border-red-400 focus:border-red-500 focus:ring-red-500/10'
+                              : 'border-gray-200 focus:border-[#8C0605] focus:ring-[#8C0605]/10 dark:border-white/10 dark:focus:border-red-400 dark:focus:ring-red-400/10'
+                            }`}
+                          placeholder="john@example.com"
+                        />
+
+                        {touched.email && <FieldError message={errors.email} />}
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="message"
+                          className="mb-2 block text-sm font-bold text-custom-title"
+                        >
+                          {tr('contact.message')}
+                        </label>
+
+                        <textarea
+                          id="message"
+                          name="message"
+                          value={formData.message}
+                          onChange={handleInputChange}
+                          onBlur={handleBlur}
+                          rows={5}
+                          className={`w-full resize-none rounded-2xl border bg-white/70 px-4 py-3.5 text-custom-title outline-none transition-all duration-200 placeholder:text-custom-muted focus:ring-4 dark:bg-white/[0.04] ${errors.message
+                              ? 'border-red-400 focus:border-red-500 focus:ring-red-500/10'
+                              : 'border-gray-200 focus:border-[#8C0605] focus:ring-[#8C0605]/10 dark:border-white/10 dark:focus:border-red-400 dark:focus:ring-red-400/10'
+                            }`}
+                          placeholder={tr('contact.message_placeholder')}
+                        />
+
+                        {touched.message && <FieldError message={errors.message} />}
+                      </div>
+                    </div>
+
+                    <div className="mt-auto pt-5">
+                      <motion.button
+                        type="submit"
+                        disabled={status === 'sending'}
+                        whileHover={{ y: status === 'sending' ? 0 : -2 }}
+                        whileTap={{ scale: status === 'sending' ? 1 : 0.98 }}
+                        className={`flex w-full items-center justify-center gap-2 rounded-2xl py-4 font-bold transition-all duration-300 ${status === 'sending'
+                            ? 'cursor-not-allowed bg-gray-400 text-gray-700'
+                            : status === 'success'
+                              ? 'bg-green-500 text-white'
+                              : status === 'error'
+                                ? 'bg-red-500 text-white'
+                                : 'bg-[#8C0605] text-white shadow-[0_18px_35px_rgba(140,6,5,0.22)] hover:bg-[#a70b0a] dark:bg-red-400 dark:text-gray-950 dark:hover:bg-red-300'
+                          }`}
+                      >
+                        {getSubmitContent()}
+                      </motion.button>
+
+                      <p className="mt-5 text-center text-xs text-custom-muted">
+                        🔒 {tr('contact.privacy_note')}
                       </p>
-                    )}
-                  </div>
-
-                  {/* Message field */}
-                  <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-                    >
-                      {t('contact.message')}
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      onBlur={handleBlur}
-                      rows={4}
-                      className={`w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 border-2 transition-all duration-200 outline-none resize-none ${
-                        errors.message
-                          ? 'border-red-400 focus:border-red-500'
-                          : 'border-gray-200 dark:border-gray-700 focus:border-[#8C0605] dark:focus:border-[#FFD6D6]'
-                      }`}
-                      placeholder={t('contact.message_placeholder') as string}
-                    />
-                    {touched.message && errors.message && (
-                      <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">
-                        <FaExclamationCircle className="w-3 h-3" />
-                        {errors.message}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Submit button */}
-                  <motion.button
-                    type="submit"
-                    disabled={status === 'sending'}
-                    whileHover={{ scale: status === 'sending' ? 1 : 1.02 }}
-                    whileTap={{ scale: status === 'sending' ? 1 : 0.98 }}
-                    className={`w-full py-4 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 ${
-                      status === 'sending'
-                        ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
-                        : status === 'success'
-                        ? 'bg-green-500 text-white'
-                        : status === 'error'
-                        ? 'bg-red-500 text-white'
-                        : 'bg-[#8C0605] hover:bg-[#8C0605]/90 text-white'
-                    }`}
-                  >
-                    {status === 'sending' ? (
-                      <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        {t('contact.sending')}
-                      </>
-                    ) : status === 'success' ? (
-                      <>
-                        <FaCheckCircle className="w-5 h-5" />
-                        {t('contact.success')}
-                      </>
-                    ) : status === 'error' ? (
-                      <>
-                        <FaExclamationCircle className="w-5 h-5" />
-                        {t('contact.error')}
-                      </>
-                    ) : (
-                      <>
-                        <FaPaperPlane className="w-5 h-5" />
-                        {t('contact.send')}
-                      </>
-                    )}
-                  </motion.button>
-                </form>
-
-                {/* Privacy note */}
-                <p className="text-center text-gray-400 text-xs mt-4">
-                  🔒 {t('contact.privacy_note')}
-                </p>
+                    </div>
+                  </form>
+                </div>
               </div>
             </motion.div>
           </div>

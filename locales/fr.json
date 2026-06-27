@@ -182,6 +182,26 @@
         "design": "Design soigné",
         "contact": "Formulaire de contact"
       }
+    },
+    "toiture_artisan": {
+      "title": "Toiture Artisan",
+      "description": "Site vitrine moderne pour un artisan spécialisé dans la toiture, pensé pour rassurer les visiteurs, présenter les services et générer des demandes de devis.",
+      "category": "Site vitrine",
+      "results": {
+        "local_seo": "Optimisation pour la visibilité locale",
+        "conversion": "Parcours clair vers la demande de devis",
+        "trust": "Mise en avant des services et preuves de confiance"
+      }
+    },
+    "photographe": {
+      "title": "Photographe",
+      "description": "Portfolio élégant pour une photographe, avec galerie immersive, présentation des prestations et parcours de contact simple pour transformer les visiteurs en clients.",
+      "category": "Site vitrine",
+      "results": {
+        "gallery": "Galerie photo immersive et responsive",
+        "branding": "Direction artistique premium",
+        "contact": "Contact simplifié pour les réservations"
+      }
     }
   },
   "contact": {
