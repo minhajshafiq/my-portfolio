@@ -170,7 +170,7 @@ npm run lint         # Linting
 
 ## 🎯 Mes Projets
 
-### Pocketly
+### Luxa
 Application mobile de gestion budgétaire développée avec React Native/Expo, Clean Architecture et Supabase.
 
 ### Mets & Merveilles

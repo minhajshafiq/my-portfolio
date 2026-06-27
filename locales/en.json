@@ -143,8 +143,8 @@
     "see_more_title": "Want to see more?",
     "see_more_subtitle": "Explore all my projects on GitHub",
     "my_github": "My GitHub",
-    "pocketly": {
-      "title": "Pocketly",
+    "luxa": {
+      "title": "Luxa",
       "description": "Intelligent mobile budget management application with transaction tracking, customizable savings pockets, interactive statistics and secure Supabase authentication.",
       "category": "Mobile App",
       "results": {

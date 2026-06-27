@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from '@/hooks/useTranslation'
 import Image from 'next/image'
+import { LuxaShowcaseCard } from './LuxaShowcaseCard'
 import {
   FaGithub,
   FaExternalLinkAlt,
@@ -49,19 +50,19 @@ export function Projects() {
   const projects = [
     {
       id: 1,
-      key: 'pocketly',
-      title: t('projects.pocketly.title'),
-      description: t('projects.pocketly.description'),
-      image: '/pocketly.jpg',
+      key: 'luxa',
+      title: t('projects.luxa.title'),
+      description: t('projects.luxa.description'),
+      image: '/luxa.jpg',
       technologies: ['React Native', 'Supabase', 'TypeScript'],
       results: [
-        t('projects.pocketly.results.interface'),
-        t('projects.pocketly.results.pockets'),
-        t('projects.pocketly.results.statistics'),
+        t('projects.luxa.results.interface'),
+        t('projects.luxa.results.pockets'),
+        t('projects.luxa.results.statistics'),
       ],
       github: null,
       demo: 'https://pocketly-web-blush.vercel.app/',
-      category: t('projects.pocketly.category'),
+      category: t('projects.luxa.category'),
       icon: FaMobileAlt,
       color: 'from-emerald-500 to-teal-600',
       featured: true,
@@ -233,16 +234,22 @@ export function Projects() {
                     </div>
                   </div>
 
-                  {/* Image */}
-                  <div className="relative h-64 lg:h-auto order-1 lg:order-2">
-                    <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-l from-gray-900 via-transparent to-transparent z-10" />
-                    <Image
-                      src={featuredProject.image}
-                      alt={String(featuredProject.title)}
-                      fill
-                      sizes="(min-width: 1024px) 576px, 100vw"
-                      className="object-cover"
-                    />
+                  {/* Image/Showcase */}
+                  <div className="relative order-1 lg:order-2 overflow-hidden w-full h-full min-h-[420px] lg:min-h-full">
+                    {featuredProject.key === 'luxa' ? (
+                      <LuxaShowcaseCard demoUrl={featuredProject.demo} />
+                    ) : (
+                      <>
+                        <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-l from-gray-900 via-transparent to-transparent z-10" />
+                        <Image
+                          src={featuredProject.image}
+                          alt={String(featuredProject.title)}
+                          fill
+                          sizes="(min-width: 1024px) 576px, 100vw"
+                          className="object-cover"
+                        />
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
