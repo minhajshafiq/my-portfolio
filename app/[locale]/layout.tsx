@@ -1,22 +1,34 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { Poppins } from 'next/font/google'
+import { Fraunces, Inter } from 'next/font/google'
 import '../globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { Loader } from '@/components/sections/Loader'
 import { CustomCursor } from '@/components/ui/CustomCursor'
+import { SmoothScroll } from '@/components/ui/SmoothScroll'
+import { ScrollProgress } from '@/components/ui/ScrollProgress'
+import { ConsentBanner } from '@/components/ui/ConsentBanner'
+import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
+import { ScrollDepth } from '@/components/analytics/ScrollDepth'
 import { getMetadata } from '../metadata'
 import { getStructuredData } from '../structured-data'
 import { locales, isValidLocale } from '@/utils/i18n'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/react'
 
-const poppins = Poppins({
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-poppins',
+  variable: '--font-inter',
   display: 'swap',
+})
+
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-fraunces',
+  display: 'swap',
+  style: ['normal', 'italic'],
+  axes: ['opsz', 'SOFT', 'WONK'],
 })
 
 export function generateStaticParams() {
@@ -52,7 +64,7 @@ export default async function RootLayout({
   } = getStructuredData(locale)
 
   return (
-    <html lang={locale} className={poppins.variable} suppressHydrationWarning>
+    <html lang={locale} className={`${inter.variable} ${fraunces.variable}`} suppressHydrationWarning>
       <head>
         {/* Favicons */}
         <link rel="apple-touch-icon" href="/apple-touch-icon.jpg" />
@@ -106,6 +118,8 @@ export default async function RootLayout({
         />
       </head>
       <body className="bg-custom-primary antialiased">
+        <SmoothScroll />
+        <ScrollProgress />
         <CustomCursor />
         <Loader>
           <Header />
@@ -114,6 +128,9 @@ export default async function RootLayout({
           </main>
           <Footer />
         </Loader>
+        <ConsentBanner />
+        <GoogleAnalytics />
+        <ScrollDepth />
         <SpeedInsights />
         <Analytics />
       </body>

@@ -2,18 +2,18 @@ import { siteConfig } from './metadata'
 import type { Locale } from '@/utils/i18n'
 
 const localizedJobTitle: Record<Locale, string> = {
-  fr: 'Développeur Full-Stack',
-  en: 'Full-Stack Developer',
+  fr: 'Développeur créatif freelance',
+  en: 'Freelance Creative Developer',
 }
 
 const localizedDescription: Record<Locale, string> = {
-  fr: 'Développeur Full-Stack passionné par Next.js, Spring Boot et React Native. Spécialisé dans le développement d\'applications web et mobiles modernes. Disponible pour CDI et Freelance.',
-  en: 'Full-Stack Developer passionate about Next.js, Spring Boot and React Native. Specialized in building modern web and mobile applications. Available for full-time and freelance work.',
+  fr: 'Développeur créatif freelance basé à Paris. Je conçois des sites web et applications sur mesure — modernes, rapides et pensés pour convertir.',
+  en: 'Freelance creative developer based in Paris. I design and build custom websites and web apps — modern, fast and made to convert.',
 }
 
 const localizedSiteName: Record<Locale, string> = {
-  fr: 'Minhaj Zubair - Développeur Full-Stack',
-  en: 'Minhaj Zubair - Full-Stack Developer',
+  fr: 'Minhaj Zubair — Développeur créatif freelance',
+  en: 'Minhaj Zubair — Creative Developer',
 }
 
 const localizedBreadcrumbHome: Record<Locale, string> = {

@@ -1,18 +1,18 @@
 import { Hero } from '@/components/sections/Hero'
-import { About } from '@/components/sections/About'
-import { Services } from '@/components/sections/Services'
+import { Manifesto } from '@/components/sections/Manifesto'
 import { Projects } from '@/components/sections/Projects'
+import { Services } from '@/components/sections/Services'
+import { AboutTeaser } from '@/components/sections/AboutTeaser'
 import { Contact } from '@/components/sections/Contact'
-import { BeyondCode } from '@/components/sections/BeyondCode'
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Services />
+      <Manifesto />
       <Projects />
-      <About />
-      <BeyondCode />
+      <Services />
+      <AboutTeaser />
       <Contact />
     </>
   )

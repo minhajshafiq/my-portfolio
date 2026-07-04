@@ -6,9 +6,8 @@ import { FaArrowRight, FaCheck, FaEnvelope } from 'react-icons/fa'
 import { CalendarClock, ShieldCheck, UserCheck } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 
-const SOUSCRIRE_MAINTENANCE = '/maintenance/souscrire?plan=maintenance'
-const SOUSCRIRE_CROISSANCE = '/maintenance/souscrire?plan=croissance'
-const SOUSCRIRE_PACK = '/maintenance/souscrire?plan=pack'
+// La route /maintenance/souscrire n'existe pas encore : les CTA renvoient vers le contact de la home
+const CONTACT_ANCHOR = '#contact'
 
 type PlanKey = 'maintenance' | 'growth' | 'pack'
 
@@ -55,23 +54,25 @@ export function Maintenance() {
     return Array.isArray(value) ? value.map(String) : []
   }
 
+  const contactHref = `/${language}${CONTACT_ANCHOR}`
+
   const plans: Plan[] = [
     {
       key: 'maintenance',
-      href: SOUSCRIRE_MAINTENANCE,
+      href: contactHref,
       delay: 0,
       included: trList('maintenance.plans.maintenance.included'),
     },
     {
       key: 'growth',
-      href: SOUSCRIRE_CROISSANCE,
+      href: contactHref,
       requiresBadge: true,
       delay: 0.08,
       included: trList('maintenance.plans.growth.included'),
     },
     {
       key: 'pack',
-      href: SOUSCRIRE_PACK,
+      href: contactHref,
       featured: true,
       delay: 0.16,
       included: trList('maintenance.plans.pack.included'),

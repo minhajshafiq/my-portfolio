@@ -15,57 +15,179 @@
     "light_mode": "Switch to light mode"
   },
   "hero": {
-    "greeting": "I am",
-    "title": "Front-End & Full Stack Developer",
-    "subtitle": "Creator of innovative digital solutions",
-    "tagline": "I build web & mobile apps that convert.",
-    "description": "A passionate developer who creates high-performance web and mobile applications for companies and startups that want to stand out in the digital world.",
-    "specialization": "Specialized in Next.js, Spring Boot and React Native. I transform your ideas into digital solutions that convert and engage your users.",
-    "cta_projects": "View my projects",
-    "cta_contact": "Let's work together",
-    "available_for_work": "Available for work",
-    "discover": "Discover",
-    "value_apps": "High-performing apps",
-    "value_web_mobile": "Web & Mobile",
-    "value_clean_code": "Clean code",
-    "find_me": "Find me →",
-    "experience_badge": "1 yr exp",
-    "photo_alt": "Minhaj Zubair - Full-Stack Developer based in Paris"
+    "available_for_work": "Available for new projects",
+    "title_lines": ["Websites people", "remember — and", "that convert."],
+    "role_line": "Independent creative developer · Paris — France & worldwide",
+    "description": "I design and build custom websites and applications for independents, brands and entrepreneurs who want an online presence that matches the quality of their work.",
+    "cta_primary": "Discuss my project",
+    "cta_secondary": "View the work",
+    "scroll": "Scroll",
+    "photo_alt": "Minhaj Zubair — Independent creative developer based in Paris"
+  },
+  "manifesto": {
+    "label": "The promise",
+    "text": "A beautiful website is not enough. A fast website is not enough. I craft web experiences that make people trust your brand — and turn your visitors into clients."
+  },
+  "work": {
+    "label": "Selected work",
+    "heading": "The work speaks for itself.",
+    "intro": "A selection of recent projects — websites, applications and custom experiences.",
+    "visit": "Visit site",
+    "case": "View project",
+    "all_projects": "See all projects",
+    "page_heading": "Every project tells a story.",
+    "page_intro": "Websites, web and mobile applications — custom-built, from the first conversation to launch.",
+    "github_title": "Want to see more?",
+    "github_subtitle": "More projects and source code are on GitHub.",
+    "github_cta": "My GitHub"
+  },
+  "case_studies": {
+    "labels": {
+      "context": "The context",
+      "approach": "The approach",
+      "results": "What the project delivers",
+      "stack": "Technologies",
+      "live": "View live site",
+      "back": "All projects",
+      "cta_title": "Have a similar project in mind?",
+      "cta_text": "Tell me about your business — I'll tell you exactly what a website can do for it.",
+      "cta_button": "Discuss my project"
+    },
+    "photographe": {
+      "context": "A photographer needed a portfolio worthy of her work: a gallery that showcases the images, a strong identity and a simple contact flow to turn visitors into bookings.",
+      "approach": "A clean art direction that gives the photos all the space, an immersive responsive gallery, soft animations and calls to action present at every step — without ever stealing the show from the images."
+    },
+    "toiture_artisan": {
+      "context": "A roofing craftsman wanted a website that inspires trust from the first second and generates quote requests, in a market where competitors are often invisible or outdated online.",
+      "approach": "A structure entirely built for conversion: trust signals up front, services explained simply, quote requests reachable from every section and local search optimization."
+    },
+    "luxa": {
+      "context": "Luxa was born from a personal observation: budgeting apps are often complex and discouraging. The goal — make money management simple, visual and part of the daily routine.",
+      "approach": "A React Native mobile app with Supabase: secure authentication, real-time transaction tracking, customizable savings pockets and clear statistics. An interface designed to be opened every day."
+    },
+    "unityvert": {
+      "context": "A landscape gardener wanted to grow his business with a real online presence: present his services, build trust and make getting in touch easy.",
+      "approach": "A warm, understated showcase website, well-structured services, Sanity-powered content so he stays autonomous, and a direct contact form. Launched on his own domain."
+    },
+    "mets_merveilles": {
+      "context": "Mets & Merveilles is a recipe and menu management platform: create recipes, organize them by category and find them easily.",
+      "approach": "A full-stack application: Next.js front end, Spring Boot API, PostgreSQL database and Clerk authentication. A project covering the whole chain, from data modeling to interface."
+    },
+    "portfolio": {
+      "context": "This very website: the showcase of my work had to demonstrate what I sell — polished design, controlled animations, performance and SEO.",
+      "approach": "Next.js with the App Router, GSAP and Framer Motion animations, FR/EN internationalization, complete technical SEO and high performance scores. The code is public on GitHub."
+    }
+  },
+  "pages": {
+    "services": {
+      "heading": "Custom websites, not one-size-fits-all packages.",
+      "intro": "Three ways to work together, depending on where your project stands."
+    },
+    "about": {
+      "heading": "Behind the code, a person.",
+      "intro": "Background, how I work, and what drives me every day."
+    },
+    "contact": {
+      "heading": "Let's talk about your project.",
+      "intro": "Form, call or email — whatever works for you. Reply within 24 hours."
+    }
+  },
+  "cv": {
+    "label": "Professional profile",
+    "heading": "Minhaj Zubair",
+    "role": "Full-Stack Developer — Next.js · Spring Boot · React Native",
+    "objective": "Open to apprenticeship (alternance) opportunities and in-house collaborations, in web and mobile development.",
+    "intro": "This page is for recruiters, schools and companies: background, technical skills and projects, with a downloadable resume.",
+    "download": "Download my resume",
+    "email_cta": "Contact me",
+    "skills_title": "Technical skills",
+    "projects_title": "Notable projects",
+    "contact_title": "A role, an apprenticeship, a mission?",
+    "contact_text": "Let's talk — I reply within 24 hours.",
+    "back": "View the full portfolio",
+    "skills": {
+      "frontend": "Front-end",
+      "backend": "Back-end",
+      "mobile": "Mobile",
+      "tools": "Tools & methods"
+    }
+  },
+  "marquee": {
+    "items": ["Websites", "Web applications", "Immersive experiences", "SEO & Performance"]
+  },
+  "consent": {
+    "title": "Analytics",
+    "description": "I use Google Analytics to understand how the site is used and improve it. No data is used for advertising purposes.",
+    "accept": "Accept",
+    "deny": "Decline"
+  },
+  "about_teaser": {
+    "label": "About",
+    "heading": "A developer, not an agency.",
+    "p1": "I'm Minhaj. Based in Paris, I design and build every project myself, from the first idea to launch. You talk directly to the person crafting your website — not to a middleman.",
+    "p2": "My standard: fast websites, polished down to the smallest detail, built to serve your business. This portfolio is the proof.",
+    "cta": "Let's talk"
   },
   "services": {
-    "title": "What I bring to you",
-    "subtitle": "Solid skills and concrete solutions, adapted to your needs in business or on mission",
-    "heading": "What I do",
-    "frontend": {
-      "description": "Modern, responsive interfaces with React and Next.js"
-    },
-    "backend": {
-      "description": "Robust APIs and cloud services with Spring Boot, Supabase and Firebase"
-    },
-    "mobile": {
-      "description": "Cross-platform applications with React Native/Expo and Supabase"
-    },
-    "companies": {
-      "badge": "Full-time / Work-study",
-      "title": "For companies",
-      "items": [
-        "Integration into a development team",
-        "Development of new features",
-        "Maintenance and improvement of existing systems",
-        "Collaboration using Agile methodology"
-      ]
-    },
-    "freelance": {
-      "badge": "Freelance",
-      "title": "For your projects",
-      "items": [
-        "Custom website creation",
-        "Mobile application development",
-        "Redesign and optimization of existing sites",
-        "Technical guidance"
-      ],
-      "cta": "Discuss your project"
-    }
+    "label": "Services",
+    "heading": "What I build for you",
+    "intro": "Every project is designed from scratch — no templates, no one-size-fits-all. We define what your business needs, and I take care of the rest.",
+    "cta": "Request a quote",
+    "offers": [
+      {
+        "situation": "You're launching or growing your business",
+        "title": "Custom website",
+        "description": "A fast, elegant website built to convince: your visitors understand what you do and reach out. Designed, developed and launched in a few weeks.",
+        "bullets": [
+          "Custom design, true to your brand",
+          "Optimized for Google and mobile",
+          "Contact form or booking flow",
+          "Turnkey launch"
+        ]
+      },
+      {
+        "situation": "You have a product or tool to build",
+        "title": "Web application",
+        "description": "A client portal, a dashboard, an internal tool: a smooth interface and a solid architecture that grows with your business.",
+        "bullets": [
+          "Smooth, intuitive interface",
+          "Secure admin area",
+          "Robust database and API",
+          "Built to evolve"
+        ]
+      },
+      {
+        "situation": "You already have a website",
+        "title": "Redesign, optimization & care",
+        "description": "Your website exists but doesn't convert, or deserves better: I rethink it, speed it up and keep it up to date so you can focus on your work.",
+        "bullets": [
+          "Design and content redesign",
+          "Performance and SEO",
+          "Updates and security",
+          "A direct point of contact, not a ticket"
+        ]
+      }
+    ],
+    "process_label": "The process",
+    "process_heading": "How we'll work together",
+    "process": [
+      {
+        "title": "We talk",
+        "description": "A 30-minute call to understand your business and your goals. You receive a clear quote within 48 hours."
+      },
+      {
+        "title": "I design",
+        "description": "A mockup true to your brand. You approve it before a single line of code is written."
+      },
+      {
+        "title": "I build",
+        "description": "A fast, clean, durable website. You follow the progress — no technical jargon."
+      },
+      {
+        "title": "We launch",
+        "description": "Go-live, final adjustments and handover. I stay available after launch."
+      }
+    ]
   },
   "about": {
     "title": "About me",
@@ -76,7 +198,7 @@
       "paragraph1": "Minhaj, 25, developer based in Paris. I started coding out of curiosity, now it's my job.",
       "paragraph2": "My thing: taking an idea and turning it into something real. Whether it's a mobile app, a website or an API, I like seeing the result of my work.",
       "paragraph3": "When I'm not coding, I'm at the gym or learning about real estate and entrepreneurship. I like building things, whether it's a project or my life.",
-      "paragraph4": "Currently available for freelance gigs or a full-time role. Got a project in mind? Let's talk."
+      "paragraph4": "Currently available for new freelance projects. Got a project in mind? Let's talk."
     },
     "tech_stack_title": "Tech stack",
     "role": "Full-Stack Developer",
@@ -229,7 +351,8 @@
     "methods": {
       "call": {
         "title": "Book a call",
-        "description": "Let's discuss your project"
+        "description": "30 minutes, free and no strings attached — to talk about your project.",
+        "action": "Book a slot"
       },
       "linkedin": {
         "description": "Let's connect"
@@ -241,16 +364,20 @@
   },
   "footer": {
     "rights": "All rights reserved",
-    "made_with": "Made with",
-    "and_lots_of": "and lots of",
-    "cta_description": "Got a project idea? An opportunity? Feel free to reach out. I'm always open to discussing new projects.",
-    "tagline": "Full-Stack Developer passionate about building unique, high-performing digital experiences. Based in Paris, available everywhere.",
+    "crafted": "Designed and built with care, in Paris.",
+    "cta_label": "Got a project in mind?",
+    "cta_title_line1": "Let's talk about",
+    "cta_title_line2": "your project.",
+    "cta_description": "Tell me about your idea — I'll reply within 24 hours with first thoughts and next steps.",
+    "tagline": "Independent creative developer. I craft custom web experiences for independents, brands and entrepreneurs — from Paris, for the world.",
     "status_badge": "Available for new projects",
     "nav_title": "Navigation",
     "contact_title": "Contact",
     "location": "Paris, France",
-    "availability": "Full-time / Freelance / Remote",
-    "response_time": "Reply within 24h"
+    "availability": "Freelance · France & worldwide",
+    "response_time": "Reply within 24h",
+    "maintenance_link": "Maintenance & care",
+    "cv_link": "Recruiters: my profile"
   },
   "errors": {
     "invalid_name": "Name must contain between 2 and 50 alphabetical characters",

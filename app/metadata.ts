@@ -19,151 +19,19 @@ const localizedContent: Record<
   { name: string; description: string; shortDescription: string; ogAlt: string }
 > = {
   fr: {
-    name: 'Minhaj Zubair - Développeur Full-Stack',
+    name: 'Minhaj Zubair — Développeur créatif freelance · Sites web sur mesure',
     description:
-      'Développeur Full-Stack passionné par Next.js, Spring Boot et React Native. Spécialisé dans le développement d\'applications web et mobiles modernes. Disponible pour CDI et Freelance.',
-    shortDescription: 'Développeur Full-Stack | Next.js, Spring Boot, React Native',
-    ogAlt: 'Minhaj Zubair - Portfolio Développeur Full-Stack',
+      'Développeur créatif freelance basé à Paris. Je conçois des sites web et applications sur mesure — modernes, rapides et pensés pour convertir. Pour indépendants, marques et entrepreneurs, en France et à l\'international.',
+    shortDescription: 'Développeur créatif freelance · Sites web sur mesure',
+    ogAlt: 'Minhaj Zubair — Développeur créatif freelance',
   },
   en: {
-    name: 'Minhaj Zubair - Full-Stack Developer',
+    name: 'Minhaj Zubair — Creative Developer · Custom websites that convert',
     description:
-      'Full-Stack Developer passionate about Next.js, Spring Boot and React Native. Specialized in building modern web and mobile applications. Available for full-time and freelance work.',
-    shortDescription: 'Full-Stack Developer | Next.js, Spring Boot, React Native',
-    ogAlt: 'Minhaj Zubair - Full-Stack Developer Portfolio',
+      'Freelance creative developer based in Paris. I design and build custom websites and web apps — modern, fast and made to convert. For independents, brands and entrepreneurs, in France and worldwide.',
+    shortDescription: 'Creative Developer · Custom websites',
+    ogAlt: 'Minhaj Zubair — Creative Developer',
   },
-}
-
-const keywordsByLocale: Record<Locale, string[]> = {
-  fr: [
-    // Technologies
-    'développeur full-stack',
-    'développeur',
-    'next.js',
-    'spring boot',
-    'react native',
-    'typescript',
-    'javascript',
-    'react',
-    'java',
-    'expo',
-
-    // Compétences
-    'développement web',
-    'développement mobile',
-    'api rest',
-    'base de données',
-    'postgresql',
-    'supabase',
-    'tailwind css',
-    'gsap',
-    'framer motion',
-
-    // Services
-    'freelance',
-    'développeur freelance',
-    'création site web',
-    'application mobile',
-    'api backend',
-    'consultant développeur',
-
-    // Localisation
-    'développeur france',
-    'développeur paris',
-    'développeur remote',
-    'télétravail',
-
-    // Portfolio
-    'portfolio développeur',
-    'projets développeur',
-    'cv développeur',
-    'recrutement développeur',
-    'emploi développeur',
-    'alternance développeur',
-
-    // Spécialisations
-    'développement frontend',
-    'développement backend',
-    'clean architecture',
-    'agile',
-    'scrum',
-    'git',
-    'docker',
-    'vercel',
-
-    // Industries
-    'e-commerce',
-    'fintech',
-    'application gestion',
-    'site vitrine',
-    'responsive design',
-    'performance web',
-    'seo',
-  ],
-  en: [
-    // Technologies
-    'full-stack developer',
-    'developer',
-    'next.js',
-    'spring boot',
-    'react native',
-    'typescript',
-    'javascript',
-    'react',
-    'java',
-    'expo',
-
-    // Skills
-    'web development',
-    'mobile development',
-    'rest api',
-    'database',
-    'postgresql',
-    'supabase',
-    'tailwind css',
-    'gsap',
-    'framer motion',
-
-    // Services
-    'freelance',
-    'freelance developer',
-    'website creation',
-    'mobile application',
-    'backend api',
-    'developer consultant',
-
-    // Location
-    'developer france',
-    'developer paris',
-    'remote developer',
-    'remote work',
-
-    // Portfolio
-    'developer portfolio',
-    'developer projects',
-    'developer resume',
-    'developer hiring',
-    'developer jobs',
-
-    // Specializations
-    'frontend development',
-    'backend development',
-    'clean architecture',
-    'agile',
-    'scrum',
-    'git',
-    'docker',
-    'vercel',
-
-    // Industries
-    'e-commerce',
-    'fintech',
-    'management application',
-    'showcase website',
-    'responsive design',
-    'web performance',
-    'seo',
-  ],
 }
 
 export function getMetadata(locale: Locale): Metadata {
@@ -178,7 +46,6 @@ export function getMetadata(locale: Locale): Metadata {
       template: `%s | ${content.shortDescription}`,
     },
     description: content.description,
-    keywords: keywordsByLocale[locale],
     authors: [{ name: siteConfig.author, url: siteConfig.url }],
     creator: siteConfig.author,
     publisher: siteConfig.author,
@@ -249,6 +116,44 @@ export function getMetadata(locale: Locale): Metadata {
       'color-scheme': 'light dark',
       'geo.region': 'FR',
       'geo.placename': 'Paris',
+    },
+  }
+}
+
+/** Métadonnées localisées pour une sous-page (canonical + hreflang + OG) */
+export function getPageMetadata(
+  locale: Locale,
+  path: string,
+  title: string,
+  description: string
+): Metadata {
+  const url = `${siteConfig.url}/${locale}${path}`
+
+  return {
+    title,
+    description,
+    metadataBase: new URL(siteConfig.url),
+    alternates: {
+      canonical: `/${locale}${path}`,
+      languages: {
+        fr: `/fr${path}`,
+        en: `/en${path}`,
+        'x-default': `/fr${path}`,
+      },
+    },
+    openGraph: {
+      type: 'website',
+      locale: locale === 'fr' ? 'fr_FR' : 'en_US',
+      url,
+      title,
+      description,
+      images: [{ url: siteConfig.ogImage, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [siteConfig.ogImage],
     },
   }
 }

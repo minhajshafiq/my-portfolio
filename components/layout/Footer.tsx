@@ -3,10 +3,13 @@
 import { useEffect, useState } from 'react'
 import type { ComponentType, ReactNode } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowUp } from 'lucide-react'
+import { ArrowUp, Briefcase, MapPin, Zap } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import { FaEnvelope, FaGithub, FaLinkedinIn } from 'react-icons/fa'
 import { SiMalt } from 'react-icons/si'
 import { useTranslation } from '@/hooks/useTranslation'
+import { Magnetic } from '@/components/ui/Magnetic'
+import { trackEvent } from '@/utils/analytics'
 import { cn } from '@/utils/cn'
 
 type IconComponent = ComponentType<{ className?: string }>
@@ -24,7 +27,7 @@ type QuickLink = {
 }
 
 type FooterInfoItem = {
-  icon: string
+  icon: LucideIcon
   key: string
 }
 
@@ -57,18 +60,17 @@ const SOCIAL_LINKS: SocialLink[] = [
 ]
 
 const QUICK_LINKS: QuickLink[] = [
-  { key: 'nav.home', href: '#home' },
-  { key: 'nav.services', href: '#services' },
-  { key: 'nav.projects', href: '#projects' },
-  { key: 'nav.about', href: '#about' },
-  { key: 'nav.beyondCode', href: '#beyond-code' },
-  { key: 'nav.contact', href: '#contact' },
+  { key: 'nav.home', href: '' },
+  { key: 'nav.projects', href: '/work' },
+  { key: 'nav.services', href: '/services' },
+  { key: 'nav.about', href: '/about' },
+  { key: 'nav.contact', href: '/contact' },
 ]
 
 const FOOTER_INFO_ITEMS: FooterInfoItem[] = [
-  { icon: '📍', key: 'footer.location' },
-  { icon: '💼', key: 'footer.availability' },
-  { icon: '⚡', key: 'footer.response_time' },
+  { icon: MapPin, key: 'footer.location' },
+  { icon: Briefcase, key: 'footer.availability' },
+  { icon: Zap, key: 'footer.response_time' },
 ]
 
 const TECH_BADGES = ['Next.js', 'Tailwind', 'GSAP']
@@ -117,7 +119,7 @@ function FooterColumn({
 
 export function Footer() {
   const [showScrollButton, setShowScrollButton] = useState(false)
-  const { t } = useTranslation()
+  const { t, language } = useTranslation()
 
   const currentYear = new Date().getFullYear()
 
@@ -172,43 +174,45 @@ export function Footer() {
                 whileInView="visible"
                 viewport={{ once: true, margin: '-80px' }}
                 transition={{ duration: 0.7, ease: EASE_SMOOTH }}
-                className="relative overflow-hidden rounded-[2rem] border border-gray-200 bg-white/76 p-8 text-center shadow-[0_24px_90px_rgba(0,0,0,0.07)] backdrop-blur-md dark:border-white/10 dark:bg-white/[0.04] md:p-12 lg:p-16"
+                className="relative overflow-hidden rounded-[2rem] bg-[#141210] p-8 text-center md:p-12 lg:p-16"
               >
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(140,6,5,0.12),transparent_34%),radial-gradient(circle_at_80%_80%,rgba(248,113,113,0.08),transparent_36%)]" />
+                <div className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-[#8C0605]/30 blur-3xl" />
+                <div className="pointer-events-none absolute -bottom-32 -left-24 h-72 w-72 rounded-full bg-[#8C0605]/15 blur-3xl" />
 
                 <div className="relative mx-auto max-w-4xl">
-                  <span className="mb-5 block font-mono text-sm uppercase tracking-[0.28em] text-[#8C0605] dark:text-red-400">
-                    {'// '}Ready to collaborate?
+                  <span className="mb-5 block text-xs font-semibold uppercase tracking-[0.25em] text-red-400 sm:text-sm">
+                    {tr('footer.cta_label')}
                   </span>
 
-                  <h2 className="mb-7 overflow-visible text-5xl font-black leading-[0.95] tracking-[-0.075em] text-custom-title md:text-7xl lg:text-8xl">
-                    Let&apos;s build
+                  <h2 className="mb-7 overflow-visible font-serif text-5xl font-medium leading-[1.02] tracking-[-0.03em] text-[#FAF7F2] md:text-7xl lg:text-8xl">
+                    {tr('footer.cta_title_line1')}
 
-                    <span className="block pb-3 bg-gradient-to-r from-[#8C0605] to-red-500 bg-clip-text text-transparent dark:from-red-400 dark:to-red-300">
-                      something great
+                    <span className="block pb-3 italic text-red-400">
+                      {tr('footer.cta_title_line2')}
                     </span>
                   </h2>
 
-                  <p className="mx-auto mb-9 max-w-2xl text-base leading-relaxed text-custom-secondary md:text-lg">
+                  <p className="mx-auto mb-9 max-w-2xl text-base leading-relaxed text-[#FAF7F2]/65 md:text-lg">
                     {tr('footer.cta_description')}
                   </p>
 
                   <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                    <motion.a
-                      href="mailto:contact@minhajshafiq.com"
-                      whileHover={{ y: -2 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="inline-flex items-center gap-3 rounded-full bg-[#8C0605] px-8 py-4 text-base font-bold text-white shadow-[0_18px_35px_rgba(140,6,5,0.28)] transition-colors hover:bg-[#a70b0a] dark:bg-red-400 dark:text-gray-950 dark:hover:bg-red-300"
-                    >
-                      <FaEnvelope className="h-5 w-5" />
-                      contact@minhajshafiq.com
-                    </motion.a>
+                    <Magnetic>
+                      <a
+                        href="mailto:contact@minhajshafiq.com"
+                        onClick={() => trackEvent('email_click', { source_section: 'footer' })}
+                        className="inline-flex items-center gap-3 rounded-full bg-[#8C0605] px-8 py-4 text-base font-bold text-white shadow-[0_18px_35px_rgba(140,6,5,0.35)] transition-colors hover:bg-[#a70b0a]"
+                      >
+                        <FaEnvelope className="h-5 w-5" />
+                        contact@minhajshafiq.com
+                      </a>
+                    </Magnetic>
 
                     <motion.a
                       href="#contact"
                       whileHover={{ y: -2 }}
                       whileTap={{ scale: 0.98 }}
-                      className="inline-flex items-center rounded-full border border-gray-200 bg-white/70 px-8 py-4 text-base font-bold text-custom-title shadow-[0_18px_35px_rgba(0,0,0,0.06)] backdrop-blur-md transition-all hover:bg-white dark:border-white/10 dark:bg-white/[0.04] dark:hover:bg-white/[0.08]"
+                      className="inline-flex items-center rounded-full border border-white/15 px-8 py-4 text-base font-bold text-[#FAF7F2] transition-colors hover:bg-white/[0.06]"
                     >
                       {tr('nav.contact')}
                     </motion.a>
@@ -255,7 +259,7 @@ export function Footer() {
                   {QUICK_LINKS.map((link) => (
                     <li key={link.key}>
                       <a
-                        href={link.href}
+                        href={`/${language}${link.href}`}
                         className="group inline-flex items-center gap-2 text-sm font-semibold text-custom-secondary transition-colors hover:text-custom-title"
                       >
                         <span className="h-px w-0 bg-[#8C0605] transition-all duration-300 group-hover:w-4 dark:bg-red-400" />
@@ -263,6 +267,16 @@ export function Footer() {
                       </a>
                     </li>
                   ))}
+
+                  <li>
+                    <a
+                      href={`/${language}/maintenance`}
+                      className="group inline-flex items-center gap-2 text-sm font-semibold text-custom-secondary transition-colors hover:text-custom-title"
+                    >
+                      <span className="h-px w-0 bg-[#8C0605] transition-all duration-300 group-hover:w-4 dark:bg-red-400" />
+                      {tr('footer.maintenance_link')}
+                    </a>
+                  </li>
                 </ul>
               </FooterColumn>
 
@@ -273,15 +287,19 @@ export function Footer() {
                 </h3>
 
                 <div className="space-y-3 text-sm">
-                  {FOOTER_INFO_ITEMS.map((item) => (
-                    <div
-                      key={item.key}
-                      className="flex items-center gap-3 text-custom-secondary"
-                    >
-                      <span className="text-lg">{item.icon}</span>
-                      <span>{tr(item.key)}</span>
-                    </div>
-                  ))}
+                  {FOOTER_INFO_ITEMS.map((item) => {
+                    const InfoIcon = item.icon
+
+                    return (
+                      <div
+                        key={item.key}
+                        className="flex items-center gap-3 text-custom-secondary"
+                      >
+                        <InfoIcon className="h-4 w-4 text-[#8C0605] dark:text-red-400" />
+                        <span>{tr(item.key)}</span>
+                      </div>
+                    )
+                  })}
                 </div>
 
                 <div className="mt-6 flex flex-wrap gap-3">
@@ -320,21 +338,22 @@ export function Footer() {
                 className="text-center text-sm text-custom-secondary md:text-left"
               >
                 © {currentYear} Minhaj Zubair. {tr('footer.rights')}.
+                {' · '}
+                <a
+                  href={`/${language}/cv`}
+                  className="underline decoration-1 underline-offset-4 opacity-80 transition-all hover:opacity-100 hover:text-custom-title"
+                >
+                  {tr('footer.cv_link')}
+                </a>
               </motion.p>
 
               <motion.p
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                className="flex items-center gap-2 text-sm text-custom-secondary"
+                className="text-sm text-custom-secondary"
               >
-                {tr('footer.made_with')}
-
-                <span className="text-[#8C0605] dark:text-red-400">❤️</span>
-
-                {tr('footer.and_lots_of')}
-
-                <span className="text-amber-500">☕</span>
+                {tr('footer.crafted')}
               </motion.p>
 
               <motion.div

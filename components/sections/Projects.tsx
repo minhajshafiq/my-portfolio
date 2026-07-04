@@ -1,79 +1,19 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import type { ComponentType } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { FaArrowRight, FaGithub } from 'react-icons/fa'
 import { useTranslation } from '@/hooks/useTranslation'
-import { LuxaShowcaseCard } from './LuxaShowcaseCard'
+import { RevealText } from '@/components/ui/RevealText'
+import { trackEvent } from '@/utils/analytics'
+import { cn } from '@/utils/cn'
+import { HOME_PROJECTS, type ProjectEntry } from '@/data/projects'
 
-import {
-  FaArrowRight,
-  FaCameraRetro,
-  FaExternalLinkAlt,
-  FaGithub,
-  FaHammer,
-  FaLaptopCode,
-  FaLeaf,
-  FaMobileAlt,
-  FaUtensils,
-} from 'react-icons/fa'
-
-import {
-  SiClerk,
-  SiExpo,
-  SiFirebase,
-  SiFramer,
-  SiNextdotjs,
-  SiPostgresql,
-  SiSanity,
-  SiSpringboot,
-  SiSupabase,
-  SiTailwindcss,
-  SiTypescript,
-} from 'react-icons/si'
-
-type IconComponent = ComponentType<{ className?: string }>
-
-type Project = {
-  id: number
-  key: string
-  title: string
-  description: string
-  image: string
-  technologies: string[]
-  results: string[]
-  github: string | null
-  demo: string
-  category: string
-  icon: IconComponent
-  featured?: boolean
-}
-
-type FeaturedLabels = {
-  featured: string
-  keyResults: string
-  viewProject: string
-  sourceCode: string
-}
-
-const TECHNOLOGY_ICONS: Record<string, IconComponent> = {
-  'React Native': SiExpo,
-  'Next.js': SiNextdotjs,
-  'Spring Boot': SiSpringboot,
-  PostgreSQL: SiPostgresql,
-  Firebase: SiFirebase,
-  Clerk: SiClerk,
-  'Tailwind CSS': SiTailwindcss,
-  TypeScript: SiTypescript,
-  'Framer Motion': SiFramer,
-  Supabase: SiSupabase,
-  Sanity: SiSanity,
-  GSAP: ({ className }) => (
-    <span className={className}>
-      GS
-    </span>
-  ),
-}
+gsap.registerPlugin(ScrollTrigger)
 
 const EASE_SMOOTH = [0.33, 1, 0.68, 1] as const
 
@@ -82,391 +22,364 @@ const fadeUp = {
   visible: { opacity: 1, y: 0 },
 }
 
-function SectionBackground() {
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div className="absolute right-[4%] top-20 h-[clamp(18rem,28vw,34rem)] w-[clamp(18rem,28vw,34rem)] rounded-full bg-[#8C0605]/10 blur-3xl dark:bg-red-400/[0.08] lg:right-[10%] xl:right-[16%]" />
-
-      <div className="absolute bottom-20 left-[2%] h-[clamp(16rem,24vw,28rem)] w-[clamp(16rem,24vw,28rem)] rounded-full bg-[#8C0605]/8 blur-3xl dark:bg-red-400/[0.06] lg:left-[8%] xl:left-[10%]" />
-
-      <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-white/25 to-transparent dark:from-black/20" />
-
-      <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white/20 to-transparent dark:from-black/20" />
-    </div>
-  )
-}
-
-function TechBadge({ tech, dark = false }: { tech: string; dark?: boolean }) {
-  const TechnologyIcon = TECHNOLOGY_ICONS[tech]
-
-  return (
-    <span
-      className={
-        dark
-          ? 'inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.08] px-3.5 py-2 text-sm font-semibold text-white/85 backdrop-blur-md'
-          : 'inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white/75 px-3 py-1.5 text-xs font-semibold text-custom-secondary shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-white/[0.04]'
-      }
-    >
-      {TechnologyIcon && (
-        <TechnologyIcon className={dark ? 'h-4 w-4' : 'h-3.5 w-3.5'} />
-      )}
-
-      {tech}
-    </span>
-  )
-}
-
-function FeaturedProjectCard({
+export function ProjectRow({
   project,
-  labels,
+  index,
+  visitLabel,
+  locale,
+  tr,
 }: {
-  project: Project
-  labels: FeaturedLabels
+  project: ProjectEntry
+  index: number
+  visitLabel: string
+  locale: string
+  tr: (key: string) => string
 }) {
+  const isReversed = index % 2 === 1
+  const number = String(index + 1).padStart(2, '0')
+
   return (
     <motion.article
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ duration: 0.7, ease: EASE_SMOOTH }}
-      className="relative z-0 mb-16 md:mb-24 lg:mb-28"
+      viewport={{ once: true, margin: '-100px' }}
+      transition={{ duration: 0.75, ease: EASE_SMOOTH }}
+      className="group border-t border-custom py-12 md:py-16"
     >
-      <div className="group relative z-0 overflow-hidden rounded-[2rem] border border-white/10 bg-[#07070a] p-2 shadow-[0_30px_100px_rgba(0,0,0,0.28)]">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(140,6,5,0.24),transparent_34%),radial-gradient(circle_at_80%_80%,rgba(248,113,113,0.12),transparent_36%)]" />
-
-        <div className="relative z-0 grid min-h-[620px] grid-cols-1 overflow-hidden rounded-[1.55rem] lg:min-h-[clamp(620px,52vw,720px)] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-          {/* Content */}
-          <div className="relative z-10 flex flex-col justify-between gap-10 p-6 md:p-10 lg:p-12">
-            <div>
-              <div className="mb-7 flex flex-wrap items-center gap-3">
-                <span className="rounded-full bg-[#8C0605] px-3.5 py-1.5 text-xs font-black uppercase tracking-wide text-white shadow-[0_10px_30px_rgba(140,6,5,0.35)] dark:bg-red-400 dark:text-gray-950 dark:shadow-red-400/20">
-                  {labels.featured}
-                </span>
-
-                <span className="rounded-full border border-white/10 bg-white/[0.06] px-3.5 py-1.5 text-sm font-semibold text-white/60 backdrop-blur-md">
-                  {project.category}
-                </span>
-              </div>
-
-              <h3 className="mb-5 max-w-xl text-4xl font-black leading-[0.95] tracking-[-0.06em] text-white md:text-[clamp(3.25rem,5vw,4.5rem)]">
-                {project.title}
-              </h3>
-
-              <p className="mb-7 max-w-xl text-base leading-relaxed text-white/68 md:text-lg">
-                {project.description}
-              </p>
-
-              <div className="mb-8 flex flex-wrap gap-2.5">
-                {project.technologies.map((tech) => (
-                  <TechBadge key={tech} tech={tech} dark />
-                ))}
-              </div>
-
-              <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-5 backdrop-blur-md">
-                <h4 className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-white/55">
-                  {labels.keyResults}
-                </h4>
-
-                <ul className="space-y-3">
-                  {project.results.map((result) => (
-                    <li
-                      key={result}
-                      className="flex items-start gap-3 text-sm leading-relaxed text-white/72"
-                    >
-                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#8C0605] dark:bg-red-400" />
-                      <span>{result}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+      <Link
+        href={`/${locale}/work/${project.slug}`}
+        onClick={() => trackEvent('project_view', { project: project.slug })}
+        className="grid grid-cols-1 items-center gap-8 md:grid-cols-12 md:gap-12"
+        aria-label={`${tr(`projects.${project.key}.title`)} — ${visitLabel}`}
+      >
+        {/* Image */}
+        <div
+          className={cn(
+            'relative md:col-span-7',
+            isReversed && 'md:order-2'
+          )}
+        >
+          <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-custom-secondary">
+            <div data-parallax-image className="absolute inset-0 will-change-transform">
+              <Image
+                src={project.image}
+                alt={tr(`projects.${project.key}.title`)}
+                fill
+                sizes="(min-width: 1024px) 640px, 100vw"
+                className="scale-[1.12] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.16]"
+              />
             </div>
+          </div>
+        </div>
 
-            <div className="flex flex-wrap gap-3">
-              <motion.a
-                href={project.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                className="inline-flex items-center gap-2 rounded-full bg-[#8C0605] px-6 py-3.5 font-bold text-white shadow-[0_18px_35px_rgba(140,6,5,0.35)] transition-colors hover:bg-[#a70b0a] dark:bg-red-400 dark:text-gray-950 dark:hover:bg-red-300"
+        {/* Content */}
+        <div className={cn('md:col-span-5', isReversed && 'md:order-1')}>
+          <div className="mb-5 flex items-baseline gap-4">
+            <span className="font-serif text-sm font-medium text-[#8C0605] dark:text-red-400">
+              {number}
+            </span>
+
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-custom-muted">
+              {tr(`projects.${project.key}.category`)}
+            </span>
+          </div>
+
+          <h3 className="mb-4 font-serif text-3xl font-medium leading-[1.05] tracking-[-0.02em] text-custom-title md:text-[clamp(2.1rem,3.2vw,3rem)]">
+            {tr(`projects.${project.key}.title`)}
+          </h3>
+
+          <p className="mb-6 max-w-[52ch] text-sm leading-6 text-custom-secondary md:text-[15px] md:leading-7">
+            {tr(`projects.${project.key}.description`)}
+          </p>
+
+          <div className="mb-7 flex flex-wrap gap-x-4 gap-y-1.5">
+            {project.technologies.map((tech) => (
+              <span
+                key={tech}
+                className="text-xs font-medium uppercase tracking-[0.14em] text-custom-muted"
               >
-                <FaExternalLinkAlt className="h-4 w-4" />
-                {labels.viewProject}
-              </motion.a>
+                {tech}
+              </span>
+            ))}
+          </div>
 
-              {project.github && (
-                <motion.a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.08] px-6 py-3.5 font-bold text-white backdrop-blur-md transition-colors hover:bg-white/[0.14]"
+          <span className="inline-flex items-center gap-2 text-sm font-bold text-custom-title">
+            <span className="relative">
+              {visitLabel}
+              <span className="absolute -bottom-1 left-0 h-px w-full bg-custom-title/25 transition-colors duration-300 group-hover:bg-[#8C0605] dark:group-hover:bg-red-400" />
+            </span>
+
+            <FaArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1.5 group-hover:text-[#8C0605] dark:group-hover:text-red-400" />
+          </span>
+        </div>
+      </Link>
+    </motion.article>
+  )
+}
+
+/**
+ * Showcase épinglé (desktop) : l'image se cale à gauche pendant le scroll,
+ * les projets défilent — wipe d'image + crossfade du texte à droite.
+ */
+function PinnedShowcase({
+  locale,
+  tr,
+}: {
+  locale: string
+  tr: (key: string) => string
+}) {
+  const wrapperRef = useRef<HTMLDivElement>(null)
+  const frameRef = useRef<HTMLDivElement>(null)
+  const textColRef = useRef<HTMLDivElement>(null)
+  const counterRef = useRef<HTMLDivElement>(null)
+  const progressRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const mm = gsap.matchMedia()
+
+    mm.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
+      const wrapper = wrapperRef.current
+      const frame = frameRef.current
+      const textCol = textColRef.current
+
+      if (!wrapper || !frame || !textCol) return
+
+      const images = gsap.utils.toArray<HTMLElement>('[data-showcase-image]', wrapper)
+      const innerImages = gsap.utils.toArray<HTMLElement>('[data-showcase-img-inner]', wrapper)
+      const texts = gsap.utils.toArray<HTMLElement>('[data-showcase-text]', wrapper)
+
+      // États initiaux : projet 1 visible, les autres masqués (wipe depuis le bas)
+      images.forEach((image, index) => {
+        gsap.set(image, {
+          clipPath: index === 0 ? 'inset(0% 0% 0% 0%)' : 'inset(100% 0% 0% 0%)',
+        })
+      })
+
+      innerImages.forEach((inner, index) => {
+        gsap.set(inner, { scale: index === 0 ? 1 : 1.15 })
+      })
+
+      texts.forEach((text, index) => {
+        gsap.set(text, { autoAlpha: index === 0 ? 1 : 0, y: index === 0 ? 0 : 32 })
+      })
+
+      // Entrée : l'image arrive centrée puis se cale à gauche, le texte apparaît
+      gsap.set(frame, { xPercent: 38, scale: 1.04 })
+      gsap.set(textCol, { autoAlpha: 0, x: 48 })
+
+      const tl = gsap.timeline({
+        defaults: { ease: 'none' },
+        scrollTrigger: {
+          trigger: wrapper,
+          start: 'top top',
+          end: `+=${HOME_PROJECTS.length * 90}%`,
+          pin: true,
+          scrub: 0.7,
+          anticipatePin: 1,
+        },
+      })
+
+      tl.to(frame, { xPercent: 0, scale: 1, duration: 1, ease: 'power2.out' })
+        .to(textCol, { autoAlpha: 1, x: 0, duration: 0.7, ease: 'power2.out' }, '-=0.45')
+        .to({}, { duration: 0.45 })
+
+      // Transitions entre projets
+      for (let i = 1; i < HOME_PROJECTS.length; i += 1) {
+        tl.to(images[i], { clipPath: 'inset(0% 0% 0% 0%)', duration: 1, ease: 'power2.inOut' })
+          .to(innerImages[i], { scale: 1, duration: 1, ease: 'power2.out' }, '<')
+          .to(texts[i - 1], { autoAlpha: 0, y: -32, duration: 0.4, ease: 'power1.in' }, '<')
+          .to(texts[i], { autoAlpha: 1, y: 0, duration: 0.55, ease: 'power2.out' }, '<0.35')
+          .to(
+            counterRef.current,
+            { yPercent: -(100 / HOME_PROJECTS.length) * i, duration: 0.5, ease: 'power2.inOut' },
+            '<'
+          )
+          .to({}, { duration: 0.45 })
+      }
+
+      // Barre de progression sur toute la durée
+      if (progressRef.current) {
+        gsap.set(progressRef.current, { scaleX: 0 })
+
+        tl.to(progressRef.current, { scaleX: 1, duration: tl.duration(), ease: 'none' }, 0)
+      }
+    })
+
+    return () => {
+      mm.revert()
+    }
+  }, [])
+
+  return (
+    <div ref={wrapperRef} className="relative">
+      <div className="flex h-screen flex-col justify-center py-10">
+        <div className="grid flex-none grid-cols-12 items-center gap-x-[clamp(2rem,4vw,4.5rem)]">
+          {/* Image frame */}
+          <div ref={frameRef} className="col-span-7 will-change-transform">
+            <div className="relative h-[min(66vh,640px)] overflow-hidden rounded-xl bg-custom-secondary">
+              {HOME_PROJECTS.map((project, index) => (
+                <div
+                  key={project.key}
+                  data-showcase-image
+                  className="absolute inset-0 will-change-[clip-path]"
+                  style={{
+                    zIndex: index,
+                    clipPath: index === 0 ? 'inset(0% 0% 0% 0%)' : 'inset(100% 0% 0% 0%)',
+                  }}
                 >
-                  <FaGithub className="h-4 w-4" />
-                  {labels.sourceCode}
-                </motion.a>
-              )}
+                  <div data-showcase-img-inner className="absolute inset-0 will-change-transform">
+                    <Image
+                      src={project.image}
+                      alt={tr(`projects.${project.key}.title`)}
+                      fill
+                      sizes="(min-width: 1024px) 60vw, 100vw"
+                      className="object-cover"
+                      priority={index === 0}
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Showcase */}
-          <div className="relative z-0 min-h-[460px] overflow-hidden p-3 [transform:translateZ(0)] md:min-h-[560px] lg:min-h-full">
-            <LuxaShowcaseCard
-              demoUrl={project.demo}
-              className="relative z-0 h-full min-h-[460px] overflow-hidden md:min-h-[540px] lg:min-h-full"
+          {/* Text column */}
+          <div ref={textColRef} className="col-span-5 will-change-transform">
+            <div className="relative h-[min(66vh,640px)]">
+              {HOME_PROJECTS.map((project, index) => (
+                <div
+                  key={project.key}
+                  data-showcase-text
+                  className={cn(
+                    'absolute inset-0 flex flex-col justify-center',
+                    index > 0 && 'invisible opacity-0'
+                  )}
+                >
+                  <div className="mb-5 flex items-baseline gap-4">
+                    <span className="font-serif text-sm font-medium text-[#8C0605] dark:text-red-400">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+
+                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-custom-muted">
+                      {tr(`projects.${project.key}.category`)}
+                    </span>
+                  </div>
+
+                  <h3 className="mb-5 font-serif text-[clamp(2.2rem,3.4vw,3.4rem)] font-medium leading-[1.03] tracking-[-0.02em] text-custom-title">
+                    {tr(`projects.${project.key}.title`)}
+                  </h3>
+
+                  <p className="mb-6 max-w-[46ch] text-sm leading-7 text-custom-secondary md:text-[15px]">
+                    {tr(`projects.${project.key}.description`)}
+                  </p>
+
+                  <div className="mb-8 flex flex-wrap gap-x-4 gap-y-1.5">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-xs font-medium uppercase tracking-[0.14em] text-custom-muted"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <Link
+                    href={`/${locale}/work/${project.slug}`}
+                    onClick={() => trackEvent('project_view', { project: project.slug })}
+                    className="group/link inline-flex w-fit items-center gap-2 text-sm font-bold text-custom-title"
+                  >
+                    <span className="relative">
+                      {tr('work.case')}
+                      <span className="absolute -bottom-1 left-0 h-px w-full bg-custom-title/25 transition-colors duration-300 group-hover/link:bg-[#8C0605] dark:group-hover/link:bg-red-400" />
+                    </span>
+
+                    <FaArrowRight className="h-3 w-3 transition-transform duration-300 group-hover/link:translate-x-1.5 group-hover/link:text-[#8C0605] dark:group-hover/link:text-red-400" />
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Counter + progress */}
+        <div className="mt-8 flex flex-none items-center gap-6">
+          <div className="flex items-baseline gap-1.5 font-serif text-sm font-medium text-custom-title">
+            <span className="block h-[1.25em] overflow-hidden">
+              <span ref={counterRef} className="block will-change-transform">
+                {HOME_PROJECTS.map((project, index) => (
+                  <span key={project.key} className="block leading-[1.25em]">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                ))}
+              </span>
+            </span>
+
+            <span className="text-custom-muted">
+              / {String(HOME_PROJECTS.length).padStart(2, '0')}
+            </span>
+          </div>
+
+          <div className="h-px flex-1 bg-custom-title/10">
+            <div
+              ref={progressRef}
+              className="h-px origin-left bg-[#8C0605] dark:bg-red-400"
             />
           </div>
         </div>
       </div>
-    </motion.article>
-  )
-}
-
-function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const ProjectIcon = project.icon
-
-  return (
-    <motion.article
-      key={project.id}
-      variants={fadeUp}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{
-        delay: index * 0.08,
-        duration: 0.65,
-        ease: EASE_SMOOTH,
-      }}
-      className="group relative h-full"
-    >
-      <div className="relative h-full overflow-hidden rounded-[1.75rem] border border-gray-200 bg-white/76 shadow-[0_20px_60px_rgba(0,0,0,0.06)] backdrop-blur-md transition-all duration-500 hover:-translate-y-2 hover:border-[#8C0605]/25 hover:shadow-[0_30px_90px_rgba(0,0,0,0.12)] dark:border-white/10 dark:bg-white/[0.04] dark:hover:border-red-400/30">
-        <div className="relative h-56 overflow-hidden lg:h-60">
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            sizes="(min-width: 1280px) 380px, (min-width: 768px) 50vw, 100vw"
-            className="object-cover transition-transform duration-700 group-hover:scale-110"
-          />
-
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
-
-          <div className="absolute left-5 top-5 z-10 flex items-center gap-2">
-            <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/15 text-white backdrop-blur-md">
-              <ProjectIcon className="h-4 w-4" />
-            </span>
-
-            <span className="inline-flex h-10 shrink-0 items-center rounded-full border border-white/20 bg-white/15 px-4 text-xs font-bold leading-none text-white backdrop-blur-md">
-              {project.category}
-            </span>
-          </div>
-
-          <div className="absolute bottom-5 left-5 right-5 z-10 flex items-end justify-between gap-4">
-            <h3 className="text-2xl font-black tracking-[-0.04em] text-white">
-              {project.title}
-            </h3>
-
-            <div className="flex shrink-0 gap-2">
-              {project.github && (
-                <motion.a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.08 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white text-gray-950 shadow-lg transition-colors hover:bg-gray-100"
-                  aria-label={`${project.title} GitHub`}
-                >
-                  <FaGithub className="h-4 w-4" />
-                </motion.a>
-              )}
-
-              <motion.a
-                href={project.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.08 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#8C0605] text-white shadow-lg transition-colors hover:bg-[#a70b0a] dark:bg-red-400 dark:text-gray-950 dark:hover:bg-red-300"
-                aria-label={`${project.title} demo`}
-              >
-                <FaExternalLinkAlt className="h-4 w-4" />
-              </motion.a>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex h-[calc(100%-15rem)] flex-col p-6">
-          <p className="mb-5 line-clamp-3 text-sm leading-relaxed text-custom-secondary">
-            {project.description}
-          </p>
-
-          <div className="mb-5 flex flex-wrap gap-2">
-            {project.technologies.slice(0, 4).map((tech) => (
-              <TechBadge key={tech} tech={tech} />
-            ))}
-
-            {project.technologies.length > 4 && (
-              <span className="rounded-full border border-gray-200 bg-white/75 px-3 py-1.5 text-xs font-semibold text-custom-muted shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-white/[0.04]">
-                +{project.technologies.length - 4}
-              </span>
-            )}
-          </div>
-
-          <div className="mt-auto border-t border-gray-200 pt-5 dark:border-white/10">
-            <ul className="space-y-2">
-              {project.results.slice(0, 3).map((result) => (
-                <li
-                  key={result}
-                  className="flex items-center gap-2 text-xs text-custom-muted"
-                >
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#8C0605] dark:bg-red-400" />
-                  <span className="line-clamp-1">{result}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-    </motion.article>
+    </div>
   )
 }
 
 export function Projects() {
-  const { t } = useTranslation()
+  const sectionRef = useRef<HTMLElement>(null)
+
+  const { t, language } = useTranslation()
 
   const tr = (key: string): string => {
     const value = t(key)
     return Array.isArray(value) ? value.join(' ') : String(value)
   }
 
-  const projects: Project[] = [
-    {
-      id: 1,
-      key: 'luxa',
-      title: tr('projects.luxa.title'),
-      description: tr('projects.luxa.description'),
-      image: '/luxa.jpg',
-      technologies: ['React Native', 'Supabase', 'TypeScript'],
-      results: [
-        tr('projects.luxa.results.interface'),
-        tr('projects.luxa.results.pockets'),
-        tr('projects.luxa.results.statistics'),
-      ],
-      github: null,
-      demo: 'https://pocketly-web-blush.vercel.app/',
-      category: tr('projects.luxa.category'),
-      icon: FaMobileAlt,
-      featured: true,
-    },
-    {
-      id: 2,
-      key: 'mets_merveilles',
-      title: tr('projects.mets_merveilles.title'),
-      description: tr('projects.mets_merveilles.description'),
-      image: '/metsmerveilles.webp',
-      technologies: ['Next.js', 'Spring Boot', 'PostgreSQL', 'Firebase', 'Clerk'],
-      results: [
-        tr('projects.mets_merveilles.results.interface'),
-        tr('projects.mets_merveilles.results.recipes'),
-        tr('projects.mets_merveilles.results.search'),
-      ],
-      github: 'https://github.com/minhajshafiq/mets-merveilles',
-      demo: 'https://front-mets-merveilles.vercel.app/',
-      category: tr('projects.mets_merveilles.category'),
-      icon: FaUtensils,
-    },
-    {
-      id: 3,
-      key: 'portfolio',
-      title: tr('projects.portfolio.title'),
-      description: tr('projects.portfolio.description'),
-      image: '/portfolio.png',
-      technologies: ['Next.js', 'GSAP', 'Framer Motion', 'Tailwind CSS'],
-      results: [
-        tr('projects.portfolio.results.performance'),
-        tr('projects.portfolio.results.animations'),
-        tr('projects.portfolio.results.seo'),
-      ],
-      github: 'https://github.com/minhajshafiq/my-portfolio',
-      demo: 'https://www.minhajshafiq.com/',
-      category: tr('projects.portfolio.category'),
-      icon: FaLaptopCode,
-    },
-    {
-      id: 4,
-      key: 'unityvert',
-      title: tr('projects.unityvert.title'),
-      description: tr('projects.unityvert.description'),
-      image: '/photos/unityvert.jpg',
-      technologies: ['Next.js', 'Tailwind CSS', 'TypeScript', 'Sanity'],
-      results: [
-        tr('projects.unityvert.results.presence'),
-        tr('projects.unityvert.results.design'),
-        tr('projects.unityvert.results.contact'),
-      ],
-      github: null,
-      demo: 'https://unityvert.fr/',
-      category: tr('projects.unityvert.category'),
-      icon: FaLeaf,
-    },
-    {
-      id: 5,
-      key: 'toiture_artisan',
-      title: tr('projects.toiture_artisan.title'),
-      description: tr('projects.toiture_artisan.description'),
-      image: '/photos/toiture-artisan.png',
-      technologies: ['Next.js', 'Tailwind CSS', 'TypeScript', 'Sanity'],
-      results: [
-        tr('projects.toiture_artisan.results.local_seo'),
-        tr('projects.toiture_artisan.results.conversion'),
-        tr('projects.toiture_artisan.results.trust'),
-      ],
-      github: null,
-      demo: 'https://super-chebakia-99a719.netlify.app/',
-      category: tr('projects.toiture_artisan.category'),
-      icon: FaHammer,
-    },
-    {
-      id: 6,
-      key: 'photographe',
-      title: tr('projects.photographe.title'),
-      description: tr('projects.photographe.description'),
-      image: '/photos/photographe.png',
-      technologies: ['Next.js', 'Tailwind CSS', 'TypeScript', 'Framer Motion'],
-      results: [
-        tr('projects.photographe.results.gallery'),
-        tr('projects.photographe.results.branding'),
-        tr('projects.photographe.results.contact'),
-      ],
-      github: null,
-      demo: 'https://photograph-portfolio-five.vercel.app/',
-      category: tr('projects.photographe.category'),
-      icon: FaCameraRetro,
-    },
-  ]
+  useEffect(() => {
+    const mm = gsap.matchMedia()
 
-  const featuredProject = projects.find((project) => project.featured)
-  const otherProjects = projects.filter((project) => !project.featured)
+    // Parallax des vignettes — uniquement quand la liste mobile est affichée
+    mm.add('(max-width: 1023px) and (prefers-reduced-motion: no-preference)', () => {
+      const images = sectionRef.current?.querySelectorAll('[data-parallax-image]')
 
-  const featuredLabels: FeaturedLabels = {
-    featured: tr('projects.featured_badge'),
-    keyResults: tr('projects.key_results'),
-    viewProject: tr('projects.view_project'),
-    sourceCode: tr('projects.source_code'),
-  }
+      images?.forEach((image) => {
+        gsap.fromTo(
+          image,
+          { yPercent: -6 },
+          {
+            yPercent: 6,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: image.closest('article'),
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+            },
+          }
+        )
+      })
+    })
+
+    return () => {
+      mm.revert()
+    }
+  }, [])
 
   return (
     <section
       id="projects"
-      className="relative isolate overflow-hidden bg-custom-primary py-[clamp(5.5rem,8vw,8.5rem)]"
+      ref={sectionRef}
+      className="relative bg-custom-primary py-[clamp(4.5rem,8vw,8rem)]"
     >
-      <SectionBackground />
-
-      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-5 sm:px-8 md:px-10 lg:px-[clamp(2.5rem,4vw,5rem)]">
-        <div className="mx-auto w-full max-w-[min(1180px,calc(100vw-5rem))] xl:max-w-[min(1240px,calc(100vw-7rem))] 2xl:max-w-[1240px]">
+      <div className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 md:px-10 lg:px-[clamp(2.5rem,4vw,5rem)]">
+        <div className="mx-auto w-full max-w-[min(1180px,calc(100vw-2.5rem))]">
           {/* Section header */}
           <motion.div
             variants={fadeUp}
@@ -474,113 +387,97 @@ export function Projects() {
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.7, ease: EASE_SMOOTH }}
-            className="relative mb-12 md:mb-[4.5rem]"
+            className="mb-10 md:mb-14 lg:mb-0"
           >
-            <div className="grid min-h-[clamp(20rem,34vh,29rem)] grid-cols-1 content-end gap-8 pb-12 pt-8 md:grid-cols-12 md:pb-16">
-              <div className="md:col-span-8">
-                <span className="mb-5 block font-mono text-xs uppercase tracking-[0.28em] text-[#8C0605] dark:text-red-400 sm:text-sm">
-                  {'<'} {tr('projects.title')} {'/>'}
-                </span>
-
-                <h2 className="max-w-[min(960px,100%)] text-5xl font-black leading-[0.9] tracking-[-0.075em] text-custom-title sm:text-6xl md:text-[clamp(4.5rem,8vw,6.75rem)] lg:text-[clamp(5.25rem,7vw,7.4rem)]">
-                  {tr('projects.subtitle')}
-                </h2>
-              </div>
-
-              <div className="md:col-span-4 md:self-end">
-                <p className="max-w-md text-base leading-relaxed text-custom-secondary md:text-lg">
-                  {tr('projects.intro')}
-                </p>
-              </div>
-            </div>
-
-            <div className="h-px w-full bg-gradient-to-r from-[#8C0605]/30 via-gray-300 to-transparent dark:from-red-400/30 dark:via-white/10" />
-
-            <div className="pointer-events-none absolute -bottom-10 right-0 hidden select-none text-[8rem] font-black leading-none tracking-[-0.08em] text-gray-950/[0.035] dark:text-white/[0.035] md:block">
-              02
-            </div>
-          </motion.div>
-
-          {/* Featured project */}
-          {featuredProject && (
-            <FeaturedProjectCard
-              project={featuredProject}
-              labels={featuredLabels}
-            />
-          )}
-
-          {/* Other projects header */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.65, ease: EASE_SMOOTH }}
-            className="mx-auto mb-10 flex w-full max-w-[min(1120px,100%)] flex-col gap-4 md:flex-row md:items-end md:justify-between"
-          >
-            <div>
-              <p className="mb-3 font-mono text-xs font-bold uppercase tracking-[0.25em] text-[#8C0605] dark:text-red-400">
-                Selected work
-              </p>
-
-              <h3 className="text-4xl font-black tracking-[-0.06em] text-custom-title md:text-5xl">
-                Autres projets
-              </h3>
-            </div>
-
-            <p className="max-w-sm text-sm leading-relaxed text-custom-secondary">
-              Une sélection de projets web, vitrines et interfaces réalisés avec une attention particulière au design, à la performance et à la conversion.
+            <p className="mb-6 flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#8C0605] dark:text-red-400">
+              <span className="h-px w-10 bg-current" />
+              {tr('work.label')}
             </p>
+
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:items-end">
+              <RevealText
+                as="h2"
+                text={tr('work.heading')}
+                className="font-serif text-[clamp(2.4rem,6vw,4.6rem)] font-medium leading-[1.02] tracking-[-0.025em] text-custom-title md:col-span-8"
+              />
+
+              <p className="max-w-sm text-sm leading-6 text-custom-secondary md:col-span-4 md:justify-self-end md:text-[15px] md:leading-7">
+                {tr('work.intro')}
+              </p>
+            </div>
           </motion.div>
 
-          {/* Other projects grid */}
-          <div className="mx-auto grid w-full max-w-[min(1120px,100%)] grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {otherProjects.map((project, index) => (
-              <ProjectCard
-                key={project.id}
+          {/* Desktop : showcase épinglé */}
+          <div className="hidden lg:block">
+            <PinnedShowcase locale={language} tr={tr} />
+          </div>
+
+          {/* Mobile / tablette : liste éditoriale */}
+          <div className="lg:hidden">
+            {HOME_PROJECTS.map((project, index) => (
+              <ProjectRow
+                key={project.key}
                 project={project}
                 index={index}
+                visitLabel={tr('work.case')}
+                locale={language}
+                tr={tr}
               />
             ))}
           </div>
 
-          {/* CTA */}
+          {/* All projects link */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, ease: EASE_SMOOTH }}
+            className="border-t border-custom pt-10 pb-12 lg:mt-4"
+          >
+            <Link
+              href={`/${language}/work`}
+              onClick={() => trackEvent('cta_click', { cta: 'all_projects' })}
+              className="group inline-flex items-center gap-3 text-sm font-bold text-custom-title md:text-base"
+            >
+              <span className="relative">
+                {tr('work.all_projects')}
+                <span className="absolute -bottom-1 left-0 h-px w-full bg-custom-title/30 transition-colors duration-300 group-hover:bg-[#8C0605] dark:group-hover:bg-red-400" />
+              </span>
+
+              <FaArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1.5 group-hover:text-[#8C0605] dark:group-hover:text-red-400" />
+            </Link>
+          </motion.div>
+
+          {/* GitHub */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.65, ease: EASE_SMOOTH }}
-            className="mx-auto mt-16 w-full max-w-[min(1120px,100%)]"
+            className="flex flex-col items-start justify-between gap-5 border-t border-custom pt-10 md:flex-row md:items-center"
           >
-            <div className="relative overflow-hidden rounded-[1.75rem] border border-gray-200 bg-white/76 p-6 shadow-[0_20px_70px_rgba(0,0,0,0.06)] backdrop-blur-md dark:border-white/10 dark:bg-white/[0.04] md:p-8">
-              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_20%,rgba(140,6,5,0.10),transparent_34%)] dark:bg-[radial-gradient(circle_at_15%_20%,rgba(248,113,113,0.08),transparent_34%)]" />
+            <div>
+              <p className="font-serif text-xl font-medium text-custom-title md:text-2xl">
+                {tr('work.github_title')}
+              </p>
 
-              <div className="relative flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
-                <div>
-                  <p className="text-xl font-black tracking-[-0.03em] text-custom-title">
-                    {tr('projects.see_more_title')}
-                  </p>
-
-                  <p className="mt-1 text-sm text-custom-secondary">
-                    {tr('projects.see_more_subtitle')}
-                  </p>
-                </div>
-
-                <motion.a
-                  href="https://github.com/minhajshafiq"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="inline-flex items-center gap-2 rounded-full bg-gray-950 px-6 py-3.5 font-bold text-white transition-colors hover:bg-gray-800 dark:bg-white dark:text-gray-950 dark:hover:bg-gray-100"
-                >
-                  <FaGithub className="h-5 w-5" />
-                  {tr('projects.my_github')}
-                  <FaArrowRight className="h-4 w-4" />
-                </motion.a>
-              </div>
+              <p className="mt-1 text-sm text-custom-secondary">
+                {tr('work.github_subtitle')}
+              </p>
             </div>
+
+            <a
+              href="https://github.com/minhajshafiq"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-3 rounded-full border border-custom px-6 py-3.5 text-sm font-bold text-custom-title transition-all duration-300 hover:-translate-y-0.5 hover:border-[#8C0605] hover:text-[#8C0605] dark:hover:border-red-400 dark:hover:text-red-400"
+            >
+              <FaGithub className="h-4 w-4" />
+              {tr('work.github_cta')}
+              <FaArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
           </motion.div>
         </div>
       </div>

@@ -10,6 +10,7 @@ import { gsap } from 'gsap'
 import { SplitText } from 'gsap/SplitText'
 import { useTheme } from '@/hooks/useTheme'
 import { useTranslation } from '@/hooks/useTranslation'
+import { trackEvent } from '@/utils/analytics'
 import { cn } from '@/utils/cn'
 
 if (typeof window !== 'undefined') {
@@ -30,10 +31,9 @@ type ControlButtonProps = {
 
 const NAV_ITEMS: NavItem[] = [
   { href: '#home', key: 'nav.home' },
-  { href: '#services', key: 'nav.services' },
   { href: '#projects', key: 'nav.projects' },
+  { href: '#services', key: 'nav.services' },
   { href: '#about', key: 'nav.about' },
-  { href: '#beyond-code', key: 'nav.beyondCode' },
   { href: '#contact', key: 'nav.contact' },
 ]
 
@@ -406,7 +406,11 @@ export function Header() {
                 {/* Controls */}
                 <div className="flex items-center gap-2">
                   <ControlButton
-                    onClick={() => changeLanguage(language === 'fr' ? 'en' : 'fr')}
+                    onClick={() => {
+                      const nextLanguage = language === 'fr' ? 'en' : 'fr'
+                      trackEvent('language_switch', { to: nextLanguage })
+                      changeLanguage(nextLanguage)
+                    }}
                     className="w-11"
                     ariaLabel="Change language"
                   >

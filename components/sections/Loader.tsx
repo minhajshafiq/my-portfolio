@@ -9,226 +9,97 @@ interface LoaderProps {
   children: ReactNode
 }
 
-const COMMANDS = [
-  '> Initializing portfolio...',
-  '> Loading interface...',
-  '> Building experience...',
-  '> Ready',
-]
-
-const TYPING_SPEED = 30
-const COMMAND_PAUSE = 260
-const START_DELAY = 420
+const NAME = 'Minhaj Zubair'
 
 export function Loader({ children }: LoaderProps) {
   const [localLoading, setLocalLoading] = useState(true)
-  const [lines, setLines] = useState<string[]>([])
-  const [activeText, setActiveText] = useState('')
 
   const { setLoading } = useLoader()
 
   const containerRef = useRef<HTMLDivElement>(null)
-  const contentRef = useRef<HTMLDivElement>(null)
   const topBarRef = useRef<HTMLDivElement>(null)
   const bottomBarRef = useRef<HTMLDivElement>(null)
-  const logoRef = useRef<HTMLDivElement>(null)
-  const terminalRef = useRef<HTMLDivElement>(null)
+  const nameRef = useRef<HTMLDivElement>(null)
+  const dotRef = useRef<HTMLSpanElement>(null)
+  const lineRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!localLoading) return
 
     setLoading(true)
-    setLines([])
-    setActiveText('')
 
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
 
-    let currentCommand = 0
-    let currentChar = 0
-    let isCancelled = false
-
-    const timeoutIds: ReturnType<typeof setTimeout>[] = []
-
-    const addTimeout = (callback: () => void, delay: number) => {
-      const timeoutId = setTimeout(() => {
-        if (!isCancelled) callback()
-      }, delay)
-
-      timeoutIds.push(timeoutId)
-      return timeoutId
-    }
-
-    const clearAllTimeouts = () => {
-      timeoutIds.forEach(clearTimeout)
-    }
+    let isDone = false
 
     const finishLoader = () => {
+      if (isDone) return
+
+      isDone = true
       document.body.style.overflow = previousOverflow
       setLocalLoading(false)
       setLoading(false)
     }
 
-    const startExitAnimation = () => {
-      if (
-        !containerRef.current ||
-        !contentRef.current ||
-        !topBarRef.current ||
-        !bottomBarRef.current
-      ) {
+    // Garde-fou : si les animations ne se déclenchent pas (onglet en arrière-plan,
+    // rAF indisponible), le site doit rester accessible
+    const failSafe = window.setTimeout(finishLoader, 4500)
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (prefersReducedMotion) {
+      const timeout = window.setTimeout(finishLoader, 350)
+
+      return () => {
+        window.clearTimeout(timeout)
+        window.clearTimeout(failSafe)
+        document.body.style.overflow = previousOverflow
+        setLoading(false)
+      }
+    }
+
+    const ctx = gsap.context(() => {
+      const chars = nameRef.current?.querySelectorAll('[data-char]')
+
+      if (!chars || !containerRef.current) {
         finishLoader()
         return
       }
 
+      gsap.set(chars, { yPercent: 120 })
+      gsap.set(dotRef.current, { scale: 0 })
+      gsap.set(lineRef.current, { scaleX: 0 })
+
       const tl = gsap.timeline({
-        defaults: {
-          ease: 'power3.inOut',
-        },
+        defaults: { ease: 'power3.out' },
         onComplete: finishLoader,
       })
 
-      tl.to(
-        contentRef.current,
-        {
-          opacity: 0,
-          y: -24,
-          scale: 0.94,
-          filter: 'blur(10px)',
-          duration: 0.42,
-          ease: 'power2.in',
-        },
-        0
-      )
+      tl.to(chars, {
+        yPercent: 0,
+        duration: 0.7,
+        stagger: 0.028,
+      })
+        .to(dotRef.current, { scale: 1, duration: 0.35, ease: 'back.out(2.2)' }, '-=0.25')
+        .to(lineRef.current, { scaleX: 1, duration: 0.55, ease: 'power2.inOut' }, '<')
         .to(
-          topBarRef.current,
-          {
-            yPercent: -100,
-            duration: 0.9,
-          },
-          0.14
-        )
-        .to(
-          bottomBarRef.current,
-          {
-            yPercent: 100,
-            duration: 0.9,
-          },
-          0.14
-        )
-        .to(
-          containerRef.current,
+          [nameRef.current, dotRef.current, lineRef.current],
           {
             opacity: 0,
-            duration: 0.28,
-            ease: 'power2.out',
-          },
-          '-=0.18'
+            y: -18,
+            duration: 0.4,
+            ease: 'power2.in',
+            delay: 0.35,
+          }
         )
-    }
-
-    const typeText = () => {
-      if (currentCommand >= COMMANDS.length) {
-        addTimeout(startExitAnimation, 480)
-        return
-      }
-
-      const command = COMMANDS[currentCommand]
-
-      if (currentChar < command.length) {
-        setActiveText(command.slice(0, currentChar + 1))
-        currentChar += 1
-        addTimeout(typeText, TYPING_SPEED)
-        return
-      }
-
-      setLines((previousLines) => [...previousLines, command])
-      setActiveText('')
-
-      currentCommand += 1
-      currentChar = 0
-
-      if (currentCommand < COMMANDS.length) {
-        addTimeout(typeText, COMMAND_PAUSE)
-        return
-      }
-
-      addTimeout(startExitAnimation, 520)
-    }
-
-    const ctx = gsap.context(() => {
-      gsap.set([topBarRef.current, bottomBarRef.current], {
-        yPercent: 0,
-      })
-
-      gsap.set(contentRef.current, {
-        opacity: 0,
-        y: 30,
-        scale: 0.96,
-        filter: 'blur(14px)',
-      })
-
-      gsap.set(logoRef.current, {
-        opacity: 0,
-        y: 18,
-        scale: 0.88,
-        rotateX: -18,
-      })
-
-      gsap.set(terminalRef.current, {
-        opacity: 0,
-        y: 24,
-        scale: 0.97,
-      })
-
-      const tl = gsap.timeline({
-        defaults: {
-          ease: 'power3.out',
-        },
-      })
-
-      tl.to(contentRef.current, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        filter: 'blur(0px)',
-        duration: 0.7,
-      })
-        .to(
-          logoRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            rotateX: 0,
-            duration: 0.72,
-          },
-          '-=0.42'
-        )
-        .to(
-          terminalRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.68,
-          },
-          '-=0.38'
-        )
-
-      gsap.to(logoRef.current, {
-        y: -4,
-        duration: 1.8,
-        ease: 'sine.inOut',
-        repeat: -1,
-        yoyo: true,
-      })
+        .to(topBarRef.current, { yPercent: -100, duration: 0.85, ease: 'power3.inOut' }, '-=0.1')
+        .to(bottomBarRef.current, { yPercent: 100, duration: 0.85, ease: 'power3.inOut' }, '<')
+        .to(containerRef.current, { opacity: 0, duration: 0.2 }, '-=0.15')
     }, containerRef)
 
-    addTimeout(typeText, START_DELAY)
-
     return () => {
-      isCancelled = true
-      clearAllTimeouts()
+      window.clearTimeout(failSafe)
       ctx.revert()
       document.body.style.overflow = previousOverflow
       setLoading(false)
@@ -242,7 +113,7 @@ export function Loader({ children }: LoaderProps) {
       {localLoading && (
         <div
           ref={containerRef}
-          className="fixed inset-0 z-[120] flex items-center justify-center overflow-hidden bg-[linear-gradient(180deg,#07070a_0%,#09090d_48%,#050507_100%)]"
+          className="fixed inset-0 z-[120] flex items-center justify-center overflow-hidden"
           role="status"
           aria-live="polite"
           aria-label="Loading portfolio"
@@ -250,72 +121,39 @@ export function Loader({ children }: LoaderProps) {
           {/* Top panel */}
           <div
             ref={topBarRef}
-            className="absolute inset-x-0 top-0 h-1/2 bg-[linear-gradient(180deg,#07070a_0%,#09090d_100%)]"
+            className="absolute inset-x-0 top-0 h-1/2 bg-[#141210]"
           />
 
           {/* Bottom panel */}
           <div
             ref={bottomBarRef}
-            className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(180deg,#09090d_0%,#050507_100%)]"
+            className="absolute inset-x-0 bottom-0 h-1/2 bg-[#141210]"
           />
 
-          {/* Content */}
-          <div
-            ref={contentRef}
-            className="relative z-10 flex w-full max-w-[430px] flex-col items-center px-6"
-          >
-            {/* Logo */}
-            <div
-              ref={logoRef}
-              className="relative mb-8 flex items-center justify-center"
-            >
-              <div className="relative flex items-baseline gap-1">
-                <span className="text-6xl font-black leading-none tracking-[-0.1em] text-white">
-                  M
-                </span>
-
-                <span className="text-6xl font-black leading-none tracking-[-0.1em] text-red-400">
-                  Z
-                </span>
-
-                <span className="ml-1 h-3 w-3 rounded-full bg-[#8C0605]" />
+          {/* Wordmark */}
+          <div className="relative z-10 flex flex-col items-center gap-5 px-6">
+            <div className="flex items-baseline">
+              <div
+                ref={nameRef}
+                className="flex overflow-hidden font-serif text-4xl font-medium leading-[1.15] tracking-[-0.03em] text-[#FAF7F2] sm:text-5xl md:text-6xl"
+              >
+                {NAME.split('').map((char, index) => (
+                  <span key={`${char}-${index}`} data-char className="inline-block whitespace-pre">
+                    {char}
+                  </span>
+                ))}
               </div>
+
+              <span
+                ref={dotRef}
+                className="ml-2 inline-block h-2.5 w-2.5 rounded-full bg-[#8C0605] sm:h-3 sm:w-3"
+              />
             </div>
 
-            {/* Terminal */}
             <div
-              ref={terminalRef}
-              className="w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0d0d12]/90 shadow-[0_28px_100px_rgba(0,0,0,0.48)] backdrop-blur-xl"
-            >
-              <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
-                <div className="flex items-center gap-2">
-                  <span className="h-3 w-3 rounded-full bg-[#ff5f56]" />
-                  <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
-                  <span className="h-3 w-3 rounded-full bg-[#27ca40]" />
-                </div>
-
-                <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-white/30">
-                  portfolio.sh
-                </span>
-              </div>
-
-              <div className="min-h-[142px] px-4 py-5">
-                <div className="space-y-2 font-mono text-sm">
-                  {lines.map((line) => (
-                    <div key={line} className="text-green-400/70">
-                      {line}
-                    </div>
-                  ))}
-
-                  <div className="flex items-center text-green-400">
-                    <span>{activeText}</span>
-                    <span className="ml-0.5 animate-pulse text-green-300">
-                      ▊
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+              ref={lineRef}
+              className="h-px w-40 origin-left bg-[#FAF7F2]/25 sm:w-56"
+            />
           </div>
         </div>
       )}

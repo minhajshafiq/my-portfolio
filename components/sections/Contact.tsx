@@ -4,6 +4,7 @@ import { useRef, useState } from 'react'
 import type { ChangeEvent, ComponentType, FocusEvent, FormEvent } from 'react'
 import { motion } from 'framer-motion'
 import { useTranslation } from '@/hooks/useTranslation'
+import { trackEvent } from '@/utils/analytics'
 import {
   FaCalendarAlt,
   FaCheckCircle,
@@ -244,12 +245,14 @@ export function Contact() {
       const data = await response.json()
 
       if (data.success) {
+        trackEvent('contact_form_submit', {})
         setStatus('success')
         setFormData(initialFormData)
         setErrors({})
         setTouched({})
         formRef.current?.reset()
       } else {
+        trackEvent('form_error', { reason: 'api' })
         setStatus('error')
       }
 
@@ -316,12 +319,12 @@ export function Contact() {
           >
             <div className="grid min-h-[clamp(12rem,20vh,17rem)] grid-cols-1 content-end gap-6 pb-9 pt-3 md:grid-cols-12 md:pb-10">
               <div className="md:col-span-8">
-                <span className="mb-4 block font-mono text-xs uppercase tracking-[0.28em] text-[#8C0605] dark:text-red-400 sm:text-sm">
-                  {'>> '}
+                <span className="mb-6 flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#8C0605] dark:text-red-400">
+                  <span className="h-px w-10 bg-current" />
                   {tr('contact.title')}
                 </span>
 
-                <h2 className="max-w-[min(820px,100%)] text-4xl font-black leading-[0.94] tracking-[-0.065em] text-custom-title sm:text-5xl md:text-[clamp(3.35rem,5.4vw,5.2rem)] lg:text-[clamp(3.75rem,5vw,5.7rem)]">
+                <h2 className="max-w-[min(820px,100%)] font-serif text-4xl font-medium leading-[1.02] tracking-[-0.025em] text-custom-title sm:text-5xl md:text-[clamp(3rem,5vw,4.6rem)]">
                   {tr('contact.subtitle')}
                 </h2>
               </div>
@@ -345,10 +348,6 @@ export function Contact() {
             </div>
 
             <div className="h-px w-full bg-gradient-to-r from-[#8C0605]/30 via-gray-300 to-transparent dark:from-red-400/30 dark:via-white/10" />
-
-            <div className="pointer-events-none absolute -bottom-7 right-0 hidden select-none text-[5.75rem] font-black leading-none tracking-[-0.08em] text-gray-950/[0.035] dark:text-white/[0.035] md:block">
-              05
-            </div>
           </motion.div>
 
           <div className="mx-auto grid w-full max-w-[min(1080px,100%)] grid-cols-1 gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch lg:gap-10">
@@ -362,11 +361,7 @@ export function Contact() {
               className="flex h-full flex-col gap-5 lg:min-h-[660px]"
             >
               <div>
-                <p className="mb-3 font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#8C0605] dark:text-red-400">
-                  Direct contact
-                </p>
-
-                <h3 className="max-w-[12ch] text-[clamp(2rem,3.3vw,2.75rem)] font-black leading-[1.02] tracking-[-0.06em] text-custom-title">
+                <h3 className="max-w-[16ch] font-serif text-[clamp(1.8rem,3vw,2.5rem)] font-medium leading-[1.05] tracking-[-0.02em] text-custom-title">
                   {tr('contact.other_means')}
                 </h3>
               </div>
@@ -376,6 +371,7 @@ export function Contact() {
                   href={primaryContact.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackEvent('calendly_click', { source_section: 'contact' })}
                   whileHover={{ y: -4 }}
                   whileTap={{ scale: 0.98 }}
                   className="group relative block overflow-hidden rounded-[1.75rem] bg-[#8C0605] p-6 text-white shadow-[0_22px_70px_rgba(140,6,5,0.20)] dark:bg-red-400 dark:text-gray-950 md:p-7"
@@ -397,7 +393,7 @@ export function Contact() {
                     </p>
 
                     <span className="mt-7 inline-flex items-center gap-2 text-sm font-bold">
-                      Réserver maintenant
+                      {tr('contact.methods.call.action')}
                       <span className="transition-transform duration-300 group-hover:translate-x-1">
                         →
                       </span>
@@ -416,6 +412,12 @@ export function Contact() {
                       href={method.href}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() =>
+                        trackEvent(
+                          method.href.startsWith('mailto:') ? 'email_click' : 'contact_method_click',
+                          { source_section: 'contact', method: method.title }
+                        )
+                      }
                       initial={{ opacity: 0, y: 18 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: '-80px' }}
@@ -454,7 +456,7 @@ export function Contact() {
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(255,255,255,0.10),transparent_34%)]" />
 
                 <div className="relative z-10 flex items-start gap-4">
-                  <span className="text-2xl">⚡</span>
+                  <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-red-400" />
 
                   <div>
                     <h4 className="font-black tracking-[-0.03em] text-white">
@@ -483,11 +485,7 @@ export function Contact() {
 
                 <div className="relative z-10 flex h-full flex-col">
                   <div className="mb-8">
-                    <span className="mb-3 block font-mono text-xs font-bold uppercase tracking-[0.22em] text-[#8C0605] dark:text-red-400">
-                      Message
-                    </span>
-
-                    <h3 className="flex items-center gap-3 text-3xl font-black tracking-[-0.05em] text-custom-title md:text-4xl">
+                    <h3 className="flex items-center gap-3 font-serif text-3xl font-medium tracking-[-0.02em] text-custom-title md:text-4xl">
                       {tr('contact.contact_form')}
                     </h3>
                   </div>
@@ -591,7 +589,7 @@ export function Contact() {
                       </motion.button>
 
                       <p className="mt-5 text-center text-xs text-custom-muted">
-                        🔒 {tr('contact.privacy_note')}
+                        {tr('contact.privacy_note')}
                       </p>
                     </div>
                   </form>

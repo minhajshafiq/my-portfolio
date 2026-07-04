@@ -15,57 +15,179 @@
     "light_mode": "Activer le mode clair"
   },
   "hero": {
-    "greeting": "Je suis",
-    "title": "Développeur Front-End & Full Stack",
-    "subtitle": "Créateur de solutions digitales innovantes",
-    "tagline": "Je développe des apps web et mobile qui convertissent.",
-    "description": "Développeur passionné qui crée des applications web et mobiles performantes pour entreprises et startups qui veulent se démarquer dans le digital.",
-    "specialization": "Spécialisé en Next.js, Spring Boot et React Native. Je transforme vos idées en solutions digitales qui convertissent et engagent vos utilisateurs.",
-    "cta_projects": "Voir mes projets",
-    "cta_contact": "Travaillons ensemble",
-    "available_for_work": "Disponible pour travailler",
-    "discover": "Découvrir",
-    "value_apps": "Apps performantes",
-    "value_web_mobile": "Web & Mobile",
-    "value_clean_code": "Code propre",
-    "find_me": "Me retrouver →",
-    "experience_badge": "1 an XP",
-    "photo_alt": "Minhaj Zubair - Développeur Full-Stack basé à Paris"
+    "available_for_work": "Disponible pour de nouveaux projets",
+    "title_lines": ["Des sites web", "qu'on n'oublie pas —", "et qui convertissent."],
+    "role_line": "Développeur créatif indépendant · Paris — France & international",
+    "description": "Je conçois et développe des sites et applications sur mesure pour les indépendants, les marques et les entrepreneurs qui veulent une présence en ligne à la hauteur de leur travail.",
+    "cta_primary": "Discuter de mon projet",
+    "cta_secondary": "Voir les projets",
+    "scroll": "Défiler",
+    "photo_alt": "Minhaj Zubair — Développeur créatif indépendant basé à Paris"
+  },
+  "manifesto": {
+    "label": "La promesse",
+    "text": "Un beau site ne suffit pas. Un site rapide ne suffit pas. Je crée des expériences web qui donnent confiance en votre marque — et qui transforment vos visiteurs en clients."
+  },
+  "work": {
+    "label": "Projets sélectionnés",
+    "heading": "Le travail parle de lui-même.",
+    "intro": "Une sélection de projets récents — sites vitrines, applications et expériences sur mesure.",
+    "visit": "Voir le site",
+    "case": "Découvrir le projet",
+    "all_projects": "Voir tous les projets",
+    "page_heading": "Chaque projet raconte une histoire.",
+    "page_intro": "Sites vitrines, applications web et mobiles — conçus sur mesure, du premier échange à la mise en ligne.",
+    "github_title": "Envie de voir plus ?",
+    "github_subtitle": "D'autres projets et le code source sont sur GitHub.",
+    "github_cta": "Mon GitHub"
+  },
+  "case_studies": {
+    "labels": {
+      "context": "Le contexte",
+      "approach": "L'approche",
+      "results": "Ce que le projet apporte",
+      "stack": "Technologies",
+      "live": "Voir le site en ligne",
+      "back": "Tous les projets",
+      "cta_title": "Un projet similaire en tête ?",
+      "cta_text": "Racontez-moi votre activité — je vous dirai concrètement ce qu'un site peut lui apporter.",
+      "cta_button": "Discuter de mon projet"
+    },
+    "photographe": {
+      "context": "Une photographe avait besoin d'un portfolio à la hauteur de son travail : une galerie qui met les images en valeur, une identité forte et un parcours de contact simple pour transformer les visiteurs en réservations.",
+      "approach": "Direction artistique épurée pour laisser toute la place aux photos, galerie immersive et responsive, animations douces et appels à l'action présents à chaque étape du parcours — sans jamais voler la vedette aux images."
+    },
+    "toiture_artisan": {
+      "context": "Un artisan couvreur voulait un site qui inspire confiance dès la première seconde et qui génère des demandes de devis, face à des concurrents souvent invisibles ou datés en ligne.",
+      "approach": "Structure entièrement pensée pour la conversion : preuves de confiance mises en avant, services expliqués simplement, demande de devis accessible depuis chaque section et optimisation pour la recherche locale."
+    },
+    "luxa": {
+      "context": "Luxa est née d'un constat personnel : les applications de budget sont souvent complexes et décourageantes. L'objectif — rendre la gestion d'argent simple, visuelle et quotidienne.",
+      "approach": "Application mobile React Native avec Supabase : authentification sécurisée, suivi des transactions en temps réel, poches d'épargne personnalisables et statistiques claires. Une interface pensée pour être ouverte tous les jours."
+    },
+    "unityvert": {
+      "context": "Un jardinier paysagiste souhaitait développer son activité avec une vraie présence en ligne : présenter ses services, rassurer et permettre une prise de contact simple.",
+      "approach": "Site vitrine sobre et chaleureux, services structurés, contenu administrable avec Sanity pour qu'il reste autonome, et formulaire de contact direct. Mis en ligne sur son propre domaine."
+    },
+    "mets_merveilles": {
+      "context": "Mets & Merveilles est une plateforme de gestion de recettes et de menus : créer, organiser par catégories et retrouver ses recettes facilement.",
+      "approach": "Application full-stack : front Next.js, API Spring Boot, base PostgreSQL et authentification Clerk. Un projet qui couvre toute la chaîne, de la modélisation des données à l'interface."
+    },
+    "portfolio": {
+      "context": "Ce site lui-même : la vitrine de mon travail devait démontrer ce que je vends — design soigné, animations maîtrisées, performance et référencement.",
+      "approach": "Next.js avec App Router, animations GSAP et Framer Motion, internationalisation FR/EN, SEO technique complet et scores de performance élevés. Le code est public sur GitHub."
+    }
+  },
+  "pages": {
+    "services": {
+      "heading": "Des sites sur mesure, pas des formules toutes faites.",
+      "intro": "Trois façons de travailler ensemble, selon où en est votre projet."
+    },
+    "about": {
+      "heading": "Derrière le code, une personne.",
+      "intro": "Parcours, manière de travailler et ce qui m'anime au quotidien."
+    },
+    "contact": {
+      "heading": "Parlons de votre projet.",
+      "intro": "Formulaire, appel ou email — choisissez ce qui vous convient. Réponse sous 24 h."
+    }
+  },
+  "cv": {
+    "label": "Profil professionnel",
+    "heading": "Minhaj Zubair",
+    "role": "Développeur Full-Stack — Next.js · Spring Boot · React Native",
+    "objective": "Ouvert aux opportunités d'alternance et aux collaborations en entreprise, en développement web et mobile.",
+    "intro": "Cette page s'adresse aux recruteurs, aux écoles et aux entreprises : parcours, compétences techniques et projets, avec CV téléchargeable.",
+    "download": "Télécharger mon CV",
+    "email_cta": "Me contacter",
+    "skills_title": "Compétences techniques",
+    "projects_title": "Projets notables",
+    "contact_title": "Un poste, une alternance, une mission ?",
+    "contact_text": "Parlons-en — je réponds sous 24 h.",
+    "back": "Voir le portfolio complet",
+    "skills": {
+      "frontend": "Front-end",
+      "backend": "Back-end",
+      "mobile": "Mobile",
+      "tools": "Outils & méthodes"
+    }
+  },
+  "marquee": {
+    "items": ["Sites vitrines", "Applications web", "Expériences immersives", "SEO & Performance"]
+  },
+  "consent": {
+    "title": "Mesure d'audience",
+    "description": "J'utilise Google Analytics pour comprendre comment le site est utilisé et l'améliorer. Aucune donnée n'est utilisée à des fins publicitaires.",
+    "accept": "Accepter",
+    "deny": "Refuser"
+  },
+  "about_teaser": {
+    "label": "À propos",
+    "heading": "Un développeur, pas une agence.",
+    "p1": "Je m'appelle Minhaj. Basé à Paris, je conçois et développe chaque projet moi-même, de la première idée à la mise en ligne. Vous parlez directement à la personne qui crée votre site — pas à un intermédiaire.",
+    "p2": "Mon exigence : des sites rapides, soignés dans le moindre détail et pensés pour servir votre activité. Ce portfolio en est la démonstration.",
+    "cta": "Faisons connaissance"
   },
   "services": {
-    "title": "Ce que je vous apporte",
-    "subtitle": "Des compétences solides et des solutions concrètes, adaptées à vos besoins en entreprise ou en mission",
-    "heading": "Ce que je fais",
-    "frontend": {
-      "description": "Interfaces modernes et réactives avec React et Next.js"
-    },
-    "backend": {
-      "description": "APIs robustes et services cloud avec Spring Boot, Supabase et Firebase"
-    },
-    "mobile": {
-      "description": "Applications cross-platform avec React Native/Expo et Supabase"
-    },
-    "companies": {
-      "badge": "CDI / Alternance",
-      "title": "Pour les entreprises",
-      "items": [
-        "Intégration dans une équipe de développement",
-        "Développement de nouvelles fonctionnalités",
-        "Maintenance et amélioration de l'existant",
-        "Collaboration en méthode Agile"
-      ]
-    },
-    "freelance": {
-      "badge": "Freelance",
-      "title": "Pour vos projets",
-      "items": [
-        "Création de sites web sur mesure",
-        "Développement d'applications mobiles",
-        "Refonte et optimisation de sites existants",
-        "Accompagnement technique"
-      ],
-      "cta": "Discuter de votre projet"
-    }
+    "label": "Services",
+    "heading": "Ce que je crée pour vous",
+    "intro": "Chaque projet est conçu sur mesure — pas de template, pas de formule toute faite. On définit ensemble ce dont votre activité a besoin, je m'occupe du reste.",
+    "cta": "Demander un devis",
+    "offers": [
+      {
+        "situation": "Vous lancez ou développez votre activité",
+        "title": "Site vitrine sur mesure",
+        "description": "Un site rapide, élégant et pensé pour convaincre : vos visiteurs comprennent ce que vous faites et vous contactent. Conçu, développé et mis en ligne en quelques semaines.",
+        "bullets": [
+          "Design sur mesure, fidèle à votre image",
+          "Optimisé pour Google et les mobiles",
+          "Formulaire de contact ou prise de rendez-vous",
+          "Mise en ligne clé en main"
+        ]
+      },
+      {
+        "situation": "Vous avez un produit ou un outil à construire",
+        "title": "Application web",
+        "description": "Un espace client, un tableau de bord, un outil métier : une interface fluide et une architecture solide qui grandit avec votre activité.",
+        "bullets": [
+          "Interface fluide et intuitive",
+          "Espace d'administration sécurisé",
+          "Base de données et API robustes",
+          "Pensée pour évoluer"
+        ]
+      },
+      {
+        "situation": "Vous avez déjà un site",
+        "title": "Refonte, optimisation & suivi",
+        "description": "Votre site existe mais ne convertit pas, ou mérite mieux : je le repense, l'accélère et le garde à jour pour que vous restiez concentré sur votre métier.",
+        "bullets": [
+          "Refonte du design et du contenu",
+          "Performance et référencement",
+          "Mises à jour et sécurité",
+          "Un interlocuteur direct, pas un ticket"
+        ]
+      }
+    ],
+    "process_label": "Le déroulé",
+    "process_heading": "Comment nous travaillerons ensemble",
+    "process": [
+      {
+        "title": "On échange",
+        "description": "Un appel de 30 minutes pour comprendre votre activité et vos objectifs. Vous recevez un devis clair sous 48 h."
+      },
+      {
+        "title": "Je conçois",
+        "description": "Une maquette fidèle à votre image. Vous validez avant qu'une seule ligne de code soit écrite."
+      },
+      {
+        "title": "Je développe",
+        "description": "Un site rapide, propre et durable. Vous suivez l'avancement, sans jargon technique."
+      },
+      {
+        "title": "On lance",
+        "description": "Mise en ligne, derniers ajustements et prise en main. Je reste disponible après le lancement."
+      }
+    ]
   },
   "about": {
     "title": "À propos de moi",
@@ -76,7 +198,7 @@
       "paragraph1": "Minhaj, 25 ans, développeur basé à Paris. J'ai commencé à coder par curiosité, aujourd'hui c'est devenu mon métier.",
       "paragraph2": "Mon truc : prendre une idée et la transformer en quelque chose de concret. Que ce soit une app mobile, un site web ou une API, j'aime voir le résultat de mon travail.",
       "paragraph3": "Quand je ne code pas, je suis à la salle ou je me renseigne sur l'immobilier et l'entrepreneuriat. J'aime construire des choses, que ce soit un projet ou ma vie.",
-      "paragraph4": "Actuellement dispo pour des missions freelance ou un CDI. Si t'as un projet en tête, on en parle."
+      "paragraph4": "Actuellement disponible pour de nouvelles missions freelance. Vous avez un projet en tête ? Parlons-en."
     },
     "tech_stack_title": "Stack technique",
     "role": "Développeur Full-Stack",
@@ -229,7 +351,8 @@
     "methods": {
       "call": {
         "title": "Réserver un appel",
-        "description": "Discutons de votre projet"
+        "description": "30 minutes, gratuit et sans engagement — pour parler de votre projet.",
+        "action": "Réserver un créneau"
       },
       "linkedin": {
         "description": "Connectons-nous"
@@ -241,16 +364,20 @@
   },
   "footer": {
     "rights": "Tous droits réservés",
-    "made_with": "Fait avec",
-    "and_lots_of": "et beaucoup de",
-    "cta_description": "Une idée de projet ? Une opportunité ? N'hésitez pas à me contacter. Je suis toujours ouvert à discuter de nouveaux projets.",
-    "tagline": "Développeur Full-Stack passionné par la création d'expériences digitales uniques et performantes. Basé à Paris, disponible partout.",
+    "crafted": "Conçu et développé avec soin, à Paris.",
+    "cta_label": "Un projet en tête ?",
+    "cta_title_line1": "Parlons de",
+    "cta_title_line2": "votre projet.",
+    "cta_description": "Racontez-moi votre idée — je vous réponds sous 24 h avec un premier avis et les prochaines étapes.",
+    "tagline": "Développeur créatif indépendant. Je conçois des expériences web sur mesure pour les indépendants, les marques et les entrepreneurs — depuis Paris, pour le monde entier.",
     "status_badge": "Disponible pour nouveaux projets",
     "nav_title": "Navigation",
     "contact_title": "Contact",
     "location": "Paris, France",
-    "availability": "CDI / Freelance / Remote",
-    "response_time": "Réponse sous 24h"
+    "availability": "Freelance · France & international",
+    "response_time": "Réponse sous 24 h",
+    "maintenance_link": "Maintenance & suivi",
+    "cv_link": "Recruteurs : mon profil"
   },
   "errors": {
     "invalid_name": "Le nom doit contenir entre 2 et 50 caractères alphabétiques",
