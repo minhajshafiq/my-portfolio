@@ -7,10 +7,12 @@ import { ArrowUp, Briefcase, MapPin, Zap } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { FaEnvelope, FaGithub, FaLinkedinIn } from 'react-icons/fa'
 import { SiMalt } from 'react-icons/si'
+import { Link } from '@/components/ui/AppLink'
 import { useTranslation } from '@/hooks/useTranslation'
 import { Magnetic } from '@/components/ui/Magnetic'
 import { trackEvent } from '@/utils/analytics'
 import { cn } from '@/utils/cn'
+import { EASE_SMOOTH, fadeUp } from '@/lib/motion'
 
 type IconComponent = ComponentType<{ className?: string }>
 
@@ -72,15 +74,6 @@ const FOOTER_INFO_ITEMS: FooterInfoItem[] = [
   { icon: Briefcase, key: 'footer.availability' },
   { icon: Zap, key: 'footer.response_time' },
 ]
-
-const TECH_BADGES = ['Next.js', 'Tailwind', 'GSAP']
-
-const EASE_SMOOTH = [0.33, 1, 0.68, 1] as const
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0 },
-}
 
 function SectionBackground() {
   return (
@@ -160,7 +153,10 @@ export function Footer() {
   }, [])
 
   return (
-    <footer className="relative isolate overflow-hidden bg-custom-primary">
+    <footer
+      id="site-footer"
+      className="relative isolate overflow-hidden bg-custom-primary"
+    >
       <SectionBackground />
 
       <div className="container relative z-10 mx-auto px-6">
@@ -258,24 +254,24 @@ export function Footer() {
                 <ul className="grid gap-3">
                   {QUICK_LINKS.map((link) => (
                     <li key={link.key}>
-                      <a
+                      <Link
                         href={`/${language}${link.href}`}
                         className="group inline-flex items-center gap-2 text-sm font-semibold text-custom-secondary transition-colors hover:text-custom-title"
                       >
                         <span className="h-px w-0 bg-[#8C0605] transition-all duration-300 group-hover:w-4 dark:bg-red-400" />
                         {tr(link.key)}
-                      </a>
+                      </Link>
                     </li>
                   ))}
 
                   <li>
-                    <a
+                    <Link
                       href={`/${language}/maintenance`}
                       className="group inline-flex items-center gap-2 text-sm font-semibold text-custom-secondary transition-colors hover:text-custom-title"
                     >
                       <span className="h-px w-0 bg-[#8C0605] transition-all duration-300 group-hover:w-4 dark:bg-red-400" />
                       {tr('footer.maintenance_link')}
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </FooterColumn>
@@ -339,12 +335,12 @@ export function Footer() {
               >
                 © {currentYear} Minhaj Zubair. {tr('footer.rights')}.
                 {' · '}
-                <a
+                <Link
                   href={`/${language}/cv`}
                   className="underline decoration-1 underline-offset-4 opacity-80 transition-all hover:opacity-100 hover:text-custom-title"
                 >
                   {tr('footer.cv_link')}
-                </a>
+                </Link>
               </motion.p>
 
               <motion.p
@@ -355,22 +351,6 @@ export function Footer() {
               >
                 {tr('footer.crafted')}
               </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                className="flex flex-wrap items-center justify-center gap-2 text-sm text-custom-secondary"
-              >
-                {TECH_BADGES.map((tech) => (
-                  <span
-                    key={tech}
-                    className="rounded-full border border-gray-200 bg-white/76 px-3 py-1.5 font-mono text-xs font-bold text-custom-title shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-white/[0.04]"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </motion.div>
             </div>
           </div>
         </div>
@@ -388,7 +368,7 @@ export function Footer() {
             whileHover={{ scale: 1.08, y: -3 }}
             whileTap={{ scale: 0.95 }}
             className="group fixed bottom-8 right-8 z-[90] cursor-pointer rounded-full bg-[#8C0605] p-4 text-white shadow-lg shadow-[#8C0605]/20 transition-all duration-300 hover:shadow-xl hover:shadow-[#8C0605]/30 dark:bg-red-400 dark:text-gray-950 dark:shadow-red-400/20"
-            aria-label="Scroll to top"
+            aria-label={tr('nav.back_to_top')}
           >
             <ArrowUp className="h-6 w-6 transition-transform duration-300 group-hover:-translate-y-1" />
           </motion.button>

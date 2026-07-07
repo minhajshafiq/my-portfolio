@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import type { ChangeEvent, ComponentType, FocusEvent, FormEvent } from 'react'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from '@/hooks/useTranslation'
 import { trackEvent } from '@/utils/analytics'
 import {
@@ -14,6 +14,8 @@ import {
   FaPaperPlane,
 } from 'react-icons/fa'
 import { SiMalt } from 'react-icons/si'
+import { EASE_SMOOTH, fadeUp } from '@/lib/motion'
+import { SectionLabel } from '@/components/ui/SectionLabel'
 
 type FormStatus = 'idle' | 'sending' | 'success' | 'error'
 
@@ -21,6 +23,9 @@ type FormData = {
   name: string
   email: string
   message: string
+  activityType: string
+  mainGoal: string
+  hasExistingSite: string
 }
 
 type FormErrors = Partial<Record<keyof FormData, string>>
@@ -31,21 +36,16 @@ type ContactMethod = {
   title: string
   description: string
   href: string
-  colorClassName: string
   isPrimary?: boolean
-}
-
-const EASE_SMOOTH = [0.33, 1, 0.68, 1] as const
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 22 },
-  visible: { opacity: 1, y: 0 },
 }
 
 const initialFormData: FormData = {
   name: '',
   email: '',
   message: '',
+  activityType: '',
+  mainGoal: '',
+  hasExistingSite: '',
 }
 
 function SectionBackground() {
@@ -73,7 +73,10 @@ function FieldError({ message }: { message?: string }) {
   )
 }
 
-export function Contact() {
+export function Contact({
+  narrativeLine,
+  narrativeKey,
+}: { narrativeLine?: string; narrativeKey?: string } = {}) {
   const [formData, setFormData] = useState<FormData>(initialFormData)
   const [status, setStatus] = useState<FormStatus>('idle')
   const [errors, setErrors] = useState<FormErrors>({})
@@ -87,13 +90,22 @@ export function Contact() {
     return Array.isArray(value) ? value.join(' ') : String(value)
   }
 
+  const resolvedNarrative = narrativeLine ?? (narrativeKey ? tr(narrativeKey) : undefined)
+
+  const rawActivityTypeOptions = t('contact.activity_type_options', { returnObjects: true })
+  const activityTypeOptions: string[] = Array.isArray(rawActivityTypeOptions)
+    ? rawActivityTypeOptions.map(String)
+    : []
+
+  const rawMainGoalOptions = t('contact.main_goal_options', { returnObjects: true })
+  const mainGoalOptions: string[] = Array.isArray(rawMainGoalOptions) ? rawMainGoalOptions.map(String) : []
+
   const contactMethods: ContactMethod[] = [
     {
       icon: FaCalendarAlt,
       title: tr('contact.methods.call.title'),
       description: tr('contact.methods.call.description'),
       href: 'https://calendly.com/minhaj-shafiq/30min',
-      colorClassName: 'from-purple-500 to-pink-500',
       isPrimary: true,
     },
     {
@@ -101,21 +113,18 @@ export function Contact() {
       title: tr('contact.email_title'),
       description: 'contact@minhajshafiq.com',
       href: 'mailto:contact@minhajshafiq.com',
-      colorClassName: 'from-blue-500 to-cyan-500',
     },
     {
       icon: FaLinkedinIn,
       title: tr('contact.linkedin_title'),
       description: tr('contact.methods.linkedin.description'),
       href: 'https://www.linkedin.com/in/minhajshafiq/',
-      colorClassName: 'from-[#0A66C2] to-blue-600',
     },
     {
       icon: SiMalt,
       title: tr('contact.malt_title'),
       description: tr('contact.methods.malt.description'),
       href: 'https://www.malt.fr/profile/minhajzubair',
-      colorClassName: 'from-[#FC5757] to-red-600',
     },
   ]
 
@@ -127,11 +136,10 @@ export function Contact() {
   const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())
   const validateMessage = (message: string) => message.trim().length >= 10
 
-  const validateField = (name: keyof FormData, value: string): string => {
-    if (!value.trim()) {
-      return tr(`errors.${name}`)
-    }
+  // Seuls ces trois champs sont requis — les selects et le radio sont optionnels.
+  const REQUIRED_FIELDS = ['name', 'email', 'message'] as const
 
+  const validateField = (name: keyof FormData, value: string): string => {
     if (name === 'name' && !validateName(value)) {
       return tr('errors.invalid_name')
     }
@@ -150,19 +158,19 @@ export function Contact() {
   const validateForm = (): FormErrors => {
     const nextErrors: FormErrors = {}
 
-      ; (Object.keys(formData) as Array<keyof FormData>).forEach((fieldName) => {
-        const error = validateField(fieldName, formData[fieldName])
+    REQUIRED_FIELDS.forEach((fieldName) => {
+      const error = validateField(fieldName, formData[fieldName])
 
-        if (error) {
-          nextErrors[fieldName] = error
-        }
-      })
+      if (error) {
+        nextErrors[fieldName] = error
+      }
+    })
 
     return nextErrors
   }
 
   const handleInputChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const fieldName = event.target.name as keyof FormData
     const { value } = event.target
@@ -233,6 +241,9 @@ export function Contact() {
       submissionData.append('name', formData.name.trim())
       submissionData.append('email', formData.email.trim())
       submissionData.append('message', formData.message.trim())
+      if (formData.activityType) submissionData.append('activity_type', formData.activityType)
+      if (formData.mainGoal) submissionData.append('main_goal', formData.mainGoal)
+      if (formData.hasExistingSite) submissionData.append('has_existing_site', formData.hasExistingSite)
       submissionData.append('access_key', accessKey)
       submissionData.append('subject', `Nouveau message portfolio - ${formData.name.trim()}`)
       submissionData.append('from_name', 'Portfolio Minhaj Shafiq')
@@ -319,10 +330,13 @@ export function Contact() {
           >
             <div className="grid min-h-[clamp(12rem,20vh,17rem)] grid-cols-1 content-end gap-6 pb-9 pt-3 md:grid-cols-12 md:pb-10">
               <div className="md:col-span-8">
-                <span className="mb-6 flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#8C0605] dark:text-red-400">
-                  <span className="h-px w-10 bg-current" />
-                  {tr('contact.title')}
-                </span>
+                <SectionLabel>{tr('contact.title')}</SectionLabel>
+
+                {resolvedNarrative && (
+                  <p className="mb-3 font-serif text-lg italic leading-snug text-custom-secondary md:text-xl">
+                    {resolvedNarrative}
+                  </p>
+                )}
 
                 <h2 className="max-w-[min(820px,100%)] font-serif text-4xl font-medium leading-[1.02] tracking-[-0.025em] text-custom-title sm:text-5xl md:text-[clamp(3rem,5vw,4.6rem)]">
                   {tr('contact.subtitle')}
@@ -430,9 +444,7 @@ export function Contact() {
                       whileTap={{ scale: 0.98 }}
                       className="group relative overflow-hidden rounded-[1.5rem] border border-gray-200 bg-white/76 p-4 shadow-[0_16px_48px_rgba(0,0,0,0.055)] backdrop-blur-md transition-all hover:border-[#8C0605]/25 dark:border-white/10 dark:bg-white/[0.04] dark:hover:border-red-400/30"
                     >
-                      <div
-                        className={`mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br ${method.colorClassName} text-white shadow-lg`}
-                      >
+                      <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-custom text-[#8C0605] dark:text-red-400">
                         <MethodIcon className="h-4 w-4" />
                       </div>
 
@@ -544,6 +556,98 @@ export function Contact() {
                         {touched.email && <FieldError message={errors.email} />}
                       </div>
 
+                      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                        <div>
+                          <label
+                            htmlFor="activityType"
+                            className="mb-2 block text-sm font-bold text-custom-title"
+                          >
+                            {tr('contact.activity_type_label')}{' '}
+                            <span className="font-normal text-custom-muted">
+                              {tr('contact.optional_tag')}
+                            </span>
+                          </label>
+
+                          <select
+                            id="activityType"
+                            name="activityType"
+                            value={formData.activityType}
+                            onChange={handleInputChange}
+                            className="w-full rounded-2xl border border-gray-200 bg-white/70 px-4 py-3.5 text-custom-title outline-none transition-all duration-200 focus:border-[#8C0605] focus:ring-4 focus:ring-[#8C0605]/10 dark:border-white/10 dark:bg-white/[0.04] dark:focus:border-red-400 dark:focus:ring-red-400/10"
+                          >
+                            <option value="">{tr('contact.activity_type_placeholder')}</option>
+                            {activityTypeOptions.map((option) => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div>
+                          <label
+                            htmlFor="mainGoal"
+                            className="mb-2 block text-sm font-bold text-custom-title"
+                          >
+                            {tr('contact.main_goal_label')}{' '}
+                            <span className="font-normal text-custom-muted">
+                              {tr('contact.optional_tag')}
+                            </span>
+                          </label>
+
+                          <select
+                            id="mainGoal"
+                            name="mainGoal"
+                            value={formData.mainGoal}
+                            onChange={handleInputChange}
+                            className="w-full rounded-2xl border border-gray-200 bg-white/70 px-4 py-3.5 text-custom-title outline-none transition-all duration-200 focus:border-[#8C0605] focus:ring-4 focus:ring-[#8C0605]/10 dark:border-white/10 dark:bg-white/[0.04] dark:focus:border-red-400 dark:focus:ring-red-400/10"
+                          >
+                            <option value="">{tr('contact.main_goal_placeholder')}</option>
+                            {mainGoalOptions.map((option) => (
+                              <option key={option} value={option}>
+                                {option}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+
+                      <div>
+                        <span className="mb-2 block text-sm font-bold text-custom-title">
+                          {tr('contact.has_site_label')}{' '}
+                          <span className="font-normal text-custom-muted">
+                            {tr('contact.optional_tag')}
+                          </span>
+                        </span>
+
+                        <div className="flex gap-3" role="radiogroup" aria-label={tr('contact.has_site_label')}>
+                          {[
+                            { value: 'yes', label: tr('contact.has_site_yes') },
+                            { value: 'no', label: tr('contact.has_site_no') },
+                          ].map((option) => (
+                            <button
+                              key={option.value}
+                              type="button"
+                              role="radio"
+                              aria-checked={formData.hasExistingSite === option.value}
+                              onClick={() =>
+                                setFormData((previous) => ({
+                                  ...previous,
+                                  hasExistingSite: previous.hasExistingSite === option.value ? '' : option.value,
+                                }))
+                              }
+                              className={`rounded-full border px-5 py-2 text-sm font-semibold transition-all duration-200 ${
+                                formData.hasExistingSite === option.value
+                                  ? 'border-[#8C0605] bg-[#8C0605]/10 text-[#8C0605] dark:border-red-400 dark:bg-red-400/10 dark:text-red-400'
+                                  : 'border-gray-200 text-custom-secondary hover:border-[#8C0605]/40 dark:border-white/10'
+                              }`}
+                            >
+                              {option.label}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
                       <div>
                         <label
                           htmlFor="message"
@@ -576,7 +680,10 @@ export function Contact() {
                         disabled={status === 'sending'}
                         whileHover={{ y: status === 'sending' ? 0 : -2 }}
                         whileTap={{ scale: status === 'sending' ? 1 : 0.98 }}
-                        className={`flex w-full items-center justify-center gap-2 rounded-2xl py-4 font-bold transition-all duration-300 ${status === 'sending'
+                        // Petit temps fort à l'envoi réussi : le bouton « respire » une fois
+                        animate={status === 'success' ? { scale: [1, 1.03, 1] } : { scale: 1 }}
+                        transition={{ duration: 0.45, ease: EASE_SMOOTH }}
+                        className={`flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl py-4 font-bold transition-all duration-300 ${status === 'sending'
                             ? 'cursor-not-allowed bg-gray-400 text-gray-700'
                             : status === 'success'
                               ? 'bg-green-500 text-white'
@@ -585,7 +692,19 @@ export function Contact() {
                                 : 'bg-[#8C0605] text-white shadow-[0_18px_35px_rgba(140,6,5,0.22)] hover:bg-[#a70b0a] dark:bg-red-400 dark:text-gray-950 dark:hover:bg-red-300'
                           }`}
                       >
-                        {getSubmitContent()}
+                        {/* Le contenu glisse d'un état à l'autre au lieu de sauter */}
+                        <AnimatePresence mode="wait" initial={false}>
+                          <motion.span
+                            key={status}
+                            initial={{ y: 14, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            exit={{ y: -14, opacity: 0 }}
+                            transition={{ duration: 0.2, ease: EASE_SMOOTH }}
+                            className="flex items-center justify-center gap-2"
+                          >
+                            {getSubmitContent()}
+                          </motion.span>
+                        </AnimatePresence>
                       </motion.button>
 
                       <p className="mt-5 text-center text-xs text-custom-muted">

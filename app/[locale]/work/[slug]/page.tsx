@@ -1,12 +1,14 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from '@/components/ui/AppLink'
 import { notFound } from 'next/navigation'
 import { FaArrowLeft, FaArrowRight, FaExternalLinkAlt, FaGithub } from 'react-icons/fa'
 import { getPageMetadata } from '@/app/metadata'
+import { LuxaShowcaseCard } from '@/components/sections/LuxaShowcaseCard'
 import { PROJECTS, getProjectBySlug } from '@/data/projects'
 import { locales, isValidLocale, type Locale } from '@/utils/i18n'
 import { getServerT } from '@/utils/server-i18n'
+import { SectionLabel } from '@/components/ui/SectionLabel'
 
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
@@ -92,11 +94,8 @@ export default async function CaseStudyPage({
           </Link>
 
           {/* Header */}
-          <header className="mb-12 md:mb-16">
-            <p className="mb-6 flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#8C0605] dark:text-red-400">
-              <span className="h-px w-10 bg-current" />
-              {t(`projects.${project.key}.category`)}
-            </p>
+          <header id="case-hero" className="mb-12 md:mb-16">
+            <SectionLabel>{t(`projects.${project.key}.category`)}</SectionLabel>
 
             <h1 className="mb-6 font-serif text-[clamp(2.8rem,8vw,6rem)] font-medium leading-[1.02] tracking-[-0.025em] text-custom-title">
               {t(`projects.${project.key}.title`)}
@@ -108,15 +107,22 @@ export default async function CaseStudyPage({
           </header>
 
           {/* Hero image */}
-          <div className="relative mb-14 aspect-[16/9] overflow-hidden rounded-xl bg-custom-secondary md:mb-20">
-            <Image
-              src={project.image}
-              alt={t(`projects.${project.key}.title`)}
-              fill
-              priority
-              sizes="(min-width: 1280px) 1180px, 100vw"
-              className="object-cover"
-            />
+          <div
+            className="relative mb-14 aspect-[16/9] overflow-hidden rounded-xl bg-custom-secondary md:mb-20"
+            style={{ viewTransitionName: `project-image-${project.slug}` }}
+          >
+            {project.key === 'luxa' ? (
+              <LuxaShowcaseCard demoUrl={project.demo} />
+            ) : (
+              <Image
+                src={project.image}
+                alt={t(`projects.${project.key}.title`)}
+                fill
+                priority
+                sizes="(min-width: 1280px) 1180px, 100vw"
+                className="object-cover"
+              />
+            )}
           </div>
 
           {/* Meta + content */}
@@ -169,7 +175,7 @@ export default async function CaseStudyPage({
 
             {/* Body */}
             <div className="md:col-span-8">
-              <section className="mb-12">
+              <section id="case-context" className="mb-12">
                 <h2 className="mb-5 font-serif text-2xl font-medium tracking-[-0.02em] text-custom-title md:text-3xl">
                   {t('case_studies.labels.context')}
                 </h2>
@@ -179,7 +185,7 @@ export default async function CaseStudyPage({
                 </p>
               </section>
 
-              <section className="mb-12">
+              <section id="case-approach" className="mb-12">
                 <h2 className="mb-5 font-serif text-2xl font-medium tracking-[-0.02em] text-custom-title md:text-3xl">
                   {t('case_studies.labels.approach')}
                 </h2>
@@ -189,7 +195,7 @@ export default async function CaseStudyPage({
                 </p>
               </section>
 
-              <section>
+              <section id="case-results">
                 <h2 className="mb-5 font-serif text-2xl font-medium tracking-[-0.02em] text-custom-title md:text-3xl">
                   {t('case_studies.labels.results')}
                 </h2>
@@ -200,7 +206,7 @@ export default async function CaseStudyPage({
           </div>
 
           {/* CTA */}
-          <div className="mt-20 border-t border-custom pt-12 md:mt-28">
+          <div id="case-cta" className="mt-20 border-t border-custom pt-12 md:mt-28">
             <h2 className="mb-4 font-serif text-3xl font-medium tracking-[-0.02em] text-custom-title md:text-4xl">
               {t('case_studies.labels.cta_title')}
             </h2>

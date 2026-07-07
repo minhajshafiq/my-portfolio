@@ -5,8 +5,6 @@
 :root {
   /* Brand */
   --color-primary: #8C0605;
-  --color-primary-hover: #A20A08;
-  --color-primary-soft: rgba(140, 6, 5, 0.08);
   --color-accent: #FFD6D6;
 
   /* Light theme */
@@ -14,12 +12,11 @@
   --color-background-secondary: #F4F0E8;
 
   --color-surface: rgba(255, 255, 255, 0.72);
-  --color-surface-solid: #FFFFFF;
   --color-border: rgba(20, 18, 16, 0.12);
 
   --color-text-title: #141210;
   --color-text-secondary: rgba(20, 18, 16, 0.68);
-  --color-text-muted: rgba(20, 18, 16, 0.48);
+  --color-text-muted: rgba(20, 18, 16, 0.6);
 
   /* Grid background - discret */
   --color-grid-line: rgba(39, 37, 37, 0.028);
@@ -28,12 +25,6 @@
   /* Selection */
   --color-selection-bg: var(--color-primary);
   --color-selection-text: #FFFFFF;
-
-  /* Buttons */
-  --color-button-primary-bg: var(--color-primary);
-  --color-button-primary-text: #FFFFFF;
-  --color-button-secondary-border: var(--color-primary);
-  --color-button-secondary-text: var(--color-primary);
 }
 
 .dark {
@@ -42,12 +33,11 @@
   --color-background-secondary: #0D0E12;
 
   --color-surface: rgba(255, 255, 255, 0.045);
-  --color-surface-solid: #101114;
   --color-border: rgba(255, 255, 255, 0.10);
 
   --color-text-title: #F4F4F5;
   --color-text-secondary: rgba(244, 244, 245, 0.68);
-  --color-text-muted: rgba(244, 244, 245, 0.46);
+  --color-text-muted: rgba(244, 244, 245, 0.52);
 
   /* Grid background - discret */
   --color-grid-line: rgba(255, 255, 255, 0.022);
@@ -55,10 +45,6 @@
   /* Selection */
   --color-selection-bg: var(--color-accent);
   --color-selection-text: var(--color-background-primary);
-
-  /* Buttons */
-  --color-button-secondary-border: var(--color-accent);
-  --color-button-secondary-text: var(--color-accent);
 }
 
 @theme {
@@ -74,6 +60,7 @@
 @layer base {
   html {
     background-color: var(--color-background-primary);
+    overflow-x: clip;
   }
 
   body {
@@ -82,11 +69,19 @@
     background-color: var(--color-background-primary);
     color: var(--color-text-title);
     text-rendering: geometricPrecision;
+    overflow-x: clip;
   }
 
   ::selection {
     background-color: var(--color-selection-bg);
     color: var(--color-selection-text);
+  }
+}
+
+@supports not (overflow: clip) {
+  html,
+  body {
+    overflow-x: hidden;
   }
 }
 
@@ -103,7 +98,14 @@
       linear-gradient(to bottom, var(--color-grid-line) 1px, transparent 1px);
     background-size: var(--grid-size) var(--grid-size);
     background-position: 0 0;
-    background-attachment: fixed;
+  }
+
+  /* Grille fixe uniquement sur desktop : background-attachment: fixed force des
+     repaints à chaque frame de scroll sur mobile (et iOS l'ignore de toute façon). */
+  @media (min-width: 1024px) {
+    .bg-custom-primary {
+      background-attachment: fixed;
+    }
   }
 
   .bg-custom-secondary {
@@ -112,11 +114,6 @@
 
   .bg-custom-surface {
     background-color: var(--color-surface);
-    border: 1px solid var(--color-border);
-  }
-
-  .bg-custom-surface-solid {
-    background-color: var(--color-surface-solid);
     border: 1px solid var(--color-border);
   }
 
@@ -138,89 +135,102 @@
     border-color: var(--color-border);
   }
 
-  /* Buttons */
-  .btn-primary {
-    background-color: var(--color-button-primary-bg);
-    color: var(--color-button-primary-text);
-    transition:
-      background-color 0.25s ease,
-      transform 0.25s ease,
-      box-shadow 0.25s ease;
-  }
-
-  .btn-primary:hover {
-    background-color: var(--color-primary-hover);
-    box-shadow: 0 18px 35px rgba(140, 6, 5, 0.24);
-  }
-
-  .btn-secondary {
-    border: 2px solid var(--color-button-secondary-border);
-    color: var(--color-button-secondary-text);
-    background-color: transparent;
-    transition:
-      background-color 0.25s ease,
-      color 0.25s ease,
-      border-color 0.25s ease;
-  }
-
-  .btn-secondary:hover {
-    background-color: var(--color-button-secondary-border);
-    color: var(--color-button-primary-text);
-  }
-
-  .dark .btn-secondary:hover {
-    color: var(--color-background-primary);
-  }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  /* Title gradient animation */
-  @keyframes gradient {
+  /* Point signature : disque rouge qui ponctue le titre et respire */
+  @keyframes signature-breathe {
     0%,
     100% {
-      background-position: 0% 50%;
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(140, 6, 5, 0.28);
     }
 
     50% {
-      background-position: 100% 50%;
+      transform: scale(1.14);
+      box-shadow: 0 0 18px 3px rgba(140, 6, 5, 0.32);
     }
   }
 
-  .animate-gradient {
-    background-size: 200% 200%;
-    animation: gradient 3s ease infinite;
+  .signature-dot {
+    animation: signature-breathe 3.4s ease-in-out infinite;
   }
 
-  /* Radial gradient helper */
-  .bg-gradient-radial {
-    background: radial-gradient(circle, var(--tw-gradient-stops));
+  .dark .signature-dot {
+    animation-name: signature-breathe-dark;
   }
 
-  /* Glassmorphism */
-  .glass {
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
+  @keyframes signature-breathe-dark {
+    0%,
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(248, 113, 113, 0.3);
+    }
+
+    50% {
+      transform: scale(1.14);
+      box-shadow: 0 0 20px 4px rgba(248, 113, 113, 0.4);
+    }
   }
 
-  /* Smooth hover lift */
-  .hover-lift {
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
+  @media (prefers-reduced-motion: reduce) {
+    .signature-dot {
+      animation: none;
+    }
   }
+}
 
-  .hover-lift:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 50px rgba(39, 37, 37, 0.10);
+/* ===========================================================================
+   View Transitions (navigation entre pages)
+   - Transition globale : fondu + léger glissement, calé sur l'easing du site
+   - Élément partagé (image projet) : morph fluide liste → fiche
+   - Le header reste stable pendant la transition
+   =========================================================================== */
+
+/* Transition globale de la page (racine) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+@keyframes vt-root-out {
+  to {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.994);
   }
+}
 
-  .dark .hover-lift:hover {
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+@keyframes vt-root-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(1.006);
+  }
+}
+
+::view-transition-old(root) {
+  animation: 0.42s both vt-root-out;
+}
+
+::view-transition-new(root) {
+  animation: 0.55s both vt-root-in;
+}
+
+/* Morph des éléments partagés (image des projets) */
+::view-transition-group(*) {
+  animation-duration: 0.6s;
+  animation-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
+}
+
+/* Le header ne bouge pas pendant la transition */
+::view-transition-group(site-header) {
+  animation-duration: 0.01ms;
+}
+
+/* Accessibilité : pas d'animation pour les utilisateurs qui la refusent */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

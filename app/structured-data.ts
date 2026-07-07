@@ -2,18 +2,18 @@ import { siteConfig } from './metadata'
 import type { Locale } from '@/utils/i18n'
 
 const localizedJobTitle: Record<Locale, string> = {
-  fr: 'Développeur créatif freelance',
-  en: 'Freelance Creative Developer',
+  fr: 'Développeur web freelance',
+  en: 'Freelance Web Developer',
 }
 
 const localizedDescription: Record<Locale, string> = {
-  fr: 'Développeur créatif freelance basé à Paris. Je conçois des sites web et applications sur mesure — modernes, rapides et pensés pour convertir.',
-  en: 'Freelance creative developer based in Paris. I design and build custom websites and web apps — modern, fast and made to convert.',
+  fr: 'Développeur web freelance basé à Paris. Je conçois des sites web et applications sur mesure — modernes, rapides et pensés pour convertir.',
+  en: 'Freelance web developer based in Paris. I design and build custom websites and web apps — modern, fast and made to convert.',
 }
 
 const localizedSiteName: Record<Locale, string> = {
-  fr: 'Minhaj Zubair — Développeur créatif freelance',
-  en: 'Minhaj Zubair — Creative Developer',
+  fr: 'Minhaj Zubair — Développeur web freelance',
+  en: 'Minhaj Zubair — Web Developer',
 }
 
 const localizedBreadcrumbHome: Record<Locale, string> = {

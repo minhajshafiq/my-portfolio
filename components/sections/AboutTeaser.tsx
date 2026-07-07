@@ -1,19 +1,23 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { FaArrowRight } from 'react-icons/fa'
 import { useTranslation } from '@/hooks/useTranslation'
 import { RevealText } from '@/components/ui/RevealText'
+import { EASE_SMOOTH, fadeUp } from '@/lib/motion'
+import { SectionLabel } from '@/components/ui/SectionLabel'
 
-const EASE_SMOOTH = [0.33, 1, 0.68, 1] as const
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0 },
-}
+gsap.registerPlugin(ScrollTrigger)
 
 export function AboutTeaser() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const photoInnerRef = useRef<HTMLDivElement>(null)
+  const proofsRef = useRef<HTMLUListElement>(null)
+
   const { t } = useTranslation()
 
   const tr = (key: string): string => {
@@ -21,9 +25,76 @@ export function AboutTeaser() {
     return Array.isArray(value) ? value.join(' ') : String(value)
   }
 
+  const rawProofs = t('about_teaser.proofs', { returnObjects: true })
+  const proofs: string[] = Array.isArray(rawProofs) ? rawProofs.map(String) : []
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (prefersReducedMotion || !photoInnerRef.current) return
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        photoInnerRef.current,
+        { yPercent: -8 },
+        {
+          yPercent: 8,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+          },
+        }
+      )
+    }, sectionRef)
+
+    return () => {
+      ctx.revert()
+    }
+  }, [])
+
+  // Les 3 preuves de confiance arrivent en léger stagger — plus calme que les
+  // reveals précédents (promesse, projets) : cette section humanise, elle ne doit
+  // pas être spectaculaire.
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (prefersReducedMotion || !proofsRef.current) return
+
+    const ctx = gsap.context(() => {
+      const items = gsap.utils.toArray<HTMLElement>('[data-proof]', proofsRef.current)
+
+      if (items.length === 0) return
+
+      gsap.fromTo(
+        items,
+        { autoAlpha: 0, y: 12 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.5,
+          stagger: 0.1,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: proofsRef.current,
+            start: 'top 88%',
+            once: true,
+          },
+        }
+      )
+    }, proofsRef)
+
+    return () => {
+      ctx.revert()
+    }
+  }, [proofs.length])
+
   return (
     <section
       id="about"
+      ref={sectionRef}
       className="relative bg-custom-primary py-[clamp(4.5rem,8vw,8rem)]"
     >
       <div className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 md:px-10 lg:px-[clamp(2.5rem,4vw,5rem)]">
@@ -38,13 +109,15 @@ export function AboutTeaser() {
             className="md:col-span-5"
           >
             <div className="group relative mx-auto aspect-[4/5] w-full max-w-[420px] overflow-hidden rounded-xl">
-              <Image
-                src="/minhaj.jpg"
-                alt={tr('hero.photo_alt')}
-                fill
-                sizes="(min-width: 768px) 420px, 100vw"
-                className="object-cover grayscale transition-all duration-700 ease-out group-hover:scale-[1.03] group-hover:grayscale-0"
-              />
+              <div ref={photoInnerRef} className="absolute inset-0 will-change-transform">
+                <Image
+                  src="/minhaj.jpg"
+                  alt={tr('hero.photo_alt')}
+                  fill
+                  sizes="(min-width: 768px) 420px, 100vw"
+                  className="scale-[1.12] object-cover grayscale transition-all duration-700 ease-out group-hover:scale-[1.16] group-hover:grayscale-0"
+                />
+              </div>
             </div>
           </motion.div>
 
@@ -57,10 +130,7 @@ export function AboutTeaser() {
             transition={{ delay: 0.1, duration: 0.75, ease: EASE_SMOOTH }}
             className="md:col-span-7"
           >
-            <p className="mb-6 flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#8C0605] dark:text-red-400">
-              <span className="h-px w-10 bg-current" />
-              {tr('about_teaser.label')}
-            </p>
+            <SectionLabel>{tr('about_teaser.label')}</SectionLabel>
 
             <RevealText
               as="h2"
@@ -72,9 +142,24 @@ export function AboutTeaser() {
               {tr('about_teaser.p1')}
             </p>
 
-            <p className="mb-9 max-w-[58ch] text-sm leading-7 text-custom-secondary md:text-base md:leading-8">
+            <p className="mb-7 max-w-[58ch] text-sm leading-7 text-custom-secondary md:text-base md:leading-8">
               {tr('about_teaser.p2')}
             </p>
+
+            {proofs.length > 0 && (
+              <ul ref={proofsRef} className="mb-9 flex flex-col gap-3">
+                {proofs.map((proof) => (
+                  <li
+                    key={proof}
+                    data-proof
+                    className="flex items-center gap-3 text-sm font-medium text-custom-title md:text-[15px]"
+                  >
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#8C0605] dark:bg-red-400" />
+                    {proof}
+                  </li>
+                ))}
+              </ul>
+            )}
 
             <a
               href="#contact"

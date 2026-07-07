@@ -19,18 +19,18 @@ const localizedContent: Record<
   { name: string; description: string; shortDescription: string; ogAlt: string }
 > = {
   fr: {
-    name: 'Minhaj Zubair — Développeur créatif freelance · Sites web sur mesure',
+    name: 'Minhaj Zubair — Développeur web freelance · Sites web sur mesure',
     description:
-      'Développeur créatif freelance basé à Paris. Je conçois des sites web et applications sur mesure — modernes, rapides et pensés pour convertir. Pour indépendants, marques et entrepreneurs, en France et à l\'international.',
-    shortDescription: 'Développeur créatif freelance · Sites web sur mesure',
-    ogAlt: 'Minhaj Zubair — Développeur créatif freelance',
+      'Développeur web freelance basé à Paris. Je conçois des sites web et applications sur mesure — modernes, rapides et pensés pour convertir. Pour indépendants, marques et entrepreneurs, en France et à l\'international.',
+    shortDescription: 'Développeur web freelance · Sites web sur mesure',
+    ogAlt: 'Minhaj Zubair — Développeur web freelance',
   },
   en: {
-    name: 'Minhaj Zubair — Creative Developer · Custom websites that convert',
+    name: 'Minhaj Zubair — Web Developer · Custom websites that convert',
     description:
-      'Freelance creative developer based in Paris. I design and build custom websites and web apps — modern, fast and made to convert. For independents, brands and entrepreneurs, in France and worldwide.',
-    shortDescription: 'Creative Developer · Custom websites',
-    ogAlt: 'Minhaj Zubair — Creative Developer',
+      'Freelance web developer based in Paris. I design and build custom websites and web apps — modern, fast and made to convert. For independents, brands and entrepreneurs, in France and worldwide.',
+    shortDescription: 'Web Developer · Custom websites',
+    ogAlt: 'Minhaj Zubair — Web Developer',
   },
 }
 

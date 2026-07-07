@@ -2,9 +2,15 @@
 
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useTranslation } from '@/hooks/useTranslation'
 
-/** Bande défilante en serif géant — alternance texte plein / contour. */
+gsap.registerPlugin(ScrollTrigger)
+
+/**
+ * Bande défilante en serif géant — alternance texte plein / contour.
+ * La vitesse et la direction réagissent à la vélocité du scroll.
+ */
 export function Marquee() {
   const trackRef = useRef<HTMLDivElement>(null)
 
@@ -25,7 +31,36 @@ export function Marquee() {
       repeat: -1,
     })
 
+    // Le scroll accélère la bande et peut inverser son sens ;
+    // à l'arrêt, retour progressif à la vitesse de croisière.
+    let idleTween: gsap.core.Tween | undefined
+    let idleTimeout: number | undefined
+
+    const trigger = ScrollTrigger.create({
+      onUpdate: (self) => {
+        const velocity = self.getVelocity()
+        const direction = velocity < 0 ? -1 : 1
+        const boost = gsap.utils.clamp(1, 4, 1 + Math.abs(velocity) / 900)
+
+        idleTween?.kill()
+        tween.timeScale(direction * boost)
+
+        window.clearTimeout(idleTimeout)
+        idleTimeout = window.setTimeout(() => {
+          idleTween = gsap.to(tween, {
+            timeScale: 1,
+            duration: 0.8,
+            ease: 'power2.out',
+            overwrite: true,
+          })
+        }, 300)
+      },
+    })
+
     return () => {
+      window.clearTimeout(idleTimeout)
+      idleTween?.kill()
+      trigger.kill()
       tween.kill()
     }
   }, [items.length])

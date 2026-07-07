@@ -9,12 +9,12 @@ const PAGE_META: Record<Locale, { title: string; description: string }> = {
   fr: {
     title: 'Contact — Discutons de votre projet',
     description:
-      'Un projet de site web ou d\'application ? Contactez Minhaj Zubair, développeur créatif freelance : formulaire, appel de 30 minutes ou email. Réponse sous 24 h.',
+      'Un projet de site web ou d\'application ? Contactez Minhaj Zubair, développeur web freelance : formulaire, appel de 30 minutes ou email. Réponse sous 24 h.',
   },
   en: {
     title: 'Contact — Let\'s talk about your project',
     description:
-      'A website or application project? Contact Minhaj Zubair, freelance creative developer: form, 30-minute call or email. Reply within 24 hours.',
+      'A website or application project? Contact Minhaj Zubair, freelance web developer: form, 30-minute call or email. Reply within 24 hours.',
   },
 }
 

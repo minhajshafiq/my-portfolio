@@ -7,6 +7,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+// Instance partagée : les resets de scroll programmés (AppLink/ScrollReset)
+// doivent passer par Lenis, sinon il ramène la page à son ancienne position.
+let lenisInstance: Lenis | null = null
+
+export function getLenis() {
+  return lenisInstance
+}
+
 export function SmoothScroll() {
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -18,6 +26,8 @@ export function SmoothScroll() {
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     })
+
+    lenisInstance = lenis
 
     lenis.on('scroll', ScrollTrigger.update)
 
@@ -31,6 +41,7 @@ export function SmoothScroll() {
     return () => {
       gsap.ticker.remove(onTick)
       lenis.destroy()
+      lenisInstance = null
     }
   }, [])
 

@@ -1,12 +1,18 @@
 'use client'
 
-import { useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { motion } from 'framer-motion'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { FaArrowRight, FaPlus } from 'react-icons/fa'
 import { useTranslation } from '@/hooks/useTranslation'
 import { RevealText } from '@/components/ui/RevealText'
 import { trackEvent } from '@/utils/analytics'
 import { cn } from '@/utils/cn'
+import { EASE_SMOOTH, fadeUp } from '@/lib/motion'
+import { SectionLabel } from '@/components/ui/SectionLabel'
+
+gsap.registerPlugin(ScrollTrigger)
 
 type Offer = {
   situation: string
@@ -18,13 +24,6 @@ type Offer = {
 type ProcessStep = {
   title: string
   description: string
-}
-
-const EASE_SMOOTH = [0.33, 1, 0.68, 1] as const
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0 },
 }
 
 function OfferRow({
@@ -95,54 +94,58 @@ function OfferRow({
         </span>
       </button>
 
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.45, ease: EASE_SMOOTH }}
-            className="overflow-hidden"
-          >
-            <div className="grid grid-cols-1 gap-8 pb-10 pl-0 md:grid-cols-12 md:pl-[calc(2.5rem+1rem)] lg:pl-[4.5rem]">
-              <div className="md:col-span-6">
-                <p className="max-w-[56ch] text-sm leading-7 text-custom-secondary md:text-[15px]">
-                  {offer.description}
-                </p>
-
-                <a
-                  href="#contact"
-                  onClick={() =>
-                    trackEvent('service_interest', { service: offer.title, section: 'services' })
-                  }
-                  className="group/cta mt-7 inline-flex items-center gap-3 rounded-full bg-[#8C0605] px-6 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#a70b0a] dark:bg-red-400 dark:text-gray-950 dark:hover:bg-red-300"
-                >
-                  {ctaLabel}
-                  <FaArrowRight className="h-3 w-3 transition-transform duration-300 group-hover/cta:translate-x-1" />
-                </a>
-              </div>
-
-              <ul className="space-y-3 md:col-span-6">
-                {offer.bullets.map((bullet) => (
-                  <li
-                    key={bullet}
-                    className="flex items-start gap-3 border-b border-custom pb-3 text-sm leading-6 text-custom-secondary last:border-b-0"
-                  >
-                    <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-[#8C0605] dark:bg-red-400" />
-                    <span>{bullet}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
+      <div
+        className={cn(
+          'grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.33,1,0.68,1)]',
+          isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
         )}
-      </AnimatePresence>
+      >
+        <div className="overflow-hidden">
+          <div
+            className={cn(
+              'grid grid-cols-1 gap-8 pb-10 pl-0 transition-opacity duration-300 md:grid-cols-12 md:pl-[calc(2.5rem+1rem)] lg:pl-[4.5rem]',
+              isOpen ? 'opacity-100 delay-150' : 'opacity-0'
+            )}
+          >
+            <div className="md:col-span-6">
+              <p className="max-w-[56ch] text-sm leading-7 text-custom-secondary md:text-[15px]">
+                {offer.description}
+              </p>
+
+              <a
+                href="#contact"
+                onClick={() =>
+                  trackEvent('service_interest', { service: offer.title, section: 'services' })
+                }
+                className="group/cta mt-7 inline-flex items-center gap-3 rounded-full bg-[#8C0605] px-6 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#a70b0a] dark:bg-red-400 dark:text-gray-950 dark:hover:bg-red-300"
+              >
+                {ctaLabel}
+                <FaArrowRight className="h-3 w-3 transition-transform duration-300 group-hover/cta:translate-x-1" />
+              </a>
+            </div>
+
+            <ul className="space-y-3 md:col-span-6">
+              {offer.bullets.map((bullet) => (
+                <li
+                  key={bullet}
+                  className="flex items-start gap-3 border-b border-custom pb-3 text-sm leading-6 text-custom-secondary last:border-b-0"
+                >
+                  <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-[#8C0605] dark:bg-red-400" />
+                  <span>{bullet}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </motion.div>
   )
 }
 
 export function Services() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
+
+  const processRef = useRef<HTMLDivElement>(null)
 
   const { t } = useTranslation()
 
@@ -156,6 +159,57 @@ export function Services() {
 
   const rawProcess = t('services.process', { returnObjects: true })
   const processSteps: ProcessStep[] = Array.isArray(rawProcess) ? (rawProcess as ProcessStep[]) : []
+
+  const handleToggle = (index: number) => {
+    setOpenIndex((previous) => (previous === index ? null : index))
+  }
+
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (prefersReducedMotion) return
+
+    const ctx = gsap.context(() => {
+      const steps = gsap.utils.toArray<HTMLElement>('[data-process-step]', processRef.current)
+
+      if (steps.length === 0) return
+
+      steps.forEach((step, index) => {
+        const line = step.querySelector('[data-process-line]')
+        const content = step.querySelector('[data-process-content]')
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: step,
+            start: 'top 85%',
+            once: true,
+          },
+          delay: (index % 4) * 0.12,
+        })
+
+        if (line) {
+          tl.fromTo(
+            line,
+            { scaleX: 0 },
+            { scaleX: 1, duration: 0.7, ease: 'power3.inOut' }
+          )
+        }
+
+        if (content) {
+          tl.fromTo(
+            content,
+            { y: 26, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 0.65, ease: 'power3.out' },
+            '-=0.4'
+          )
+        }
+      })
+    }, processRef)
+
+    return () => {
+      ctx.revert()
+    }
+  }, [processSteps.length])
 
   return (
     <section
@@ -173,10 +227,7 @@ export function Services() {
             transition={{ duration: 0.7, ease: EASE_SMOOTH }}
             className="mb-14 md:mb-20"
           >
-            <p className="mb-6 flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#8C0605] dark:text-red-400">
-              <span className="h-px w-10 bg-current" />
-              {tr('services.label')}
-            </p>
+            <SectionLabel>{tr('services.label')}</SectionLabel>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:items-end">
               <RevealText
@@ -199,7 +250,7 @@ export function Services() {
                 offer={offer}
                 index={index}
                 isOpen={openIndex === index}
-                onToggle={() => setOpenIndex(openIndex === index ? null : index)}
+                onToggle={() => handleToggle(index)}
                 ctaLabel={tr('services.cta')}
               />
             ))}
@@ -213,38 +264,40 @@ export function Services() {
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.65, ease: EASE_SMOOTH }}
           >
-            <p className="mb-6 flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#8C0605] dark:text-red-400">
-              <span className="h-px w-10 bg-current" />
-              {tr('services.process_label')}
-            </p>
+            <SectionLabel>{tr('services.process_label')}</SectionLabel>
 
             <h3 className="mb-12 max-w-[24ch] font-serif text-[clamp(1.9rem,4vw,3.2rem)] font-medium leading-[1.05] tracking-[-0.02em] text-custom-title md:mb-16">
               {tr('services.process_heading')}
             </h3>
 
-            <div className="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+            <div
+              ref={processRef}
+              className="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4"
+            >
               {processSteps.map((step, index) => (
-                <motion.div
-                  key={step.title}
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: '-60px' }}
-                  transition={{ delay: index * 0.08, duration: 0.6, ease: EASE_SMOOTH }}
-                  className="border-t border-custom pt-6"
-                >
-                  <span className="mb-5 block font-serif text-sm font-medium text-[#8C0605] dark:text-red-400">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
+                <div key={step.title} data-process-step className="relative pt-6">
+                  {/* Trait de base, toujours visible : le chemin existe avant même le scroll */}
+                  <span className="absolute left-0 top-0 h-px w-full bg-custom-border/40" />
+                  {/* Fil rouge : se dessine par-dessus, étape après étape */}
+                  <span
+                    data-process-line
+                    className="absolute left-0 top-0 h-px w-full origin-left scale-x-0 bg-[#8C0605] dark:bg-red-400"
+                  />
 
-                  <h4 className="mb-3 font-serif text-xl font-medium tracking-[-0.01em] text-custom-title">
-                    {step.title}
-                  </h4>
+                  <div data-process-content>
+                    <span className="mb-5 block font-serif text-sm font-medium text-[#8C0605] dark:text-red-400">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
 
-                  <p className="text-sm leading-6 text-custom-secondary">
-                    {step.description}
-                  </p>
-                </motion.div>
+                    <h4 className="mb-3 font-serif text-xl font-medium tracking-[-0.01em] text-custom-title">
+                      {step.title}
+                    </h4>
+
+                    <p className="text-sm leading-6 text-custom-secondary">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
               ))}
             </div>
           </motion.div>

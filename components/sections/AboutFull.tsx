@@ -5,13 +5,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { FaArrowRight } from 'react-icons/fa'
 import { useTranslation } from '@/hooks/useTranslation'
-
-const EASE_SMOOTH = [0.33, 1, 0.68, 1] as const
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0 },
-}
+import { EASE_SMOOTH, fadeUp } from '@/lib/motion'
+import { SectionLabel } from '@/components/ui/SectionLabel'
 
 const PASSION_KEYS = ['fitness', 'entrepreneurship', 'cars', 'music', 'travel'] as const
 
@@ -24,7 +19,11 @@ export function AboutFull() {
   }
 
   return (
-    <section className="relative bg-custom-primary py-[clamp(4rem,7vw,7rem)]">
+    <section
+      id="about-full"
+
+      className="relative bg-custom-primary py-[clamp(4rem,7vw,7rem)]"
+    >
       <div className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 md:px-10 lg:px-[clamp(2.5rem,4vw,5rem)]">
         <div className="mx-auto w-full max-w-[min(1180px,calc(100vw-2.5rem))]">
           {/* Profile */}
@@ -86,10 +85,7 @@ export function AboutFull() {
             transition={{ duration: 0.65, ease: EASE_SMOOTH }}
             className="mb-16 md:mb-20"
           >
-            <p className="mb-6 flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#8C0605] dark:text-red-400">
-              <span className="h-px w-10 bg-current" />
-              {tr('beyondCode.badge')}
-            </p>
+            <SectionLabel>{tr('beyondCode.badge')}</SectionLabel>
 
             <h2 className="mb-12 max-w-[24ch] font-serif text-[clamp(1.9rem,4vw,3.2rem)] font-medium leading-[1.05] tracking-[-0.02em] text-custom-title">
               {tr('beyondCode.title')}

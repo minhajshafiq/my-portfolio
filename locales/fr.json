@@ -4,7 +4,6 @@
     "about": "À propos",
     "services": "Services",
     "projects": "Projets",
-    "beyondCode": "Passions",
     "contact": "Contact",
     "back_to_top": "Retour en haut",
     "open_menu": "Ouvrir le menu",
@@ -16,13 +15,20 @@
   },
   "hero": {
     "available_for_work": "Disponible pour de nouveaux projets",
-    "title_lines": ["Des sites web", "qu'on n'oublie pas —", "et qui convertissent."],
-    "role_line": "Développeur créatif indépendant · Paris — France & international",
-    "description": "Je conçois et développe des sites et applications sur mesure pour les indépendants, les marques et les entrepreneurs qui veulent une présence en ligne à la hauteur de leur travail.",
+    "title_lines": [
+      "Des sites web",
+      "qu'on n'oublie pas —",
+      "et qui convertissent."
+    ],
+    "role_line": "Développeur web indépendant · Paris — France & international",
+    "description": "Je conçois et développe des sites et applications sur mesure pour les indépendants, les marques et les entrepreneurs qui veulent une présence en ligne qui inspire confiance — et transforme leurs visiteurs en clients.",
     "cta_primary": "Discuter de mon projet",
     "cta_secondary": "Voir les projets",
     "scroll": "Défiler",
-    "photo_alt": "Minhaj Zubair — Développeur créatif indépendant basé à Paris"
+    "reel_label": "Réalisation client",
+    "reel_hint": "Faites défiler pour voir les autres projets",
+    "reel_view": "Voir",
+    "photo_alt": "Minhaj Zubair — Développeur web indépendant basé à Paris"
   },
   "manifesto": {
     "label": "La promesse",
@@ -30,21 +36,34 @@
   },
   "work": {
     "label": "Projets sélectionnés",
-    "heading": "Le travail parle de lui-même.",
-    "intro": "Une sélection de projets récents — sites vitrines, applications et expériences sur mesure.",
+    "heading": "Quelques preuves concrètes.",
+    "intro": "Trois projets pour comprendre le style, la qualité d'exécution et le type de résultats que je construis.",
     "visit": "Voir le site",
     "case": "Découvrir le projet",
-    "all_projects": "Voir tous les projets",
+    "all_projects": "Explorer la page Work",
+    "home_cta_text": "La page Work rassemble les autres projets, les détails de contexte et les choix techniques. Ici, l'objectif est simplement de donner envie d'aller plus loin.",
     "page_heading": "Chaque projet raconte une histoire.",
     "page_intro": "Sites vitrines, applications web et mobiles — conçus sur mesure, du premier échange à la mise en ligne.",
     "github_title": "Envie de voir plus ?",
     "github_subtitle": "D'autres projets et le code source sont sur GitHub.",
-    "github_cta": "Mon GitHub"
+    "github_cta": "Mon GitHub",
+    "closing_line": "Votre projet pourrait être le prochain.",
+    "scroll_hint": "Faites défiler pour commencer le parcours",
+    "signature_badge": "Projet signature",
+    "epilogue_note": "Et si vous étiez justement en train de le regarder ?",
+    "badges": {
+      "showcase": "Site vitrine",
+      "conversion": "Conversion",
+      "seo_local": "SEO local",
+      "mobile_app": "App mobile",
+      "cms": "CMS",
+      "ecommerce": "E-commerce"
+    }
   },
   "case_studies": {
     "labels": {
-      "context": "Le contexte",
-      "approach": "L'approche",
+      "context": "Le problème",
+      "approach": "La solution",
       "results": "Ce que le projet apporte",
       "stack": "Technologies",
       "live": "Voir le site en ligne",
@@ -113,7 +132,12 @@
     }
   },
   "marquee": {
-    "items": ["Sites vitrines", "Applications web", "Expériences immersives", "SEO & Performance"]
+    "items": [
+      "Sites vitrines",
+      "Applications web",
+      "Expériences immersives",
+      "SEO & Performance"
+    ]
   },
   "consent": {
     "title": "Mesure d'audience",
@@ -126,7 +150,12 @@
     "heading": "Un développeur, pas une agence.",
     "p1": "Je m'appelle Minhaj. Basé à Paris, je conçois et développe chaque projet moi-même, de la première idée à la mise en ligne. Vous parlez directement à la personne qui crée votre site — pas à un intermédiaire.",
     "p2": "Mon exigence : des sites rapides, soignés dans le moindre détail et pensés pour servir votre activité. Ce portfolio en est la démonstration.",
-    "cta": "Faisons connaissance"
+    "cta": "Faisons connaissance",
+    "proofs": [
+      "Direct avec moi — pas d'intermédiaire",
+      "Design et code par la même personne",
+      "Suivi assuré après la mise en ligne"
+    ]
   },
   "services": {
     "label": "Services",
@@ -135,7 +164,7 @@
     "cta": "Demander un devis",
     "offers": [
       {
-        "situation": "Vous lancez ou développez votre activité",
+        "situation": "« Je veux un site qui inspire confiance dès la première visite »",
         "title": "Site vitrine sur mesure",
         "description": "Un site rapide, élégant et pensé pour convaincre : vos visiteurs comprennent ce que vous faites et vous contactent. Conçu, développé et mis en ligne en quelques semaines.",
         "bullets": [
@@ -146,7 +175,7 @@
         ]
       },
       {
-        "situation": "Vous avez un produit ou un outil à construire",
+        "situation": "« Je veux un outil qui simplifie mon activité au quotidien »",
         "title": "Application web",
         "description": "Un espace client, un tableau de bord, un outil métier : une interface fluide et une architecture solide qui grandit avec votre activité.",
         "bullets": [
@@ -157,7 +186,7 @@
         ]
       },
       {
-        "situation": "Vous avez déjà un site",
+        "situation": "« Je veux que mon site convertisse enfin »",
         "title": "Refonte, optimisation & suivi",
         "description": "Votre site existe mais ne convertit pas, ou mérite mieux : je le repense, l'accélère et le garde à jour pour que vous restiez concentré sur votre métier.",
         "bullets": [
@@ -188,69 +217,6 @@
         "description": "Mise en ligne, derniers ajustements et prise en main. Je reste disponible après le lancement."
       }
     ]
-  },
-  "about": {
-    "title": "À propos de moi",
-    "subtitle": "Mon parcours",
-    "description": "Découvrez mon parcours professionnel et mes compétences en développement web",
-    "profile": {
-      "title": "Qui je suis",
-      "paragraph1": "Minhaj, 25 ans, développeur basé à Paris. J'ai commencé à coder par curiosité, aujourd'hui c'est devenu mon métier.",
-      "paragraph2": "Mon truc : prendre une idée et la transformer en quelque chose de concret. Que ce soit une app mobile, un site web ou une API, j'aime voir le résultat de mon travail.",
-      "paragraph3": "Quand je ne code pas, je suis à la salle ou je me renseigne sur l'immobilier et l'entrepreneuriat. J'aime construire des choses, que ce soit un projet ou ma vie.",
-      "paragraph4": "Actuellement disponible pour de nouvelles missions freelance. Vous avez un projet en tête ? Parlons-en."
-    },
-    "tech_stack_title": "Stack technique",
-    "role": "Développeur Full-Stack",
-    "timeline": {
-      "title": "Formation & Expérience",
-      "experience_tab": "Expérience",
-      "education_tab": "Formation",
-      "experiences": {
-        "freelance": {
-          "year": "Mars 2025",
-          "degree": "Développeur Freelance",
-          "school": "Freelance",
-          "bullet1": "Conception et développement d'applications web et mobiles sur mesure (front-end & back-end)",
-          "bullet2": "Gestion complète de projets: analyse des besoins, architecture, développement, déploiement, maintenance",
-          "bullet3": "Intégration d'API RESTful sécurisées et optimisation des performances"
-        },
-        "ukenoon": {
-          "year": "Nov 2024 - Fév 2025",
-          "degree": "Stage Développeur Full Stack & Mobile",
-          "school": "Ukenoon",
-          "bullet1": "Encadrement et coordination d'une équipe de développeurs",
-          "bullet2": "Développement d'une application mobile avec Expo (React Native) et Spring Boot",
-          "bullet3": "Utilisation de GitHub et méthode Agile (Scrum) pour la gestion du projet"
-        }
-      },
-      "formations": {
-        "openclassrooms": {
-          "degree": "Développeur Web",
-          "school": "OpenClassrooms",
-          "bullet1": "Développement web front-end et back-end: JavaScript, API RESTful, React, Node.js/Express",
-          "bullet2": "Sécurité API RESTful, optimisation des performances, création d'applications complètes",
-          "bullet3": "6 projets professionnels sur GitHub (intégration, accessibilité, front-end React, back-end Node.js)"
-        },
-        "doranco": {
-          "degree": "Concepteur Développeur d'Applications",
-          "school": "Doranco",
-          "bullet1": "Développement web: HTML, CSS, JavaScript, React, Java, API RESTful, SQL/NoSQL",
-          "bullet2": "Méthodes: UML, Docker, Figma, Méthodes Agiles (Scrum)",
-          "bullet3": "Projets: Applications web full-stack, gestion de projet agile, documentation technique"
-        }
-      }
-    },
-    "cv": {
-      "title": "Télécharger mon CV",
-      "description": "Découvrez mon parcours complet et mes compétences détaillées",
-      "button": "Télécharger"
-    },
-    "collaboration": {
-      "title": "Envie de travailler ensemble ?",
-      "description": "Je suis ouvert aux opportunités freelance et aux collaborations sur des projets web et mobile.",
-      "button": "Me contacter"
-    }
   },
   "projects": {
     "title": "Projets Clés",
@@ -329,6 +295,7 @@
   "contact": {
     "title": "Contact",
     "subtitle": "Discutons de votre projet",
+    "home_closing_line": "Une idée en tête ? Transformons-la en présence web mémorable.",
     "name": "Nom",
     "email": "Email",
     "message": "Message",
@@ -348,6 +315,27 @@
     "malt_title": "Malt",
     "message_placeholder": "Parlez-moi de votre projet...",
     "privacy_note": "Vos données ne seront jamais partagées",
+    "optional_tag": "(optionnel)",
+    "activity_type_label": "Type d'activité",
+    "activity_type_placeholder": "Sélectionnez...",
+    "activity_type_options": [
+      "Indépendant / freelance",
+      "Startup",
+      "Entreprise / marque",
+      "Créateur / créatif",
+      "Autre"
+    ],
+    "main_goal_label": "Objectif principal",
+    "main_goal_placeholder": "Sélectionnez...",
+    "main_goal_options": [
+      "Nouveau site vitrine",
+      "Application web",
+      "Refonte d'un site existant",
+      "Autre"
+    ],
+    "has_site_label": "Avez-vous déjà un site ?",
+    "has_site_yes": "Oui",
+    "has_site_no": "Non",
     "methods": {
       "call": {
         "title": "Réserver un appel",
@@ -369,7 +357,7 @@
     "cta_title_line1": "Parlons de",
     "cta_title_line2": "votre projet.",
     "cta_description": "Racontez-moi votre idée — je vous réponds sous 24 h avec un premier avis et les prochaines étapes.",
-    "tagline": "Développeur créatif indépendant. Je conçois des expériences web sur mesure pour les indépendants, les marques et les entrepreneurs — depuis Paris, pour le monde entier.",
+    "tagline": "Développeur web indépendant. Je conçois des expériences web sur mesure pour les indépendants, les marques et les entrepreneurs — depuis Paris, pour le monde entier.",
     "status_badge": "Disponible pour nouveaux projets",
     "nav_title": "Navigation",
     "contact_title": "Contact",
@@ -427,6 +415,7 @@
     "subtitle": "Trois façons de travailler ensemble selon où vous en êtes.",
     "compare_badge": "Les formules",
     "why_badge": "Pourquoi moi",
+    "why_title": "Simple, clair, sans promesse magique.",
     "per_month": "/mois",
     "cta_title": "Une question avant de choisir ?",
     "cta_button": "Me contacter",
@@ -492,6 +481,69 @@
         "title": "Aucune garantie marketing déguisée",
         "description": "Je vous dis honnêtement ce qui marche et ce qui ne marche pas, mois après mois."
       }
+    }
+  },
+  "about": {
+    "title": "À propos de moi",
+    "subtitle": "Mon parcours",
+    "description": "Découvrez mon parcours professionnel et mes compétences en développement web",
+    "profile": {
+      "title": "Qui je suis",
+      "paragraph1": "Minhaj, 25 ans, développeur basé à Paris. J'ai commencé à coder par curiosité, aujourd'hui c'est devenu mon métier.",
+      "paragraph2": "Mon truc : prendre une idée et la transformer en quelque chose de concret. Que ce soit une app mobile, un site web ou une API, j'aime voir le résultat de mon travail.",
+      "paragraph3": "Quand je ne code pas, je suis à la salle ou je me renseigne sur l'immobilier et l'entrepreneuriat. J'aime construire des choses, que ce soit un projet ou ma vie.",
+      "paragraph4": "Actuellement disponible pour de nouvelles missions freelance. Vous avez un projet en tête ? Parlons-en."
+    },
+    "tech_stack_title": "Stack technique",
+    "role": "Développeur Full-Stack",
+    "timeline": {
+      "title": "Formation & Expérience",
+      "experience_tab": "Expérience",
+      "education_tab": "Formation",
+      "experiences": {
+        "freelance": {
+          "year": "Mars 2025",
+          "degree": "Développeur Freelance",
+          "school": "Freelance",
+          "bullet1": "Conception et développement d'applications web et mobiles sur mesure (front-end & back-end)",
+          "bullet2": "Gestion complète de projets: analyse des besoins, architecture, développement, déploiement, maintenance",
+          "bullet3": "Intégration d'API RESTful sécurisées et optimisation des performances"
+        },
+        "ukenoon": {
+          "year": "Nov 2024 - Fév 2025",
+          "degree": "Stage Développeur Full Stack & Mobile",
+          "school": "Ukenoon",
+          "bullet1": "Encadrement et coordination d'une équipe de développeurs",
+          "bullet2": "Développement d'une application mobile avec Expo (React Native) et Spring Boot",
+          "bullet3": "Utilisation de GitHub et méthode Agile (Scrum) pour la gestion du projet"
+        }
+      },
+      "formations": {
+        "openclassrooms": {
+          "degree": "Développeur Web",
+          "school": "OpenClassrooms",
+          "bullet1": "Développement web front-end et back-end: JavaScript, API RESTful, React, Node.js/Express",
+          "bullet2": "Sécurité API RESTful, optimisation des performances, création d'applications complètes",
+          "bullet3": "6 projets professionnels sur GitHub (intégration, accessibilité, front-end React, back-end Node.js)"
+        },
+        "doranco": {
+          "degree": "Concepteur Développeur d'Applications",
+          "school": "Doranco",
+          "bullet1": "Développement web: HTML, CSS, JavaScript, React, Java, API RESTful, SQL/NoSQL",
+          "bullet2": "Méthodes: UML, Docker, Figma, Méthodes Agiles (Scrum)",
+          "bullet3": "Projets: Applications web full-stack, gestion de projet agile, documentation technique"
+        }
+      }
+    },
+    "cv": {
+      "title": "Télécharger mon CV",
+      "description": "Découvrez mon parcours complet et mes compétences détaillées",
+      "button": "Télécharger"
+    },
+    "collaboration": {
+      "title": "Envie de travailler ensemble ?",
+      "description": "Je suis ouvert aux opportunités freelance et aux collaborations sur des projets web et mobile.",
+      "button": "Me contacter"
     }
   }
 }

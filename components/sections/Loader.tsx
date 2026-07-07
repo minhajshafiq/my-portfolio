@@ -67,6 +67,35 @@ export function Loader({ children }: LoaderProps) {
         return
       }
 
+      // Le header peut ne pas être encore monté (flag hydration-safe `mounted`
+      // du thème) au moment où cet effet tourne : mesurer sa position tout de
+      // suite serait une course. Les valeurs de la tween ci-dessous sont donc
+      // des fonctions, évaluées par GSAP au moment réel du départ du tween
+      // (~1.3s plus tard), quand le header est certainement dans le DOM.
+      let handoffCache: { dx: number; dy: number; scale: number } | null = null
+
+      const getHandoff = () => {
+        if (handoffCache) return handoffCache
+
+        const logoDot = document.querySelector<HTMLElement>('[data-logo-dot]')
+
+        if (!logoDot || !dotRef.current) {
+          handoffCache = { dx: 0, dy: -18, scale: 1 }
+          return handoffCache
+        }
+
+        const from = dotRef.current.getBoundingClientRect()
+        const to = logoDot.getBoundingClientRect()
+
+        handoffCache = {
+          dx: to.left + to.width / 2 - (from.left + from.width / 2),
+          dy: to.top + to.height / 2 - (from.top + from.height / 2),
+          scale: to.width / from.width,
+        }
+
+        return handoffCache
+      }
+
       gsap.set(chars, { yPercent: 120 })
       gsap.set(dotRef.current, { scale: 0 })
       gsap.set(lineRef.current, { scaleX: 0 })
@@ -83,17 +112,30 @@ export function Loader({ children }: LoaderProps) {
       })
         .to(dotRef.current, { scale: 1, duration: 0.35, ease: 'back.out(2.2)' }, '-=0.25')
         .to(lineRef.current, { scaleX: 1, duration: 0.55, ease: 'power2.inOut' }, '<')
+        .addLabel('exit', '+=0.35')
         .to(
-          [nameRef.current, dotRef.current, lineRef.current],
-          {
-            opacity: 0,
-            y: -18,
-            duration: 0.4,
-            ease: 'power2.in',
-            delay: 0.35,
-          }
+          [nameRef.current, lineRef.current],
+          { opacity: 0, y: -18, duration: 0.4, ease: 'power2.in' },
+          'exit'
         )
-        .to(topBarRef.current, { yPercent: -100, duration: 0.85, ease: 'power3.inOut' }, '-=0.1')
+
+      // Le point ne s'efface pas avec le reste : il rejoint la position exacte du
+      // point du logo dans le header, pour que l'intro se prolonge dans le site
+      // plutôt que de simplement disparaître — une seule continuité, pas un motif
+      // répété partout.
+      tl.to(
+        dotRef.current,
+        {
+          x: () => getHandoff().dx,
+          y: () => getHandoff().dy,
+          scale: () => getHandoff().scale,
+          duration: 0.7,
+          ease: 'power3.inOut',
+        },
+        'exit'
+      ).to(dotRef.current, { opacity: 0, duration: 0.15 }, 'exit+=0.6')
+
+      tl.to(topBarRef.current, { yPercent: -100, duration: 0.85, ease: 'power3.inOut' }, 'exit+=0.35')
         .to(bottomBarRef.current, { yPercent: 100, duration: 0.85, ease: 'power3.inOut' }, '<')
         .to(containerRef.current, { opacity: 0, duration: 0.2 }, '-=0.15')
     }, containerRef)

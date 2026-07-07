@@ -1,340 +1,413 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
-import Image from 'next/image'
-import Link from 'next/link'
+import { motion, useReducedMotion } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { FaArrowRight, FaGithub } from 'react-icons/fa'
+import Image from 'next/image'
+import { Link } from '@/components/ui/AppLink'
+import { FaArrowRight } from 'react-icons/fa'
 import { useTranslation } from '@/hooks/useTranslation'
 import { RevealText } from '@/components/ui/RevealText'
 import { trackEvent } from '@/utils/analytics'
 import { cn } from '@/utils/cn'
-import { HOME_PROJECTS, type ProjectEntry } from '@/data/projects'
+import { TEASER_PROJECTS, type ProjectEntry } from '@/data/projects'
+import { EASE_SMOOTH, fadeUp } from '@/lib/motion'
+import { SectionLabel } from '@/components/ui/SectionLabel'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const EASE_SMOOTH = [0.33, 1, 0.68, 1] as const
+/** Badges de preuve — pastille rouge signature + libellé traduit. */
+function ProofBadges({
+  badges,
+  tr,
+  className,
+}: {
+  badges?: string[]
+  tr: (key: string) => string
+  className?: string
+}) {
+  if (!badges || badges.length === 0) return null
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0 },
+  return (
+    <ul className={cn('flex flex-wrap gap-2', className)}>
+      {badges.map((badge) => (
+        <li
+          key={badge}
+          className="inline-flex items-center gap-1.5 rounded-full border border-custom px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-custom-secondary"
+        >
+          <span className="h-1 w-1 rounded-full bg-[#8C0605] dark:bg-red-400" />
+          {tr(`work.badges.${badge}`)}
+        </li>
+      ))}
+    </ul>
+  )
 }
 
+export type ProjectVariant = 'standard' | 'feature' | 'compact'
+
+const TAG_CLASSNAME =
+  'text-xs font-medium uppercase tracking-[0.14em] text-custom-muted transition-colors duration-300 group-hover:text-custom-title'
+
+/**
+ * Ligne projet éditoriale — utilisée sur la page Work (liste complète).
+ * Trois variantes rythment le parcours : `standard` (alternance classique),
+ * `feature` (projet signature, plein cadre) et `compact` (épilogue avant le CTA).
+ */
 export function ProjectRow({
   project,
   index,
   visitLabel,
   locale,
   tr,
+  variant = 'standard',
 }: {
   project: ProjectEntry
   index: number
   visitLabel: string
   locale: string
   tr: (key: string) => string
+  variant?: ProjectVariant
 }) {
-  const isReversed = index % 2 === 1
+  const isFeature = variant === 'feature'
+  const isCompact = variant === 'compact'
+  const isReversed = variant === 'standard' && index % 2 === 1
   const number = String(index + 1).padStart(2, '0')
 
+  const articleRef = useRef<HTMLElement>(null)
+  const eyebrowRef = useRef<HTMLDivElement>(null)
+  const imageWrapRef = useRef<HTMLDivElement>(null)
+  const imageMaskRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  const descriptionRef = useRef<HTMLParagraphElement>(null)
+  const tagsRef = useRef<HTMLDivElement>(null)
+  const ctaRef = useRef<HTMLSpanElement>(null)
+
+  // Mise en scène du chapitre : numéro → image (reveal) → titre → texte → tags → CTA,
+  // déclenchée quand le projet arrive au centre du viewport. L'image suit ensuite
+  // légèrement le curseur (souris fine uniquement) pour une sensation premium.
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (prefersReducedMotion) return
+
+    const cleanups: Array<() => void> = []
+
+    const ctx = gsap.context(() => {
+      if (!articleRef.current) return
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: articleRef.current,
+          start: 'top 78%',
+          once: true,
+        },
+      })
+
+      tl.fromTo(eyebrowRef.current, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' })
+        .fromTo(
+          imageMaskRef.current,
+          { clipPath: 'inset(0% 0% 100% 0%)' },
+          { clipPath: 'inset(0% 0% 0% 0%)', duration: isFeature ? 1.2 : 0.95, ease: 'power4.out' },
+          '-=0.1'
+        )
+        .fromTo(titleRef.current, { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.55')
+        .fromTo(
+          descriptionRef.current,
+          { autoAlpha: 0, y: 16 },
+          { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out' },
+          '-=0.35'
+        )
+        .fromTo(
+          tagsRef.current ? tagsRef.current.children : [],
+          { autoAlpha: 0, y: 10 },
+          { autoAlpha: 1, y: 0, duration: 0.35, stagger: 0.06, ease: 'power2.out' },
+          '-=0.2'
+        )
+        .fromTo(ctaRef.current, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, '-=0.15')
+
+      const wrap = imageWrapRef.current
+      const mask = imageMaskRef.current
+      const pointerMedia = window.matchMedia('(hover: hover) and (pointer: fine)')
+
+      if (wrap && mask && pointerMedia.matches) {
+        const xTo = gsap.quickTo(mask, 'x', { duration: 0.6, ease: 'power3.out' })
+        const yTo = gsap.quickTo(mask, 'y', { duration: 0.6, ease: 'power3.out' })
+
+        const onPointerMove = (event: PointerEvent) => {
+          const bounds = wrap.getBoundingClientRect()
+          const relativeX = (event.clientX - bounds.left) / bounds.width - 0.5
+          const relativeY = (event.clientY - bounds.top) / bounds.height - 0.5
+
+          xTo(relativeX * (isFeature ? 22 : 14))
+          yTo(relativeY * (isFeature ? 16 : 10))
+        }
+
+        const onPointerLeave = () => {
+          xTo(0)
+          yTo(0)
+        }
+
+        wrap.addEventListener('pointermove', onPointerMove)
+        wrap.addEventListener('pointerleave', onPointerLeave)
+
+        cleanups.push(() => {
+          wrap.removeEventListener('pointermove', onPointerMove)
+          wrap.removeEventListener('pointerleave', onPointerLeave)
+        })
+      }
+    }, articleRef)
+
+    return () => {
+      cleanups.forEach((cleanup) => cleanup())
+      ctx.revert()
+    }
+  }, [isFeature])
+
+  const image = (
+    <div
+      ref={imageWrapRef}
+      className={cn(
+        'relative overflow-hidden rounded-xl bg-custom-secondary transition-shadow duration-500 ease-out',
+        'group-hover:shadow-[0_30px_70px_-24px_rgba(140,6,5,0.35)]',
+        isFeature ? 'aspect-[16/10] rounded-2xl md:aspect-[21/9]' : 'aspect-[16/10]'
+      )}
+      style={{ viewTransitionName: `project-image-${project.slug}` }}
+    >
+      <div ref={imageMaskRef} className="absolute inset-0 will-change-transform">
+        <Image
+          src={project.image}
+          alt={tr(`projects.${project.key}.title`)}
+          fill
+          sizes={isFeature ? '(min-width: 768px) 1100px, 100vw' : '(min-width: 1024px) 640px, 100vw'}
+          className="scale-[1.12] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.16]"
+        />
+      </div>
+    </div>
+  )
+
+  const tags = (
+    <div ref={tagsRef} className="mb-5 flex flex-wrap gap-x-4 gap-y-1.5">
+      {project.technologies.map((tech) => (
+        <span key={tech} className={TAG_CLASSNAME}>
+          {tech}
+        </span>
+      ))}
+    </div>
+  )
+
+  const cta = (
+    <span ref={ctaRef} className="inline-flex items-center gap-2 text-sm font-bold text-custom-title">
+      <span className="relative">
+        {visitLabel}
+        <span className="absolute -bottom-1 left-0 h-px w-full bg-custom-title/25 transition-colors duration-300 group-hover:bg-[#8C0605] dark:group-hover:bg-red-400" />
+      </span>
+
+      <FaArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1.5 group-hover:text-[#8C0605] dark:group-hover:text-red-400" />
+    </span>
+  )
+
   return (
-    <motion.article
-      variants={fadeUp}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-100px' }}
-      transition={{ duration: 0.75, ease: EASE_SMOOTH }}
-      className="group border-t border-custom py-12 md:py-16"
+    <article
+      ref={articleRef}
+      id={project.slug}
+      className={cn('group border-t border-custom', isCompact ? 'py-9 md:py-11' : 'py-12 md:py-16')}
     >
       <Link
         href={`/${locale}/work/${project.slug}`}
         onClick={() => trackEvent('project_view', { project: project.slug })}
-        className="grid grid-cols-1 items-center gap-8 md:grid-cols-12 md:gap-12"
+        className={cn('block', !isFeature && 'grid grid-cols-1 items-center gap-8 md:grid-cols-12 md:gap-12')}
         aria-label={`${tr(`projects.${project.key}.title`)} — ${visitLabel}`}
       >
-        {/* Image */}
-        <div
-          className={cn(
-            'relative md:col-span-7',
-            isReversed && 'md:order-2'
-          )}
-        >
-          <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-custom-secondary">
-            <div data-parallax-image className="absolute inset-0 will-change-transform">
-              <Image
-                src={project.image}
-                alt={tr(`projects.${project.key}.title`)}
-                fill
-                sizes="(min-width: 1024px) 640px, 100vw"
-                className="scale-[1.12] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.16]"
-              />
-            </div>
-          </div>
-        </div>
+        {isFeature ? (
+          <>
+            <div ref={eyebrowRef} className="mb-6 flex flex-wrap items-center justify-between gap-4">
+              <div className="flex items-baseline gap-4">
+                <span className="font-serif text-sm font-medium text-[#8C0605] dark:text-red-400">{number}</span>
+                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-custom-muted">
+                  {tr(`projects.${project.key}.category`)}
+                </span>
+              </div>
 
-        {/* Content */}
-        <div className={cn('md:col-span-5', isReversed && 'md:order-1')}>
-          <div className="mb-5 flex items-baseline gap-4">
-            <span className="font-serif text-sm font-medium text-[#8C0605] dark:text-red-400">
-              {number}
-            </span>
-
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-custom-muted">
-              {tr(`projects.${project.key}.category`)}
-            </span>
-          </div>
-
-          <h3 className="mb-4 font-serif text-3xl font-medium leading-[1.05] tracking-[-0.02em] text-custom-title md:text-[clamp(2.1rem,3.2vw,3rem)]">
-            {tr(`projects.${project.key}.title`)}
-          </h3>
-
-          <p className="mb-6 max-w-[52ch] text-sm leading-6 text-custom-secondary md:text-[15px] md:leading-7">
-            {tr(`projects.${project.key}.description`)}
-          </p>
-
-          <div className="mb-7 flex flex-wrap gap-x-4 gap-y-1.5">
-            {project.technologies.map((tech) => (
-              <span
-                key={tech}
-                className="text-xs font-medium uppercase tracking-[0.14em] text-custom-muted"
-              >
-                {tech}
+              <span className="inline-flex items-center gap-2 rounded-full border border-[#8C0605]/30 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8C0605] dark:border-red-400/30 dark:text-red-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-current" />
+                {tr('work.signature_badge')}
               </span>
-            ))}
-          </div>
+            </div>
 
-          <span className="inline-flex items-center gap-2 text-sm font-bold text-custom-title">
-            <span className="relative">
-              {visitLabel}
-              <span className="absolute -bottom-1 left-0 h-px w-full bg-custom-title/25 transition-colors duration-300 group-hover:bg-[#8C0605] dark:group-hover:bg-red-400" />
-            </span>
+            <h3
+              ref={titleRef}
+              className="mb-7 font-serif text-[clamp(2.6rem,6.5vw,5.2rem)] font-medium leading-[0.98] tracking-[-0.03em] text-custom-title"
+            >
+              {tr(`projects.${project.key}.title`)}
+            </h3>
 
-            <FaArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1.5 group-hover:text-[#8C0605] dark:group-hover:text-red-400" />
-          </span>
-        </div>
+            <div className="mb-8">{image}</div>
+
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
+              <p
+                ref={descriptionRef}
+                className="max-w-[58ch] text-sm leading-6 text-custom-secondary md:col-span-7 md:text-[15px] md:leading-7"
+              >
+                {tr(`projects.${project.key}.description`)}
+              </p>
+
+              <div className="md:col-span-5">
+                {tags}
+                <ProofBadges badges={project.badges} tr={tr} className="mb-7" />
+                {cta}
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Image */}
+            <div className={cn('relative', isCompact ? 'md:col-span-4' : 'md:col-span-7', isReversed && 'md:order-2')}>
+              {image}
+            </div>
+
+            {/* Content */}
+            <div className={cn(isCompact ? 'md:col-span-8' : 'md:col-span-5', isReversed && 'md:order-1')}>
+              {isCompact && (
+                <p className="mb-3 font-serif text-base italic leading-snug text-custom-secondary md:text-lg">
+                  {tr('work.epilogue_note')}
+                </p>
+              )}
+
+              <div ref={eyebrowRef} className="mb-5 flex items-baseline gap-4">
+                <span className="font-serif text-sm font-medium text-[#8C0605] dark:text-red-400">
+                  {number}
+                </span>
+
+                <span className="text-xs font-semibold uppercase tracking-[0.2em] text-custom-muted">
+                  {tr(`projects.${project.key}.category`)}
+                </span>
+              </div>
+
+              <h3
+                ref={titleRef}
+                className={cn(
+                  'mb-4 font-serif font-medium leading-[1.05] tracking-[-0.02em] text-custom-title',
+                  isCompact ? 'text-2xl md:text-[clamp(1.6rem,2.4vw,2.2rem)]' : 'text-3xl md:text-[clamp(2.1rem,3.2vw,3rem)]'
+                )}
+              >
+                {tr(`projects.${project.key}.title`)}
+              </h3>
+
+              <p
+                ref={descriptionRef}
+                className="mb-6 max-w-[52ch] text-sm leading-6 text-custom-secondary md:text-[15px] md:leading-7"
+              >
+                {tr(`projects.${project.key}.description`)}
+              </p>
+
+              {tags}
+              <ProofBadges badges={project.badges} tr={tr} className="mb-7" />
+              {cta}
+            </div>
+          </>
+        )}
       </Link>
-    </motion.article>
+    </article>
   )
 }
 
 /**
- * Showcase épinglé (desktop) : l'image se cale à gauche pendant le scroll,
- * les projets défilent — wipe d'image + crossfade du texte à droite.
+ * Vignette teaser (home) : format éditorial compact, cliquable vers la fiche.
  */
-function PinnedShowcase({
-  locale,
+function TeaserCard({
+  project,
+  index,
   tr,
+  locale,
+  viewLabel,
 }: {
-  locale: string
+  project: ProjectEntry
+  index: number
   tr: (key: string) => string
+  locale: string
+  viewLabel: string
 }) {
-  const wrapperRef = useRef<HTMLDivElement>(null)
-  const frameRef = useRef<HTMLDivElement>(null)
-  const textColRef = useRef<HTMLDivElement>(null)
-  const counterRef = useRef<HTMLDivElement>(null)
-  const progressRef = useRef<HTMLDivElement>(null)
+  const number = String(index + 1).padStart(2, '0')
+  const reduceMotion = useReducedMotion()
 
-  useEffect(() => {
-    const mm = gsap.matchMedia()
-
-    mm.add('(min-width: 1024px) and (prefers-reduced-motion: no-preference)', () => {
-      const wrapper = wrapperRef.current
-      const frame = frameRef.current
-      const textCol = textColRef.current
-
-      if (!wrapper || !frame || !textCol) return
-
-      const images = gsap.utils.toArray<HTMLElement>('[data-showcase-image]', wrapper)
-      const innerImages = gsap.utils.toArray<HTMLElement>('[data-showcase-img-inner]', wrapper)
-      const texts = gsap.utils.toArray<HTMLElement>('[data-showcase-text]', wrapper)
-
-      // États initiaux : projet 1 visible, les autres masqués (wipe depuis le bas)
-      images.forEach((image, index) => {
-        gsap.set(image, {
-          clipPath: index === 0 ? 'inset(0% 0% 0% 0%)' : 'inset(100% 0% 0% 0%)',
-        })
-      })
-
-      innerImages.forEach((inner, index) => {
-        gsap.set(inner, { scale: index === 0 ? 1 : 1.15 })
-      })
-
-      texts.forEach((text, index) => {
-        gsap.set(text, { autoAlpha: index === 0 ? 1 : 0, y: index === 0 ? 0 : 32 })
-      })
-
-      // Entrée : l'image arrive centrée puis se cale à gauche, le texte apparaît
-      gsap.set(frame, { xPercent: 38, scale: 1.04 })
-      gsap.set(textCol, { autoAlpha: 0, x: 48 })
-
-      const tl = gsap.timeline({
-        defaults: { ease: 'none' },
-        scrollTrigger: {
-          trigger: wrapper,
-          start: 'top top',
-          end: `+=${HOME_PROJECTS.length * 90}%`,
-          pin: true,
-          scrub: 0.7,
-          anticipatePin: 1,
-        },
-      })
-
-      tl.to(frame, { xPercent: 0, scale: 1, duration: 1, ease: 'power2.out' })
-        .to(textCol, { autoAlpha: 1, x: 0, duration: 0.7, ease: 'power2.out' }, '-=0.45')
-        .to({}, { duration: 0.45 })
-
-      // Transitions entre projets
-      for (let i = 1; i < HOME_PROJECTS.length; i += 1) {
-        tl.to(images[i], { clipPath: 'inset(0% 0% 0% 0%)', duration: 1, ease: 'power2.inOut' })
-          .to(innerImages[i], { scale: 1, duration: 1, ease: 'power2.out' }, '<')
-          .to(texts[i - 1], { autoAlpha: 0, y: -32, duration: 0.4, ease: 'power1.in' }, '<')
-          .to(texts[i], { autoAlpha: 1, y: 0, duration: 0.55, ease: 'power2.out' }, '<0.35')
-          .to(
-            counterRef.current,
-            { yPercent: -(100 / HOME_PROJECTS.length) * i, duration: 0.5, ease: 'power2.inOut' },
-            '<'
-          )
-          .to({}, { duration: 0.45 })
+  // Reveal éditorial : l'image s'ouvre par masque (comme les chapitres de la page
+  // Work), les badges suivent. En reduced-motion : simple fondu.
+  const imageReveal = reduceMotion
+    ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
+    : {
+        hidden: { clipPath: 'inset(0% 0% 100% 0%)' },
+        visible: { clipPath: 'inset(0% 0% 0% 0%)' },
       }
-
-      // Barre de progression sur toute la durée
-      if (progressRef.current) {
-        gsap.set(progressRef.current, { scaleX: 0 })
-
-        tl.to(progressRef.current, { scaleX: 1, duration: tl.duration(), ease: 'none' }, 0)
-      }
-    })
-
-    return () => {
-      mm.revert()
-    }
-  }, [])
 
   return (
-    <div ref={wrapperRef} className="relative">
-      <div className="flex h-screen flex-col justify-center py-10">
-        <div className="grid flex-none grid-cols-12 items-center gap-x-[clamp(2rem,4vw,4.5rem)]">
-          {/* Image frame */}
-          <div ref={frameRef} className="col-span-7 will-change-transform">
-            <div className="relative h-[min(66vh,640px)] overflow-hidden rounded-xl bg-custom-secondary">
-              {HOME_PROJECTS.map((project, index) => (
-                <div
-                  key={project.key}
-                  data-showcase-image
-                  className="absolute inset-0 will-change-[clip-path]"
-                  style={{
-                    zIndex: index,
-                    clipPath: index === 0 ? 'inset(0% 0% 0% 0%)' : 'inset(100% 0% 0% 0%)',
-                  }}
-                >
-                  <div data-showcase-img-inner className="absolute inset-0 will-change-transform">
-                    <Image
-                      src={project.image}
-                      alt={tr(`projects.${project.key}.title`)}
-                      fill
-                      sizes="(min-width: 1024px) 60vw, 100vw"
-                      className="object-cover"
-                      priority={index === 0}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-60px' }}
+      // Galerie : la vignette survolée reste nette, les voisines s'estompent
+      className="transition-[opacity,filter] duration-300 group-hover/cards:opacity-40 group-hover/cards:saturate-50 hover:!opacity-100 hover:!saturate-100"
+    >
+      <Link
+        href={`/${locale}/work/${project.slug}`}
+        onClick={() => trackEvent('project_view', { project: project.slug, source: 'home_teaser' })}
+        aria-label={`${tr(`projects.${project.key}.title`)} — ${viewLabel}`}
+        className="group block"
+      >
+        <motion.div
+          variants={imageReveal}
+          transition={{ duration: 0.85, ease: EASE_SMOOTH, delay: index * 0.12 }}
+          className="relative aspect-[16/11] overflow-hidden rounded-xl bg-custom-secondary sm:aspect-[3/4]"
+          style={{ viewTransitionName: `project-image-${project.slug}` }}
+        >
+          <Image
+            src={project.image}
+            alt={tr(`projects.${project.key}.title`)}
+            fill
+            sizes="(min-width: 640px) 33vw, 100vw"
+            className="object-cover transition-transform duration-[800ms] ease-out group-hover:scale-[1.05]"
+          />
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
+
+          <span className="absolute left-4 top-3.5 font-serif text-sm font-medium text-white/90">
+            {number}
+          </span>
+
+          {/* Cue « Voir » */}
+          <span className="absolute right-3.5 top-3.5 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold text-gray-950 opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100 dark:bg-white/95">
+            {viewLabel}
+            <FaArrowRight className="h-2.5 w-2.5" />
+          </span>
+
+          {/* Bas de carte */}
+          <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
+            <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70">
+              {tr(`projects.${project.key}.category`)}
+            </p>
+
+            <h3 className="font-serif text-xl font-medium leading-tight text-white md:text-[1.6rem]">
+              {tr(`projects.${project.key}.title`)}
+            </h3>
           </div>
+        </motion.div>
 
-          {/* Text column */}
-          <div ref={textColRef} className="col-span-5 will-change-transform">
-            <div className="relative h-[min(66vh,640px)]">
-              {HOME_PROJECTS.map((project, index) => (
-                <div
-                  key={project.key}
-                  data-showcase-text
-                  className={cn(
-                    'absolute inset-0 flex flex-col justify-center',
-                    index > 0 && 'invisible opacity-0'
-                  )}
-                >
-                  <div className="mb-5 flex items-baseline gap-4">
-                    <span className="font-serif text-sm font-medium text-[#8C0605] dark:text-red-400">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-
-                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-custom-muted">
-                      {tr(`projects.${project.key}.category`)}
-                    </span>
-                  </div>
-
-                  <h3 className="mb-5 font-serif text-[clamp(2.2rem,3.4vw,3.4rem)] font-medium leading-[1.03] tracking-[-0.02em] text-custom-title">
-                    {tr(`projects.${project.key}.title`)}
-                  </h3>
-
-                  <p className="mb-6 max-w-[46ch] text-sm leading-7 text-custom-secondary md:text-[15px]">
-                    {tr(`projects.${project.key}.description`)}
-                  </p>
-
-                  <div className="mb-8 flex flex-wrap gap-x-4 gap-y-1.5">
-                    {project.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="text-xs font-medium uppercase tracking-[0.14em] text-custom-muted"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <Link
-                    href={`/${locale}/work/${project.slug}`}
-                    onClick={() => trackEvent('project_view', { project: project.slug })}
-                    className="group/link inline-flex w-fit items-center gap-2 text-sm font-bold text-custom-title"
-                  >
-                    <span className="relative">
-                      {tr('work.case')}
-                      <span className="absolute -bottom-1 left-0 h-px w-full bg-custom-title/25 transition-colors duration-300 group-hover/link:bg-[#8C0605] dark:group-hover/link:bg-red-400" />
-                    </span>
-
-                    <FaArrowRight className="h-3 w-3 transition-transform duration-300 group-hover/link:translate-x-1.5 group-hover/link:text-[#8C0605] dark:group-hover/link:text-red-400" />
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Counter + progress */}
-        <div className="mt-8 flex flex-none items-center gap-6">
-          <div className="flex items-baseline gap-1.5 font-serif text-sm font-medium text-custom-title">
-            <span className="block h-[1.25em] overflow-hidden">
-              <span ref={counterRef} className="block will-change-transform">
-                {HOME_PROJECTS.map((project, index) => (
-                  <span key={project.key} className="block leading-[1.25em]">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                ))}
-              </span>
-            </span>
-
-            <span className="text-custom-muted">
-              / {String(HOME_PROJECTS.length).padStart(2, '0')}
-            </span>
-          </div>
-
-          <div className="h-px flex-1 bg-custom-title/10">
-            <div
-              ref={progressRef}
-              className="h-px origin-left bg-[#8C0605] dark:bg-red-400"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+        <motion.div
+          variants={fadeUp}
+          transition={{ duration: 0.5, ease: EASE_SMOOTH, delay: index * 0.12 + 0.35 }}
+        >
+          <ProofBadges badges={project.badges?.slice(0, 2)} tr={tr} className="mt-4" />
+        </motion.div>
+      </Link>
+    </motion.div>
   )
 }
 
+/**
+ * Section projets (home) : teaser court — 3 vignettes + renvoi vers la page Work,
+ * qui porte l'intégralité du portfolio.
+ */
 export function Projects() {
-  const sectionRef = useRef<HTMLElement>(null)
-
   const { t, language } = useTranslation()
 
   const tr = (key: string): string => {
@@ -342,40 +415,12 @@ export function Projects() {
     return Array.isArray(value) ? value.join(' ') : String(value)
   }
 
-  useEffect(() => {
-    const mm = gsap.matchMedia()
-
-    // Parallax des vignettes — uniquement quand la liste mobile est affichée
-    mm.add('(max-width: 1023px) and (prefers-reduced-motion: no-preference)', () => {
-      const images = sectionRef.current?.querySelectorAll('[data-parallax-image]')
-
-      images?.forEach((image) => {
-        gsap.fromTo(
-          image,
-          { yPercent: -6 },
-          {
-            yPercent: 6,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: image.closest('article'),
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: true,
-            },
-          }
-        )
-      })
-    })
-
-    return () => {
-      mm.revert()
-    }
-  }, [])
+  // Les projets home hors hero : le site client du hero n'est pas re-montré ici.
+  const teaser = TEASER_PROJECTS
 
   return (
     <section
       id="projects"
-      ref={sectionRef}
       className="relative bg-custom-primary py-[clamp(4.5rem,8vw,8rem)]"
     >
       <div className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 md:px-10 lg:px-[clamp(2.5rem,4vw,5rem)]">
@@ -387,12 +432,9 @@ export function Projects() {
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.7, ease: EASE_SMOOTH }}
-            className="mb-10 md:mb-14 lg:mb-0"
+            className="mb-10 md:mb-14"
           >
-            <p className="mb-6 flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#8C0605] dark:text-red-400">
-              <span className="h-px w-10 bg-current" />
-              {tr('work.label')}
-            </p>
+            <SectionLabel>{tr('work.label')}</SectionLabel>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:items-end">
               <RevealText
@@ -407,77 +449,41 @@ export function Projects() {
             </div>
           </motion.div>
 
-          {/* Desktop : showcase épinglé */}
-          <div className="hidden lg:block">
-            <PinnedShowcase locale={language} tr={tr} />
-          </div>
-
-          {/* Mobile / tablette : liste éditoriale */}
-          <div className="lg:hidden">
-            {HOME_PROJECTS.map((project, index) => (
-              <ProjectRow
+          {/* Teaser : 3 vignettes — group/cards pilote la mise en avant au hover */}
+          <div className="group/cards grid grid-cols-1 gap-5 sm:grid-cols-3 md:gap-6">
+            {teaser.map((project, index) => (
+              <TeaserCard
                 key={project.key}
                 project={project}
                 index={index}
-                visitLabel={tr('work.case')}
-                locale={language}
                 tr={tr}
+                locale={language}
+                viewLabel={tr('work.case')}
               />
             ))}
           </div>
 
-          {/* All projects link */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.6, ease: EASE_SMOOTH }}
-            className="border-t border-custom pt-10 pb-12 lg:mt-4"
-          >
-            <Link
-              href={`/${language}/work`}
-              onClick={() => trackEvent('cta_click', { cta: 'all_projects' })}
-              className="group inline-flex items-center gap-3 text-sm font-bold text-custom-title md:text-base"
-            >
-              <span className="relative">
-                {tr('work.all_projects')}
-                <span className="absolute -bottom-1 left-0 h-px w-full bg-custom-title/30 transition-colors duration-300 group-hover:bg-[#8C0605] dark:group-hover:bg-red-400" />
-              </span>
-
-              <FaArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1.5 group-hover:text-[#8C0605] dark:group-hover:text-red-400" />
-            </Link>
-          </motion.div>
-
-          {/* GitHub */}
+          {/* Renvoi vers la page Work */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
             transition={{ duration: 0.65, ease: EASE_SMOOTH }}
-            className="flex flex-col items-start justify-between gap-5 border-t border-custom pt-10 md:flex-row md:items-center"
+            className="mt-12 flex flex-col items-start justify-between gap-6 border-t border-custom pt-10 md:mt-16 md:flex-row md:items-center"
           >
-            <div>
-              <p className="font-serif text-xl font-medium text-custom-title md:text-2xl">
-                {tr('work.github_title')}
-              </p>
+            <p className="max-w-xl text-sm leading-6 text-custom-secondary md:text-[15px] md:leading-7">
+              {tr('work.home_cta_text')}
+            </p>
 
-              <p className="mt-1 text-sm text-custom-secondary">
-                {tr('work.github_subtitle')}
-              </p>
-            </div>
-
-            <a
-              href="https://github.com/minhajshafiq"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 rounded-full border border-custom px-6 py-3.5 text-sm font-bold text-custom-title transition-all duration-300 hover:-translate-y-0.5 hover:border-[#8C0605] hover:text-[#8C0605] dark:hover:border-red-400 dark:hover:text-red-400"
+            <Link
+              href={`/${language}/work`}
+              onClick={() => trackEvent('cta_click', { cta: 'all_projects', source: 'home_teaser' })}
+              className="group inline-flex flex-none items-center gap-3 rounded-full bg-[#8C0605] px-7 py-4 text-sm font-bold text-white transition-colors duration-300 hover:bg-[#a70b0a] hover:shadow-[0_18px_40px_rgba(140,6,5,0.25)] dark:bg-red-400 dark:text-gray-950 dark:hover:bg-red-300 md:text-base"
             >
-              <FaGithub className="h-4 w-4" />
-              {tr('work.github_cta')}
+              {tr('work.all_projects')}
               <FaArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1" />
-            </a>
+            </Link>
           </motion.div>
         </div>
       </div>

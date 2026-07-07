@@ -7,14 +7,14 @@ import { locales, isValidLocale, type Locale } from '@/utils/i18n'
 
 const PAGE_META: Record<Locale, { title: string; description: string }> = {
   fr: {
-    title: 'À propos — Minhaj Zubair, développeur créatif freelance',
+    title: 'À propos — Minhaj Zubair, développeur web freelance',
     description:
-      'Développeur créatif indépendant basé à Paris : mon parcours, ma manière de travailler et ce qui m\'anime. Chaque projet est conçu et développé par une seule personne — moi.',
+      'Développeur web indépendant basé à Paris : mon parcours, ma manière de travailler et ce qui m\'anime. Chaque projet est conçu et développé par une seule personne — moi.',
   },
   en: {
-    title: 'About — Minhaj Zubair, freelance creative developer',
+    title: 'About — Minhaj Zubair, freelance web developer',
     description:
-      'Independent creative developer based in Paris: my background, how I work and what drives me. Every project is designed and built by one person — me.',
+      'Independent web developer based in Paris: my background, how I work and what drives me. Every project is designed and built by one person — me.',
   },
 }
 

@@ -8,12 +8,12 @@ const PAGE_META: Record<Locale, { title: string; description: string }> = {
   fr: {
     title: 'Projets — Sites web & applications sur mesure',
     description:
-      'Sites vitrines, applications web et mobiles conçus sur mesure : découvrez les projets récents de Minhaj Zubair, développeur créatif freelance à Paris.',
+      'Sites vitrines, applications web et mobiles conçus sur mesure : découvrez les projets récents de Minhaj Zubair, développeur web freelance à Paris.',
   },
   en: {
     title: 'Work — Custom websites & applications',
     description:
-      'Custom websites, web and mobile applications: explore recent projects by Minhaj Zubair, freelance creative developer based in Paris.',
+      'Custom websites, web and mobile applications: explore recent projects by Minhaj Zubair, freelance web developer based in Paris.',
   },
 }
 

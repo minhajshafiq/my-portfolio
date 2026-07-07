@@ -48,7 +48,9 @@ export function Magnetic({ children, className, strength = 0.32 }: MagneticProps
     return () => {
       element.removeEventListener('mousemove', onMouseMove)
       element.removeEventListener('mouseleave', onMouseLeave)
-      gsap.killTweensOf(element)
+      // Ne tuer que les props que Magnetic anime : un kill global saboterait
+      // les tweens d'entrée posés par un parent sur ce même élément.
+      gsap.killTweensOf(element, 'x,y')
     }
   }, [strength])
 

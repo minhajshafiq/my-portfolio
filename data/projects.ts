@@ -6,8 +6,14 @@ export type ProjectEntry = {
   demo: string
   github: string | null
   technologies: string[]
+  /** Badges de preuve — clés de traduction sous `work.badges.<badge>` */
+  badges?: string[]
   /** Affiché sur la home (4 max) */
   home?: boolean
+  /** Projet montré seul dans le hero — un site client, première preuve vue par un prospect */
+  hero?: boolean
+  /** Mis en avant comme projet signature sur la page Work (traitement plein cadre) */
+  featured?: boolean
 }
 
 export const PROJECTS: ProjectEntry[] = [
@@ -18,6 +24,7 @@ export const PROJECTS: ProjectEntry[] = [
     demo: 'https://photograph-portfolio-five.vercel.app/',
     github: null,
     technologies: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
+    badges: ['showcase', 'seo_local'],
     home: true,
   },
   {
@@ -27,6 +34,7 @@ export const PROJECTS: ProjectEntry[] = [
     demo: 'https://super-chebakia-99a719.netlify.app/',
     github: null,
     technologies: ['Next.js', 'TypeScript', 'Sanity'],
+    badges: ['showcase', 'seo_local', 'conversion'],
     home: true,
   },
   {
@@ -36,16 +44,20 @@ export const PROJECTS: ProjectEntry[] = [
     demo: 'https://pocketly-web-blush.vercel.app/',
     github: null,
     technologies: ['React Native', 'Supabase', 'TypeScript'],
+    badges: ['mobile_app', 'conversion'],
     home: true,
+    featured: true,
   },
   {
     key: 'unityvert',
     slug: 'unityvert',
-    image: '/photos/unityvert.jpg',
+    image: '/photos/unityvert.webp',
     demo: 'https://unityvert.fr/',
     github: null,
     technologies: ['Next.js', 'TypeScript', 'Sanity'],
+    badges: ['showcase', 'cms', 'seo_local'],
     home: true,
+    hero: true,
   },
   {
     key: 'mets_merveilles',
@@ -66,6 +78,12 @@ export const PROJECTS: ProjectEntry[] = [
 ]
 
 export const HOME_PROJECTS = PROJECTS.filter((project) => project.home)
+
+/** Projet unique du hero (site client) — les autres projets home vont dans la section Projets. */
+export const HERO_PROJECT = HOME_PROJECTS.find((project) => project.hero) ?? HOME_PROJECTS[0]
+
+/** Vignettes de la section Projets (home) : les projets home hors hero — zéro doublon. */
+export const TEASER_PROJECTS = HOME_PROJECTS.filter((project) => project !== HERO_PROJECT).slice(0, 3)
 
 export function getProjectBySlug(slug: string): ProjectEntry | undefined {
   return PROJECTS.find((project) => project.slug === slug)

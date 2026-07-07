@@ -6,13 +6,8 @@ import { FaArrowRight, FaDownload, FaEnvelope, FaGithub, FaLinkedinIn } from 're
 import { useTranslation } from '@/hooks/useTranslation'
 import { trackEvent } from '@/utils/analytics'
 import { PROJECTS } from '@/data/projects'
-
-const EASE_SMOOTH = [0.33, 1, 0.68, 1] as const
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  visible: { opacity: 1, y: 0 },
-}
+import { EASE_SMOOTH, fadeUp } from '@/lib/motion'
+import { SectionLabel } from '@/components/ui/SectionLabel'
 
 const SKILL_GROUPS = [
   { key: 'frontend', items: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'GSAP'] },
@@ -84,10 +79,7 @@ export function CvContent() {
             transition={{ duration: 0.7, ease: EASE_SMOOTH }}
             className="mb-16 md:mb-20"
           >
-            <p className="mb-6 flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.25em] text-[#8C0605] dark:text-red-400">
-              <span className="h-px w-10 bg-current" />
-              {tr('cv.label')}
-            </p>
+            <SectionLabel>{tr('cv.label')}</SectionLabel>
 
             <h1 className="mb-3 font-serif text-[clamp(2.6rem,7vw,5rem)] font-medium leading-[1.02] tracking-[-0.025em] text-custom-title">
               {tr('cv.heading')}

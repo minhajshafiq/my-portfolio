@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useTranslation } from '@/hooks/useTranslation'
+import { SectionLabel } from '@/components/ui/SectionLabel'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -27,20 +28,21 @@ export function Manifesto() {
     if (prefersReducedMotion) return
 
     const ctx = gsap.context(() => {
-      // Le panneau sombre monte en scène
+      // Le panneau sombre monte en scène, calé sur le scroll :
+      // la sortie du hero enchaîne directement sur son arrivée (parcours continu).
       if (panelRef.current) {
         gsap.fromTo(
           panelRef.current,
-          { scale: 0.94, y: 60 },
+          { scale: 0.92, yPercent: 12 },
           {
             scale: 1,
-            y: 0,
-            duration: 1,
-            ease: 'power2.out',
+            yPercent: 0,
+            ease: 'none',
             scrollTrigger: {
               trigger: panelRef.current,
-              start: 'top 88%',
-              once: true,
+              start: 'top bottom',
+              end: 'top 52%',
+              scrub: 0.6,
             },
           }
         )
@@ -89,10 +91,7 @@ export function Manifesto() {
           <div className="pointer-events-none absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-[#8C0605]/15 blur-3xl" />
 
           <div className="relative mx-auto w-full max-w-[1000px]">
-            <p className="mb-9 flex items-center gap-4 text-xs font-semibold uppercase tracking-[0.25em] text-red-400">
-              <span className="h-px w-10 bg-current" />
-              {tr('manifesto.label')}
-            </p>
+            <SectionLabel className="mb-9 text-red-400 dark:text-red-400">{tr('manifesto.label')}</SectionLabel>
 
             <p
               ref={textRef}
