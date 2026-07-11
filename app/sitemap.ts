@@ -25,8 +25,6 @@ const ROUTES: RouteConfig[] = [
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.minhajshafiq.com'
-  const currentDate = new Date().toISOString()
-
   const entries: MetadataRoute.Sitemap = []
 
   for (const route of ROUTES) {
@@ -37,7 +35,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     for (const locale of locales) {
       entries.push({
         url: `${baseUrl}/${locale}${route.path}`,
-        lastModified: currentDate,
         changeFrequency: route.changeFrequency,
         priority: locale === 'fr' ? route.priority : Math.max(route.priority - 0.1, 0.1),
         alternates: { languages },

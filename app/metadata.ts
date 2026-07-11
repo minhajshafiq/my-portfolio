@@ -19,17 +19,17 @@ const localizedContent: Record<
   { name: string; description: string; shortDescription: string; ogAlt: string }
 > = {
   fr: {
-    name: 'Minhaj Zubair — Développeur web freelance · Sites web sur mesure',
+    name: 'Minhaj Zubair — Développeur web freelance à Paris',
     description:
-      'Développeur web freelance basé à Paris. Je conçois des sites web et applications sur mesure — modernes, rapides et pensés pour convertir. Pour indépendants, marques et entrepreneurs, en France et à l\'international.',
-    shortDescription: 'Développeur web freelance · Sites web sur mesure',
+      'Développeur web freelance à Paris. Sites et applications sur mesure, rapides et pensés pour convertir, pour indépendants, marques et entrepreneurs.',
+    shortDescription: 'Sites web sur mesure',
     ogAlt: 'Minhaj Zubair — Développeur web freelance',
   },
   en: {
-    name: 'Minhaj Zubair — Web Developer · Custom websites that convert',
+    name: 'Minhaj Zubair — Freelance web developer in Paris',
     description:
-      'Freelance web developer based in Paris. I design and build custom websites and web apps — modern, fast and made to convert. For independents, brands and entrepreneurs, in France and worldwide.',
-    shortDescription: 'Web Developer · Custom websites',
+      'Freelance web developer in Paris. Fast, custom websites and web apps designed to convert for independents, brands and entrepreneurs worldwide.',
+    shortDescription: 'Custom websites and web apps',
     ogAlt: 'Minhaj Zubair — Web Developer',
   },
 }
@@ -55,6 +55,14 @@ export function getMetadata(locale: Locale): Metadata {
       email: false,
       address: false,
       telephone: false,
+    },
+    icons: {
+      icon: [
+        { url: '/favicon_io/favicon.ico', sizes: 'any' },
+        { url: '/favicon_io/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+        { url: '/favicon_io/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      ],
+      apple: [{ url: '/favicon_io/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
     },
     metadataBase: new URL(siteConfig.url),
     alternates: {

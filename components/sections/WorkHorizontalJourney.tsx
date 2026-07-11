@@ -3,14 +3,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Image from 'next/image'
 import { Link } from '@/components/ui/AppLink'
 import { FaArrowRight } from 'react-icons/fa'
 import { trackEvent } from '@/utils/analytics'
 import { cn } from '@/utils/cn'
 import { PROJECTS, type ProjectEntry } from '@/data/projects'
-import { getLenis } from '@/components/ui/SmoothScroll'
-import { didResetOnLastNavigation } from '@/components/ui/ScrollReset'
+import { ProjectMedia } from '@/components/sections/ProjectMedia'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -18,21 +16,18 @@ gsap.registerPlugin(ScrollTrigger)
 // la page remonte sans la section épinglée (détection desktop différée), le
 // scroll est restauré contre une page trop courte. On sauvegarde donc la
 // progression du parcours nous-mêmes et on la restaure au back/forward.
-const PROGRESS_KEY = 'work-journey-progress'
 
 // La hauteur d'image est pilotée en vh (pas en aspect-ratio fixe) : sur un écran
 // plus bas, l'image rétrécit avec le reste de la mise en scène au lieu de
 // pousser la description et les tags hors du cadre épinglé.
-function getPanelSizing(project: ProjectEntry, isLast: boolean) {
-  if (project.featured) {
-    return { width: 'w-[min(84vw,1040px)]', height: 'h-[38vh]' }
-  }
-
-  if (isLast) {
-    return { width: 'w-[min(46vw,480px)]', height: 'h-[42vh]' }
-  }
-
-  return { width: 'w-[min(64vw,760px)]', height: 'h-[40vh]' }
+// On pilote par la HAUTEUR (vh) : le cadre média est en 16:9 (aspect-video) et
+// sa largeur en découle, si bien que le panneau ne dépasse jamais le cadre
+// épinglé quelle que soit la hauteur d'écran. La largeur du panneau suit son
+// contenu (offsetWidth mesuré au runtime pilote le centrage horizontal).
+function getPanelHeight(project: ProjectEntry, isLast: boolean) {
+  if (project.featured) return 'h-[46vh]'
+  if (isLast) return 'h-[42vh]'
+  return 'h-[44vh]'
 }
 
 /**
@@ -260,7 +255,7 @@ export function WorkHorizontalJourney({
         >
           {PROJECTS.map((project, index) => {
             const isLast = index === PROJECTS.length - 1
-            const { width, height } = getPanelSizing(project, isLast)
+            const height = getPanelHeight(project, isLast)
             const isActive = index === activeIndex
 
             return (
@@ -270,8 +265,7 @@ export function WorkHorizontalJourney({
                   panelRefs.current[index] = el
                 }}
                 className={cn(
-                  'group shrink-0 transition-[opacity,filter,transform] duration-500 ease-out',
-                  width,
+                  'group flex shrink-0 flex-col transition-[opacity,filter,transform] duration-500 ease-out',
                   isActive ? 'opacity-100 saturate-100' : 'opacity-40 saturate-[0.2]'
                 )}
               >
@@ -300,7 +294,7 @@ export function WorkHorizontalJourney({
 
                   <div
                     className={cn(
-                      'relative w-full overflow-hidden rounded-2xl border border-custom/40 bg-custom-secondary transition-shadow duration-500 ease-out',
+                      'relative aspect-video overflow-hidden rounded-2xl border border-custom/40 bg-custom-secondary transition-shadow duration-500 ease-out',
                       'group-hover:shadow-[0_36px_80px_-24px_rgba(140,6,5,0.4)]',
                       height
                     )}
@@ -313,12 +307,11 @@ export function WorkHorizontalJourney({
                       className="absolute inset-0"
                       style={{ clipPath: index === 0 ? 'circle(156% at 94% 50%)' : 'circle(0% at 50% 50%)' }}
                     >
-                      <Image
-                        src={project.image}
+                      <ProjectMedia
+                        project={project}
                         alt={tr(`projects.${project.key}.title`)}
-                        fill
                         sizes="(min-width: 1024px) 70vw, 90vw"
-                        className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                        className="object-cover object-left-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                       />
                     </div>
                   </div>

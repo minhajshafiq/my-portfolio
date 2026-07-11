@@ -12,14 +12,24 @@ export default function manifest(): MetadataRoute.Manifest {
     lang: 'fr',
     icons: [
       {
-        src: '/favicon.ico',
+        src: '/favicon_io/favicon.ico',
         sizes: 'any',
         type: 'image/x-icon',
       },
       {
-        src: '/apple-touch-icon.jpg',
+        src: '/favicon_io/apple-touch-icon.png',
         sizes: '180x180',
-        type: 'image/jpeg',
+        type: 'image/png',
+      },
+      {
+        src: '/favicon_io/android-chrome-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+      },
+      {
+        src: '/favicon_io/android-chrome-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
       },
     ],
   }

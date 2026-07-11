@@ -1,13 +1,12 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Fraunces, Inter } from 'next/font/google'
+import { ViewTransitions } from 'next-view-transitions'
 import '../globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { Loader } from '@/components/sections/Loader'
-import { CustomCursor } from '@/components/ui/CustomCursor'
-import { PageTransition } from '@/components/ui/PageTransition'
-import { SmoothScroll } from '@/components/ui/SmoothScroll'
+import { DeferredCursor } from '@/components/ui/DeferredCursor'
 import { ScrollProgress } from '@/components/ui/ScrollProgress'
 import { ConsentBanner } from '@/components/ui/ConsentBanner'
 import { MotionProvider } from '@/components/ui/MotionProvider'
@@ -19,7 +18,6 @@ import { getStructuredData } from '../structured-data'
 import { locales, isValidLocale } from '@/utils/i18n'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/react'
-import { ViewTransitions } from 'next-view-transitions'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -69,11 +67,8 @@ export default async function RootLayout({
 
   return (
     <ViewTransitions>
-      <html lang={locale} className={`${inter.variable} ${fraunces.variable}`} suppressHydrationWarning>
+    <html lang={locale} className={`${inter.variable} ${fraunces.variable}`} suppressHydrationWarning>
       <head>
-        {/* Favicons */}
-        <link rel="apple-touch-icon" href="/apple-touch-icon.jpg" />
-
         {/* Theme color pour les navigateurs mobiles */}
         <meta name="theme-color" content="#8C0605" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)" />
@@ -123,27 +118,28 @@ export default async function RootLayout({
         />
       </head>
       <body className="bg-custom-primary antialiased">
+        <a href="#main-content" className="skip-link">
+          {locale === 'fr' ? 'Aller au contenu' : 'Skip to content'}
+        </a>
         <MotionProvider>
-        <SmoothScroll />
-        <ScrollReset />
-        <ScrollProgress />
-        <CustomCursor />
-        <PageTransition />
-        <Loader>
-          <Header />
-          <main className="bg-custom-primary">
-            {children}
-          </main>
-          <Footer />
-        </Loader>
-        <ConsentBanner />
+          <ScrollReset />
+          <ScrollProgress />
+          <DeferredCursor />
+          <Loader>
+            <Header />
+            <main id="main-content" tabIndex={-1} className="bg-custom-primary">
+              {children}
+            </main>
+            <Footer />
+          </Loader>
+          <ConsentBanner />
         </MotionProvider>
         <GoogleAnalytics />
         <ScrollDepth />
         <SpeedInsights />
         <Analytics />
       </body>
-      </html>
+    </html>
     </ViewTransitions>
   )
 }

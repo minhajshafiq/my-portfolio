@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import { Link } from '@/components/ui/AppLink'
 import { notFound } from 'next/navigation'
 import { FaArrowLeft, FaArrowRight, FaExternalLinkAlt, FaGithub } from 'react-icons/fa'
@@ -9,6 +8,7 @@ import { PROJECTS, getProjectBySlug } from '@/data/projects'
 import { locales, isValidLocale, type Locale } from '@/utils/i18n'
 import { getServerT } from '@/utils/server-i18n'
 import { SectionLabel } from '@/components/ui/SectionLabel'
+import { ProjectMedia } from '@/components/sections/ProjectMedia'
 
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
@@ -114,10 +114,9 @@ export default async function CaseStudyPage({
             {project.key === 'luxa' ? (
               <LuxaShowcaseCard demoUrl={project.demo} />
             ) : (
-              <Image
-                src={project.image}
+              <ProjectMedia
+                project={project}
                 alt={t(`projects.${project.key}.title`)}
-                fill
                 priority
                 sizes="(min-width: 1280px) 1180px, 100vw"
                 className="object-cover"

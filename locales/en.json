@@ -10,6 +10,7 @@
     "close_menu": "Close menu",
     "main_nav": "Main navigation",
     "mobile_nav": "Mobile navigation",
+    "change_language": "Switch site to French",
     "dark_mode": "Switch to dark mode",
     "light_mode": "Switch to light mode"
   },
@@ -36,8 +37,8 @@
   },
   "work": {
     "label": "Selected work",
-    "heading": "A few concrete proofs.",
-    "intro": "Three projects to feel the style, execution quality and type of outcomes I build.",
+    "heading": "Concrete, real-world work.",
+    "intro": "Three real projects showing the context, execution quality and choices made for each business.",
     "visit": "Visit site",
     "case": "View project",
     "all_projects": "Explore the Work page",
@@ -94,7 +95,7 @@
     },
     "portfolio": {
       "context": "This very website: the showcase of my work had to demonstrate what I sell — polished design, controlled animations, performance and SEO.",
-      "approach": "Next.js with the App Router, GSAP and Framer Motion animations, FR/EN internationalization, complete technical SEO and high performance scores. The code is public on GitHub."
+      "approach": "Next.js with the App Router, GSAP and Framer Motion animations, FR/EN internationalization, complete technical SEO and careful loading optimization. The code is public on GitHub."
     }
   },
   "pages": {
@@ -256,7 +257,7 @@
       "description": "This portfolio you're currently looking at! Developed with Next.js, GSAP animations, responsive design and advanced SEO optimizations.",
       "category": "Portfolio",
       "results": {
-        "performance": "Performance 95+",
+        "performance": "Optimized loading",
         "animations": "Smooth animations",
         "seo": "SEO optimized"
       }
@@ -314,7 +315,7 @@
     "linkedin_title": "LinkedIn",
     "malt_title": "Malt",
     "message_placeholder": "Tell me about your project...",
-    "privacy_note": "Your data will never be shared",
+    "privacy_note": "Your data is used only to respond to your request.",
     "optional_tag": "(optional)",
     "activity_type_label": "Type of activity",
     "activity_type_placeholder": "Select...",

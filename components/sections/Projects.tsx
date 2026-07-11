@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Image from 'next/image'
 import { Link } from '@/components/ui/AppLink'
 import { FaArrowRight } from 'react-icons/fa'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -14,6 +13,7 @@ import { cn } from '@/utils/cn'
 import { TEASER_PROJECTS, type ProjectEntry } from '@/data/projects'
 import { EASE_SMOOTH, fadeUp } from '@/lib/motion'
 import { SectionLabel } from '@/components/ui/SectionLabel'
+import { ProjectMedia } from '@/components/sections/ProjectMedia'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -170,17 +170,19 @@ export function ProjectRow({
       className={cn(
         'relative overflow-hidden rounded-xl bg-custom-secondary transition-shadow duration-500 ease-out',
         'group-hover:shadow-[0_30px_70px_-24px_rgba(140,6,5,0.35)]',
-        isFeature ? 'aspect-[16/10] rounded-2xl md:aspect-[21/9]' : 'aspect-[16/10]'
+        // 16:9 partout : colle au ratio des captures (image + vidéo), zéro
+        // bande noire ni recadrage.
+        'aspect-video',
+        isFeature && 'rounded-2xl'
       )}
       style={{ viewTransitionName: `project-image-${project.slug}` }}
     >
       <div ref={imageMaskRef} className="absolute inset-0 will-change-transform">
-        <Image
-          src={project.image}
+        <ProjectMedia
+          project={project}
           alt={tr(`projects.${project.key}.title`)}
-          fill
           sizes={isFeature ? '(min-width: 768px) 1100px, 100vw' : '(min-width: 1024px) 640px, 100vw'}
-          className="scale-[1.12] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.16]"
+          className="scale-[1.12] object-cover object-left transition-transform duration-700 ease-out group-hover:scale-[1.16]"
         />
       </div>
     </div>
@@ -357,15 +359,14 @@ function TeaserCard({
         <motion.div
           variants={imageReveal}
           transition={{ duration: 0.85, ease: EASE_SMOOTH, delay: index * 0.12 }}
-          className="relative aspect-[16/11] overflow-hidden rounded-xl bg-custom-secondary sm:aspect-[3/4]"
+          className="relative aspect-video overflow-hidden rounded-xl bg-custom-secondary"
           style={{ viewTransitionName: `project-image-${project.slug}` }}
         >
-          <Image
-            src={project.image}
+          <ProjectMedia
+            project={project}
             alt={tr(`projects.${project.key}.title`)}
-            fill
             sizes="(min-width: 640px) 33vw, 100vw"
-            className="object-cover transition-transform duration-[800ms] ease-out group-hover:scale-[1.05]"
+            className="object-cover object-left transition-transform duration-[800ms] ease-out group-hover:scale-[1.05]"
           />
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
@@ -397,6 +398,13 @@ function TeaserCard({
           transition={{ duration: 0.5, ease: EASE_SMOOTH, delay: index * 0.12 + 0.35 }}
         >
           <ProofBadges badges={project.badges?.slice(0, 2)} tr={tr} className="mt-4" />
+
+          {project.proof && (
+            <p className="mt-3 flex items-start gap-2 text-xs leading-5 text-custom-secondary">
+              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-green-500" aria-hidden="true" />
+              {tr('projects.' + project.key + '.results.' + project.proof)}
+            </p>
+          )}
         </motion.div>
       </Link>
     </motion.div>

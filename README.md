@@ -1,4 +1,4 @@
-# Portfolio Personnel - Minhaj Shafiq
+# Portfolio Personnel - Minhaj Zubair
 
 **Développeur Full-Stack passionné par Next.js, Spring Boot et React Native**
 
@@ -6,7 +6,7 @@ Un portfolio moderne et professionnel construit avec Next.js 15, TypeScript et T
 
 ## 👨‍💻 À propos de moi
 
-Je suis **Minhaj Shafiq**, développeur Full-Stack basé en France, spécialisé dans le développement d'applications web et mobiles modernes. Passionné par les technologies Next.js, Spring Boot et React Native, je recherche des opportunités pour contribuer à des projets innovants.
+Je suis **Minhaj Zubair**, développeur Full-Stack basé en France, spécialisé dans le développement d'applications web et mobiles modernes. Passionné par les technologies Next.js, Spring Boot et React Native, je recherche des opportunités pour contribuer à des projets innovants.
 
 ### 🎯 Objectifs
 - **CDI** : Intégrer une équipe dynamique pour développer mes compétences
@@ -17,7 +17,7 @@ Je suis **Minhaj Shafiq**, développeur Full-Stack basé en France, spécialisé
 
 ### Design & UX
 - **Palette de couleurs moderne** : Rouge principal (#8C0605), tons neutres élégants
-- **Police Poppins** : Typographie cohérente avec différentes graisses
+- **Polices Inter + Fraunces** : lecture nette et titres éditoriaux
 - **Animations fluides** : Framer Motion pour les interactions, GSAP pour les animations avancées
 - **Responsive design** : Optimisé pour tous les appareils
 - **Mode sombre/clair** : Switch automatique avec persistance
@@ -163,10 +163,10 @@ npm run lint         # Linting
 
 ## 📈 Performance
 
-- **Lighthouse Score** : 95+ sur tous les critères
-- **Core Web Vitals** : Optimisé
-- **Bundle Size** : < 200KB gzippé
-- **Loading Time** : < 2s sur 3G
+- **Build de production vérifié** : pages statiques générées avec Next.js
+- **Images optimisées** : formats AVIF/WebP servis par Next Image
+- **Animations accessibles** : respect de `prefers-reduced-motion`
+- **Mesure réelle** : Vercel Speed Insights et Analytics intégrés
 
 ## 🎯 Mes Projets
 
@@ -197,6 +197,6 @@ Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ---
 
-**Développé avec ❤️ par Minhaj Shafiq**
+**Développé avec ❤️ par Minhaj Zubair**
 
 *Développeur Full-Stack | Next.js, Spring Boot, React Native*

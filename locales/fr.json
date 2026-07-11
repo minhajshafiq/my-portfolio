@@ -10,6 +10,7 @@
     "close_menu": "Fermer le menu",
     "main_nav": "Navigation principale",
     "mobile_nav": "Navigation mobile",
+    "change_language": "Passer le site en anglais",
     "dark_mode": "Activer le mode sombre",
     "light_mode": "Activer le mode clair"
   },
@@ -36,8 +37,8 @@
   },
   "work": {
     "label": "Projets sélectionnés",
-    "heading": "Quelques preuves concrètes.",
-    "intro": "Trois projets pour comprendre le style, la qualité d'exécution et le type de résultats que je construis.",
+    "heading": "Des réalisations concrètes.",
+    "intro": "Trois projets réels pour découvrir le contexte, la qualité d'exécution et les choix qui servent chaque activité.",
     "visit": "Voir le site",
     "case": "Découvrir le projet",
     "all_projects": "Explorer la page Work",
@@ -94,7 +95,7 @@
     },
     "portfolio": {
       "context": "Ce site lui-même : la vitrine de mon travail devait démontrer ce que je vends — design soigné, animations maîtrisées, performance et référencement.",
-      "approach": "Next.js avec App Router, animations GSAP et Framer Motion, internationalisation FR/EN, SEO technique complet et scores de performance élevés. Le code est public sur GitHub."
+      "approach": "Next.js avec App Router, animations GSAP et Framer Motion, internationalisation FR/EN, SEO technique complet et attention portée au chargement. Le code est public sur GitHub."
     }
   },
   "pages": {
@@ -256,7 +257,7 @@
       "description": "Ce portfolio que vous regardez actuellement ! Développé avec Next.js, animations GSAP, design responsive et optimisations SEO avancées.",
       "category": "Portfolio",
       "results": {
-        "performance": "Performance 95+",
+        "performance": "Chargement optimisé",
         "animations": "Animations fluides",
         "seo": "SEO optimisé"
       }
@@ -314,7 +315,7 @@
     "linkedin_title": "LinkedIn",
     "malt_title": "Malt",
     "message_placeholder": "Parlez-moi de votre projet...",
-    "privacy_note": "Vos données ne seront jamais partagées",
+    "privacy_note": "Vos données servent uniquement à répondre à votre demande.",
     "optional_tag": "(optionnel)",
     "activity_type_label": "Type d'activité",
     "activity_type_placeholder": "Sélectionnez...",

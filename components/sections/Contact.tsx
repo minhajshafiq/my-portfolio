@@ -62,11 +62,15 @@ function SectionBackground() {
   )
 }
 
-function FieldError({ message }: { message?: string }) {
+function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null
 
   return (
-    <p className="mt-2 flex items-center gap-1.5 text-xs font-medium text-red-500">
+    <p
+      id={id}
+      role="alert"
+      className="mt-2 flex items-center gap-1.5 text-xs font-medium text-red-500"
+    >
       <FaExclamationCircle className="h-3.5 w-3.5" />
       {message}
     </p>
@@ -226,6 +230,12 @@ export function Contact({
       return
     }
 
+    const nativeFormData = new window.FormData(event.currentTarget)
+    const botcheck = nativeFormData.get('botcheck')
+
+    // Champ leurre invisible : une valeur indique très probablement un robot.
+    if (typeof botcheck === 'string' && botcheck.trim()) return
+
     setStatus('sending')
 
     try {
@@ -245,8 +255,9 @@ export function Contact({
       if (formData.mainGoal) submissionData.append('main_goal', formData.mainGoal)
       if (formData.hasExistingSite) submissionData.append('has_existing_site', formData.hasExistingSite)
       submissionData.append('access_key', accessKey)
+      submissionData.append('botcheck', '')
       submissionData.append('subject', `Nouveau message portfolio - ${formData.name.trim()}`)
-      submissionData.append('from_name', 'Portfolio Minhaj Shafiq')
+      submissionData.append('from_name', 'Portfolio Minhaj Zubair')
 
       const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -463,24 +474,6 @@ export function Contact({
                   )
                 })}
               </div>
-
-              <div className="relative mt-auto overflow-hidden rounded-[1.75rem] bg-gray-950 p-6 shadow-[0_22px_70px_rgba(0,0,0,0.16)]">
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(255,255,255,0.10),transparent_34%)]" />
-
-                <div className="relative z-10 flex items-start gap-4">
-                  <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-red-400" />
-
-                  <div>
-                    <h4 className="font-black tracking-[-0.03em] text-white">
-                      {tr('contact.quick_response')}
-                    </h4>
-
-                    <p className="mt-2 text-sm leading-6 text-gray-400">
-                      {tr('contact.quick_response_text')}
-                    </p>
-                  </div>
-                </div>
-              </div>
             </motion.div>
 
             {/* Form */}
@@ -502,7 +495,18 @@ export function Contact({
                     </h3>
                   </div>
 
-                  <form ref={formRef} onSubmit={handleSubmit} className="flex flex-1 flex-col">
+                  <form
+                    ref={formRef}
+                    onSubmit={handleSubmit}
+                    noValidate
+                    aria-busy={status === 'sending'}
+                    className="flex flex-1 flex-col"
+                  >
+                    <div hidden aria-hidden="true">
+                      <label htmlFor="botcheck">Ne pas remplir ce champ</label>
+                      <input id="botcheck" name="botcheck" type="text" tabIndex={-1} autoComplete="off" />
+                    </div>
+
                     <div className="space-y-5">
                       <div>
                         <label
@@ -520,6 +524,10 @@ export function Contact({
                           onChange={handleInputChange}
                           onBlur={handleBlur}
                           autoComplete="name"
+                          required
+                          maxLength={50}
+                          aria-invalid={Boolean(touched.name && errors.name)}
+                          aria-describedby={touched.name && errors.name ? 'name-error' : undefined}
                           className={`w-full rounded-2xl border bg-white/70 px-4 py-3.5 text-custom-title outline-none transition-all duration-200 placeholder:text-custom-muted focus:ring-4 dark:bg-white/[0.04] ${errors.name
                               ? 'border-red-400 focus:border-red-500 focus:ring-red-500/10'
                               : 'border-gray-200 focus:border-[#8C0605] focus:ring-[#8C0605]/10 dark:border-white/10 dark:focus:border-red-400 dark:focus:ring-red-400/10'
@@ -527,7 +535,7 @@ export function Contact({
                           placeholder="John Doe"
                         />
 
-                        {touched.name && <FieldError message={errors.name} />}
+                        {touched.name && <FieldError id="name-error" message={errors.name} />}
                       </div>
 
                       <div>
@@ -546,6 +554,9 @@ export function Contact({
                           onChange={handleInputChange}
                           onBlur={handleBlur}
                           autoComplete="email"
+                          required
+                          aria-invalid={Boolean(touched.email && errors.email)}
+                          aria-describedby={touched.email && errors.email ? 'email-error' : undefined}
                           className={`w-full rounded-2xl border bg-white/70 px-4 py-3.5 text-custom-title outline-none transition-all duration-200 placeholder:text-custom-muted focus:ring-4 dark:bg-white/[0.04] ${errors.email
                               ? 'border-red-400 focus:border-red-500 focus:ring-red-500/10'
                               : 'border-gray-200 focus:border-[#8C0605] focus:ring-[#8C0605]/10 dark:border-white/10 dark:focus:border-red-400 dark:focus:ring-red-400/10'
@@ -553,7 +564,7 @@ export function Contact({
                           placeholder="john@example.com"
                         />
 
-                        {touched.email && <FieldError message={errors.email} />}
+                        {touched.email && <FieldError id="email-error" message={errors.email} />}
                       </div>
 
                       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -663,6 +674,10 @@ export function Contact({
                           onChange={handleInputChange}
                           onBlur={handleBlur}
                           rows={5}
+                          required
+                          minLength={10}
+                          aria-invalid={Boolean(touched.message && errors.message)}
+                          aria-describedby={touched.message && errors.message ? 'message-error' : undefined}
                           className={`w-full resize-none rounded-2xl border bg-white/70 px-4 py-3.5 text-custom-title outline-none transition-all duration-200 placeholder:text-custom-muted focus:ring-4 dark:bg-white/[0.04] ${errors.message
                               ? 'border-red-400 focus:border-red-500 focus:ring-red-500/10'
                               : 'border-gray-200 focus:border-[#8C0605] focus:ring-[#8C0605]/10 dark:border-white/10 dark:focus:border-red-400 dark:focus:ring-red-400/10'
@@ -670,7 +685,7 @@ export function Contact({
                           placeholder={tr('contact.message_placeholder')}
                         />
 
-                        {touched.message && <FieldError message={errors.message} />}
+                        {touched.message && <FieldError id="message-error" message={errors.message} />}
                       </div>
                     </div>
 
@@ -700,6 +715,7 @@ export function Contact({
                             animate={{ y: 0, opacity: 1 }}
                             exit={{ y: -14, opacity: 0 }}
                             transition={{ duration: 0.2, ease: EASE_SMOOTH }}
+                            aria-live="polite"
                             className="flex items-center justify-center gap-2"
                           >
                             {getSubmitContent()}

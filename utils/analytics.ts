@@ -12,6 +12,7 @@ declare global {
 export const GA_ID = process.env.NEXT_PUBLIC_GA_ID
 
 export const CONSENT_STORAGE_KEY = 'analytics-consent'
+export const CONSENT_EVENT = 'analytics-consent-changed'
 
 /**
  * Envoie un événement GA4. No-op si GA n'est pas configuré ou pas encore chargé.
@@ -32,6 +33,7 @@ export function grantAnalyticsConsent() {
   if (typeof window === 'undefined') return
 
   localStorage.setItem(CONSENT_STORAGE_KEY, 'granted')
+  window.dispatchEvent(new CustomEvent(CONSENT_EVENT, { detail: 'granted' }))
 
   window.gtag?.('consent', 'update', {
     analytics_storage: 'granted',
@@ -42,6 +44,7 @@ export function denyAnalyticsConsent() {
   if (typeof window === 'undefined') return
 
   localStorage.setItem(CONSENT_STORAGE_KEY, 'denied')
+  window.dispatchEvent(new CustomEvent(CONSENT_EVENT, { detail: 'denied' }))
 
   window.gtag?.('consent', 'update', {
     analytics_storage: 'denied',

@@ -3,11 +3,14 @@ export type ProjectEntry = {
   key: string
   slug: string
   image: string
+  video?: string
   demo: string
   github: string | null
   technologies: string[]
   /** Badges de preuve — clés de traduction sous `work.badges.<badge>` */
   badges?: string[]
+  /** Résultat factuel mis en avant — clé sous `projects.<key>.results` */
+  proof?: string
   /** Affiché sur la home (4 max) */
   home?: boolean
   /** Projet montré seul dans le hero — un site client, première preuve vue par un prospect */
@@ -21,10 +24,12 @@ export const PROJECTS: ProjectEntry[] = [
     key: 'photographe',
     slug: 'photographe',
     image: '/photos/photographe.png',
+    video: '/photograph.mp4',
     demo: 'https://photograph-portfolio-five.vercel.app/',
     github: null,
     technologies: ['Next.js', 'Tailwind CSS', 'Framer Motion'],
     badges: ['showcase', 'seo_local'],
+    proof: 'gallery',
     home: true,
   },
   {
@@ -35,6 +40,7 @@ export const PROJECTS: ProjectEntry[] = [
     github: null,
     technologies: ['Next.js', 'TypeScript', 'Sanity'],
     badges: ['showcase', 'seo_local', 'conversion'],
+    proof: 'trust',
     home: true,
   },
   {
@@ -45,6 +51,7 @@ export const PROJECTS: ProjectEntry[] = [
     github: null,
     technologies: ['React Native', 'Supabase', 'TypeScript'],
     badges: ['mobile_app', 'conversion'],
+    proof: 'interface',
     home: true,
     featured: true,
   },
@@ -56,6 +63,7 @@ export const PROJECTS: ProjectEntry[] = [
     github: null,
     technologies: ['Next.js', 'TypeScript', 'Sanity'],
     badges: ['showcase', 'cms', 'seo_local'],
+    proof: 'contact',
     home: true,
     hero: true,
   },
