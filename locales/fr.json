@@ -414,59 +414,62 @@
     "badge": "Maintenance & Croissance",
     "title": "Votre site, entretenu. Vos clients, livrés.",
     "subtitle": "Trois façons de travailler ensemble selon où vous en êtes.",
-    "compare_badge": "Les formules",
     "why_badge": "Pourquoi moi",
     "why_title": "Simple, clair, sans promesse magique.",
     "per_month": "/mois",
     "cta_title": "Une question avant de choisir ?",
     "cta_button": "Me contacter",
+    "plans_footnote": "Sans engagement de durée : résiliation possible à tout moment avec un préavis de 30 jours. Au-delà des 30 minutes de modifications incluses, les interventions sont facturées 70€/heure, toujours validées avec vous avant facturation.",
     "plans": {
-      "maintenance": {
+      "essential": {
         "label": "La base",
-        "name": "Maintenance",
-        "price": "60€",
-        "positioning": "Votre site reste en ligne. Vous n'y pensez plus.",
+        "name": "Essentiel",
+        "price": "79€",
+        "positioning": "Votre site reste en ligne, sécurisé et à jour. Vous n'y pensez plus.",
         "included": [
-          "Hébergement et domaine géré",
-          "Surveillance uptime 24h/24",
-          "Mises à jour de sécurité",
-          "Certificat SSL actif",
-          "Sauvegarde mensuelle",
-          "Support email/WhatsApp — réponse sous 72h",
-          "30 min de modifications incluses/mois"
+          "Hébergement du site et gestion du nom de domaine",
+          "Renouvellement du domaine et certificat SSL inclus",
+          "Surveillance de la disponibilité 24h/24",
+          "Sauvegarde mensuelle et mises à jour de sécurité",
+          "Support email et WhatsApp — prise en compte sous 72h ouvrées",
+          "30 min de modifications mineures incluses chaque mois"
         ],
-        "cta": "Choisir Maintenance"
+        "cta": "Choisir Essentiel"
+      },
+      "visibility": {
+        "label": "Visibilité locale",
+        "badge": "Recommandé",
+        "name": "Visibilité",
+        "price": "109€",
+        "positioning": "Toute la maintenance Essentiel, plus une fiche Google qui travaille pour vous.",
+        "included": [
+          "Tout ce qui est dans Essentiel",
+          "Audit et optimisation de votre fiche Google Business Profile",
+          "2 posts Google publiés chaque mois",
+          "Mise à jour des horaires, services, photos et coordonnées",
+          "QR code et lien direct pour collecter des avis Google",
+          "Modèles de messages (SMS, WhatsApp, email) pour demander un avis",
+          "Bilan mensuel simplifié"
+        ],
+        "note": "Uniquement des avis authentiques : je ne publie, n'achète ni ne sollicite jamais de faux avis.",
+        "cta": "Choisir Visibilité"
       },
       "growth": {
-        "label": "En complément",
-        "requires_badge": "Nécessite la Maintenance active",
+        "label": "Le plus complet",
         "name": "Croissance",
-        "price": "150€",
-        "setup_note": "+ 200€ de mise en place",
-        "positioning": "Votre site convertit. Maintenant on lui amène du monde.",
+        "price": "349€",
+        "setup_note": "+ 300€ de mise en place (une seule fois)",
+        "positioning": "Votre site, votre fiche Google et une campagne Google Ads gérée pour générer des contacts.",
         "included": [
-          "Campagnes Google Ads (création + optimisation mensuelle)",
+          "Tout ce qui est dans Visibilité",
+          "Création et gestion continue d'une campagne Google Ads locale",
+          "Recherche de mots-clés et rédaction des annonces",
+          "Ajustement du ciblage : zone, horaires, enchères, budget",
           "Suivi des conversions (appels, formulaires)",
-          "Gestion active de votre fiche Google My Business",
-          "Bilan mensuel simple"
+          "Rapport mensuel et recommandations d'amélioration"
         ],
-        "meta_note": "Option Meta Ads disponible (+50€/mois) pour les métiers à fort rendu visuel",
-        "cta": "Choisir Croissance"
-      },
-      "pack": {
-        "label": "Le pack complet",
-        "badge": "Recommandé",
-        "name": "Pack Croissance Complète",
-        "price": "180€",
-        "setup_note": "+ 200€ de mise en place",
-        "savings": "Au lieu de 210€/mois en séparé — vous économisez 30€/mois",
-        "positioning": "L'entretien du site et la génération de clients, dans un seul forfait.",
-        "included": [
-          "Tout ce qui est dans Maintenance",
-          "Tout ce qui est dans Croissance",
-          "Un seul contrat, un seul interlocuteur, un seul prélèvement"
-        ],
-        "cta": "Démarrer le Pack"
+        "note": "Le budget publicitaire est payé directement à Google, séparément du forfait — gestion incluse jusqu'à 1 000€ de budget mensuel.",
+        "cta": "Démarrer Croissance"
       }
     },
     "reassurance": {

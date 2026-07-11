@@ -414,59 +414,62 @@
     "badge": "Maintenance & Growth",
     "title": "Your website, maintained. Your customers, delivered.",
     "subtitle": "Three ways to work together depending on where you are.",
-    "compare_badge": "The plans",
     "why_badge": "Why me",
     "why_title": "Simple, clear, no magic promises.",
     "per_month": "/mo",
     "cta_title": "A question before you choose?",
     "cta_button": "Contact me",
+    "plans_footnote": "No long-term commitment: cancel anytime with 30 days' written notice. Beyond the 30 minutes of included changes, extra work is billed at €70/hour, always approved with you before invoicing.",
     "plans": {
-      "maintenance": {
+      "essential": {
         "label": "The foundation",
-        "name": "Maintenance",
-        "price": "€60",
-        "positioning": "Your website stays online. You don't have to think about it.",
+        "name": "Essential",
+        "price": "€79",
+        "positioning": "Your website stays online, secure and up to date. You don't have to think about it.",
         "included": [
-          "Hosting and domain management",
+          "Website hosting and domain name management",
+          "Domain renewal and SSL certificate included",
           "24/7 uptime monitoring",
-          "Security updates",
-          "Active SSL certificate",
-          "Monthly backup",
-          "Email/WhatsApp support — response within 72h",
-          "30 min of changes included/month"
+          "Monthly backup and security updates",
+          "Email and WhatsApp support — handled within 72 business hours",
+          "30 min of minor changes included every month"
         ],
-        "cta": "Choose Maintenance"
+        "cta": "Choose Essential"
       },
-      "growth": {
-        "label": "On top",
-        "requires_badge": "Requires active Maintenance",
-        "name": "Growth",
-        "price": "€150",
-        "setup_note": "+ €200 setup fee",
-        "positioning": "Your website converts. Now let's bring it visitors.",
+      "visibility": {
+        "label": "Local visibility",
+        "badge": "Recommended",
+        "name": "Visibility",
+        "price": "€109",
+        "positioning": "All the Essential maintenance, plus a Google profile that works for you.",
         "included": [
-          "Google Ads campaigns (creation + monthly optimization)",
-          "Conversion tracking (calls, forms)",
-          "Active management of your Google Business Profile",
+          "Everything in Essential",
+          "Audit and optimization of your Google Business Profile",
+          "2 Google posts published every month",
+          "Updates to hours, services, photos and contact details",
+          "QR code and direct link to collect Google reviews",
+          "Message templates (SMS, WhatsApp, email) to request reviews",
           "Simple monthly report"
         ],
-        "meta_note": "Meta Ads option available (+€50/mo) for visually-driven trades",
-        "cta": "Choose Growth"
+        "note": "Authentic reviews only: I never publish, buy or solicit fake reviews.",
+        "cta": "Choose Visibility"
       },
-      "pack": {
-        "label": "The full package",
-        "badge": "Recommended",
-        "name": "Full Growth Package",
-        "price": "€180",
-        "setup_note": "+ €200 setup fee",
-        "savings": "Instead of €210/mo separately — you save €30/mo",
-        "positioning": "Website upkeep and customer generation, in a single plan.",
+      "growth": {
+        "label": "The most complete",
+        "name": "Growth",
+        "price": "€349",
+        "setup_note": "+ €300 one-time setup fee",
+        "positioning": "Your website, your Google profile and a managed Google Ads campaign to bring in leads.",
         "included": [
-          "Everything in Maintenance",
-          "Everything in Growth",
-          "One contract, one point of contact, one payment"
+          "Everything in Visibility",
+          "Creation and ongoing management of a local Google Ads campaign",
+          "Keyword research and ad copywriting",
+          "Targeting adjustments: area, schedule, bids, budget",
+          "Conversion tracking (calls, forms)",
+          "Monthly report and improvement recommendations"
         ],
-        "cta": "Start the Package"
+        "note": "The advertising budget is paid directly to Google, separately from the plan — management included for up to €1,000 of monthly ad spend.",
+        "cta": "Start Growth"
       }
     },
     "reassurance": {

@@ -7,16 +7,16 @@ const content: Record<Locale, { title: string; description: string; ogDescriptio
   fr: {
     title: 'Maintenance & Croissance',
     description:
-      'Trois formules pour votre site : Maintenance seule (hébergement, sécurité, support), Croissance seule (Google Ads, Google My Business) ou le Pack Croissance Complète qui réunit les deux.',
+      'Trois formules mensuelles : Essentiel (hébergement, sécurité, support), Visibilité (+ fiche Google Business Profile) et Croissance (+ campagne Google Ads gérée).',
     ogDescription:
-      'Trois formules : la maintenance qui garde votre site en bonne santé, la croissance qui lui amène des clients, ou le pack complet qui réunit les deux.',
+      'Essentiel garde votre site en bonne santé, Visibilité fait travailler votre fiche Google, Croissance y ajoute une campagne Google Ads gérée.',
   },
   en: {
     title: 'Maintenance & Growth',
     description:
-      'Three plans for your website: Maintenance alone (hosting, security, support), Growth alone (Google Ads, Google Business Profile), or the Full Growth Package combining both.',
+      'Three monthly plans: Essential (hosting, security, support), Visibility (+ Google Business Profile) and Growth (+ managed Google Ads campaign).',
     ogDescription:
-      'Three plans: maintenance keeps your website healthy, growth brings it customers, or the full package combines both.',
+      'Essential keeps your website healthy, Visibility puts your Google profile to work, Growth adds a managed Google Ads campaign.',
   },
 }
 

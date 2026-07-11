@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import { Link } from '@/components/ui/AppLink'
 import { motion } from 'framer-motion'
 import { FaArrowRight, FaEnvelope } from 'react-icons/fa'
 import { CalendarClock, ShieldCheck, UserCheck } from 'lucide-react'
@@ -12,13 +12,14 @@ import { EASE_SMOOTH, fadeUp } from '@/lib/motion'
 // La route /maintenance/souscrire n'existe pas encore : les CTA renvoient vers le contact de la home
 const CONTACT_ANCHOR = '#contact'
 
-type PlanKey = 'maintenance' | 'growth' | 'pack'
+type PlanKey = 'essential' | 'visibility' | 'growth'
 
 type Plan = {
   key: PlanKey
   href: string
   featured?: boolean
-  requiresBadge?: boolean
+  hasSetupNote?: boolean
+  hasNote?: boolean
   delay: number
   included: string[]
 }
@@ -40,24 +41,26 @@ export function Maintenance() {
 
   const plans: Plan[] = [
     {
-      key: 'maintenance',
+      key: 'essential',
       href: contactHref,
       delay: 0,
-      included: trList('maintenance.plans.maintenance.included'),
+      included: trList('maintenance.plans.essential.included'),
+    },
+    {
+      key: 'visibility',
+      href: contactHref,
+      featured: true,
+      hasNote: true,
+      delay: 0.08,
+      included: trList('maintenance.plans.visibility.included'),
     },
     {
       key: 'growth',
       href: contactHref,
-      requiresBadge: true,
-      delay: 0.08,
-      included: trList('maintenance.plans.growth.included'),
-    },
-    {
-      key: 'pack',
-      href: contactHref,
-      featured: true,
+      hasSetupNote: true,
+      hasNote: true,
       delay: 0.16,
-      included: trList('maintenance.plans.pack.included'),
+      included: trList('maintenance.plans.growth.included'),
     },
   ]
 
@@ -138,12 +141,6 @@ export function Maintenance() {
                         {tr(`${base}.label`)}
                       </span>
 
-                      {plan.requiresBadge && (
-                        <span className="mb-4 inline-flex w-fit rounded-full border border-custom px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-custom-muted">
-                          {tr(`${base}.requires_badge`)}
-                        </span>
-                      )}
-
                       <h3
                         className={
                           plan.featured
@@ -176,7 +173,7 @@ export function Maintenance() {
                         </span>
                       </div>
 
-                      {(plan.key === 'growth' || plan.key === 'pack') && (
+                      {plan.hasSetupNote && (
                         <p
                           className={
                             plan.featured
@@ -185,12 +182,6 @@ export function Maintenance() {
                           }
                         >
                           {tr(`${base}.setup_note`)}
-                        </p>
-                      )}
-
-                      {plan.featured && (
-                        <p className="mt-5 font-serif text-sm italic leading-6 text-red-400">
-                          {tr(`${base}.savings`)}
                         </p>
                       )}
 
@@ -220,9 +211,15 @@ export function Maintenance() {
                         ))}
                       </ul>
 
-                      {plan.key === 'growth' && (
-                        <p className="mt-5 text-xs leading-relaxed text-custom-muted">
-                          {tr(`${base}.meta_note`)}
+                      {plan.hasNote && (
+                        <p
+                          className={
+                            plan.featured
+                              ? 'mt-5 text-xs leading-relaxed text-[#FAF7F2]/45'
+                              : 'mt-5 text-xs leading-relaxed text-custom-muted'
+                          }
+                        >
+                          {tr(`${base}.note`)}
                         </p>
                       )}
 
@@ -243,6 +240,17 @@ export function Maintenance() {
               )
             })}
           </div>
+
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.62, ease: EASE_SMOOTH }}
+            className="mx-auto mt-8 max-w-[72ch] text-center text-xs leading-relaxed text-custom-muted"
+          >
+            {tr('maintenance.plans_footnote')}
+          </motion.p>
         </div>
       </section>
 
