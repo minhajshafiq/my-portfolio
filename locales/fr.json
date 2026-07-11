@@ -349,6 +349,11 @@
       "malt": {
         "description": "Mon profil freelance"
       }
+    },
+    "prefill": {
+      "essential": "Bonjour, je suis intéressé(e) par la formule Essentiel (79€/mois). Pouvez-vous m'en dire plus pour démarrer ?",
+      "visibility": "Bonjour, je suis intéressé(e) par la formule Visibilité (109€/mois). Pouvez-vous m'en dire plus pour démarrer ?",
+      "growth": "Bonjour, je suis intéressé(e) par la formule Croissance (349€/mois + 300€ de mise en place). Pouvez-vous m'en dire plus pour démarrer ?"
     }
   },
   "footer": {
@@ -410,6 +415,13 @@
     "prev_photo": "Photo précédente",
     "next_photo": "Photo suivante"
   },
+  "home_offers": {
+    "label": "Offres & abonnements",
+    "heading": "Trois façons de travailler ensemble.",
+    "intro": "Des formules mensuelles simples, sans engagement. On en parle et on choisit celle qui vous correspond.",
+    "plan_cta": "Discuter",
+    "detail_link": "Voir le détail des formules"
+  },
   "maintenance": {
     "badge": "Maintenance & Croissance",
     "title": "Votre site, entretenu. Vos clients, livrés.",
@@ -417,6 +429,8 @@
     "why_badge": "Pourquoi moi",
     "why_title": "Simple, clair, sans promesse magique.",
     "per_month": "/mois",
+    "subscribe_cta": "Souscrire",
+    "discuss_cta": "Ou discutons-en d'abord",
     "cta_title": "Une question avant de choisir ?",
     "cta_button": "Me contacter",
     "plans_footnote": "Sans engagement de durée : résiliation possible à tout moment avec un préavis de 30 jours. Au-delà des 30 minutes de modifications incluses, les interventions sont facturées 70€/heure, toujours validées avec vous avant facturation.",

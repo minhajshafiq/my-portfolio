@@ -349,6 +349,11 @@
       "malt": {
         "description": "My freelance profile"
       }
+    },
+    "prefill": {
+      "essential": "Hi, I'm interested in the Essential plan (€79/month). Could you tell me more so we can get started?",
+      "visibility": "Hi, I'm interested in the Visibility plan (€109/month). Could you tell me more so we can get started?",
+      "growth": "Hi, I'm interested in the Growth plan (€349/month + €300 setup). Could you tell me more so we can get started?"
     }
   },
   "footer": {
@@ -410,6 +415,13 @@
     "prev_photo": "Previous photo",
     "next_photo": "Next photo"
   },
+  "home_offers": {
+    "label": "Offers & subscriptions",
+    "heading": "Three ways to work together.",
+    "intro": "Simple monthly plans, no commitment. Let's talk and pick the one that fits you.",
+    "plan_cta": "Let's talk",
+    "detail_link": "See full plan details"
+  },
   "maintenance": {
     "badge": "Maintenance & Growth",
     "title": "Your website, maintained. Your customers, delivered.",
@@ -417,6 +429,8 @@
     "why_badge": "Why me",
     "why_title": "Simple, clear, no magic promises.",
     "per_month": "/mo",
+    "subscribe_cta": "Subscribe",
+    "discuss_cta": "Or let's talk first",
     "cta_title": "A question before you choose?",
     "cta_button": "Contact me",
     "plans_footnote": "No long-term commitment: cancel anytime with 30 days' written notice. Beyond the 30 minutes of included changes, extra work is billed at €70/hour, always approved with you before invoicing.",

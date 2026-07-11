@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from '@/components/ui/AppLink'
 import { FaArrowRight } from 'react-icons/fa'
 import { useTranslation } from '@/hooks/useTranslation'
 import { EASE_SMOOTH, fadeUp } from '@/lib/motion'

@@ -41,7 +41,7 @@ When a command cannot be run or fails for a reason unrelated to the change, repo
 
 Use `npm` for all dependency operations.
 
-Both `package-lock.json` and `pnpm-lock.yaml` currently exist, but `package-lock.json` is the authoritative and current lockfile.
+`package-lock.json` is the authoritative and current lockfile.
 
 Do not:
 
@@ -116,7 +116,7 @@ Keep browser-dependent code inside effects or guarded execution paths. Do not ac
 
 ### Custom i18n system
 
-This project does not use `next-intl`, even though it is currently listed as a dependency.
+This project does not use `next-intl`.
 
 Do not use `next-intl` APIs or introduce its providers, hooks, middleware, or message-loading conventions.
 

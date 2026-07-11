@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Link from 'next/link'
+import { Link } from '@/components/ui/AppLink'
 import { FaArrowRight, FaDownload, FaEnvelope, FaGithub, FaLinkedinIn } from 'react-icons/fa'
 import { useTranslation } from '@/hooks/useTranslation'
 import { trackEvent } from '@/utils/analytics'

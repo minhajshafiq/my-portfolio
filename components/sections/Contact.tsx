@@ -1,9 +1,12 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { ChangeEvent, ComponentType, FocusEvent, FormEvent } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from '@/hooks/useTranslation'
+import { useContactPrefill } from '@/hooks/useContactPrefill'
+import { useLoader } from '@/hooks/useLoader'
+import { getLenis } from '@/components/ui/SmoothScroll'
 import { trackEvent } from '@/utils/analytics'
 import {
   FaCalendarAlt,
@@ -88,6 +91,55 @@ export function Contact({
 
   const { t } = useTranslation()
   const formRef = useRef<HTMLFormElement>(null)
+
+  useEffect(() => {
+    const plan = new URLSearchParams(window.location.search).get('plan')
+    if (!plan || !['essential', 'visibility', 'growth'].includes(plan)) return
+
+    const prefill = t(`contact.prefill.${plan}`)
+    if (typeof prefill !== 'string') return
+
+    setFormData((prev) => (prev.message ? prev : { ...prev, message: prefill }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- montage unique : ne doit pas se relancer si `t` change
+  }, [])
+
+  const requestedPlan = useContactPrefill((state) => state.requestedPlan)
+  const clearPrefill = useContactPrefill((state) => state.clearPrefill)
+
+  useEffect(() => {
+    if (!requestedPlan) return
+
+    const prefill = t(`contact.prefill.${requestedPlan}`)
+    if (typeof prefill === 'string') {
+      setFormData((prev) => (prev.message ? prev : { ...prev, message: prefill }))
+    }
+    clearPrefill()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [requestedPlan])
+
+  const isLoading = useLoader((state) => state.isLoading)
+  const hasScrolledToContactRef = useRef(false)
+
+  useEffect(() => {
+    if (isLoading || hasScrolledToContactRef.current) return
+    if (window.location.hash !== '#contact') return
+
+    hasScrolledToContactRef.current = true
+
+    requestAnimationFrame(() => {
+      const element = document.getElementById('contact')
+      if (!element) return
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      const lenis = getLenis()
+
+      if (lenis && !prefersReducedMotion) {
+        lenis.scrollTo(element)
+      } else {
+        element.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' })
+      }
+    })
+  }, [isLoading])
 
   const tr = (key: string): string => {
     const value = t(key)
