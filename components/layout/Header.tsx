@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { MouseEvent, ReactNode } from 'react'
 import { Link } from '@/components/ui/AppLink'
 import { usePathname, useRouter } from 'next/navigation'
@@ -8,8 +8,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Menu, Moon, Sun, X } from 'lucide-react'
 import { useTheme } from '@/hooks/useTheme'
 import { useTranslation } from '@/hooks/useTranslation'
-import { trackEvent } from '@/utils/analytics'
-import { cn } from '@/utils/cn'
+import { trackEvent } from '@/lib/analytics'
+import { cn } from '@/lib/cn'
 import { EASE_SMOOTH } from '@/lib/motion'
 
 type NavItem = {
@@ -65,6 +65,7 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
+  const sectionOffsetsRef = useRef<Array<{ id: string; top: number }>>([])
 
   const { theme, toggleTheme, mounted } = useTheme()
   const { language, changeLanguage, t } = useTranslation()
@@ -135,35 +136,53 @@ export function Header() {
   }, [pathname, closeMenu])
 
   useEffect(() => {
+    let frameId: number | null = null
+
     const updateScrollState = () => {
       const scrollY = window.scrollY
       const scrollPosition = scrollY + HEADER_SCROLL_OFFSET
-
-      setIsScrolled(scrollY > 16)
-
       let currentSection = 'home'
 
-      NAV_ITEMS.forEach((item) => {
-        if (!item.href.startsWith('#')) return
+      for (const section of sectionOffsetsRef.current) {
+        if (section.top <= scrollPosition) currentSection = section.id
+      }
 
-        const section = document.querySelector(item.href) as HTMLElement | null
-
-        if (section && section.offsetTop <= scrollPosition) {
-          currentSection = item.href.replace('#', '')
-        }
+      setIsScrolled((previous) => {
+        const next = scrollY > 16
+        return previous === next ? previous : next
       })
-
-      setActiveSection(currentSection)
+      setActiveSection((previous) =>
+        previous === currentSection ? previous : currentSection
+      )
     }
 
-    updateScrollState()
+    const scheduleUpdate = () => {
+      if (frameId !== null) return
 
-    window.addEventListener('scroll', updateScrollState, { passive: true })
-    window.addEventListener('resize', updateScrollState)
+      frameId = window.requestAnimationFrame(() => {
+        frameId = null
+        updateScrollState()
+      })
+    }
+
+    const updateSectionOffsets = () => {
+      sectionOffsetsRef.current = NAV_ITEMS.flatMap((item) => {
+        if (!item.href.startsWith('#')) return []
+
+        const section = document.querySelector<HTMLElement>(item.href)
+        return section ? [{ id: item.href.slice(1), top: section.offsetTop }] : []
+      })
+      scheduleUpdate()
+    }
+
+    updateSectionOffsets()
+    window.addEventListener('scroll', scheduleUpdate, { passive: true })
+    window.addEventListener('resize', updateSectionOffsets)
 
     return () => {
-      window.removeEventListener('scroll', updateScrollState)
-      window.removeEventListener('resize', updateScrollState)
+      window.removeEventListener('scroll', scheduleUpdate)
+      window.removeEventListener('resize', updateSectionOffsets)
+      if (frameId !== null) window.cancelAnimationFrame(frameId)
     }
   }, [])
 

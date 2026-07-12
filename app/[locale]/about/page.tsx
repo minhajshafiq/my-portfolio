@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { AboutFull } from '@/components/sections/AboutFull'
+import { AboutFull } from '@/features/about'
 import { PageIntro } from '@/components/ui/PageIntro'
 import { getPageMetadata } from '@/app/metadata'
-import { locales, isValidLocale, type Locale } from '@/utils/i18n'
+import { locales, isValidLocale, type Locale } from '@/lib/i18n'
 
 const PAGE_META: Record<Locale, { title: string; description: string }> = {
   fr: {

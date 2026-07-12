@@ -9,7 +9,7 @@ import {
 } from 'framer-motion'
 import Image from 'next/image'
 import { ArrowUpRight } from 'lucide-react'
-import { cn } from '@/utils/cn'
+import { cn } from '@/lib/cn'
 
 interface LuxaShowcaseCardProps {
   demoUrl?: string

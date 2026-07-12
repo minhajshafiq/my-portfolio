@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { locales } from '@/utils/i18n'
+import { locales } from '@/lib/i18n'
 import { PROJECTS } from '@/data/projects'
 
 type RouteConfig = {

@@ -6,7 +6,7 @@ import { Link } from '@/components/ui/AppLink'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useContactPrefill } from '@/hooks/useContactPrefill'
-import { trackEvent } from '@/utils/analytics'
+import { trackEvent } from '@/lib/analytics'
 import { EASE_SMOOTH, fadeUp } from '@/lib/motion'
 
 type PlanKey = 'essential' | 'visibility' | 'growth'

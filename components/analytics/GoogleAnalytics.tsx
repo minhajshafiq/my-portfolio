@@ -7,7 +7,7 @@ import {
   CONSENT_STORAGE_KEY,
   GA_ID,
   getStoredConsent,
-} from '@/utils/analytics'
+} from '@/lib/analytics'
 
 /**
  * Charge gtag.js avec Consent Mode v2 : analytics refusé par défaut (CNIL),

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { cn } from '@/utils/cn'
+import { cn } from '@/lib/cn'
 import type { ProjectEntry } from '@/data/projects'
 
 type ProjectMediaProps = {

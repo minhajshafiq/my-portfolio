@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { CvContent } from '@/components/sections/CvContent'
+import { CvContent } from '@/features/cv'
 import { getPageMetadata } from '@/app/metadata'
-import { locales, isValidLocale, type Locale } from '@/utils/i18n'
+import { locales, isValidLocale, type Locale } from '@/lib/i18n'
 
 const PAGE_META: Record<Locale, { title: string; description: string }> = {
   fr: {

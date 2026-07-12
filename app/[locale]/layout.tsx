@@ -5,17 +5,18 @@ import { ViewTransitions } from 'next-view-transitions'
 import '../globals.css'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
-import { Loader } from '@/components/sections/Loader'
+import { Loader } from '@/components/layout/Loader'
 import { DeferredCursor } from '@/components/ui/DeferredCursor'
 import { ScrollProgress } from '@/components/ui/ScrollProgress'
 import { ConsentBanner } from '@/components/ui/ConsentBanner'
 import { MotionProvider } from '@/components/ui/MotionProvider'
 import { ScrollReset } from '@/components/ui/ScrollReset'
+import { SmoothScroll } from '@/components/ui/SmoothScroll'
 import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
 import { ScrollDepth } from '@/components/analytics/ScrollDepth'
 import { getMetadata } from '../metadata'
 import { getStructuredData } from '../structured-data'
-import { locales, isValidLocale } from '@/utils/i18n'
+import { locales, isValidLocale } from '@/lib/i18n'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/react'
 
@@ -122,6 +123,7 @@ export default async function RootLayout({
           {locale === 'fr' ? 'Aller au contenu' : 'Skip to content'}
         </a>
         <MotionProvider>
+          <SmoothScroll />
           <ScrollReset />
           <ScrollProgress />
           <DeferredCursor />

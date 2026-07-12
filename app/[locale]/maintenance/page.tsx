@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import { Maintenance } from '@/components/sections/Maintenance'
+import { Maintenance } from '@/features/maintenance'
 import { siteConfig } from '../../metadata'
-import { isValidLocale, defaultLocale, type Locale } from '@/utils/i18n'
+import { isValidLocale, defaultLocale, type Locale } from '@/lib/i18n'
 
 const content: Record<Locale, { title: string; description: string; ogDescription: string }> = {
   fr: {

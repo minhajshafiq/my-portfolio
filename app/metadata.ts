@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { locales, type Locale } from '@/utils/i18n'
+import { locales, type Locale } from '@/lib/i18n'
 
 export const siteConfig = {
   url: 'https://www.minhajshafiq.com',

@@ -8,7 +8,7 @@ import { RevealText } from '@/components/ui/RevealText'
 import { PROJECTS } from '@/data/projects'
 import { ProjectRow, type ProjectVariant } from './Projects'
 import { WorkHorizontalJourney } from './WorkHorizontalJourney'
-import { Contact } from './Contact'
+import { Contact } from '@/features/contact'
 import { EASE_SMOOTH, fadeUp } from '@/lib/motion'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 

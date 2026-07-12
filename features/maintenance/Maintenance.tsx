@@ -8,7 +8,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { PageIntro } from '@/components/ui/PageIntro'
 import { SectionLabel } from '@/components/ui/SectionLabel'
 import { EASE_SMOOTH, fadeUp } from '@/lib/motion'
-import { trackEvent } from '@/utils/analytics'
+import { trackEvent } from '@/lib/analytics'
 import { PLAN_PAYMENT_LINKS, type PlanKey } from '@/data/maintenance'
 
 // La route /maintenance/souscrire n'existe pas encore : les CTA renvoient vers le contact de la home

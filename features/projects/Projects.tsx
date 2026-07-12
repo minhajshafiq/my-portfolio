@@ -8,12 +8,12 @@ import { Link } from '@/components/ui/AppLink'
 import { FaArrowRight } from 'react-icons/fa'
 import { useTranslation } from '@/hooks/useTranslation'
 import { RevealText } from '@/components/ui/RevealText'
-import { trackEvent } from '@/utils/analytics'
-import { cn } from '@/utils/cn'
+import { trackEvent } from '@/lib/analytics'
+import { cn } from '@/lib/cn'
 import { TEASER_PROJECTS, type ProjectEntry } from '@/data/projects'
 import { EASE_SMOOTH, fadeUp } from '@/lib/motion'
 import { SectionLabel } from '@/components/ui/SectionLabel'
-import { ProjectMedia } from '@/components/sections/ProjectMedia'
+import { ProjectMedia } from './ProjectMedia'
 
 gsap.registerPlugin(ScrollTrigger)
 

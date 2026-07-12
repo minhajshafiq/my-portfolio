@@ -8,7 +8,7 @@ import {
   denyAnalyticsConsent,
   getStoredConsent,
   grantAnalyticsConsent,
-} from '@/utils/analytics'
+} from '@/lib/analytics'
 
 export function ConsentBanner() {
   const [isVisible, setIsVisible] = useState(false)

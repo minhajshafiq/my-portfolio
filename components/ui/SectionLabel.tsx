@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { EASE_SMOOTH } from '@/lib/motion'
-import { cn } from '@/utils/cn'
+import { cn } from '@/lib/cn'
 
 /**
  * Signature motion du site : le trait rouge se dessine de gauche à droite,

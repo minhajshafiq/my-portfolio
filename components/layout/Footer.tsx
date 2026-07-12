@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { ComponentType, ReactNode } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUp, Briefcase, MapPin, Zap } from 'lucide-react'
@@ -10,8 +10,8 @@ import { SiMalt } from 'react-icons/si'
 import { Link } from '@/components/ui/AppLink'
 import { useTranslation } from '@/hooks/useTranslation'
 import { Magnetic } from '@/components/ui/Magnetic'
-import { trackEvent } from '@/utils/analytics'
-import { cn } from '@/utils/cn'
+import { trackEvent } from '@/lib/analytics'
+import { cn } from '@/lib/cn'
 import { EASE_SMOOTH, fadeUp } from '@/lib/motion'
 
 type IconComponent = ComponentType<{ className?: string }>
@@ -112,6 +112,7 @@ function FooterColumn({
 
 export function Footer() {
   const [showScrollButton, setShowScrollButton] = useState(false)
+  const contactTopRef = useRef<number | null>(null)
   const { t, language } = useTranslation()
 
   const currentYear = new Date().getFullYear()
@@ -129,26 +130,41 @@ export function Footer() {
   }
 
   useEffect(() => {
-    const handleScroll = () => {
-      const contactSection = document.querySelector('#contact') as HTMLElement | null
+    let frameId: number | null = null
 
-      if (!contactSection) {
-        setShowScrollButton(window.scrollY > 700)
-        return
-      }
+    const updateVisibility = () => {
+      const contactTop = contactTopRef.current
+      const next =
+        contactTop === null
+          ? window.scrollY > 700
+          : window.scrollY + window.innerHeight >= contactTop + 200
 
-      const contactTop = contactSection.offsetTop
-      const scrollPosition = window.scrollY + window.innerHeight
-
-      setShowScrollButton(scrollPosition >= contactTop + 200)
+      setShowScrollButton((previous) => (previous === next ? previous : next))
     }
 
-    handleScroll()
+    const scheduleUpdate = () => {
+      if (frameId !== null) return
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
+      frameId = window.requestAnimationFrame(() => {
+        frameId = null
+        updateVisibility()
+      })
+    }
+
+    const updateContactPosition = () => {
+      const contactSection = document.querySelector<HTMLElement>('#contact')
+      contactTopRef.current = contactSection?.offsetTop ?? null
+      scheduleUpdate()
+    }
+
+    updateContactPosition()
+    window.addEventListener('scroll', scheduleUpdate, { passive: true })
+    window.addEventListener('resize', updateContactPosition)
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('scroll', scheduleUpdate)
+      window.removeEventListener('resize', updateContactPosition)
+      if (frameId !== null) window.cancelAnimationFrame(frameId)
     }
   }, [])
 

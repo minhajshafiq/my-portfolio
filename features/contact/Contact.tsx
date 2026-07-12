@@ -7,7 +7,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { useContactPrefill } from '@/hooks/useContactPrefill'
 import { useLoader } from '@/hooks/useLoader'
 import { getLenis } from '@/components/ui/SmoothScroll'
-import { trackEvent } from '@/utils/analytics'
+import { trackEvent } from '@/lib/analytics'
 import {
   FaCalendarAlt,
   FaCheckCircle,

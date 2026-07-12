@@ -1,5 +1,5 @@
 import { siteConfig } from './metadata'
-import type { Locale } from '@/utils/i18n'
+import type { Locale } from '@/lib/i18n'
 
 const localizedJobTitle: Record<Locale, string> = {
   fr: 'Développeur web freelance',

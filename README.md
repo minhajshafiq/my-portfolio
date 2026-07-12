@@ -4,89 +4,33 @@
 
 Un portfolio moderne et professionnel construit avec Next.js 15, TypeScript et Tailwind CSS, conçu pour présenter mes compétences et attirer les opportunités de CDI et de freelance.
 
-## 👨‍💻 À propos de moi
+## Structure du Projet
 
-Je suis **Minhaj Zubair**, développeur Full-Stack basé en France, spécialisé dans le développement d'applications web et mobiles modernes. Passionné par les technologies Next.js, Spring Boot et React Native, je recherche des opportunités pour contribuer à des projets innovants.
-
-### 🎯 Objectifs
-- **CDI** : Intégrer une équipe dynamique pour développer mes compétences
-- **Freelance** : Collaborer sur des projets web et mobiles
-- **Apprentissage** : Continuer à explorer les nouvelles technologies
-
-## 🚀 Fonctionnalités
-
-### Design & UX
-- **Palette de couleurs moderne** : Rouge principal (#8C0605), tons neutres élégants
-- **Polices Inter + Fraunces** : lecture nette et titres éditoriaux
-- **Animations fluides** : Framer Motion pour les interactions, GSAP pour les animations avancées
-- **Responsive design** : Optimisé pour tous les appareils
-- **Mode sombre/clair** : Switch automatique avec persistance
-
-### Sections Stratégiques
-- **Hero** : Présentation personnelle avec CTA et spécialisations
-- **À propos** : Mon parcours, compétences et expérience
-- **Projets** : Mes réalisations principales avec technologies et résultats
-- **Services** : Offres freelance adaptées à mes compétences
-- **Contact** : Formulaire sécurisé avec alternatives
-
-### Fonctionnalités Avancées
-- **Bilingue FR/EN** : Internationalisation complète
-- **SEO optimisé** : Métadonnées, Open Graph, Twitter Cards
-- **Accessibilité WCAG** : Navigation clavier, contrastes
-- **Performance** : Lazy loading, optimisations
-- **Clean Code** : Architecture modulaire et documentée
-
-## 🛠️ Technologies
-
-### Frontend
-- **Next.js 15** : Framework React avec App Router
-- **TypeScript** : Typage statique
-- **Tailwind CSS** : Styling utilitaire
-- **Framer Motion** : Animations d'interaction
-- **GSAP** : Animations avancées
-- **Lucide React** : Icônes modernes
-
-### Backend & Mobile
-- **Spring Boot** : API REST robustes
-- **React Native/Expo** : Applications mobiles cross-platform
-- **PostgreSQL** : Base de données relationnelle
-- **Supabase** : Backend-as-a-Service
-
-### Outils
-- **next-intl** : Internationalisation
-- **clsx + tailwind-merge** : Gestion des classes CSS
-- **ESLint** : Linting du code
-
-## 📁 Structure du Projet
-
-```
+```text
 my-portfolio/
-├── app/                    # App Router Next.js
-│   ├── globals.css        # Styles globaux
-│   ├── layout.tsx         # Layout principal
-│   └── page.tsx           # Page d'accueil
-├── components/
-│   ├── layout/            # Composants de mise en page
-│   │   ├── Header.tsx     # Navigation + contrôles
-│   │   └── Footer.tsx     # Pied de page
-│   └── widgets/           # Sections principales
-│       ├── Hero.tsx       # Section d'accueil
-│       ├── About.tsx      # À propos de moi
-│       ├── Services.tsx   # Services freelance
-│       ├── Projects.tsx   # Mes projets
-│       ├── Testimonials.tsx # Témoignages
-│       └── Contact.tsx    # Formulaire de contact
-├── hooks/                 # Hooks personnalisés
-│   ├── useTheme.ts        # Gestion thème light/dark
-│   └── useTranslation.ts  # Internationalisation
-├── locales/               # Fichiers de traduction
-│   ├── fr.json           # Français
-│   └── en.json           # Anglais
-├── utils/                 # Utilitaires
-│   └── cn.ts             # Combinaison classes CSS
-└── styles/               # Styles additionnels
+|- app/                    # Routes, metadata, sitemap and manifest
+|  `- [locale]/            # Pages FR/EN and shared localized layout
+|- components/             # Reusable presentation components
+|  |- analytics/           # Analytics and scroll tracking
+|  |- layout/              # Header, footer and global loader
+|  `- ui/                  # Design-system primitives and interactions
+|- features/               # Components grouped by product domain
+|  |- about/
+|  |- contact/
+|  |- cv/
+|  |- home/
+|  |- maintenance/
+|  |- projects/
+|  `- services/
+|- data/                   # Project and offer content
+|- hooks/                  # Shared React hooks and client stores
+|- lib/                    # Framework-agnostic helpers
+|  `- i18n/                # Locale configuration and server translations
+|- locales/                # FR/EN translation dictionaries
+`- public/                 # Static assets, media and favicons
 ```
 
+Each feature exposes a small `index.ts` entry point. Routes therefore only compose pages and keep their SEO metadata close by.
 ## 🎨 Palette de Couleurs
 
 ```css

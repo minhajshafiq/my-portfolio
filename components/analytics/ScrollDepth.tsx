@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import { trackEvent } from '@/utils/analytics'
+import { trackEvent } from '@/lib/analytics'
 
 const THRESHOLDS = [25, 50, 75, 100]
 
@@ -12,26 +12,41 @@ export function ScrollDepth() {
 
   useEffect(() => {
     const reached = new Set<number>()
+    let frameId: number | null = null
 
-    const onScroll = () => {
+    const evaluateDepth = () => {
       const scrollable = document.documentElement.scrollHeight - window.innerHeight
-
       if (scrollable <= 0) return
 
       const percent = Math.round((window.scrollY / scrollable) * 100)
 
-      THRESHOLDS.forEach((threshold) => {
-        if (percent >= threshold && !reached.has(threshold)) {
-          reached.add(threshold)
-          trackEvent('scroll_depth', { percent: threshold, page: pathname })
-        }
+      for (const threshold of THRESHOLDS) {
+        if (percent < threshold || reached.has(threshold)) continue
+
+        reached.add(threshold)
+        trackEvent('scroll_depth', { percent: threshold, page: pathname })
+      }
+
+      if (reached.size === THRESHOLDS.length) {
+        window.removeEventListener('scroll', onScroll)
+      }
+    }
+
+    const onScroll = () => {
+      if (frameId !== null) return
+
+      frameId = window.requestAnimationFrame(() => {
+        frameId = null
+        evaluateDepth()
       })
     }
 
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
 
     return () => {
       window.removeEventListener('scroll', onScroll)
+      if (frameId !== null) window.cancelAnimationFrame(frameId)
     }
   }, [pathname])
 

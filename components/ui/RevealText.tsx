@@ -4,7 +4,7 @@ import { createElement, useEffect, useRef } from 'react'
 import type { ElementType } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { cn } from '@/utils/cn'
+import { cn } from '@/lib/cn'
 
 gsap.registerPlugin(ScrollTrigger)
 

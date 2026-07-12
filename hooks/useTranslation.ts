@@ -3,7 +3,7 @@
 import { useParams, usePathname, useRouter } from 'next/navigation'
 import frTranslations from '../locales/fr.json'
 import enTranslations from '../locales/en.json'
-import { isValidLocale, defaultLocale, type Locale } from '@/utils/i18n'
+import { isValidLocale, defaultLocale, type Locale } from '@/lib/i18n'
 
 const translations = {
   fr: frTranslations,

@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
 import { gsap } from 'gsap'
-import { cn } from '@/utils/cn'
+import { cn } from '@/lib/cn'
 
 type MagneticProps = {
   children: ReactNode

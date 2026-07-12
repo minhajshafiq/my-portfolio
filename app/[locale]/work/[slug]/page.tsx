@@ -3,12 +3,12 @@ import { Link } from '@/components/ui/AppLink'
 import { notFound } from 'next/navigation'
 import { FaArrowLeft, FaArrowRight, FaExternalLinkAlt, FaGithub } from 'react-icons/fa'
 import { getPageMetadata } from '@/app/metadata'
-import { LuxaShowcaseCard } from '@/components/sections/LuxaShowcaseCard'
+import { LuxaShowcaseCard, ProjectMedia } from '@/features/projects'
 import { PROJECTS, getProjectBySlug } from '@/data/projects'
-import { locales, isValidLocale, type Locale } from '@/utils/i18n'
-import { getServerT } from '@/utils/server-i18n'
+import { locales, isValidLocale, type Locale } from '@/lib/i18n'
+import { getServerT } from '@/lib/i18n/server'
 import { SectionLabel } from '@/components/ui/SectionLabel'
-import { ProjectMedia } from '@/components/sections/ProjectMedia'
+
 
 export function generateStaticParams() {
   return locales.flatMap((locale) =>

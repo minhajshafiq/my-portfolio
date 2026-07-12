@@ -10,7 +10,7 @@ import { FaArrowRight, FaGithub, FaLinkedinIn } from 'react-icons/fa'
 import { useLoader } from '@/hooks/useLoader'
 import { useTranslation } from '@/hooks/useTranslation'
 import { Magnetic } from '@/components/ui/Magnetic'
-import { trackEvent } from '@/utils/analytics'
+import { trackEvent } from '@/lib/analytics'
 import { HERO_PROJECT } from '@/data/projects'
 
 gsap.registerPlugin(ScrollTrigger)

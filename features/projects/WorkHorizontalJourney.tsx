@@ -5,10 +5,10 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Link } from '@/components/ui/AppLink'
 import { FaArrowRight } from 'react-icons/fa'
-import { trackEvent } from '@/utils/analytics'
-import { cn } from '@/utils/cn'
+import { trackEvent } from '@/lib/analytics'
+import { cn } from '@/lib/cn'
 import { PROJECTS, type ProjectEntry } from '@/data/projects'
-import { ProjectMedia } from '@/components/sections/ProjectMedia'
+import { ProjectMedia } from './ProjectMedia'
 
 gsap.registerPlugin(ScrollTrigger)
 

@@ -1,6 +1,6 @@
 import frTranslations from '@/locales/fr.json'
 import enTranslations from '@/locales/en.json'
-import type { Locale } from './i18n'
+import type { Locale } from './config'
 
 const translations = {
   fr: frTranslations,
