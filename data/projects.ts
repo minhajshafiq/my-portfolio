@@ -7,13 +7,13 @@ export type ProjectEntry = {
   demo: string
   github: string | null
   technologies: string[]
-  /** Badges de preuve — clés de traduction sous `work.badges.<badge>` */
+  /** Badges de preuve : clés de traduction sous `work.badges.<badge>` */
   badges?: string[]
-  /** Résultat factuel mis en avant — clé sous `projects.<key>.results` */
+  /** Résultat factuel mis en avant : clé sous `projects.<key>.results` */
   proof?: string
   /** Affiché sur la home (4 max) */
   home?: boolean
-  /** Projet montré seul dans le hero — un site client, première preuve vue par un prospect */
+  /** Projet montré seul dans le hero : un site client, première preuve vue par un prospect */
   hero?: boolean
   /** Mis en avant comme projet signature sur la page Work (traitement plein cadre) */
   featured?: boolean
@@ -87,10 +87,10 @@ export const PROJECTS: ProjectEntry[] = [
 
 export const HOME_PROJECTS = PROJECTS.filter((project) => project.home)
 
-/** Projet unique du hero (site client) — les autres projets home vont dans la section Projets. */
+/** Projet unique du hero (site client). Les autres projets home vont dans la section Projets. */
 export const HERO_PROJECT = HOME_PROJECTS.find((project) => project.hero) ?? HOME_PROJECTS[0]
 
-/** Vignettes de la section Projets (home) : les projets home hors hero — zéro doublon. */
+/** Vignettes de la section Projets (home) : les projets home hors hero, sans doublon. */
 export const TEASER_PROJECTS = HOME_PROJECTS.filter((project) => project !== HERO_PROJECT).slice(0, 3)
 
 export function getProjectBySlug(slug: string): ProjectEntry | undefined {

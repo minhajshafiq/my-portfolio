@@ -34,7 +34,7 @@ function getPanelHeight(project: ProjectEntry, isLast: boolean) {
  * Traversée horizontale des projets : la section reste épinglée pendant que
  * les chapitres défilent latéralement. Un point rouge voyage sur un rail fixe
  * au-dessus des titres et « ouvre » chaque image (masque circulaire) au fil
- * de sa progression — la transition entre deux projets devient elle-même
+ * de sa progression. La transition entre deux projets devient elle-même
  * la mise en scène, plutôt qu'un simple empilement.
  *
  * Ne monte que côté client, quand la souris fine et `prefers-reduced-motion`
@@ -94,7 +94,7 @@ export function WorkHorizontalJourney({
     if (!section || !track) return
 
     // Positionne immédiatement le premier projet au centre, avant le premier
-    // scroll — évite un flash où la piste démarre décalée.
+    // scroll, ce qui évite un flash où la piste démarre décalée.
     gsap.set(track, { x: getLayout().targetX[0] ?? 0 })
 
     // Le composant monte un tick après l'hydratation (media query) et le layout
@@ -163,7 +163,7 @@ export function WorkHorizontalJourney({
             originX = 6 + localT * 88
           }
 
-          // 0% tant que l'image n'est pas concernée par la transition en cours —
+          // 0% tant que l'image n'est pas concernée par la transition en cours ;
           // sinon un point résiduel reste visible avant même que son tour arrive.
           const radius = reveal * 156
 
@@ -227,7 +227,7 @@ export function WorkHorizontalJourney({
             )
           })}
 
-          {/* Point voyageur — glisse d'une puce à l'autre sur le trait fin */}
+          {/* Point voyageur qui glisse d'une puce à l'autre sur le trait fin */}
           <span
             ref={dotRef}
             className="pointer-events-none absolute left-0 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#8C0605] shadow-[0_0_14px_rgba(140,6,5,0.45)] will-change-transform dark:bg-red-400"
@@ -237,16 +237,16 @@ export function WorkHorizontalJourney({
 
         {/* Légende du chapitre actif */}
         <span className="whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.16em] text-custom-muted">
-          {String(activeIndex + 1).padStart(2, '0')} — {tr(`projects.${PROJECTS[activeIndex].key}.title`)}
+          {String(activeIndex + 1).padStart(2, '0')} / {tr(`projects.${PROJECTS[activeIndex].key}.title`)}
         </span>
       </div>
 
-      {/* Piste horizontale — alignée en haut avec un espace fixe sous le rail :
+      {/* Piste horizontale alignée en haut avec un espace fixe sous le rail :
           les panneaux ont des hauteurs différentes (variante signature plus grande),
           un centrage vertical les ferait empiéter sur le rail selon lequel est actif.
           Le décalage réutilise la même formule que le `top` du rail (6rem+3vh) plus
           une marge fixe, pour que l'écart entre les deux reste constant à toute
-          hauteur d'écran — un clamp() avec un plafond fixe finissait par se faire
+          hauteur d'écran. Un clamp() avec un plafond fixe finissait par se faire
           rattraper par le rail sur les écrans plus hauts. */}
       <div className="flex h-full items-start overflow-visible pt-[calc(6rem+3vh+6.25rem)]">
         <div
@@ -272,7 +272,7 @@ export function WorkHorizontalJourney({
                 <Link
                   href={`/${locale}/work/${project.slug}`}
                   onClick={() => trackEvent('project_view', { project: project.slug, source: 'work_journey' })}
-                  aria-label={`${tr(`projects.${project.key}.title`)} — ${visitLabel}`}
+                  aria-label={`${tr(`projects.${project.key}.title`)}, ${visitLabel}`}
                   className="block"
                 >
                   {/* Numéro, catégorie et titre passent AU-DESSUS de l'image plutôt qu'en

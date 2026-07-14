@@ -24,7 +24,7 @@ export function PageIntro({ labelKey, headingKey, introKey }: PageIntroProps) {
   return (
     <div
       id="page-intro"
-      className="relative bg-custom-primary pt-[clamp(9rem,16vw,13rem)]"
+      className="relative bg-custom-primary pt-[clamp(8rem,13vw,11rem)]"
     >
       <div className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 md:px-10 lg:px-[clamp(2.5rem,4vw,5rem)]">
         {/* Fondu simple : le mouvement vient du reveal mot à mot du h1 */}
@@ -41,7 +41,7 @@ export function PageIntro({ labelKey, headingKey, introKey }: PageIntroProps) {
             <RevealText
               as="h1"
               text={tr(headingKey)}
-              className="font-serif text-[clamp(2.6rem,7vw,5.4rem)] font-medium leading-[1.02] tracking-[-0.025em] text-custom-title md:col-span-8"
+              className="font-serif text-[clamp(2.5rem,6.2vw,4.8rem)] font-medium leading-[1.03] tracking-[-0.025em] text-custom-title md:col-span-8"
             />
 
             {introKey && (

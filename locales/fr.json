@@ -17,34 +17,65 @@
   "hero": {
     "available_for_work": "Disponible pour de nouveaux projets",
     "title_lines": [
-      "Des sites web",
-      "qu'on n'oublie pas —",
-      "et qui convertissent."
+      "Un site qui rassure.",
+      "Des services bien compris.",
+      "Un contact plus simple."
     ],
-    "role_line": "Développeur web indépendant · Paris — France & international",
-    "description": "Je conçois et développe des sites et applications sur mesure pour les indépendants, les marques et les entrepreneurs qui veulent une présence en ligne qui inspire confiance — et transforme leurs visiteurs en clients.",
-    "cta_primary": "Discuter de mon projet",
-    "cta_secondary": "Voir les projets",
+    "service_line": "Sites vitrines · Refonte · Visibilité locale",
+    "audience_line": "Pour artisans, commerçants et petites entreprises",
+    "description": "Je crée ou refonds votre site pour que vos clients trouvent vos services, comprennent votre offre et vous contactent facilement. Je vous guide de A à Z, sans jargon.",
+    "cta_primary": "Parler de mon projet",
+    "cta_secondary": "Voir des réalisations",
+    "microcopy": "Premier échange gratuit et sans engagement · Réponse sous 24 h ouvrées",
     "scroll": "Défiler",
-    "reel_label": "Réalisation client",
-    "reel_hint": "Faites défiler pour voir les autres projets",
-    "reel_view": "Voir",
-    "photo_alt": "Minhaj Zubair — Développeur web indépendant basé à Paris"
+    "reel_label": "Projet client mis en ligne",
+    "reel_hint": "Découvrez le contexte et les choix réalisés",
+    "reel_view": "Voir l'étude de cas",
+    "photo_alt": "Minhaj Zubair, développeur web indépendant basé à Paris"
+  },
+  "problems": {
+    "label": "Votre situation",
+    "heading": "Votre présence en ligne vous fait-elle perdre des opportunités ?",
+    "intro": "Avant de vous appeler, vos clients vous cherchent souvent en ligne. En quelques secondes, ils décident de vous faire confiance ou de continuer chez un concurrent.",
+    "items": [
+      {
+        "title": "On vous trouve difficilement",
+        "description": "Quand un client cherche votre service près de chez lui, d'autres entreprises apparaissent avant la vôtre."
+      },
+      {
+        "title": "Votre site ne vous ressemble plus",
+        "description": "Un site ancien, incomplet ou absent peut faire douter même une personne qui vous connaît par le bouche-à-oreille."
+      },
+      {
+        "title": "Le téléphone devient un obstacle",
+        "description": "Services, menu, tarifs ou coordonnées sont difficiles à consulter sur mobile, là où vos clients cherchent vraiment."
+      },
+      {
+        "title": "Vous perdez des demandes",
+        "description": "Si appeler, réserver ou demander un devis demande trop d'efforts, vos prospects remettent leur décision à plus tard."
+      },
+      {
+        "title": "Tout repose sur le bouche-à-oreille",
+        "description": "Vos recommandations restent précieuses, mais elles ne suffisent pas toujours à rassurer ni à toucher de nouveaux clients."
+      }
+    ],
+    "cta": "Demander un premier avis",
+    "microcopy": "Expliquez-moi simplement votre situation. Aucun engagement et aucun jargon."
   },
   "manifesto": {
-    "label": "La promesse",
-    "text": "Un beau site ne suffit pas. Un site rapide ne suffit pas. Je crée des expériences web qui donnent confiance en votre marque — et qui transforment vos visiteurs en clients."
+    "label": "Ce qui change",
+    "text": "Vous passez d'une présence en ligne qui laisse vos prospects hésiter à un site clair, crédible et simple à consulter. Il présente vos services, soutient votre visibilité locale et facilite chaque prise de contact."
   },
   "work": {
     "label": "Projets sélectionnés",
-    "heading": "Des réalisations concrètes.",
-    "intro": "Trois projets réels pour découvrir le contexte, la qualité d'exécution et les choix qui servent chaque activité.",
+    "heading": "Des projets pensés pour une activité réelle.",
+    "intro": "Pour chaque projet : une situation de départ, des choix adaptés au métier et un parcours conçu pour informer, rassurer ou faciliter le contact.",
     "visit": "Voir le site",
-    "case": "Découvrir le projet",
-    "all_projects": "Explorer la page Work",
-    "home_cta_text": "La page Work rassemble les autres projets, les détails de contexte et les choix techniques. Ici, l'objectif est simplement de donner envie d'aller plus loin.",
+    "case": "Voir l'étude de cas",
+    "all_projects": "Voir toutes les réalisations",
+    "home_cta_text": "Consultez les situations de départ, les interventions réalisées et ce que chaque site permet désormais de faire plus simplement.",
     "page_heading": "Chaque projet raconte une histoire.",
-    "page_intro": "Sites vitrines, applications web et mobiles — conçus sur mesure, du premier échange à la mise en ligne.",
+    "page_intro": "Sites vitrines, applications web et mobiles, conçus sur mesure du premier échange à la mise en ligne.",
     "github_title": "Envie de voir plus ?",
     "github_subtitle": "D'autres projets et le code source sont sur GitHub.",
     "github_cta": "Mon GitHub",
@@ -70,19 +101,19 @@
       "live": "Voir le site en ligne",
       "back": "Tous les projets",
       "cta_title": "Un projet similaire en tête ?",
-      "cta_text": "Racontez-moi votre activité — je vous dirai concrètement ce qu'un site peut lui apporter.",
+      "cta_text": "Racontez-moi votre activité. Je vous dirai concrètement ce qu'un site peut lui apporter.",
       "cta_button": "Discuter de mon projet"
     },
     "photographe": {
       "context": "Une photographe avait besoin d'un portfolio à la hauteur de son travail : une galerie qui met les images en valeur, une identité forte et un parcours de contact simple pour transformer les visiteurs en réservations.",
-      "approach": "Direction artistique épurée pour laisser toute la place aux photos, galerie immersive et responsive, animations douces et appels à l'action présents à chaque étape du parcours — sans jamais voler la vedette aux images."
+      "approach": "Direction artistique épurée pour laisser toute la place aux photos, galerie immersive et responsive, animations douces et appels à l'action présents à chaque étape du parcours, sans jamais voler la vedette aux images."
     },
     "toiture_artisan": {
       "context": "Un artisan couvreur voulait un site qui inspire confiance dès la première seconde et qui génère des demandes de devis, face à des concurrents souvent invisibles ou datés en ligne.",
       "approach": "Structure entièrement pensée pour la conversion : preuves de confiance mises en avant, services expliqués simplement, demande de devis accessible depuis chaque section et optimisation pour la recherche locale."
     },
     "luxa": {
-      "context": "Luxa est née d'un constat personnel : les applications de budget sont souvent complexes et décourageantes. L'objectif — rendre la gestion d'argent simple, visuelle et quotidienne.",
+      "context": "Luxa est née d'un constat personnel : les applications de budget sont souvent complexes et décourageantes. L'objectif : rendre la gestion d'argent simple, visuelle et quotidienne.",
       "approach": "Application mobile React Native avec Supabase : authentification sécurisée, suivi des transactions en temps réel, poches d'épargne personnalisables et statistiques claires. Une interface pensée pour être ouverte tous les jours."
     },
     "unityvert": {
@@ -94,28 +125,28 @@
       "approach": "Application full-stack : front Next.js, API Spring Boot, base PostgreSQL et authentification Clerk. Un projet qui couvre toute la chaîne, de la modélisation des données à l'interface."
     },
     "portfolio": {
-      "context": "Ce site lui-même : la vitrine de mon travail devait démontrer ce que je vends — design soigné, animations maîtrisées, performance et référencement.",
+      "context": "Ce site lui-même : la vitrine de mon travail devait démontrer ce que je vends, avec un design soigné, des animations maîtrisées, de bonnes performances et un référencement solide.",
       "approach": "Next.js avec App Router, animations GSAP et Framer Motion, internationalisation FR/EN, SEO technique complet et attention portée au chargement. Le code est public sur GitHub."
     }
   },
   "pages": {
     "services": {
-      "heading": "Des sites sur mesure, pas des formules toutes faites.",
-      "intro": "Trois façons de travailler ensemble, selon où en est votre projet."
+      "heading": "Un accompagnement clair, de la visibilité au suivi.",
+      "intro": "Création, refonte, présence locale ou maintenance : partez de votre problème, pas d'une liste de technologies."
     },
     "about": {
       "heading": "Derrière le code, une personne.",
       "intro": "Parcours, manière de travailler et ce qui m'anime au quotidien."
     },
     "contact": {
-      "heading": "Parlons de votre projet.",
-      "intro": "Formulaire, appel ou email — choisissez ce qui vous convient. Réponse sous 24 h."
+      "heading": "Demandez un premier avis sur votre présence en ligne.",
+      "intro": "Formulaire, appel ou email : choisissez ce qui vous convient. Réponse sous 24 h ouvrées, sans engagement."
     }
   },
   "cv": {
     "label": "Profil professionnel",
     "heading": "Minhaj Zubair",
-    "role": "Développeur Full-Stack — Next.js · Spring Boot · React Native",
+    "role": "Développeur Full-Stack · Next.js · Spring Boot · React Native",
     "objective": "Ouvert aux opportunités d'alternance et aux collaborations en entreprise, en développement web et mobile.",
     "intro": "Cette page s'adresse aux recruteurs, aux écoles et aux entreprises : parcours, compétences techniques et projets, avec CV téléchargeable.",
     "download": "Télécharger mon CV",
@@ -123,7 +154,7 @@
     "skills_title": "Compétences techniques",
     "projects_title": "Projets notables",
     "contact_title": "Un poste, une alternance, une mission ?",
-    "contact_text": "Parlons-en — je réponds sous 24 h.",
+    "contact_text": "Parlons-en. Je réponds sous 24 h.",
     "back": "Voir le portfolio complet",
     "skills": {
       "frontend": "Front-end",
@@ -135,9 +166,10 @@
   "marquee": {
     "items": [
       "Sites vitrines",
-      "Applications web",
-      "Expériences immersives",
-      "SEO & Performance"
+      "Refonte mobile",
+      "Visibilité locale",
+      "Fiche Google",
+      "Maintenance & suivi"
     ]
   },
   "consent": {
@@ -147,75 +179,151 @@
     "deny": "Refuser"
   },
   "about_teaser": {
-    "label": "À propos",
-    "heading": "Un développeur, pas une agence.",
-    "p1": "Je m'appelle Minhaj. Basé à Paris, je conçois et développe chaque projet moi-même, de la première idée à la mise en ligne. Vous parlez directement à la personne qui crée votre site — pas à un intermédiaire.",
-    "p2": "Mon exigence : des sites rapides, soignés dans le moindre détail et pensés pour servir votre activité. Ce portfolio en est la démonstration.",
-    "cta": "Faisons connaissance",
+    "label": "Pourquoi travailler avec moi",
+    "heading": "Un interlocuteur unique qui comprend les petites entreprises.",
+    "p1": "Je m'appelle Minhaj, développeur web freelance basé en région parisienne. Du premier échange à la mise en ligne, vous parlez directement avec la personne qui conçoit votre site et connaît votre dossier.",
+    "p2": "Je traduis vos besoins en décisions simples : ce qu'il faut montrer, ce qui peut attendre et comment faciliter le contact. Le devis est défini avant de commencer, vous validez les étapes importantes et je reste disponible après le lancement.",
+    "cta": "Parler directement avec moi",
     "proofs": [
-      "Direct avec moi — pas d'intermédiaire",
-      "Design et code par la même personne",
-      "Suivi assuré après la mise en ligne"
+      "Un seul contact du devis à la mise en ligne",
+      "Des explications claires, sans vocabulaire technique inutile",
+      "Un suivi possible après la livraison",
+      "Une conception guidée par vos objectifs commerciaux"
+    ]
+  },
+  "faq": {
+    "label": "Questions fréquentes",
+    "heading": "Des réponses claires avant de vous décider",
+    "intro": "Un site est un investissement important. Voici ce que vous devez savoir avant d'envisager la suite.",
+    "cta": "Poser ma question",
+    "microcopy": "Une question suffit pour commencer. Réponse sous 24 h ouvrées.",
+    "items": [
+      {
+        "question": "Est-ce qu'un site va réellement m'apporter des clients ?",
+        "answer": "Un site ne garantit pas des clients à lui seul. Il peut en revanche vous rendre plus facile à trouver, rassurer les personnes qui vous découvrent et simplifier l'appel ou la demande de devis. Nous définissons d'abord ce qu'il doit accomplir pour votre activité, puis nous prévoyons comment mesurer les contacts obtenus."
+      },
+      {
+        "question": "Je fonctionne déjà avec le bouche-à-oreille. Pourquoi changer ?",
+        "answer": "Le site ne remplace pas le bouche-à-oreille : il le prolonge. Une personne recommandée cherchera souvent votre nom avant de vous appeler. Un site clair confirme qu'elle est au bon endroit, présente vos services et lui donne un moyen simple de vous contacter."
+      },
+      {
+        "question": "Combien coûte la création ou la refonte d'un site ?",
+        "answer": "Le prix dépend du nombre de pages, des contenus, des fonctions et de l'état de l'existant. Après un premier échange, vous recevez un devis qui précise le périmètre, le prix et ce qui est inclus. Vous savez ce qui sera réalisé avant de vous engager."
+      },
+      {
+        "question": "Je n'ai pas le temps de rédiger tout le contenu.",
+        "answer": "Vous n'avez pas à organiser seul tout le site. Je vous pose les bonnes questions, vous aide à hiérarchiser vos services et vous indique précisément les textes, photos ou informations nécessaires. Nous avançons à partir de ce que vous avez déjà."
+      },
+      {
+        "question": "Je ne comprends rien à la technique. Est-ce un problème ?",
+        "answer": "Non. Je prends en charge les choix techniques, la mise en ligne et les vérifications. Vous validez des éléments concrets : le contenu, l'apparence et le parcours de vos clients, avec des explications accessibles."
+      },
+      {
+        "question": "J'ai déjà eu une mauvaise expérience avec un prestataire.",
+        "answer": "Le projet est découpé en étapes visibles : cadrage, devis, contenus, proposition, réalisation et lancement. Vous savez ce qui est prévu, vous suivez l'avancement et vous validez les moments importants. Vous échangez directement avec moi, sans intermédiaire."
+      },
+      {
+        "question": "Puis-je créer mon site moi-même avec Wix ou un autre outil ?",
+        "answer": "Oui, ces outils peuvent convenir à un besoin simple si vous avez le temps de structurer les contenus, le parcours, la version mobile et la visibilité. Mon rôle est de prendre en charge ce travail, d'éviter les choix qui freinent le contact et de construire un site adapté à votre activité."
+      },
+      {
+        "question": "Le site m'appartient-il et pourrai-je le modifier ?",
+        "answer": "Le devis précise la propriété, l'hébergement et les modalités de modification avant le démarrage. Le site est conçu pour rester exploitable et, selon vos besoins, je peux prévoir une gestion autonome ou assurer les mises à jour pour vous."
+      },
+      {
+        "question": "Que se passe-t-il après la mise en ligne ?",
+        "answer": "Je vérifie le fonctionnement, vous accompagne dans la prise en main et reste disponible pour les ajustements. Si vous préférez ne rien gérer, des formules de maintenance et de visibilité locale permettent de poursuivre le suivi."
+      }
     ]
   },
   "services": {
     "label": "Services",
-    "heading": "Ce que je crée pour vous",
-    "intro": "Chaque projet est conçu sur mesure — pas de template, pas de formule toute faite. On définit ensemble ce dont votre activité a besoin, je m'occupe du reste.",
-    "cta": "Demander un devis",
+    "heading": "Une présence en ligne utile à votre activité",
+    "intro": "Vous n'avez pas à choisir une technologie ni à préparer seul tout le contenu. Nous partons de vos clients, de vos objectifs et de ce qui vous freine aujourd'hui.",
+    "cta": "Parler de ce besoin",
+    "problem_label": "Le problème résolu",
+    "result_label": "Ce que vous obtenez",
+    "cta_microcopy": "Premier échange gratuit · Devis clair avant de commencer",
     "offers": [
       {
-        "situation": "« Je veux un site qui inspire confiance dès la première visite »",
-        "title": "Site vitrine sur mesure",
-        "description": "Un site rapide, élégant et pensé pour convaincre : vos visiteurs comprennent ce que vous faites et vous contactent. Conçu, développé et mis en ligne en quelques semaines.",
+        "situation": "« Je n'ai pas de site ou seulement une page peu convaincante »",
+        "title": "Présentez clairement votre activité et facilitez les devis",
+        "description": "Un site vitrine professionnel, adapté à votre métier, qui explique vos services avec des mots simples et guide naturellement le visiteur vers l'appel, la réservation ou la demande de devis.",
+        "problem": "Vos prospects ne trouvent pas les bonnes informations ou hésitent à vous faire confiance.",
+        "result": "Une vitrine claire, crédible et facile à consulter sur téléphone comme sur ordinateur.",
+        "cta": "Recevoir une estimation pour mon site",
         "bullets": [
-          "Design sur mesure, fidèle à votre image",
-          "Optimisé pour Google et les mobiles",
-          "Formulaire de contact ou prise de rendez-vous",
-          "Mise en ligne clé en main"
+          "Vos services et vos points forts compris rapidement",
+          "Appel, devis ou réservation accessibles sans chercher",
+          "Lecture confortable sur tous les téléphones",
+          "Contenus structurés avec vous, puis mise en ligne prise en charge"
         ]
       },
       {
-        "situation": "« Je veux un outil qui simplifie mon activité au quotidien »",
-        "title": "Application web",
-        "description": "Un espace client, un tableau de bord, un outil métier : une interface fluide et une architecture solide qui grandit avec votre activité.",
+        "situation": "« Mes clients ne me trouvent pas quand ils cherchent près de chez eux »",
+        "title": "Soyez plus facile à trouver localement",
+        "description": "J'optimise votre site et votre fiche Google Business Profile pour présenter des informations cohérentes, utiles et à jour lorsque des clients recherchent votre activité dans votre zone.",
+        "problem": "Votre entreprise apparaît peu, mal ou avec des informations incomplètes dans les recherches locales.",
+        "result": "Une présence locale plus cohérente qui donne davantage de chances d'être vu et contacté.",
+        "cta": "Faire le point sur ma visibilité locale",
         "bullets": [
-          "Interface fluide et intuitive",
-          "Espace d'administration sécurisé",
-          "Base de données et API robustes",
-          "Pensée pour évoluer"
+          "Fiche Google Business Profile auditée et complétée",
+          "Services, horaires, zone et coordonnées cohérents",
+          "Pages préparées pour les recherches locales pertinentes",
+          "Conseils simples pour obtenir et valoriser des avis authentiques"
         ]
       },
       {
-        "situation": "« Je veux que mon site convertisse enfin »",
-        "title": "Refonte, optimisation & suivi",
-        "description": "Votre site existe mais ne convertit pas, ou mérite mieux : je le repense, l'accélère et le garde à jour pour que vous restiez concentré sur votre métier.",
+        "situation": "« Mon site est ancien, lent ou pénible à utiliser sur téléphone »",
+        "title": "Transformez un site dépassé en outil rassurant",
+        "description": "Je reprends la structure, les contenus et l'expérience mobile pour éliminer ce qui brouille votre message et rendre les prochaines étapes évidentes pour vos visiteurs.",
+        "problem": "Votre site donne une mauvaise première impression ou laisse partir des prospects avant le contact.",
+        "result": "Un site plus lisible, plus rapide et mieux organisé autour de vos objectifs commerciaux.",
+        "cta": "Voir ce qui peut être amélioré",
         "bullets": [
-          "Refonte du design et du contenu",
-          "Performance et référencement",
-          "Mises à jour et sécurité",
-          "Un interlocuteur direct, pas un ticket"
+          "Audit de l'existant et priorités expliquées clairement",
+          "Services, preuves et appels à l'action mieux organisés",
+          "Navigation et lecture repensées pour le mobile",
+          "Redirections et bases de référencement préservées"
+        ]
+      },
+      {
+        "situation": "« Je n'ai pas le temps de surveiller ou mettre à jour mon site »",
+        "title": "Gardez un site fiable sans vous en occuper",
+        "description": "Après la mise en ligne, je peux assurer l'hébergement, les mises à jour, la sécurité et les petites évolutions. Vous gardez un interlocuteur direct qui connaît déjà votre projet.",
+        "problem": "Un site laissé sans suivi se dégrade, affiche des informations obsolètes ou devient une charge de plus.",
+        "result": "Un site suivi dans le temps et une aide disponible lorsque votre activité évolue.",
+        "cta": "Découvrir le suivi après lancement",
+        "bullets": [
+          "Mises à jour, sauvegardes et surveillance",
+          "Petites modifications prises en charge",
+          "Fiche Google et visibilité locale selon la formule",
+          "Contact direct par email ou WhatsApp"
         ]
       }
     ],
-    "process_label": "Le déroulé",
-    "process_heading": "Comment nous travaillerons ensemble",
+    "process_label": "Une méthode simple",
+    "process_heading": "Vous êtes guidé à chaque étape",
     "process": [
       {
-        "title": "On échange",
-        "description": "Un appel de 30 minutes pour comprendre votre activité et vos objectifs. Vous recevez un devis clair sous 48 h."
+        "title": "Premier échange",
+        "description": "Vous m'expliquez votre activité, votre situation et votre priorité. Je vous donne un premier avis, sans jargon ni engagement."
       },
       {
-        "title": "Je conçois",
-        "description": "Une maquette fidèle à votre image. Vous validez avant qu'une seule ligne de code soit écrite."
+        "title": "Devis et plan clair",
+        "description": "Vous recevez un périmètre, un prix et les étapes prévues. Rien ne commence avant votre validation."
       },
       {
-        "title": "Je développe",
-        "description": "Un site rapide, propre et durable. Vous suivez l'avancement, sans jargon technique."
+        "title": "Contenus guidés",
+        "description": "Je vous aide à organiser vos services, vos photos et vos messages. Vous ne rédigez pas seul tout le site."
       },
       {
-        "title": "On lance",
-        "description": "Mise en ligne, derniers ajustements et prise en main. Je reste disponible après le lancement."
+        "title": "Conception et retours",
+        "description": "Vous voyez la proposition, suivez l'avancement et validez les moments importants avant la mise en ligne."
+      },
+      {
+        "title": "Lancement et suivi",
+        "description": "Je mets le site en ligne, vous montre comment l'utiliser et reste disponible pour les ajustements ou la maintenance."
       }
     ]
   },
@@ -294,44 +402,49 @@
     }
   },
   "contact": {
-    "title": "Contact",
-    "subtitle": "Discutons de votre projet",
-    "home_closing_line": "Une idée en tête ? Transformons-la en présence web mémorable.",
+    "title": "Premier échange",
+    "subtitle": "Parlons simplement de ce qui vous freine aujourd'hui",
+    "home_closing_line": "Un site absent, dépassé ou peu visible ne doit pas continuer à vous faire perdre des opportunités.",
     "name": "Nom",
     "email": "Email",
     "message": "Message",
-    "send": "Envoyer",
+    "send": "Recevoir un premier avis",
     "sending": "Envoi...",
     "success": "Message envoyé avec succès !",
     "error": "Erreur lors de l'envoi",
-    "other_means": "Autres moyens de contact",
-    "quick_response": "Réponse rapide garantie",
-    "quick_response_text": "Je réponds généralement dans les 24h. Pour les projets urgents, n'hésitez pas à me contacter directement par email ou LinkedIn.",
+    "other_means": "Choisissez le moyen le plus simple pour vous",
+    "quick_response": "Réponse sous 24 h ouvrées",
+    "quick_response_text": "Décrivez votre situation avec vos mots. Je vous réponds avec un premier avis et la prochaine étape utile, sans engagement.",
     "available_for": "Disponible pour",
     "quick_contact": "Contact rapide",
     "available_immediately": "Disponible immédiatement",
-    "contact_form": "Formulaire de contact",
+    "contact_form": "Décrivez votre besoin en quelques mots",
+    "form_intro": "Trois champs suffisent. Si vous n'avez pas encore de cahier des charges, ce n'est pas un problème.",
     "email_title": "Email",
     "linkedin_title": "LinkedIn",
     "malt_title": "Malt",
-    "message_placeholder": "Parlez-moi de votre projet...",
-    "privacy_note": "Vos données servent uniquement à répondre à votre demande.",
+    "message_placeholder": "Exemple : mon site est ancien et je souhaite recevoir davantage de demandes de devis dans ma zone...",
+    "privacy_note": "Vos données servent uniquement à répondre à votre demande. Réponse sous 24 h ouvrées, sans engagement.",
     "optional_tag": "(optionnel)",
     "activity_type_label": "Type d'activité",
     "activity_type_placeholder": "Sélectionnez...",
     "activity_type_options": [
-      "Indépendant / freelance",
-      "Startup",
-      "Entreprise / marque",
-      "Créateur / créatif",
+      "Artisan",
+      "Commerçant",
+      "Restaurant",
+      "Professionnel de service",
+      "Indépendant",
+      "Petite entreprise",
       "Autre"
     ],
     "main_goal_label": "Objectif principal",
     "main_goal_placeholder": "Sélectionnez...",
     "main_goal_options": [
-      "Nouveau site vitrine",
-      "Application web",
+      "Créer un site vitrine",
       "Refonte d'un site existant",
+      "Améliorer ma visibilité locale",
+      "Optimiser ma fiche Google",
+      "Assurer la maintenance de mon site",
       "Autre"
     ],
     "has_site_label": "Avez-vous déjà un site ?",
@@ -339,9 +452,9 @@
     "has_site_no": "Non",
     "methods": {
       "call": {
-        "title": "Réserver un appel",
-        "description": "30 minutes, gratuit et sans engagement — pour parler de votre projet.",
-        "action": "Réserver un créneau"
+        "title": "Échanger pendant 30 minutes",
+        "description": "Vous m'expliquez votre situation, je vous donne un premier avis. Gratuit et sans engagement.",
+        "action": "Choisir un créneau"
       },
       "linkedin": {
         "description": "Connectons-nous"
@@ -359,11 +472,14 @@
   "footer": {
     "rights": "Tous droits réservés",
     "crafted": "Conçu et développé avec soin, à Paris.",
-    "cta_label": "Un projet en tête ?",
-    "cta_title_line1": "Parlons de",
-    "cta_title_line2": "votre projet.",
-    "cta_description": "Racontez-moi votre idée — je vous réponds sous 24 h avec un premier avis et les prochaines étapes.",
-    "tagline": "Développeur web indépendant. Je conçois des expériences web sur mesure pour les indépendants, les marques et les entrepreneurs — depuis Paris, pour le monde entier.",
+    "cta_label": "Votre présence en ligne vous freine ?",
+    "cta_title_line1": "Faisons le point.",
+    "cta_title_line2": "Sans engagement.",
+    "cta_description": "Expliquez-moi votre situation. Je vous réponds avec un premier avis concret sur ce qui peut être amélioré pour mieux informer, rassurer et faciliter les contacts.",
+    "cta_primary": "Demander un premier avis",
+    "cta_secondary": "Échanger pendant 30 minutes",
+    "cta_microcopy": "Réponse sous 24 h ouvrées · Aucun engagement",
+    "tagline": "Développeur web freelance en région parisienne. J'aide les artisans, commerçants, indépendants et petites entreprises à être mieux présentés, trouvés et contactés en ligne.",
     "status_badge": "Disponible pour nouveaux projets",
     "nav_title": "Navigation",
     "contact_title": "Contact",
@@ -402,7 +518,7 @@
       },
       "travel": {
         "title": "Voyages",
-        "description": "Le monde me remet les idées en place. D'autres fuseaux, d'autres cultures, d'autres assiettes — je reviens toujours avec un regard neuf."
+        "description": "Le monde me remet les idées en place. D'autres fuseaux, d'autres cultures, d'autres assiettes. Je reviens toujours avec un regard neuf."
       }
     },
     "quote": "Je construis autant la personne que je deviens que les projets sur lesquels je travaille.",
@@ -416,11 +532,12 @@
     "next_photo": "Photo suivante"
   },
   "home_offers": {
-    "label": "Offres & abonnements",
-    "heading": "Trois façons de travailler ensemble.",
-    "intro": "Des formules mensuelles simples, sans engagement. On en parle et on choisit celle qui vous correspond.",
-    "plan_cta": "Discuter",
-    "detail_link": "Voir le détail des formules"
+    "label": "Après la mise en ligne",
+    "heading": "Votre site continue d'être suivi.",
+    "intro": "Maintenance, fiche Google ou acquisition locale : choisissez uniquement le niveau d'accompagnement dont votre activité a besoin.",
+    "plan_cta": "Poser une question",
+    "microcopy": "Sans engagement de durée · Périmètre expliqué avant souscription",
+    "detail_link": "Comparer les formules de suivi"
   },
   "maintenance": {
     "badge": "Maintenance & Croissance",
@@ -445,7 +562,7 @@
           "Renouvellement du domaine et certificat SSL inclus",
           "Surveillance de la disponibilité 24h/24",
           "Sauvegarde mensuelle et mises à jour de sécurité",
-          "Support email et WhatsApp — prise en compte sous 72h ouvrées",
+          "Support email et WhatsApp, prise en compte sous 72h ouvrées",
           "30 min de modifications mineures incluses chaque mois"
         ],
         "cta": "Choisir Essentiel"
@@ -482,7 +599,7 @@
           "Suivi des conversions (appels, formulaires)",
           "Rapport mensuel et recommandations d'amélioration"
         ],
-        "note": "Le budget publicitaire est payé directement à Google, séparément du forfait — gestion incluse jusqu'à 1 000€ de budget mensuel.",
+        "note": "Le budget publicitaire est payé directement à Google, séparément du forfait. La gestion est incluse jusqu'à 1 000€ de budget mensuel.",
         "cta": "Démarrer Croissance"
       }
     },

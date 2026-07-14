@@ -14,14 +14,14 @@ type ProjectMediaProps = {
 }
 
 /** Image et vidéo partagent strictement le même cadre. `object-contain` :
- * la capture (texte en plein cadre) est montrée en entier, jamais recadrée —
+ * la capture (texte en plein cadre) est montrée en entier, jamais recadrée ;
  * le conteneur peut être plus étroit que le ratio 16:9 sans couper le menu.
  * Les bords éventuels tombent sur le `bg-black` du wrapper. */
 const MEDIA_CLASSNAME =
   'absolute inset-0 block h-full w-full object-contain object-center transition-opacity duration-500 ease-out'
 
 /** Le cadrage de la vidéo/poster est piloté ici (object-contain, pas de zoom) :
- * on retire donc de l'appelant tout ce qui l'écraserait — recadrage
+ * on retire donc de l'appelant tout ce qui l'écraserait : recadrage
  * (object-*), zoom (scale-*) et transitions concurrentes. */
 function stripMediaOverrides(classes?: string) {
   return classes

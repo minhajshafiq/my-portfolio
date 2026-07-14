@@ -125,6 +125,10 @@ export function HomeOffers() {
           </div>
 
           <div className="mt-8 text-center">
+            <p className='mb-4 text-xs leading-5 text-custom-muted'>
+              {tr('home_offers.microcopy')}
+            </p>
+
             <Link
               href={`/${language}/maintenance`}
               onClick={() => trackEvent('cta_click', { cta: 'offers_detail', section: 'offers' })}

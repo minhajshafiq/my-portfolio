@@ -44,12 +44,12 @@ export function Loader({ children }: LoaderProps) {
 
     // Garde-fou : si les animations ne se déclenchent pas (onglet en arrière-plan,
     // rAF indisponible), le site doit rester accessible
-    const failSafe = window.setTimeout(finishLoader, 4500)
+    const failSafe = window.setTimeout(finishLoader, 3000)
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     if (prefersReducedMotion) {
-      const timeout = window.setTimeout(finishLoader, 350)
+      const timeout = window.setTimeout(finishLoader, 120)
 
       return () => {
         window.clearTimeout(timeout)
@@ -107,21 +107,21 @@ export function Loader({ children }: LoaderProps) {
 
       tl.to(chars, {
         yPercent: 0,
-        duration: 0.7,
-        stagger: 0.028,
+        duration: 0.45,
+        stagger: 0.018,
       })
-        .to(dotRef.current, { scale: 1, duration: 0.35, ease: 'back.out(2.2)' }, '-=0.25')
-        .to(lineRef.current, { scaleX: 1, duration: 0.55, ease: 'power2.inOut' }, '<')
-        .addLabel('exit', '+=0.35')
+        .to(dotRef.current, { scale: 1, duration: 0.22, ease: 'back.out(2.2)' }, '-=0.18')
+        .to(lineRef.current, { scaleX: 1, duration: 0.35, ease: 'power2.inOut' }, '<')
+        .addLabel('exit', '+=0.16')
         .to(
           [nameRef.current, lineRef.current],
-          { opacity: 0, y: -18, duration: 0.4, ease: 'power2.in' },
+          { opacity: 0, y: -14, duration: 0.28, ease: 'power2.in' },
           'exit'
         )
 
       // Le point ne s'efface pas avec le reste : il rejoint la position exacte du
       // point du logo dans le header, pour que l'intro se prolonge dans le site
-      // plutôt que de simplement disparaître — une seule continuité, pas un motif
+      // plutôt que de simplement disparaître, avec une seule continuité et sans motif
       // répété partout.
       tl.to(
         dotRef.current,
@@ -129,15 +129,15 @@ export function Loader({ children }: LoaderProps) {
           x: () => getHandoff().dx,
           y: () => getHandoff().dy,
           scale: () => getHandoff().scale,
-          duration: 0.7,
+          duration: 0.42,
           ease: 'power3.inOut',
         },
         'exit'
-      ).to(dotRef.current, { opacity: 0, duration: 0.15 }, 'exit+=0.6')
+      ).to(dotRef.current, { opacity: 0, duration: 0.12 }, 'exit+=0.34')
 
-      tl.to(topBarRef.current, { yPercent: -100, duration: 0.85, ease: 'power3.inOut' }, 'exit+=0.35')
-        .to(bottomBarRef.current, { yPercent: 100, duration: 0.85, ease: 'power3.inOut' }, '<')
-        .to(containerRef.current, { opacity: 0, duration: 0.2 }, '-=0.15')
+      tl.to(topBarRef.current, { yPercent: -100, duration: 0.55, ease: 'power3.inOut' }, 'exit+=0.2')
+        .to(bottomBarRef.current, { yPercent: 100, duration: 0.55, ease: 'power3.inOut' }, '<')
+        .to(containerRef.current, { opacity: 0, duration: 0.15 }, '-=0.12')
     }, containerRef)
 
     return () => {

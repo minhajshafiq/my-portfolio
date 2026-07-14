@@ -7,13 +7,13 @@ const localizedJobTitle: Record<Locale, string> = {
 }
 
 const localizedDescription: Record<Locale, string> = {
-  fr: 'Développeur web freelance basé à Paris. Je conçois des sites web et applications sur mesure — modernes, rapides et pensés pour convertir.',
-  en: 'Freelance web developer based in Paris. I design and build custom websites and web apps — modern, fast and made to convert.',
+  fr: 'Développeur web freelance en région parisienne. Création et refonte de sites vitrines, visibilité locale et maintenance pour les petites entreprises.',
+  en: 'Freelance web developer in the Paris region. Showcase website creation and redesign, local visibility and maintenance for small businesses.',
 }
 
 const localizedSiteName: Record<Locale, string> = {
-  fr: 'Minhaj Zubair — Développeur web freelance',
-  en: 'Minhaj Zubair — Web Developer',
+  fr: 'Minhaj Zubair, développeur web freelance',
+  en: 'Minhaj Zubair, web developer',
 }
 
 const localizedBreadcrumbHome: Record<Locale, string> = {
@@ -22,18 +22,18 @@ const localizedBreadcrumbHome: Record<Locale, string> = {
 }
 
 const localizedServiceName: Record<Locale, string> = {
-  fr: 'Développement Web & Mobile Full-Stack',
-  en: 'Full-Stack Web & Mobile Development',
+  fr: 'Création de sites vitrines et visibilité locale',
+  en: 'Showcase websites and local visibility',
 }
 
 const localizedServiceDescription: Record<Locale, string> = {
-  fr: 'Services de développement d\'applications web et mobiles sur mesure avec Next.js, Spring Boot et React Native.',
-  en: 'Custom web and mobile application development services using Next.js, Spring Boot and React Native.',
+  fr: 'Création et refonte de sites professionnels, optimisation mobile, visibilité locale et maintenance pour artisans, commerçants et petites entreprises.',
+  en: 'Professional website creation and redesign, mobile optimization, local visibility and maintenance for tradespeople, shops and small businesses.',
 }
 
 const localizedServiceTypes: Record<Locale, string[]> = {
-  fr: ['Développement Web', 'Développement Mobile', 'Développement Full-Stack'],
-  en: ['Web Development', 'Mobile Development', 'Full-Stack Development'],
+  fr: ['Création de site vitrine', 'Refonte de site web', 'Référencement local', 'Maintenance de site web'],
+  en: ['Showcase Website Creation', 'Website Redesign', 'Local SEO', 'Website Maintenance'],
 }
 
 export function getStructuredData(locale: Locale) {

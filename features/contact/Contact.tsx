@@ -19,6 +19,7 @@ import {
 import { SiMalt } from 'react-icons/si'
 import { EASE_SMOOTH, fadeUp } from '@/lib/motion'
 import { SectionLabel } from '@/components/ui/SectionLabel'
+import { cn } from '@/lib/cn'
 
 type FormStatus = 'idle' | 'sending' | 'success' | 'error'
 
@@ -55,12 +56,6 @@ function SectionBackground() {
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
       <div className="absolute right-[4%] top-16 h-[clamp(15rem,24vw,28rem)] w-[clamp(15rem,24vw,28rem)] rounded-full bg-[#8C0605]/10 blur-3xl dark:bg-red-400/[0.08] lg:right-[10%] xl:right-[14%]" />
-
-      <div className="absolute bottom-16 left-[2%] h-[clamp(14rem,20vw,24rem)] w-[clamp(14rem,20vw,24rem)] rounded-full bg-[#8C0605]/[0.08] blur-3xl dark:bg-red-400/[0.06] lg:left-[8%]" />
-
-      <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-white/18 to-transparent dark:from-black/20" />
-
-      <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-white/14 to-transparent dark:from-black/20" />
     </div>
   )
 }
@@ -83,7 +78,8 @@ function FieldError({ id, message }: { id: string; message?: string }) {
 export function Contact({
   narrativeLine,
   narrativeKey,
-}: { narrativeLine?: string; narrativeKey?: string } = {}) {
+  showHeader = true,
+}: { narrativeLine?: string; narrativeKey?: string; showHeader?: boolean } = {}) {
   const [formData, setFormData] = useState<FormData>(initialFormData)
   const [status, setStatus] = useState<FormStatus>('idle')
   const [errors, setErrors] = useState<FormErrors>({})
@@ -187,12 +183,14 @@ export function Contact({
   const primaryContact = contactMethods.find((method) => method.isPrimary)
   const secondaryContacts = contactMethods.filter((method) => !method.isPrimary)
   const PrimaryIcon = primaryContact?.icon
+  const ContactSectionHeading = showHeader ? 'h3' : 'h2'
+  const ContactMethodHeading = showHeader ? 'h4' : 'h3'
 
   const validateName = (name: string) => /^[a-zA-ZÀ-ÿ\s'-]{2,50}$/.test(name.trim())
   const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())
   const validateMessage = (message: string) => message.trim().length >= 10
 
-  // Seuls ces trois champs sont requis — les selects et le radio sont optionnels.
+  // Seuls ces trois champs sont requis ; les selects et le radio sont optionnels.
   const REQUIRED_FIELDS = ['name', 'email', 'message'] as const
 
   const validateField = (name: keyof FormData, value: string): string => {
@@ -376,56 +374,62 @@ export function Contact({
   return (
     <section
       id="contact"
-      className="relative isolate overflow-hidden bg-custom-primary py-[clamp(4rem,5.5vw,6.5rem)]"
+      className={cn(
+        'relative isolate overflow-hidden bg-custom-primary',
+        showHeader
+          ? 'py-[clamp(4rem,5.5vw,6.5rem)]'
+          : 'pb-[clamp(4rem,5.5vw,6.5rem)] pt-10 md:pt-14'
+      )}
     >
       <SectionBackground />
 
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-5 sm:px-8 md:px-10 lg:px-[clamp(2.5rem,4vw,5rem)]">
         <div className="mx-auto w-full max-w-[min(1120px,calc(100vw-5rem))] xl:max-w-[min(1160px,calc(100vw-7rem))] 2xl:max-w-[1160px]">
-          {/* Section header */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.65, ease: EASE_SMOOTH }}
-            className="relative mb-10 md:mb-12"
-          >
-            <div className="grid min-h-[clamp(12rem,20vh,17rem)] grid-cols-1 content-end gap-6 pb-9 pt-3 md:grid-cols-12 md:pb-10">
-              <div className="md:col-span-8">
-                <SectionLabel>{tr('contact.title')}</SectionLabel>
+          {showHeader && (
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.65, ease: EASE_SMOOTH }}
+              className="relative mb-10 md:mb-12"
+            >
+              <div className="grid min-h-[clamp(11rem,18vh,15rem)] grid-cols-1 content-end gap-6 pb-9 pt-3 md:grid-cols-12 md:pb-10">
+                <div className="md:col-span-8">
+                  <SectionLabel>{tr('contact.title')}</SectionLabel>
 
-                {resolvedNarrative && (
-                  <p className="mb-3 font-serif text-lg italic leading-snug text-custom-secondary md:text-xl">
-                    {resolvedNarrative}
+                  {resolvedNarrative && (
+                    <p className="mb-3 font-serif text-lg italic leading-snug text-custom-secondary md:text-xl">
+                      {resolvedNarrative}
+                    </p>
+                  )}
+
+                  <h2 className="max-w-[min(820px,100%)] font-serif text-[clamp(2.5rem,4.5vw,4.1rem)] font-medium leading-[1.03] tracking-[-0.025em] text-custom-title">
+                    {tr('contact.subtitle')}
+                  </h2>
+                </div>
+
+                <div className="md:col-span-4 md:self-end">
+                  <p className="max-w-sm text-sm leading-6 text-custom-secondary md:text-[15px] md:leading-7">
+                    {tr('contact.quick_response_text')}
                   </p>
-                )}
 
-                <h2 className="max-w-[min(820px,100%)] font-serif text-4xl font-medium leading-[1.02] tracking-[-0.025em] text-custom-title sm:text-5xl md:text-[clamp(3rem,5vw,4.6rem)]">
-                  {tr('contact.subtitle')}
-                </h2>
-              </div>
+                  <div className="mt-4 inline-flex items-center gap-2.5 rounded-full border border-green-500/20 bg-green-500/10 px-4 py-2">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+                    </span>
 
-              <div className="md:col-span-4 md:self-end">
-                <p className="max-w-sm text-sm leading-6 text-custom-secondary md:text-[15px] md:leading-7">
-                  {tr('contact.quick_response_text')}
-                </p>
-
-                <div className="mt-4 inline-flex items-center gap-2.5 rounded-full border border-green-500/20 bg-green-500/10 px-4 py-2 backdrop-blur-md">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
-                  </span>
-
-                  <span className="text-xs font-semibold text-green-600 dark:text-green-400 md:text-sm">
-                    {tr('hero.available_for_work')}
-                  </span>
+                    <span className="text-xs font-semibold text-green-600 dark:text-green-400 md:text-sm">
+                      {tr('hero.available_for_work')}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="h-px w-full bg-gradient-to-r from-[#8C0605]/30 via-gray-300 to-transparent dark:from-red-400/30 dark:via-white/10" />
-          </motion.div>
+              <div className="h-px w-full bg-gradient-to-r from-[#8C0605]/30 via-gray-300 to-transparent dark:from-red-400/30 dark:via-white/10" />
+            </motion.div>
+          )}
 
           <div className="mx-auto grid w-full max-w-[min(1080px,100%)] grid-cols-1 gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch lg:gap-10">
             {/* Contact methods */}
@@ -438,9 +442,9 @@ export function Contact({
               className="flex h-full flex-col gap-5 lg:min-h-[660px]"
             >
               <div>
-                <h3 className="max-w-[16ch] font-serif text-[clamp(1.8rem,3vw,2.5rem)] font-medium leading-[1.05] tracking-[-0.02em] text-custom-title">
+                <ContactSectionHeading className="max-w-[16ch] font-serif text-[clamp(1.8rem,3vw,2.5rem)] font-medium leading-[1.05] tracking-[-0.02em] text-custom-title">
                   {tr('contact.other_means')}
-                </h3>
+                </ContactSectionHeading>
               </div>
 
               {primaryContact && PrimaryIcon && (
@@ -449,9 +453,9 @@ export function Contact({
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackEvent('calendly_click', { source_section: 'contact' })}
-                  whileHover={{ y: -4 }}
+                  whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  className="group relative block overflow-hidden rounded-[1.75rem] bg-[#8C0605] p-6 text-white shadow-[0_22px_70px_rgba(140,6,5,0.20)] dark:bg-red-400 dark:text-gray-950 md:p-7"
+                  className="group relative block overflow-hidden rounded-[1.5rem] bg-[#8C0605] p-6 text-white shadow-[0_16px_44px_rgba(140,6,5,0.16)] dark:bg-red-400 dark:text-gray-950 md:p-7"
                 >
                   <div className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full bg-white/10 dark:bg-gray-950/10" />
                   <div className="pointer-events-none absolute bottom-0 left-0 h-40 w-40 rounded-full bg-black/10 blur-3xl dark:bg-gray-950/10" />
@@ -461,9 +465,9 @@ export function Contact({
                       <PrimaryIcon className="h-5 w-5 md:h-6 md:w-6" />
                     </div>
 
-                    <h4 className="text-2xl font-black leading-tight tracking-[-0.04em]">
+                    <ContactMethodHeading className="text-2xl font-black leading-tight tracking-[-0.04em]">
                       {primaryContact.title}
-                    </h4>
+                    </ContactMethodHeading>
 
                     <p className="mt-3 max-w-md text-sm leading-6 text-white/80 dark:text-gray-950/75 md:text-[15px]">
                       {primaryContact.description}
@@ -503,19 +507,19 @@ export function Contact({
                         duration: 0.45,
                         ease: EASE_SMOOTH,
                       }}
-                      whileHover={{ y: -4 }}
+                      whileHover={{ y: -2 }}
                       whileTap={{ scale: 0.98 }}
-                      className="group relative overflow-hidden rounded-[1.5rem] border border-gray-200 bg-white/76 p-4 shadow-[0_16px_48px_rgba(0,0,0,0.055)] backdrop-blur-md transition-all hover:border-[#8C0605]/25 dark:border-white/10 dark:bg-white/[0.04] dark:hover:border-red-400/30"
+                      className="group relative overflow-hidden rounded-2xl border border-custom bg-custom-secondary p-4 transition-colors hover:border-[#8C0605]/35 dark:hover:border-red-400/35"
                     >
                       <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-custom text-[#8C0605] dark:text-red-400">
                         <MethodIcon className="h-4 w-4" />
                       </div>
 
-                      <h4 className="mb-1 truncate text-sm font-black text-custom-title">
+                      <ContactMethodHeading className="mb-1 pr-7 text-sm font-black text-custom-title">
                         {method.title}
-                      </h4>
+                      </ContactMethodHeading>
 
-                      <p className="truncate text-xs text-custom-secondary">
+                      <p className="break-all text-xs leading-5 text-custom-secondary">
                         {method.description}
                       </p>
 
@@ -537,14 +541,16 @@ export function Contact({
               transition={{ delay: 0.08, duration: 0.65, ease: EASE_SMOOTH }}
               className="h-full"
             >
-              <div className="relative flex h-full min-h-[660px] flex-col overflow-hidden rounded-[2rem] border border-gray-200 bg-white/76 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.07)] backdrop-blur-md dark:border-white/10 dark:bg-white/[0.04] md:p-8">
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(140,6,5,0.08),transparent_34%)] dark:bg-[radial-gradient(circle_at_12%_20%,rgba(248,113,113,0.06),transparent_34%)]" />
-
+              <div className="relative flex h-full min-h-[660px] flex-col overflow-hidden rounded-[1.5rem] border border-custom bg-custom-secondary p-6 shadow-[0_18px_50px_rgba(0,0,0,0.055)] md:p-8">
                 <div className="relative z-10 flex h-full flex-col">
                   <div className="mb-8">
-                    <h3 className="flex items-center gap-3 font-serif text-3xl font-medium tracking-[-0.02em] text-custom-title md:text-4xl">
+                    <ContactSectionHeading className="flex items-center gap-3 font-serif text-3xl font-medium tracking-[-0.02em] text-custom-title md:text-4xl">
                       {tr('contact.contact_form')}
-                    </h3>
+                    </ContactSectionHeading>
+
+                    <p className='mt-3 max-w-[52ch] text-sm leading-6 text-custom-secondary'>
+                      {tr('contact.form_intro')}
+                    </p>
                   </div>
 
                   <form
@@ -580,7 +586,7 @@ export function Contact({
                           maxLength={50}
                           aria-invalid={Boolean(touched.name && errors.name)}
                           aria-describedby={touched.name && errors.name ? 'name-error' : undefined}
-                          className={`w-full rounded-2xl border bg-white/70 px-4 py-3.5 text-custom-title outline-none transition-all duration-200 placeholder:text-custom-muted focus:ring-4 dark:bg-white/[0.04] ${errors.name
+                          className={`w-full rounded-xl border bg-custom-primary px-4 py-3.5 text-custom-title outline-none transition-all duration-200 placeholder:text-custom-muted focus:ring-4 ${errors.name
                               ? 'border-red-400 focus:border-red-500 focus:ring-red-500/10'
                               : 'border-gray-200 focus:border-[#8C0605] focus:ring-[#8C0605]/10 dark:border-white/10 dark:focus:border-red-400 dark:focus:ring-red-400/10'
                             }`}
@@ -609,7 +615,7 @@ export function Contact({
                           required
                           aria-invalid={Boolean(touched.email && errors.email)}
                           aria-describedby={touched.email && errors.email ? 'email-error' : undefined}
-                          className={`w-full rounded-2xl border bg-white/70 px-4 py-3.5 text-custom-title outline-none transition-all duration-200 placeholder:text-custom-muted focus:ring-4 dark:bg-white/[0.04] ${errors.email
+                          className={`w-full rounded-xl border bg-custom-primary px-4 py-3.5 text-custom-title outline-none transition-all duration-200 placeholder:text-custom-muted focus:ring-4 ${errors.email
                               ? 'border-red-400 focus:border-red-500 focus:ring-red-500/10'
                               : 'border-gray-200 focus:border-[#8C0605] focus:ring-[#8C0605]/10 dark:border-white/10 dark:focus:border-red-400 dark:focus:ring-red-400/10'
                             }`}
@@ -636,7 +642,7 @@ export function Contact({
                             name="activityType"
                             value={formData.activityType}
                             onChange={handleInputChange}
-                            className="w-full rounded-2xl border border-gray-200 bg-white/70 px-4 py-3.5 text-custom-title outline-none transition-all duration-200 focus:border-[#8C0605] focus:ring-4 focus:ring-[#8C0605]/10 dark:border-white/10 dark:bg-white/[0.04] dark:focus:border-red-400 dark:focus:ring-red-400/10"
+                            className="w-full rounded-xl border border-gray-200 bg-custom-primary px-4 py-3.5 text-custom-title outline-none transition-all duration-200 focus:border-[#8C0605] focus:ring-4 focus:ring-[#8C0605]/10 dark:border-white/10 dark:focus:border-red-400 dark:focus:ring-red-400/10"
                           >
                             <option value="">{tr('contact.activity_type_placeholder')}</option>
                             {activityTypeOptions.map((option) => (
@@ -663,7 +669,7 @@ export function Contact({
                             name="mainGoal"
                             value={formData.mainGoal}
                             onChange={handleInputChange}
-                            className="w-full rounded-2xl border border-gray-200 bg-white/70 px-4 py-3.5 text-custom-title outline-none transition-all duration-200 focus:border-[#8C0605] focus:ring-4 focus:ring-[#8C0605]/10 dark:border-white/10 dark:bg-white/[0.04] dark:focus:border-red-400 dark:focus:ring-red-400/10"
+                            className="w-full rounded-xl border border-gray-200 bg-custom-primary px-4 py-3.5 text-custom-title outline-none transition-all duration-200 focus:border-[#8C0605] focus:ring-4 focus:ring-[#8C0605]/10 dark:border-white/10 dark:focus:border-red-400 dark:focus:ring-red-400/10"
                           >
                             <option value="">{tr('contact.main_goal_placeholder')}</option>
                             {mainGoalOptions.map((option) => (
@@ -699,7 +705,7 @@ export function Contact({
                                   hasExistingSite: previous.hasExistingSite === option.value ? '' : option.value,
                                 }))
                               }
-                              className={`rounded-full border px-5 py-2 text-sm font-semibold transition-all duration-200 ${
+                              className={`min-h-11 rounded-full border px-5 py-2 text-sm font-semibold transition-all duration-200 ${
                                 formData.hasExistingSite === option.value
                                   ? 'border-[#8C0605] bg-[#8C0605]/10 text-[#8C0605] dark:border-red-400 dark:bg-red-400/10 dark:text-red-400'
                                   : 'border-gray-200 text-custom-secondary hover:border-[#8C0605]/40 dark:border-white/10'
@@ -730,7 +736,7 @@ export function Contact({
                           minLength={10}
                           aria-invalid={Boolean(touched.message && errors.message)}
                           aria-describedby={touched.message && errors.message ? 'message-error' : undefined}
-                          className={`w-full resize-none rounded-2xl border bg-white/70 px-4 py-3.5 text-custom-title outline-none transition-all duration-200 placeholder:text-custom-muted focus:ring-4 dark:bg-white/[0.04] ${errors.message
+                          className={`w-full resize-none rounded-xl border bg-custom-primary px-4 py-3.5 text-custom-title outline-none transition-all duration-200 placeholder:text-custom-muted focus:ring-4 ${errors.message
                               ? 'border-red-400 focus:border-red-500 focus:ring-red-500/10'
                               : 'border-gray-200 focus:border-[#8C0605] focus:ring-[#8C0605]/10 dark:border-white/10 dark:focus:border-red-400 dark:focus:ring-red-400/10'
                             }`}
@@ -750,7 +756,7 @@ export function Contact({
                         // Petit temps fort à l'envoi réussi : le bouton « respire » une fois
                         animate={status === 'success' ? { scale: [1, 1.03, 1] } : { scale: 1 }}
                         transition={{ duration: 0.45, ease: EASE_SMOOTH }}
-                        className={`flex w-full items-center justify-center gap-2 overflow-hidden rounded-2xl py-4 font-bold transition-all duration-300 ${status === 'sending'
+                        className={`flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl py-4 font-bold transition-all duration-300 ${status === 'sending'
                             ? 'cursor-not-allowed bg-gray-400 text-gray-700'
                             : status === 'success'
                               ? 'bg-green-500 text-white'

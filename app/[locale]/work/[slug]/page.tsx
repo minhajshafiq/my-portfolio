@@ -30,7 +30,7 @@ export async function generateMetadata({
   if (!project) return {}
 
   const t = getServerT(locale)
-  const title = `${t(`projects.${project.key}.title`)} — ${t(`projects.${project.key}.category`)}`
+  const title = `${t(`projects.${project.key}.title`)} | ${t(`projects.${project.key}.category`)}`
   const description = t(`projects.${project.key}.description`)
 
   return getPageMetadata(locale, `/work/${slug}`, title, description)

@@ -6,12 +6,12 @@ import { locales, isValidLocale, type Locale } from '@/lib/i18n'
 
 const PAGE_META: Record<Locale, { title: string; description: string }> = {
   fr: {
-    title: 'Projets — Sites web & applications sur mesure',
+    title: 'Projets | Sites web & applications sur mesure',
     description:
       'Sites vitrines, applications web et mobiles conçus sur mesure : découvrez les projets récents de Minhaj Zubair, développeur web freelance à Paris.',
   },
   en: {
-    title: 'Work — Custom websites & applications',
+    title: 'Work | Custom websites & applications',
     description:
       'Custom websites, web and mobile applications: explore recent projects by Minhaj Zubair, freelance web developer based in Paris.',
   },

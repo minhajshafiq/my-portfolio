@@ -36,8 +36,8 @@ function TitleLine({ text }: { text: string }) {
   const endsWithPeriod = text.endsWith('.')
   const body = endsWithPeriod ? text.slice(0, -1) : text
 
-  // Colle le tiret au mot qui le précède (« mot — » -> « mot — »).
-  const safeBody = body.replace(/ (—|-)/g, ' $1')
+  // Colle un éventuel tiret court au mot qui le précède pour éviter une ligne orpheline.
+  const safeBody = body.replace(/ (-)/g, ' $1')
 
   if (!endsWithPeriod) {
     return <>{safeBody}</>
@@ -63,7 +63,7 @@ function TitleLine({ text }: { text: string }) {
 }
 
 /**
- * Vitrine hero : un seul projet, en grand — un site client réel.
+ * Vitrine hero : un seul projet en grand, avec un site client réel.
  * C'est la première preuve qu'un prospect voit ; les autres projets
  * vivent dans la section Projets plus bas (zéro doublon sur la home).
  */
@@ -98,7 +98,7 @@ function CaseReel({
         data-cursor-variant="project"
         href={`/${locale}/work/${lead.slug}`}
         onClick={() => trackEvent('project_view', { project: lead.slug, source: 'hero_reel' })}
-        aria-label={`${tr(`projects.${lead.key}.title`)} — ${tr('hero.reel_view')}`}
+        aria-label={`${tr(`projects.${lead.key}.title`)}, ${tr('hero.reel_view')}`}
         className="group relative block overflow-hidden rounded-2xl bg-custom-secondary shadow-[0_24px_80px_rgba(0,0,0,0.18)] transition-transform duration-500 ease-out lg:[transform-style:preserve-3d]"
       >
         <div className="relative aspect-[16/10] w-full overflow-hidden lg:aspect-[4/3]">
@@ -206,7 +206,7 @@ export function Hero() {
         sectionRef.current?.querySelector<HTMLElement>(selector) ?? null
 
       // Chorégraphie d'entrée : badge → titre → rôle → CTAs, avec chevauchements
-      // serrés — une seule timeline pour un rythme maîtrisé, pas des fades isolés.
+      // serrés, avec une seule timeline pour un rythme maîtrisé et sans fades isolés.
       const intro = q('[data-hero-intro]')
       const copy = q('[data-hero-copy]')
       const ctas = q('[data-hero-ctas]')
@@ -387,14 +387,14 @@ export function Hero() {
             {/* Colonne texte */}
             <div className="lg:col-span-7">
               {/* Availability */}
-              <div data-hero-intro className="mb-6 md:mb-8">
+              <div data-hero-intro className="mb-5 md:mb-6">
                 <div className="inline-flex items-center gap-2.5 border-b border-custom pb-3 pr-6">
                   <span className="relative flex h-2 w-2">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
                   </span>
 
-                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-custom-secondary sm:text-sm">
+                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-custom-secondary sm:text-sm">
                     {tr('hero.available_for_work')}
                   </span>
                 </div>
@@ -404,7 +404,7 @@ export function Hero() {
               <h1
                 ref={titleRef}
                 aria-label={titlePlain}
-                className="mb-6 font-serif text-[clamp(2.65rem,6.2vw,5.6rem)] font-medium leading-[1.02] tracking-[-0.03em] text-custom-title md:mb-7"
+                className="mb-7 font-serif text-[clamp(2.5rem,4.5vw,4rem)] font-medium leading-[1.04] tracking-[-0.03em] text-custom-title md:mb-8"
               >
                 {titleLines.map((line, index) => (
                   <span
@@ -426,51 +426,63 @@ export function Hero() {
                 ))}
               </h1>
 
-              {/* Role + description */}
-              <div data-hero-copy className="mb-8">
-                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-[#8C0605] dark:text-red-400">
-                  {tr('hero.role_line')}
-                </p>
+              {/* Offre, cible et description */}
+              <div data-hero-copy className="mb-8 max-w-[58ch]">
+                <div className="mb-4 border-l-2 border-[#8C0605] pl-4 dark:border-red-400">
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#8C0605] dark:text-red-400">
+                    {tr('hero.service_line')}
+                  </p>
 
-                <p className="max-w-[54ch] text-base leading-7 text-custom-secondary md:text-lg md:leading-8">
+                  <p className="mt-1.5 text-sm font-semibold leading-6 text-custom-title md:text-[15px]">
+                    {tr('hero.audience_line')}
+                  </p>
+                </div>
+
+                <p className="max-w-[52ch] text-base leading-7 text-custom-secondary md:text-[1.0625rem] md:leading-8">
                   {tr('hero.description')}
                 </p>
               </div>
 
               {/* CTAs */}
-              <div data-hero-ctas className="flex flex-wrap items-center gap-5">
-                <Magnetic>
+              <div data-hero-ctas>
+                <div className="flex flex-wrap items-center gap-5">
+                  <Magnetic>
+                    <button
+                      type="button"
+                      data-cursor-label={tr('hero.cta_primary')}
+                      data-cursor-variant="cta"
+                      onClick={() => {
+                        trackEvent('cta_click', { cta: 'hero_primary', section: 'hero' })
+                        scrollToSection('#contact')
+                      }}
+                      className="group inline-flex cursor-pointer items-center gap-3 rounded-full bg-[#8C0605] px-7 py-4 text-sm font-bold text-white transition-colors duration-300 hover:bg-[#a70b0a] hover:shadow-[0_18px_40px_rgba(140,6,5,0.25)] dark:bg-red-400 dark:text-gray-950 dark:hover:bg-red-300 sm:text-base"
+                    >
+                      {tr('hero.cta_primary')}
+                      <FaArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                    </button>
+                  </Magnetic>
+
                   <button
                     type="button"
-                    data-cursor-label={tr('hero.cta_primary')}
-                    data-cursor-variant="cta"
+                    data-cursor-label={tr('hero.cta_secondary')}
+                    data-cursor-variant="project"
                     onClick={() => {
-                      trackEvent('cta_click', { cta: 'hero_primary', section: 'hero' })
-                      scrollToSection('#contact')
+                      trackEvent('cta_click', { cta: 'hero_secondary', section: 'hero' })
+                      scrollToSection('#projects')
                     }}
-                    className="group inline-flex cursor-pointer items-center gap-3 rounded-full bg-[#8C0605] px-7 py-4 text-sm font-bold text-white transition-colors duration-300 hover:bg-[#a70b0a] hover:shadow-[0_18px_40px_rgba(140,6,5,0.25)] dark:bg-red-400 dark:text-gray-950 dark:hover:bg-red-300 sm:text-base"
+                    className="group relative inline-flex cursor-pointer items-center gap-2 text-sm font-bold text-custom-title sm:text-base"
                   >
-                    {tr('hero.cta_primary')}
-                    <FaArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                    <span className="relative">
+                      {tr('hero.cta_secondary')}
+                      <span className="absolute -bottom-1 left-0 h-px w-full bg-custom-title/30 transition-all duration-300 group-hover:bg-[#8C0605] dark:group-hover:bg-red-400" />
+                    </span>
+                    <FaArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1" />
                   </button>
-                </Magnetic>
+                </div>
 
-                <button
-                  type="button"
-                  data-cursor-label={tr('hero.cta_secondary')}
-                  data-cursor-variant="project"
-                  onClick={() => {
-                    trackEvent('cta_click', { cta: 'hero_secondary', section: 'hero' })
-                    scrollToSection('#projects')
-                  }}
-                  className="group relative inline-flex cursor-pointer items-center gap-2 text-sm font-bold text-custom-title sm:text-base"
-                >
-                  <span className="relative">
-                    {tr('hero.cta_secondary')}
-                    <span className="absolute -bottom-1 left-0 h-px w-full bg-custom-title/30 transition-all duration-300 group-hover:bg-[#8C0605] dark:group-hover:bg-red-400" />
-                  </span>
-                  <FaArrowRight className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-1" />
-                </button>
+                <p className="mt-3 text-xs leading-5 text-custom-muted">
+                  {tr('hero.microcopy')}
+                </p>
               </div>
             </div>
 

@@ -17,34 +17,65 @@
   "hero": {
     "available_for_work": "Available for new projects",
     "title_lines": [
-      "Websites people",
-      "remember — and",
-      "that convert."
+      "A website that builds trust.",
+      "Services made clear.",
+      "An easier way to connect."
     ],
-    "role_line": "Independent web developer · Paris — France & worldwide",
-    "description": "I design and build custom websites and applications for independents, brands and entrepreneurs who want an online presence that inspires trust — and turns their visitors into clients.",
-    "cta_primary": "Discuss my project",
-    "cta_secondary": "View the work",
+    "service_line": "Showcase websites · Redesigns · Local visibility",
+    "audience_line": "For tradespeople, shops and small businesses",
+    "description": "I create or redesign your website so customers find your services, understand your offer and contact you easily. I guide you from start to finish, without jargon.",
+    "cta_primary": "Talk about my project",
+    "cta_secondary": "See client work",
+    "microcopy": "Free, no-obligation first conversation · Reply within one business day",
     "scroll": "Scroll",
-    "reel_label": "Client work",
-    "reel_hint": "Scroll to see more projects",
-    "reel_view": "View",
-    "photo_alt": "Minhaj Zubair — Independent web developer based in Paris"
+    "reel_label": "Live client project",
+    "reel_hint": "See the context and decisions behind it",
+    "reel_view": "View case study",
+    "photo_alt": "Minhaj Zubair, independent web developer based in Paris"
+  },
+  "problems": {
+    "label": "Your situation",
+    "heading": "Is your online presence costing you opportunities?",
+    "intro": "Before they call, customers often look you up online. Within seconds, they decide whether to trust you or keep looking at a competitor.",
+    "items": [
+      {
+        "title": "You are hard to find",
+        "description": "When a customer searches for your service nearby, other businesses show up before yours."
+      },
+      {
+        "title": "Your website no longer reflects your work",
+        "description": "An outdated, incomplete or missing website can create doubt, even after a word-of-mouth recommendation."
+      },
+      {
+        "title": "Mobile becomes a barrier",
+        "description": "Services, menus, prices or contact details are hard to read on the phone your customers actually use."
+      },
+      {
+        "title": "You lose enquiries",
+        "description": "If calling, booking or asking for a quote takes too much effort, prospects put the decision off."
+      },
+      {
+        "title": "Everything relies on word of mouth",
+        "description": "Recommendations are valuable, but they do not always reassure prospects or reach new customers on their own."
+      }
+    ],
+    "cta": "Ask for an initial opinion",
+    "microcopy": "Simply tell me what is happening. No commitment and no jargon."
   },
   "manifesto": {
-    "label": "The promise",
-    "text": "A beautiful website is not enough. A fast website is not enough. I craft web experiences that make people trust your brand — and turn your visitors into clients."
+    "label": "What changes",
+    "text": "You move from an online presence that leaves prospects unsure to a clear, credible and easy-to-use website. It presents your services, supports local visibility and makes every enquiry easier."
   },
   "work": {
     "label": "Selected work",
-    "heading": "Concrete, real-world work.",
-    "intro": "Three real projects showing the context, execution quality and choices made for each business.",
+    "heading": "Projects built for real businesses.",
+    "intro": "Every project starts with a specific situation, uses choices suited to the business and creates a path that informs, reassures or makes contact easier.",
     "visit": "Visit site",
-    "case": "View project",
-    "all_projects": "Explore the Work page",
-    "home_cta_text": "The Work page brings together the other projects, context details and technical choices. Here, the goal is simply to make you want to go further.",
+    "case": "View case study",
+    "all_projects": "See all client work",
+    "home_cta_text": "See where each project started, what was delivered and what the website now makes easier for its users.",
     "page_heading": "Every project tells a story.",
-    "page_intro": "Websites, web and mobile applications — custom-built, from the first conversation to launch.",
+    "page_intro": "Websites, web and mobile applications, custom-built from the first conversation to launch.",
     "github_title": "Want to see more?",
     "github_subtitle": "More projects and source code are on GitHub.",
     "github_cta": "My GitHub",
@@ -70,19 +101,19 @@
       "live": "View live site",
       "back": "All projects",
       "cta_title": "Have a similar project in mind?",
-      "cta_text": "Tell me about your business — I'll tell you exactly what a website can do for it.",
+      "cta_text": "Tell me about your business. I'll tell you exactly what a website can do for it.",
       "cta_button": "Discuss my project"
     },
     "photographe": {
       "context": "A photographer needed a portfolio worthy of her work: a gallery that showcases the images, a strong identity and a simple contact flow to turn visitors into bookings.",
-      "approach": "A clean art direction that gives the photos all the space, an immersive responsive gallery, soft animations and calls to action present at every step — without ever stealing the show from the images."
+      "approach": "A clean art direction that gives the photos all the space, an immersive responsive gallery, soft animations and calls to action present at every step, without ever stealing the show from the images."
     },
     "toiture_artisan": {
       "context": "A roofing craftsman wanted a website that inspires trust from the first second and generates quote requests, in a market where competitors are often invisible or outdated online.",
       "approach": "A structure entirely built for conversion: trust signals up front, services explained simply, quote requests reachable from every section and local search optimization."
     },
     "luxa": {
-      "context": "Luxa was born from a personal observation: budgeting apps are often complex and discouraging. The goal — make money management simple, visual and part of the daily routine.",
+      "context": "Luxa was born from a personal observation: budgeting apps are often complex and discouraging. The goal: make money management simple, visual and part of the daily routine.",
       "approach": "A React Native mobile app with Supabase: secure authentication, real-time transaction tracking, customizable savings pockets and clear statistics. An interface designed to be opened every day."
     },
     "unityvert": {
@@ -94,28 +125,28 @@
       "approach": "A full-stack application: Next.js front end, Spring Boot API, PostgreSQL database and Clerk authentication. A project covering the whole chain, from data modeling to interface."
     },
     "portfolio": {
-      "context": "This very website: the showcase of my work had to demonstrate what I sell — polished design, controlled animations, performance and SEO.",
+      "context": "This very website: the showcase of my work had to demonstrate what I sell, with polished design, controlled animations, strong performance and solid SEO.",
       "approach": "Next.js with the App Router, GSAP and Framer Motion animations, FR/EN internationalization, complete technical SEO and careful loading optimization. The code is public on GitHub."
     }
   },
   "pages": {
     "services": {
-      "heading": "Custom websites, not one-size-fits-all packages.",
-      "intro": "Three ways to work together, depending on where your project stands."
+      "heading": "Clear support, from visibility to ongoing care.",
+      "intro": "Creation, redesign, local presence or maintenance: start with your problem, not a list of technologies."
     },
     "about": {
       "heading": "Behind the code, a person.",
       "intro": "Background, how I work, and what drives me every day."
     },
     "contact": {
-      "heading": "Let's talk about your project.",
-      "intro": "Form, call or email — whatever works for you. Reply within 24 hours."
+      "heading": "Ask for an initial opinion on your online presence.",
+      "intro": "Form, call or email: choose what works for you. Reply within one business day, with no obligation."
     }
   },
   "cv": {
     "label": "Professional profile",
     "heading": "Minhaj Zubair",
-    "role": "Full-Stack Developer — Next.js · Spring Boot · React Native",
+    "role": "Full-Stack Developer · Next.js · Spring Boot · React Native",
     "objective": "Open to apprenticeship (alternance) opportunities and in-house collaborations, in web and mobile development.",
     "intro": "This page is for recruiters, schools and companies: background, technical skills and projects, with a downloadable resume.",
     "download": "Download my resume",
@@ -123,7 +154,7 @@
     "skills_title": "Technical skills",
     "projects_title": "Notable projects",
     "contact_title": "A role, an apprenticeship, a mission?",
-    "contact_text": "Let's talk — I reply within 24 hours.",
+    "contact_text": "Let's talk. I reply within 24 hours.",
     "back": "View the full portfolio",
     "skills": {
       "frontend": "Front-end",
@@ -134,10 +165,11 @@
   },
   "marquee": {
     "items": [
-      "Websites",
-      "Web applications",
-      "Immersive experiences",
-      "SEO & Performance"
+      "Showcase websites",
+      "Mobile redesigns",
+      "Local visibility",
+      "Google Business Profile",
+      "Maintenance & support"
     ]
   },
   "consent": {
@@ -147,75 +179,151 @@
     "deny": "Decline"
   },
   "about_teaser": {
-    "label": "About",
-    "heading": "A developer, not an agency.",
-    "p1": "I'm Minhaj. Based in Paris, I design and build every project myself, from the first idea to launch. You talk directly to the person crafting your website — not to a middleman.",
-    "p2": "My standard: fast websites, polished down to the smallest detail, built to serve your business. This portfolio is the proof.",
-    "cta": "Let's talk",
+    "label": "Why work with me",
+    "heading": "One point of contact who understands small businesses.",
+    "p1": "I'm Minhaj, a freelance web developer based in the Paris region. From the first conversation to launch, you speak directly with the person designing your website and who knows your project.",
+    "p2": "I turn your needs into simple decisions: what to show, what can wait and how to make contact easier. The quote is agreed before work begins, you approve key stages and I remain available after launch.",
+    "cta": "Talk directly with me",
     "proofs": [
-      "Direct with me — no middleman",
-      "Design and code by the same person",
-      "Support after launch, guaranteed"
+      "One contact from quote to launch",
+      "Clear explanations without unnecessary technical terms",
+      "Optional support after delivery",
+      "A website shaped around your business goals"
+    ]
+  },
+  "faq": {
+    "label": "Frequently asked questions",
+    "heading": "Clear answers before you decide",
+    "intro": "A website is an important investment. Here is what you should know before considering the next step.",
+    "cta": "Ask my question",
+    "microcopy": "One question is enough to start. Reply within one business day.",
+    "items": [
+      {
+        "question": "Will a website actually bring me customers?",
+        "answer": "A website cannot guarantee customers on its own. It can make you easier to find, reassure people discovering your business and simplify calls or quote requests. We first define what it needs to achieve, then plan how to measure the enquiries it generates."
+      },
+      {
+        "question": "I already rely on word of mouth. Why change?",
+        "answer": "A website does not replace word of mouth; it extends it. Someone who receives a recommendation will often search your name before calling. A clear site confirms they are in the right place, presents your services and gives them an easy way to contact you."
+      },
+      {
+        "question": "How much does a new website or redesign cost?",
+        "answer": "The price depends on the number of pages, content, features and the condition of the current site. After an initial conversation, you receive a quote setting out the scope, price and what is included. You know what will be delivered before committing."
+      },
+      {
+        "question": "I do not have time to write all the content.",
+        "answer": "You do not have to organize the whole website alone. I ask the right questions, help prioritize your services and tell you exactly which text, photos or details are needed. We build from what you already have."
+      },
+      {
+        "question": "I do not understand the technical side. Is that a problem?",
+        "answer": "No. I handle technical decisions, launch and checks. You approve concrete things: content, appearance and your customers' journey, with explanations you can understand."
+      },
+      {
+        "question": "I have already had a bad experience with a provider.",
+        "answer": "The project is split into visible stages: discovery, quote, content, proposal, build and launch. You know what is planned, follow progress and approve important moments. You speak directly with me, without a middleman."
+      },
+      {
+        "question": "Could I build the site myself with Wix or another tool?",
+        "answer": "Yes. Those tools can suit a simple need if you have time to structure the content, customer journey, mobile version and visibility. My role is to handle that work, avoid choices that hinder enquiries and build a site suited to your business."
+      },
+      {
+        "question": "Will I own the website and be able to change it?",
+        "answer": "The quote sets out ownership, hosting and how changes will work before the project begins. The site is built to remain usable and, depending on your needs, I can provide self-management tools or handle updates for you."
+      },
+      {
+        "question": "What happens after the website goes live?",
+        "answer": "I check that everything works, help you get started and remain available for adjustments. If you prefer not to manage anything, maintenance and local visibility plans can continue the support."
+      }
     ]
   },
   "services": {
     "label": "Services",
-    "heading": "What I build for you",
-    "intro": "Every project is designed from scratch — no templates, no one-size-fits-all. We define what your business needs, and I take care of the rest.",
-    "cta": "Request a quote",
+    "heading": "An online presence that supports your business",
+    "intro": "You do not need to choose a technology or prepare every word alone. We start with your customers, your goals and what is holding you back today.",
+    "cta": "Talk about this need",
+    "problem_label": "The problem it solves",
+    "result_label": "What you get",
+    "cta_microcopy": "Free first conversation · Clear quote before work begins",
     "offers": [
       {
-        "situation": "“I want a site that builds trust from the first visit”",
-        "title": "Custom website",
-        "description": "A fast, elegant website built to convince: your visitors understand what you do and reach out. Designed, developed and launched in a few weeks.",
+        "situation": "“I have no website, or only a page that does not build trust”",
+        "title": "Present your business clearly and make quotes easier",
+        "description": "A professional website suited to your trade, explaining your services in plain language and naturally guiding visitors towards a call, booking or quote request.",
+        "problem": "Prospects cannot find the right information or hesitate to trust your business.",
+        "result": "A clear, credible website that is easy to use on phones and computers.",
+        "cta": "Get an estimate for my website",
         "bullets": [
-          "Custom design, true to your brand",
-          "Optimized for Google and mobile",
-          "Contact form or booking flow",
-          "Turnkey launch"
+          "Services and strengths understood quickly",
+          "Calls, quotes or bookings available without searching",
+          "Comfortable reading on every phone",
+          "Content structured with you, then a fully managed launch"
         ]
       },
       {
-        "situation": "“I want a tool that makes my day-to-day business simpler”",
-        "title": "Web application",
-        "description": "A client portal, a dashboard, an internal tool: a smooth interface and a solid architecture that grows with your business.",
+        "situation": "“Customers cannot find me when they search nearby”",
+        "title": "Make your business easier to find locally",
+        "description": "I optimize your website and Google Business Profile so they show consistent, useful and current information when customers search for your service in your area.",
+        "problem": "Your business appears rarely, poorly or with incomplete information in local searches.",
+        "result": "A more consistent local presence with a better chance of being seen and contacted.",
+        "cta": "Review my local visibility",
         "bullets": [
-          "Smooth, intuitive interface",
-          "Secure admin area",
-          "Robust database and API",
-          "Built to evolve"
+          "Google Business Profile reviewed and completed",
+          "Consistent services, hours, service area and contact details",
+          "Pages prepared for relevant local searches",
+          "Simple guidance for collecting and using genuine reviews"
         ]
       },
       {
-        "situation": "“I want my website to finally convert”",
-        "title": "Redesign, optimization & care",
-        "description": "Your website exists but doesn't convert, or deserves better: I rethink it, speed it up and keep it up to date so you can focus on your work.",
+        "situation": "“My website is outdated, slow or difficult to use on a phone”",
+        "title": "Turn an outdated site into a reassuring tool",
+        "description": "I rethink the structure, content and mobile experience to remove what clouds your message and make the next step obvious for visitors.",
+        "problem": "Your website creates a poor first impression or loses prospects before they contact you.",
+        "result": "A clearer, faster website organized around your business goals.",
+        "cta": "See what could be improved",
         "bullets": [
-          "Design and content redesign",
-          "Performance and SEO",
-          "Updates and security",
-          "A direct point of contact, not a ticket"
+          "Review of the current site with clear priorities",
+          "Better organized services, proof and calls to action",
+          "Navigation and reading redesigned for mobile",
+          "Redirects and search foundations preserved"
+        ]
+      },
+      {
+        "situation": "“I do not have time to monitor or update my website”",
+        "title": "Keep a reliable website without managing it yourself",
+        "description": "After launch, I can handle hosting, updates, security and small improvements. You keep a direct point of contact who already knows your project.",
+        "problem": "An unattended site deteriorates, displays outdated information or becomes another task on your list.",
+        "result": "A website that stays looked after and support when your business changes.",
+        "cta": "Explore post-launch support",
+        "bullets": [
+          "Updates, backups and monitoring",
+          "Small changes handled for you",
+          "Google profile and local visibility depending on the plan",
+          "Direct contact by email or WhatsApp"
         ]
       }
     ],
-    "process_label": "The process",
-    "process_heading": "How we'll work together",
+    "process_label": "A simple process",
+    "process_heading": "You are guided at every step",
     "process": [
       {
-        "title": "We talk",
-        "description": "A 30-minute call to understand your business and your goals. You receive a clear quote within 48 hours."
+        "title": "First conversation",
+        "description": "You explain your business, current situation and priority. I give you an initial opinion, with no jargon or obligation."
       },
       {
-        "title": "I design",
-        "description": "A mockup true to your brand. You approve it before a single line of code is written."
+        "title": "Clear quote and plan",
+        "description": "You receive a scope, price and planned stages. Nothing starts until you approve them."
       },
       {
-        "title": "I build",
-        "description": "A fast, clean, durable website. You follow the progress — no technical jargon."
+        "title": "Guided content",
+        "description": "I help organize your services, photos and messages. You do not have to write the whole site alone."
       },
       {
-        "title": "We launch",
-        "description": "Go-live, final adjustments and handover. I stay available after launch."
+        "title": "Design and feedback",
+        "description": "You see the proposal, follow progress and approve the important stages before launch."
+      },
+      {
+        "title": "Launch and support",
+        "description": "I put the site live, show you how it works and stay available for adjustments or ongoing care."
       }
     ]
   },
@@ -294,44 +402,49 @@
     }
   },
   "contact": {
-    "title": "Contact",
-    "subtitle": "Let's discuss your project",
-    "home_closing_line": "Got an idea in mind? Let's turn it into a memorable web presence.",
+    "title": "First conversation",
+    "subtitle": "Let's talk plainly about what is holding you back today",
+    "home_closing_line": "A missing, outdated or hard-to-find website should not keep costing you opportunities.",
     "name": "Name",
     "email": "Email",
     "message": "Message",
-    "send": "Send",
+    "send": "Get an initial opinion",
     "sending": "Sending...",
     "success": "Message sent successfully!",
     "error": "Error sending message",
-    "other_means": "Other contact methods",
-    "quick_response": "Quick response guaranteed",
-    "quick_response_text": "I usually respond within 24 hours. For urgent projects, don't hesitate to contact me directly by email or LinkedIn.",
+    "other_means": "Choose whichever way feels easiest",
+    "quick_response": "Reply within one business day",
+    "quick_response_text": "Describe the situation in your own words. I will reply with an initial opinion and the most useful next step, with no obligation.",
     "available_for": "Available for",
     "quick_contact": "Quick contact",
     "available_immediately": "Available immediately",
-    "contact_form": "Contact form",
+    "contact_form": "Describe what you need in a few words",
+    "form_intro": "Three fields are enough. If you do not have a detailed brief yet, that is not a problem.",
     "email_title": "Email",
     "linkedin_title": "LinkedIn",
     "malt_title": "Malt",
-    "message_placeholder": "Tell me about your project...",
-    "privacy_note": "Your data is used only to respond to your request.",
+    "message_placeholder": "Example: my website is outdated and I want to receive more quote requests in my area...",
+    "privacy_note": "Your data is used only to answer your request. Reply within one business day, with no obligation.",
     "optional_tag": "(optional)",
     "activity_type_label": "Type of activity",
     "activity_type_placeholder": "Select...",
     "activity_type_options": [
-      "Independent / freelancer",
-      "Startup",
-      "Company / brand",
-      "Creator / creative",
+      "Tradesperson",
+      "Shop or retailer",
+      "Restaurant",
+      "Local service professional",
+      "Independent professional",
+      "Small business",
       "Other"
     ],
     "main_goal_label": "Main goal",
     "main_goal_placeholder": "Select...",
     "main_goal_options": [
-      "New showcase website",
-      "Web application",
-      "Redesign of an existing site",
+      "Create a showcase website",
+      "Redesign an existing website",
+      "Improve my local visibility",
+      "Optimize my Google profile",
+      "Arrange website maintenance",
       "Other"
     ],
     "has_site_label": "Do you already have a website?",
@@ -339,9 +452,9 @@
     "has_site_no": "No",
     "methods": {
       "call": {
-        "title": "Book a call",
-        "description": "30 minutes, free and no strings attached — to talk about your project.",
-        "action": "Book a slot"
+        "title": "Talk for 30 minutes",
+        "description": "Tell me what is happening and get an initial opinion. Free and with no obligation.",
+        "action": "Choose a time"
       },
       "linkedin": {
         "description": "Let's connect"
@@ -359,11 +472,14 @@
   "footer": {
     "rights": "All rights reserved",
     "crafted": "Designed and built with care, in Paris.",
-    "cta_label": "Got a project in mind?",
-    "cta_title_line1": "Let's talk about",
-    "cta_title_line2": "your project.",
-    "cta_description": "Tell me about your idea — I'll reply within 24 hours with first thoughts and next steps.",
-    "tagline": "Independent web developer. I craft custom web experiences for independents, brands and entrepreneurs — from Paris, for the world.",
+    "cta_label": "Is your online presence holding you back?",
+    "cta_title_line1": "Let's review it.",
+    "cta_title_line2": "No obligation.",
+    "cta_description": "Tell me what is happening. I will reply with a practical first opinion on what could be improved to inform, reassure and make enquiries easier.",
+    "cta_primary": "Ask for an initial opinion",
+    "cta_secondary": "Talk for 30 minutes",
+    "cta_microcopy": "Reply within one business day · No obligation",
+    "tagline": "Freelance web developer in the Paris region. I help tradespeople, shops, independents and small businesses present themselves, get found and get contacted online.",
     "status_badge": "Available for new projects",
     "nav_title": "Navigation",
     "contact_title": "Contact",
@@ -402,7 +518,7 @@
       },
       "travel": {
         "title": "Travel",
-        "description": "The world resets my perspective. New time zones, new cultures, new flavors — I always come back with a fresh outlook."
+        "description": "The world resets my perspective. New time zones, new cultures, new flavors. I always come back with a fresh outlook."
       }
     },
     "quote": "I'm building the person I'm becoming as much as the projects I work on.",
@@ -416,11 +532,12 @@
     "next_photo": "Next photo"
   },
   "home_offers": {
-    "label": "Offers & subscriptions",
-    "heading": "Three ways to work together.",
-    "intro": "Simple monthly plans, no commitment. Let's talk and pick the one that fits you.",
-    "plan_cta": "Let's talk",
-    "detail_link": "See full plan details"
+    "label": "After launch",
+    "heading": "Your website continues to be looked after.",
+    "intro": "Maintenance, Google profile or local acquisition: choose only the level of support your business needs.",
+    "plan_cta": "Ask a question",
+    "microcopy": "No long-term commitment · Scope explained before subscribing",
+    "detail_link": "Compare support plans"
   },
   "maintenance": {
     "badge": "Maintenance & Growth",
@@ -445,7 +562,7 @@
           "Domain renewal and SSL certificate included",
           "24/7 uptime monitoring",
           "Monthly backup and security updates",
-          "Email and WhatsApp support — handled within 72 business hours",
+          "Email and WhatsApp support, handled within 72 business hours",
           "30 min of minor changes included every month"
         ],
         "cta": "Choose Essential"
@@ -482,7 +599,7 @@
           "Conversion tracking (calls, forms)",
           "Monthly report and improvement recommendations"
         ],
-        "note": "The advertising budget is paid directly to Google, separately from the plan — management included for up to €1,000 of monthly ad spend.",
+        "note": "The advertising budget is paid directly to Google, separately from the plan. Management is included for up to €1,000 of monthly ad spend.",
         "cta": "Start Growth"
       }
     },

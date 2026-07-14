@@ -17,7 +17,7 @@ import { ProjectMedia } from './ProjectMedia'
 
 gsap.registerPlugin(ScrollTrigger)
 
-/** Badges de preuve — pastille rouge signature + libellé traduit. */
+/** Badges de preuve : pastille rouge signature + libellé traduit. */
 function ProofBadges({
   badges,
   tr,
@@ -50,7 +50,7 @@ const TAG_CLASSNAME =
   'text-xs font-medium uppercase tracking-[0.14em] text-custom-muted transition-colors duration-300 group-hover:text-custom-title'
 
 /**
- * Ligne projet éditoriale — utilisée sur la page Work (liste complète).
+ * Ligne projet éditoriale utilisée sur la page Work (liste complète).
  * Trois variantes rythment le parcours : `standard` (alternance classique),
  * `feature` (projet signature, plein cadre) et `compact` (épilogue avant le CTA).
  */
@@ -219,7 +219,7 @@ export function ProjectRow({
         href={`/${locale}/work/${project.slug}`}
         onClick={() => trackEvent('project_view', { project: project.slug })}
         className={cn('block', !isFeature && 'grid grid-cols-1 items-center gap-8 md:grid-cols-12 md:gap-12')}
-        aria-label={`${tr(`projects.${project.key}.title`)} — ${visitLabel}`}
+        aria-label={`${tr(`projects.${project.key}.title`)}, ${visitLabel}`}
       >
         {isFeature ? (
           <>
@@ -353,7 +353,7 @@ function TeaserCard({
       <Link
         href={`/${locale}/work/${project.slug}`}
         onClick={() => trackEvent('project_view', { project: project.slug, source: 'home_teaser' })}
-        aria-label={`${tr(`projects.${project.key}.title`)} — ${viewLabel}`}
+        aria-label={`${tr(`projects.${project.key}.title`)}, ${viewLabel}`}
         className="group block"
       >
         <motion.div
@@ -412,7 +412,7 @@ function TeaserCard({
 }
 
 /**
- * Section projets (home) : teaser court — 3 vignettes + renvoi vers la page Work,
+ * Section projets (home) : teaser court, 3 vignettes + renvoi vers la page Work,
  * qui porte l'intégralité du portfolio.
  */
 export function Projects() {
@@ -457,7 +457,7 @@ export function Projects() {
             </div>
           </motion.div>
 
-          {/* Teaser : 3 vignettes — group/cards pilote la mise en avant au hover */}
+          {/* Teaser : 3 vignettes, group/cards pilote la mise en avant au hover */}
           <div className="group/cards grid grid-cols-1 gap-5 sm:grid-cols-3 md:gap-6">
             {teaser.map((project, index) => (
               <TeaserCard

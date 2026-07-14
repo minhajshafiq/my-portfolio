@@ -8,7 +8,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 gsap.registerPlugin(ScrollTrigger)
 
 /**
- * Bande défilante en serif géant — alternance texte plein / contour.
+ * Bande défilante en serif géant : alternance texte plein / contour.
  * La vitesse et la direction réagissent à la vélocité du scroll.
  */
 export function Marquee() {

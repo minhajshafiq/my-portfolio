@@ -55,7 +55,7 @@ export function AboutTeaser() {
     }
   }, [])
 
-  // Les 3 preuves de confiance arrivent en léger stagger — plus calme que les
+  // Les 3 preuves de confiance arrivent en léger stagger, plus calme que les
   // reveals précédents (promesse, projets) : cette section humanise, elle ne doit
   // pas être spectaculaire.
   useEffect(() => {

@@ -18,6 +18,9 @@ type Offer = {
   situation: string
   title: string
   description: string
+  problem: string
+  result: string
+  cta: string
   bullets: string[]
 }
 
@@ -31,13 +34,17 @@ function OfferRow({
   index,
   isOpen,
   onToggle,
-  ctaLabel,
+  problemLabel,
+  resultLabel,
+  ctaMicrocopy,
 }: {
   offer: Offer
   index: number
   isOpen: boolean
   onToggle: () => void
-  ctaLabel: string
+  problemLabel: string
+  resultLabel: string
+  ctaMicrocopy: string
 }) {
   const number = String(index + 1).padStart(2, '0')
 
@@ -112,6 +119,36 @@ function OfferRow({
                 {offer.description}
               </p>
 
+              <dl className="mt-6 grid border-y border-custom sm:grid-cols-[0.9fr_1.1fr]">
+                <div className="py-4 pr-0 sm:py-5 sm:pr-5">
+                  <dt className="flex items-center gap-2.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-custom-muted">
+                    <span
+                      aria-hidden="true"
+                      className="h-px w-5 shrink-0 bg-gray-400/70 dark:bg-white/25"
+                    />
+                    {problemLabel}
+                  </dt>
+
+                  <dd className="mt-2 text-sm leading-6 text-custom-secondary md:text-[15px]">
+                    {offer.problem}
+                  </dd>
+                </div>
+
+                <div className="border-t border-custom py-4 sm:border-l sm:border-t-0 sm:py-5 sm:pl-5">
+                  <dt className="flex items-center gap-2.5 text-[11px] font-bold uppercase tracking-[0.16em] text-[#8C0605] dark:text-red-400">
+                    <span
+                      aria-hidden="true"
+                      className="h-px w-5 shrink-0 bg-[#8C0605] dark:bg-red-400"
+                    />
+                    {resultLabel}
+                  </dt>
+
+                  <dd className="mt-2 font-serif text-[1.05rem] font-medium leading-[1.45] text-custom-title md:text-lg">
+                    {offer.result}
+                  </dd>
+                </div>
+              </dl>
+
               <a
                 href="#contact"
                 onClick={() =>
@@ -119,9 +156,11 @@ function OfferRow({
                 }
                 className="group/cta mt-7 inline-flex items-center gap-3 rounded-full bg-[#8C0605] px-6 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#a70b0a] dark:bg-red-400 dark:text-gray-950 dark:hover:bg-red-300"
               >
-                {ctaLabel}
+                {offer.cta}
                 <FaArrowRight className="h-3 w-3 transition-transform duration-300 group-hover/cta:translate-x-1" />
               </a>
+
+              <p className='mt-3 text-xs leading-5 text-custom-muted'>{ctaMicrocopy}</p>
             </div>
 
             <ul className="space-y-3 md:col-span-6">
@@ -142,7 +181,7 @@ function OfferRow({
   )
 }
 
-export function Services() {
+export function Services({ showHeader = true }: { showHeader?: boolean } = {}) {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   const processRef = useRef<HTMLDivElement>(null)
@@ -211,36 +250,44 @@ export function Services() {
     }
   }, [processSteps.length])
 
+  const ProcessHeading = showHeader ? 'h3' : 'h2'
+
   return (
     <section
       id="services"
-      className="relative bg-custom-primary py-[clamp(4.5rem,8vw,8rem)]"
+      className={cn(
+        'relative bg-custom-primary',
+        showHeader
+          ? 'py-[clamp(4.5rem,8vw,8rem)]'
+          : 'pb-[clamp(4.5rem,8vw,8rem)] pt-10 md:pt-14'
+      )}
     >
       <div className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 md:px-10 lg:px-[clamp(2.5rem,4vw,5rem)]">
         <div className="mx-auto w-full max-w-[min(1180px,calc(100vw-2.5rem))]">
-          {/* Section header */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.7, ease: EASE_SMOOTH }}
-            className="mb-14 md:mb-20"
-          >
-            <SectionLabel>{tr('services.label')}</SectionLabel>
+          {showHeader && (
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.7, ease: EASE_SMOOTH }}
+              className="mb-14 md:mb-20"
+            >
+              <SectionLabel>{tr('services.label')}</SectionLabel>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:items-end">
-              <RevealText
-                as="h2"
-                text={tr('services.heading')}
-                className="font-serif text-[clamp(2.4rem,6vw,4.6rem)] font-medium leading-[1.02] tracking-[-0.025em] text-custom-title md:col-span-8"
-              />
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:items-end">
+                <RevealText
+                  as="h2"
+                  text={tr('services.heading')}
+                  className="font-serif text-[clamp(2.4rem,6vw,4.4rem)] font-medium leading-[1.03] tracking-[-0.025em] text-custom-title md:col-span-8"
+                />
 
-              <p className="max-w-sm text-sm leading-6 text-custom-secondary md:col-span-4 md:justify-self-end md:text-[15px] md:leading-7">
-                {tr('services.intro')}
-              </p>
-            </div>
-          </motion.div>
+                <p className="max-w-sm text-sm leading-6 text-custom-secondary md:col-span-4 md:justify-self-end md:text-[15px] md:leading-7">
+                  {tr('services.intro')}
+                </p>
+              </div>
+            </motion.div>
+          )}
 
           {/* Offers accordion */}
           <div className="mb-24 md:mb-32">
@@ -251,7 +298,9 @@ export function Services() {
                 index={index}
                 isOpen={openIndex === index}
                 onToggle={() => handleToggle(index)}
-                ctaLabel={tr('services.cta')}
+                problemLabel={tr('services.problem_label')}
+                resultLabel={tr('services.result_label')}
+                ctaMicrocopy={tr('services.cta_microcopy')}
               />
             ))}
           </div>
@@ -266,13 +315,13 @@ export function Services() {
           >
             <SectionLabel>{tr('services.process_label')}</SectionLabel>
 
-            <h3 className="mb-12 max-w-[24ch] font-serif text-[clamp(1.9rem,4vw,3.2rem)] font-medium leading-[1.05] tracking-[-0.02em] text-custom-title md:mb-16">
+            <ProcessHeading className="mb-12 max-w-[24ch] font-serif text-[clamp(1.9rem,4vw,3.2rem)] font-medium leading-[1.05] tracking-[-0.02em] text-custom-title md:mb-16">
               {tr('services.process_heading')}
-            </h3>
+            </ProcessHeading>
 
             <div
               ref={processRef}
-              className="grid grid-cols-1 gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4"
+              className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-5"
             >
               {processSteps.map((step, index) => (
                 <div key={step.title} data-process-step className="relative pt-6">

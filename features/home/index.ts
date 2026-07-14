@@ -1,3 +1,5 @@
+export { FAQ } from './FAQ'
 export { Hero } from './Hero'
 export { HomeOffers } from './HomeOffers'
 export { Manifesto } from './Manifesto'
+export { Problems } from './Problems'

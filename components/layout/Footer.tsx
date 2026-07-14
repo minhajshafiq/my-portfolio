@@ -179,14 +179,14 @@ export function Footer() {
         <div className="mx-auto max-w-[1440px]">
           <div className="mx-auto max-w-7xl">
             {/* CTA */}
-            <div className="pb-16 pt-20 md:pb-20 md:pt-24">
+            <div className="py-16 md:py-20">
               <motion.div
                 variants={fadeUp}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: '-80px' }}
                 transition={{ duration: 0.7, ease: EASE_SMOOTH }}
-                className="relative overflow-hidden rounded-[2rem] bg-[#141210] p-8 text-center md:p-12 lg:p-16"
+                className="relative overflow-hidden rounded-[1.5rem] bg-[#141210] p-7 text-center sm:p-9 md:p-12"
               >
                 <div className="pointer-events-none absolute -right-28 -top-28 h-80 w-80 rounded-full bg-[#8C0605]/30 blur-3xl" />
                 <div className="pointer-events-none absolute -bottom-32 -left-24 h-72 w-72 rounded-full bg-[#8C0605]/15 blur-3xl" />
@@ -196,7 +196,7 @@ export function Footer() {
                     {tr('footer.cta_label')}
                   </span>
 
-                  <h2 className="mb-7 overflow-visible font-serif text-5xl font-medium leading-[1.02] tracking-[-0.03em] text-[#FAF7F2] md:text-7xl lg:text-8xl">
+                  <h2 className="mb-6 overflow-visible font-serif text-[clamp(2.75rem,6vw,5rem)] font-medium leading-[1.03] tracking-[-0.03em] text-[#FAF7F2]">
                     {tr('footer.cta_title_line1')}
 
                     <span className="block pb-3 italic text-red-400">
@@ -204,31 +204,38 @@ export function Footer() {
                     </span>
                   </h2>
 
-                  <p className="mx-auto mb-9 max-w-2xl text-base leading-relaxed text-[#FAF7F2]/65 md:text-lg">
+                  <p className="mx-auto mb-7 max-w-[62ch] text-base leading-7 text-[#FAF7F2]/70 md:text-lg md:leading-8">
                     {tr('footer.cta_description')}
                   </p>
 
                   <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
                     <Magnetic>
                       <a
-                        href="mailto:contact@minhajshafiq.com"
-                        onClick={() => trackEvent('email_click', { source_section: 'footer' })}
+                        href='#contact'
+                        onClick={() => trackEvent('cta_click', { cta: 'footer_initial_opinion', section: 'footer' })}
                         className="inline-flex items-center gap-3 rounded-full bg-[#8C0605] px-8 py-4 text-base font-bold text-white shadow-[0_18px_35px_rgba(140,6,5,0.35)] transition-colors hover:bg-[#a70b0a]"
                       >
                         <FaEnvelope className="h-5 w-5" />
-                        contact@minhajshafiq.com
+                        {tr('footer.cta_primary')}
                       </a>
                     </Magnetic>
 
                     <motion.a
-                      href="#contact"
+                      href='https://calendly.com/minhaj-shafiq/30min'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      onClick={() => trackEvent('calendly_click', { source_section: 'footer' })}
                       whileHover={{ y: -2 }}
                       whileTap={{ scale: 0.98 }}
                       className="inline-flex items-center rounded-full border border-white/15 px-8 py-4 text-base font-bold text-[#FAF7F2] transition-colors hover:bg-white/[0.06]"
                     >
-                      {tr('nav.contact')}
+                      {tr('footer.cta_secondary')}
                     </motion.a>
                   </div>
+
+                  <p className='mt-4 text-xs leading-5 text-[#FAF7F2]/55'>
+                    {tr('footer.cta_microcopy')}
+                  </p>
                 </div>
               </motion.div>
             </div>
@@ -327,7 +334,7 @@ export function Footer() {
                         whileHover={{ scale: 1.08, y: -2 }}
                         whileTap={{ scale: 0.95 }}
                         className={cn(
-                          'flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white/76 text-custom-secondary shadow-sm backdrop-blur-md transition-all duration-300 dark:border-white/10 dark:bg-white/[0.04]',
+                          'flex h-11 w-11 items-center justify-center rounded-full border border-custom bg-custom-secondary text-custom-secondary transition-colors duration-300',
                           link.hoverClassName
                         )}
                         title={link.name}

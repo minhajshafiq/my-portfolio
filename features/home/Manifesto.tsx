@@ -55,7 +55,7 @@ export function Manifesto() {
 
       gsap.fromTo(
         wordElements,
-        { opacity: 0.12 },
+        { opacity: 0.32 },
         {
           opacity: 1,
           stagger: 0.06,

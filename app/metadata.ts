@@ -19,18 +19,18 @@ const localizedContent: Record<
   { name: string; description: string; shortDescription: string; ogAlt: string }
 > = {
   fr: {
-    name: 'Minhaj Zubair — Développeur web freelance à Paris',
+    name: 'Minhaj Zubair, développeur web freelance à Paris',
     description:
-      'Développeur web freelance à Paris. Sites et applications sur mesure, rapides et pensés pour convertir, pour indépendants, marques et entrepreneurs.',
-    shortDescription: 'Sites web sur mesure',
-    ogAlt: 'Minhaj Zubair — Développeur web freelance',
+      'Création et refonte de sites vitrines pour artisans, commerçants, indépendants et petites entreprises en région parisienne. Visibilité locale et suivi.',
+    shortDescription: 'Sites web pour entreprises locales',
+    ogAlt: 'Minhaj Zubair, développeur web freelance',
   },
   en: {
-    name: 'Minhaj Zubair — Freelance web developer in Paris',
+    name: 'Minhaj Zubair, freelance web developer in Paris',
     description:
-      'Freelance web developer in Paris. Fast, custom websites and web apps designed to convert for independents, brands and entrepreneurs worldwide.',
-    shortDescription: 'Custom websites and web apps',
-    ogAlt: 'Minhaj Zubair — Web Developer',
+      'Showcase website creation and redesign for tradespeople, shops, independents and small businesses in the Paris region, with local visibility and support.',
+    shortDescription: 'Websites for local businesses',
+    ogAlt: 'Minhaj Zubair, web developer',
   },
 }
 

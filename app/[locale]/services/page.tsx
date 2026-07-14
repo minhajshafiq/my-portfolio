@@ -2,20 +2,21 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Services } from '@/features/services'
 import { Contact } from '@/features/contact'
+import { FAQ } from '@/features/home'
 import { PageIntro } from '@/components/ui/PageIntro'
 import { getPageMetadata } from '@/app/metadata'
 import { locales, isValidLocale, type Locale } from '@/lib/i18n'
 
 const PAGE_META: Record<Locale, { title: string; description: string }> = {
   fr: {
-    title: 'Services — Création de site internet sur mesure',
+    title: 'Services web pour artisans et entreprises locales',
     description:
-      'Création de site vitrine, application web, refonte et suivi : des services sur mesure pour indépendants, marques et entrepreneurs. Devis gratuit sous 48 h.',
+      'Création de site vitrine, refonte, visibilité locale, fiche Google et maintenance pour artisans, commerçants, indépendants et petites entreprises.',
   },
   en: {
-    title: 'Services — Custom website design & development',
+    title: 'Web services for tradespeople and local businesses',
     description:
-      'Custom websites, web applications, redesigns and ongoing care: tailored services for independents, brands and entrepreneurs. Free quote within 48 hours.',
+      'Showcase websites, redesigns, local visibility, Google Business Profile and maintenance for tradespeople, shops, independents and small businesses.',
   },
 }
 
@@ -49,7 +50,8 @@ export default async function ServicesPage({
         headingKey="pages.services.heading"
         introKey="pages.services.intro"
       />
-      <Services />
+      <Services showHeader={false} />
+      <FAQ />
       <Contact />
     </>
   )

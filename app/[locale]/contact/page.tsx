@@ -7,14 +7,14 @@ import { locales, isValidLocale, type Locale } from '@/lib/i18n'
 
 const PAGE_META: Record<Locale, { title: string; description: string }> = {
   fr: {
-    title: 'Contact — Discutons de votre projet',
+    title: 'Contact | Demandez un premier avis sur votre site',
     description:
-      'Un projet de site web ou d\'application ? Contactez Minhaj Zubair, développeur web freelance : formulaire, appel de 30 minutes ou email. Réponse sous 24 h.',
+      'Création, refonte ou visibilité locale : décrivez votre situation à Minhaj Zubair par formulaire, appel de 30 minutes ou email. Réponse sous 24 h ouvrées.',
   },
   en: {
-    title: 'Contact — Let\'s talk about your project',
+    title: 'Contact | Ask for an initial website review',
     description:
-      'A website or application project? Contact Minhaj Zubair, freelance web developer: form, 30-minute call or email. Reply within 24 hours.',
+      'Website creation, redesign or local visibility: tell Minhaj Zubair what is happening by form, 30-minute call or email. Reply within one business day.',
   },
 }
 
@@ -48,7 +48,7 @@ export default async function ContactPage({
         headingKey="pages.contact.heading"
         introKey="pages.contact.intro"
       />
-      <Contact />
+      <Contact showHeader={false} />
     </>
   )
 }

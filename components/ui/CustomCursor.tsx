@@ -35,7 +35,7 @@ function isCursorVariant(value: string | undefined): value is CursorVariant {
 /**
  * Le label du curseur vient uniquement de `data-cursor-label` (déjà traduit par
  * le composant qui le pose). Sans label explicite, l'anneau grossit simplement
- * sur les éléments interactifs — pas de texte deviné, pas de langue hardcodée.
+ * sur les éléments interactifs, sans texte deviné ni langue hardcodée.
  */
 function resolveCursorIntent(target: HTMLElement | null): CursorIntent {
   const hoverable = target?.closest<HTMLElement>(HOVERABLE_SELECTOR)

@@ -6,12 +6,12 @@ import { locales, isValidLocale, type Locale } from '@/lib/i18n'
 
 const PAGE_META: Record<Locale, { title: string; description: string }> = {
   fr: {
-    title: 'CV — Développeur Full-Stack en recherche d\'alternance',
+    title: 'CV | Développeur Full-Stack en recherche d\'alternance',
     description:
       'Profil professionnel de Minhaj Zubair : développeur full-stack (Next.js, Spring Boot, React Native) ouvert aux opportunités d\'alternance. Parcours, compétences, projets et CV téléchargeable.',
   },
   en: {
-    title: 'Resume — Full-Stack Developer open to apprenticeship',
+    title: 'Resume | Full-Stack Developer open to apprenticeship',
     description:
       'Professional profile of Minhaj Zubair: full-stack developer (Next.js, Spring Boot, React Native) open to apprenticeship opportunities. Background, skills, projects and downloadable resume.',
   },

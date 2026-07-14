@@ -6,7 +6,7 @@ import { cn } from '@/lib/cn'
 
 /**
  * Signature motion du site : le trait rouge se dessine de gauche à droite,
- * puis le label glisse en place — chaque section « s'ouvre » de la même façon.
+ * puis le label glisse en place ; chaque section « s'ouvre » de la même façon.
  * Reduced-motion : géré globalement par MotionProvider (transforms neutralisés).
  */
 export function SectionLabel({

@@ -116,8 +116,8 @@ export function Maintenance() {
                   <article
                     className={
                       plan.featured
-                        ? 'relative flex h-full min-h-[560px] flex-col overflow-hidden rounded-[1.75rem] bg-[#141210] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.22)] md:p-7'
-                        : 'relative flex h-full min-h-[560px] flex-col overflow-hidden rounded-[1.75rem] border border-gray-200 bg-white/76 p-6 backdrop-blur-md dark:border-white/10 dark:bg-white/[0.04] md:p-7'
+                        ? 'relative flex h-full flex-col overflow-hidden rounded-[1.5rem] bg-[#141210] p-6 shadow-[0_18px_52px_rgba(0,0,0,0.18)] md:p-7 lg:min-h-[560px]'
+                        : 'relative flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-custom bg-custom-secondary p-6 md:p-7 lg:min-h-[560px]'
                     }
                   >
                     {/* Lueur discrète, même langage que les panneaux sombres du site */}
@@ -360,7 +360,7 @@ export function Maintenance() {
         </div>
       </section>
 
-      {/* Final CTA — panneau sombre, même langage que le CTA du footer */}
+      {/* Final CTA : panneau sombre, même langage que le CTA du footer */}
       <section className="relative z-10 pb-[clamp(4rem,5.5vw,6.5rem)]">
         <div className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 md:px-10 lg:px-[clamp(2.5rem,4vw,5rem)]">
           <div className="mx-auto w-full max-w-[min(1180px,calc(100vw-2.5rem))]">
@@ -370,7 +370,7 @@ export function Maintenance() {
               whileInView="visible"
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.62, ease: EASE_SMOOTH }}
-              className="relative overflow-hidden rounded-[2rem] bg-[#141210] p-8 text-center md:p-12"
+              className="relative overflow-hidden rounded-[1.5rem] bg-[#141210] p-7 text-center sm:p-9 md:p-12"
             >
               <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-[#8C0605]/25 blur-3xl" />
 
