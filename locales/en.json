@@ -465,7 +465,7 @@
     },
     "prefill": {
       "essential": "Hi, I'm interested in the Essential plan (€79/month). Could you tell me more so we can get started?",
-      "visibility": "Hi, I'm interested in the Visibility plan (€109/month). Could you tell me more so we can get started?",
+      "visibility": "Hi, I'm interested in the Visibility plan (€149/month). Could you tell me more so we can get started?",
       "growth": "Hi, I'm interested in the Growth plan (€349/month + €300 setup). Could you tell me more so we can get started?"
     }
   },
@@ -571,7 +571,7 @@
         "label": "Local visibility",
         "badge": "Recommended",
         "name": "Visibility",
-        "price": "€109",
+        "price": "€149",
         "positioning": "All the Essential maintenance, plus a Google profile that works for you.",
         "included": [
           "Everything in Essential",

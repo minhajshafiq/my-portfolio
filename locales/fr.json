@@ -465,7 +465,7 @@
     },
     "prefill": {
       "essential": "Bonjour, je suis intéressé(e) par la formule Essentiel (79€/mois). Pouvez-vous m'en dire plus pour démarrer ?",
-      "visibility": "Bonjour, je suis intéressé(e) par la formule Visibilité (109€/mois). Pouvez-vous m'en dire plus pour démarrer ?",
+      "visibility": "Bonjour, je suis intéressé(e) par la formule Visibilité (149€/mois). Pouvez-vous m'en dire plus pour démarrer ?",
       "growth": "Bonjour, je suis intéressé(e) par la formule Croissance (349€/mois + 300€ de mise en place). Pouvez-vous m'en dire plus pour démarrer ?"
     }
   },
@@ -571,7 +571,7 @@
         "label": "Visibilité locale",
         "badge": "Recommandé",
         "name": "Visibilité",
-        "price": "109€",
+        "price": "149€",
         "positioning": "Toute la maintenance Essentiel, plus une fiche Google qui travaille pour vous.",
         "included": [
           "Tout ce qui est dans Essentiel",
